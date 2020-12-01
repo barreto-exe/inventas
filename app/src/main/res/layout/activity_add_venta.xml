@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    tools:context=".Add_venta">
+
+    <RadioGroup
+        android:id="@+id/opcionesPago"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <RadioButton
+            android:id="@+id/efectivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/efectivo" />
+
+        <RadioButton
+            android:id="@+id/punto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/punto" />
+
+        <RadioButton
+            android:id="@+id/transferencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/transferencia" />
+
+        <RadioButton
+            android:id="@+id/mixto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mixto" />
+    </RadioGroup>
+
+</LinearLayout>

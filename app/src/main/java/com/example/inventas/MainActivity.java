@@ -6,15 +6,20 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.*;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
    // private View decorView ;
     private Toolbar toolbar;
+    public FloatingActionButton add_venta;
+    public FloatingActionButton add_producto;
+   // public FloatingActionButton configTasa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,43 @@ public class MainActivity extends AppCompatActivity {
         toolbar=findViewById(R.id.top_bar);
 
         setSupportActionBar(toolbar);
-     //   getSupportActionBar().setTitle("InVentas");
+        getSupportActionBar().setTitle(" ");
+
+        //Para llamar a la pantalla de añadir venta con el floatingBtn
+      /*  add_venta=findViewById(R.id.add_venta);
+        add_venta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this, Add_venta.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //Para llamar a la pantalla de añadir producto con el floatingBtn
+        add_producto=findViewById(R.id.add_product);
+        add_producto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this, Add_producto.class);
+                startActivity(intent);
+            }
+        });
+
+       */
+
+
+       /*
+        //Para llamar a la pantalla de cambiar tasa con el floatingBtn
+        configTasa=findViewById(R.id.configTasa);
+        configTasa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this, Add_venta.class);
+                startActivity(intent);
+            }
+        });
+*/
       //  getSupportActionBar().setIcon(getDrawable(R.drawable.ic_logo));
       //  decorView=getWindow().getDecorView();
    /* decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
@@ -52,18 +93,17 @@ public class MainActivity extends AppCompatActivity {
         MenuItem.OnActionExpandListener onActionExpandListener=new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                return false;
+                return true;
             }
         };
         menu.findItem(R.id.buscar).setOnActionExpandListener(onActionExpandListener);
         SearchView searchView =(SearchView) menu.findItem(R.id.buscar).getActionView();
-        searchView.setQueryHint("Ingrese producto o transacción a buscar");
+        searchView.setQueryHint("Ingrese búsqueda");
         return true;
     }
 

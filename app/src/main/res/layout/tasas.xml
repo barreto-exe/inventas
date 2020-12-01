@@ -10,29 +10,29 @@
         android:id="@+id/txtHistorico"
         android:layout_width="92dp"
         android:layout_height="56dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="424dp"
         android:fontFamily="@font/amaranth_bold_italic"
+        android:gravity="center_horizontal"
         android:text="@string/historico"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cambiar_tasa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="113dp"
         android:clickable="true"
         android:contentDescription="@string/todo"
         android:focusable="true"
-        app:srcCompat="@drawable/ic_create_black_24dp"
+        android:foregroundGravity="right|bottom"
         app:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/ic_create_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

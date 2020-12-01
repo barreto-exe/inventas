@@ -3,4 +3,8 @@
     <string name="ventas_del_dia">Ventas del día</string>
     <string name="todo">TODO</string>
     <string name="historico">Histórico</string>
+    <string name="efectivo">Efectivo</string>
+    <string name="punto">Punto</string>
+    <string name="mixto">Mixto</string>
+    <string name="transferencia">Transferencia</string>
 </resources>
