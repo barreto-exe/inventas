@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".Add_producto">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="administrador de inventario"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/home_bar"
+        android:theme="@style/Theme.InVentas" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

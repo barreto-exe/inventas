@@ -9,16 +9,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.RadioGroup;
 
-public class Add_venta extends AppCompatActivity {
-    RadioGroup formasPago;
+public class AdministrarTasas extends AppCompatActivity {
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_venta);
+        setContentView(R.layout.activity_administrar_tasas);
         toolbar=findViewById(R.id.home_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(" ");
