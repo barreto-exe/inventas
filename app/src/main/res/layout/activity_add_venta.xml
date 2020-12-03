@@ -13,20 +13,16 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="34dp"
+        android:layout_marginTop="32dp"
         android:gravity="center_vertical"
         android:text="administrador de ventas"
         android:textSize="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintEnd_toEndOf="@+id/include2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <include
+        android:id="@+id/include2"
         layout="@layout/home_bar"
         android:theme="@style/Theme.InVentas" />
 
