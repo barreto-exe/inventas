@@ -7,16 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 
 
-public class AddVenta extends AppCompatActivity {
+public class VenderClass extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_venta);
+        setContentView(R.layout.vender);
 
     }
     public void add_carrito(View view){
-        Intent intent =new Intent(this, Carrito.class);
+        Intent intent =new Intent(this, AggArticuloClass.class);
         startActivity(intent);
     }
 }

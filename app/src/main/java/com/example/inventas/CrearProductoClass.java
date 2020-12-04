@@ -12,12 +12,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-public class Add_producto extends AppCompatActivity {
+public class CrearProductoClass extends AppCompatActivity {
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_producto);
+        setContentView(R.layout.crear_producto);
         toolbar=findViewById(R.id.home_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(" ");
@@ -43,8 +43,5 @@ public class Add_producto extends AppCompatActivity {
         searchView.setQueryHint("Ingrese su búsqueda");
         return true;
     }
-    public void add_producto(View view){
-        Intent intent =new Intent(this, AddInventario.class);
-        startActivity(intent);
-    }
+
 }

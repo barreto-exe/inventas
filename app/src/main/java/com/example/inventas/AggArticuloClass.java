@@ -1,18 +1,14 @@
 package com.example.inventas;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
-public class Carrito extends AppCompatActivity {
+public class AggArticuloClass extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_carrito);
+        setContentView(R.layout.agregar_articulo);
 
     }
    /* public void onClick(View view){

@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class AddInventario extends AppCompatActivity {
+public class HistorialDeCambios extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_inventario);
+        setContentView(R.layout.historial_de_cambios);
     }
-
 }

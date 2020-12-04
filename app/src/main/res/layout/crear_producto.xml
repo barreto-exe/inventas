@@ -4,29 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Carrito">
+    tools:context=".CrearProductoClass">
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/aqui_se_a_aden_productos_al_carrito"
-        android:textSize="30sp"
+        android:id="@+id/textView"
+        android:layout_width="225dp"
+        android:layout_height="96dp"
+        android:gravity="center_vertical"
+        android:text="@string/aqui_se_muestran_todos_los_productos_del_inventario_enel_boton_se_a_aden_mas"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentAggProd"
-        android:layout_width="414dp"
-        android:layout_height="590dp"
-        android:layout_marginTop="316dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/producto"
@@ -44,6 +34,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_black_48dp" />
-
+    <include
+        layout="@layout/home_bar"
+        android:theme="@style/Theme.InVentas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

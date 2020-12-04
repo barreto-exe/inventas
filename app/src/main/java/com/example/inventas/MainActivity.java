@@ -1,9 +1,7 @@
 package com.example.inventas;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -43,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     //Llama a la pantalla de añadir venta
     public void add_Ventas(View view){
-        Intent intent =new Intent(MainActivity.this, AddVenta.class);
+        Intent intent =new Intent(MainActivity.this, VenderClass.class);
         startActivity(intent);
     }
 
     //Llama a la pantalla de añadir producto al inventario
     public void add_Producto(View view){
-        Intent intent =new Intent(MainActivity.this, Add_producto.class);
+        Intent intent =new Intent(MainActivity.this, CrearProductoClass.class);
         startActivity(intent);
     }
 
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
+/*
     //Para el item de busqueda de productos
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView =(SearchView) menu.findItem(R.id.buscar).getActionView();
         searchView.setQueryHint("Ingrese su búsqueda");
         return true;
-    }
+    }*/
 
     //Es lo que hace que aparezcan las pantallas cuando son seleccionadas
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener= new BottomNavigationView.OnNavigationItemSelectedListener() {

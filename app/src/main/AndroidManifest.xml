@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InVentas">
-        <activity android:name=".AddInventario"></activity>
-        <activity android:name=".Carrito" />
+        <activity android:name=".HistorialDeCambios"></activity>
+        <activity android:name=".AggArticuloClass" />
         <activity
-            android:name=".AddVenta"
-            android:parentActivityName=".AddVenta" />
+            android:name=".VenderClass"
+            android:parentActivityName=".VenderClass" />
         <activity
-            android:name=".Add_producto"
-            android:parentActivityName=".Add_producto" />
+            android:name=".CrearProductoClass"
+            android:parentActivityName=".CrearProductoClass" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
