@@ -8,15 +8,32 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="96dp"
         android:gravity="center_vertical"
-        android:text="administrador de inventario"
-        android:textSize="32dp"
+        android:text="@string/aqui_se_muestran_todos_los_productos_del_inventario_enel_boton_se_a_aden_mas"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/producto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="113dp"
+        android:background="@color/teal_200"
+        android:clickable="true"
+        android:contentDescription="@string/todo"
+        android:focusable="true"
+        android:foregroundGravity="right|bottom"
+        app:backgroundTint="@color/teal_200"
+        app:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add_black_48dp" />
     <include
         layout="@layout/home_bar"
         android:theme="@style/Theme.InVentas" />

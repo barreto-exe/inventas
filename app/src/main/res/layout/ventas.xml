@@ -18,16 +18,17 @@
         android:focusable="true"
         android:foregroundGravity="right|bottom"
         android:onClick="add_Ventas"
+        app:backgroundTint="@color/teal_200"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/ic_add_black_48dp" />
 
     <TextView
         android:id="@+id/txtVentasdelDia"
         android:layout_width="189dp"
         android:layout_height="28dp"
-        android:layout_marginBottom="556dp"
+        android:layout_marginBottom="540dp"
         android:fontFamily="@font/amaranth_bold_italic"
         android:gravity="start"
         android:text="@string/ventas_del_dia"
@@ -36,6 +37,6 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintHorizontal_bias="0.027"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

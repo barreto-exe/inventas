@@ -14,5 +14,8 @@
         android:id="@+id/nav_inventario"
         android:icon="@drawable/ic_category_white_24dp"
         android:title="Inventario" />
-
+    <item
+        android:id="@+id/nav_estadisticas"
+        android:icon="@drawable/ic_analytics_white_24dp"
+        android:title="Estadísticas" />
 </menu>

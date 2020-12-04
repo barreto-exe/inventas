@@ -7,17 +7,23 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     // private View decorView ;
     private Toolbar toolbar;
-
+    Dialog dialog;
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
         }
         BottomNavigationView bottomNavigationView= findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
+        dialog=new Dialog(this);
 
     }
 
 
     //Llama a la pantalla de añadir venta
     public void add_Ventas(View view){
-        Intent intent =new Intent(MainActivity.this, Add_venta.class);
+        Intent intent =new Intent(MainActivity.this, AddVenta.class);
         startActivity(intent);
     }
 
@@ -49,9 +55,23 @@ public class MainActivity extends AppCompatActivity {
 
     //Llama a la pantalla de cambiar la tasa de divisa
     public void cambiarTasa(View view){
-        Intent intent =new Intent(MainActivity.this, AdministrarTasas.class);
-        startActivity(intent);
+         dialog.setContentView(R.layout.cambiar_tasa);
+         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        EditText tasa= dialog.findViewById(R.id.tasa);
+        Button aceptar= dialog.findViewById((R.id.aceptar_bttn));
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!tasa.getText().toString().contains("-") && !tasa.getText().toString().isEmpty()){
+                dialog.dismiss();
+                //añadir el codigo para BBDD
+                Toast.makeText(MainActivity.this, "Tasa aceptada",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialog.show();
     }
+
 
     //Para el item de busqueda de productos
     @Override
@@ -87,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
                     break;}
                 case R.id.nav_inventario: {
                     fragment= new InventarioPage();
+                    break;}
+                case R.id.nav_estadisticas:{
+                    fragment=new EstadisticasPage();
                     break;}
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();

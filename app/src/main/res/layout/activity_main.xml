@@ -25,7 +25,8 @@
         android:layout_alignParentBottom="true"
         android:background="#3989D3"
         app:itemTextColor="#FFFF"
-        app:menu="@menu/nav_bar" />
+        app:menu="@menu/nav_bar"
+        />
 
         <include
             layout="@layout/top_bar"

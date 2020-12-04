@@ -4,9 +4,8 @@
     android:id="@+id/top_bar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@drawable/logo"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    >
+    android:background="@drawable/toolbar"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
 </androidx.appcompat.widget.Toolbar>

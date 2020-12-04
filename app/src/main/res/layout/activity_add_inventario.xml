@@ -4,24 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdministrarTasas">
+    tools:context=".AddInventario">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="administrador de tasas"
-        android:textSize="32dp"
+        android:id="@+id/textView3"
+        android:layout_width="195dp"
+        android:layout_height="80dp"
+        android:text="@string/aqui_vas_a_poner_los_datos_del_producto_para_que_sea_guardado_en_el_inventario"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <include
-        layout="@layout/home_bar"
-        android:theme="@style/Theme.InVentas"
-        />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

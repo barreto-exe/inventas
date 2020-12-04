@@ -4,20 +4,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logoinventas"
+        android:icon="@drawable/icono"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InVentas">
-        <activity android:name=".AdministrarTasas"
-            android:parentActivityName=".AdministrarTasas">
-        </activity>
-        <activity android:name=".Add_producto"
-            android:parentActivityName=".Add_producto">
-        </activity>
-        <activity android:name=".Add_venta"
-            android:parentActivityName=".Add_venta">
-        </activity>
+        <activity android:name=".AddInventario"></activity>
+        <activity android:name=".Carrito" />
+        <activity
+            android:name=".AddVenta"
+            android:parentActivityName=".AddVenta" />
+        <activity
+            android:name=".Add_producto"
+            android:parentActivityName=".Add_producto" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

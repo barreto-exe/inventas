@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 public class Add_producto extends AppCompatActivity {
     private Toolbar toolbar;
@@ -40,5 +42,9 @@ public class Add_producto extends AppCompatActivity {
         SearchView searchView =(SearchView) menu.findItem(R.id.buscar).getActionView();
         searchView.setQueryHint("Ingrese su búsqueda");
         return true;
+    }
+    public void add_producto(View view){
+        Intent intent =new Intent(this, AddInventario.class);
+        startActivity(intent);
     }
 }

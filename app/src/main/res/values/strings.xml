@@ -7,4 +7,14 @@
     <string name="punto">Punto</string>
     <string name="mixto">Mixto</string>
     <string name="transferencia">Transferencia</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="ingresa_el_valor_de_la_tasa">Ingresa el valor de la tasa</string>
+    <string name="administrador_de_ventas">administrador de ventas</string>
+    <string name="administrador_de_inventario">administrador de inventario</string>
+    <string name="aqui_vas_a_poner_los_datos_del_producto_para_que_sea_guardado_en_el_inventario">aqui vas a poner los datos del producto para que sea guardado en el inventario</string>
+    <string name="aqui_se_muestran_todos_los_productos_del_inventario_enel_boton_se_a_aden_mas">aqui se muestran todos los productos del inventario, enel boton se añaden mas</string>
+    <string name="aqui_se_muestra_el_historial_de_venta_y_en_el_boton_se_a_ade_una_venta_nueva">aqui se muestra el historial de venta y en el boton se añade una venta nueva</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="aqui_se_a_aden_productos_al_carrito">aqui se añaden productos al carrito</string>
 </resources>

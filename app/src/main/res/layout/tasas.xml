@@ -32,6 +32,7 @@
         android:focusable="true"
         android:foregroundGravity="right|bottom"
         android:onClick="cambiarTasa"
+        app:backgroundTint="@color/teal_200"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
