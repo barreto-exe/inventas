@@ -1,8 +1,18 @@
 package com.teamihc.inventas.backend.basedatos;
 
+import android.net.Uri;
+
+import com.teamihc.inventas.BuildConfig;
+import com.teamihc.inventas.R;
+import com.teamihc.inventas.activities.MainActivity;
+
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -18,13 +28,23 @@ import java.util.ArrayList;
  */
 public class DBOperacion
 {
-    public static String SERVIDOR = "java-server.brazilsouth.cloudapp.azure.com";
+    static
+    {
+        try
+        {
+            DriverManager.registerDriver((Driver) Class.forName("org.sqldroid.SQLDroidDriver").newInstance());
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Failed to register SQLDroidDriver");
+        }
+    }
     
     /**
      * Representa la ubicación del archivo SQLite con respecto al ejecutable del programa.
      */
-    private static final String NOMBRE_BD = "db.db";
-    private static final String PATH_BD = "jdbc:sqlite:" + NOMBRE_BD;
+    private static final String NOMBRE_BD = "inventas.sqlite";
+    private static final String PATH_BD = "jdbc:sqldroid:/data/data/" + BuildConfig.APPLICATION_ID + "/database/" + NOMBRE_BD;
     
     /**
      * Comando a ejecutar en la base de datos.
@@ -187,5 +207,4 @@ public class DBOperacion
     {
         parametros.add(valor);
     }
-    
 }
