@@ -1,5 +1,14 @@
 package com.teamihc.inventas.backend.basedatos;
 
+import android.net.Uri;
+
+import com.teamihc.inventas.BuildConfig;
+import com.teamihc.inventas.R;
+import com.teamihc.inventas.activities.MainActivity;
+
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -35,7 +44,7 @@ public class DBOperacion
      * Representa la ubicación del archivo SQLite con respecto al ejecutable del programa.
      */
     private static final String NOMBRE_BD = "inventas.sqlite";
-    private static final String PATH_BD = "jdbc:sqldroid:" + NOMBRE_BD;
+    private static final String PATH_BD = "jdbc:sqldroid:/data/data/" + BuildConfig.APPLICATION_ID + "/database/" + NOMBRE_BD;
     
     /**
      * Comando a ejecutar en la base de datos.
@@ -198,5 +207,4 @@ public class DBOperacion
     {
         parametros.add(valor);
     }
-    
 }

@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.teamihc.inventas.BuildConfig;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.fragments.EstadisticasFragment;
@@ -27,6 +30,12 @@ import com.teamihc.inventas.fragments.TasasFragment;
 import com.teamihc.inventas.fragments.VentasFragment;
 
 import java.io.Console;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Array;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -38,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        copyFileOrDir("database");
+        
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.top_bar);
         setSupportActionBar(toolbar);
@@ -49,15 +60,41 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         dialog = new Dialog(this);
-    
-        DBOperacion op = new DBOperacion("SELECT * FROM v_tasas");
-        DBMatriz resultado = op.consultar();
         
-        while(resultado.leer())
-        {
-            Log.println(Log.INFO,"Hola", resultado.getValor("cambio_dolar").toString());
-        }
+        
+        ejemploBBDD();
     }
+    
+    public void ejemploBBDD()
+    {
+        //Cómo hacer un select
+        String query = "SELECT * FROM v_tasas WHERE fecha = ? ORDER BY fecha DESC LIMIT 1";
+        
+        //Esto se hace siempre, cargar el query en la operación
+        DBOperacion op = new DBOperacion(query);
+        
+        //Pasar los parámetros en el mismo orden de los signos de interrogación
+        op.pasarParametro("2020-10-10");
+        
+        //Realizar la consulta y vaciar la pila de resultados en la variable resultado
+        DBMatriz resultado = op.consultar();
+    
+        //Recorrer la pila de registros
+        while (resultado.leer())
+        {
+            //Castear el valor de cada registro en la columnda cambio_dolar
+            float cambioDolar = (float) resultado.getValor("cambio_dolar");
+            
+            Log.println(Log.INFO, "Hola", String.valueOf(cambioDolar));
+        }
+    
+        //********************************************************************************
+        //Como hacer un insert o update
+        query = "INSERT INTO v_tasas(cambio_dolar, fecha, hora) VALUES (1, 10.0, '2020-10-10', '14:00:00')";
+        op = new DBOperacion(query);
+        op.ejecutar();
+    }
+    
     
     //Llama a la pantalla de añadir venta
     public void addCarrito(View view)
@@ -150,6 +187,75 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
             return true;
         }
-        
     };
+    
+    /**
+     * Copia una carpeta o archivo a la carpeta /data/data/com.proyecto, tomando como origen la
+     * carpeta assets.
+     *
+     * @param path es la ruta que en /assets a copiar.
+     */
+    private void copyFileOrDir(String path)
+    {
+        AssetManager assetManager = this.getAssets();
+        String assets[] = null;
+        try
+        {
+            assets = assetManager.list(path);
+            if (assets.length == 0)
+            {
+                copyFile(path);
+            } else
+            {
+                String fullPath = "/data/data/" + this.getPackageName() + "/" + path;
+                File dir = new File(fullPath);
+                if (!dir.exists())
+                    dir.mkdir();
+                for (int i = 0; i < assets.length; ++i)
+                {
+                    copyFileOrDir(path + "/" + assets[i]);
+                }
+            }
+        }
+        catch (IOException ex)
+        {
+            Log.e("tag", "I/O Exception", ex);
+        }
+    }
+    private void copyFile(String filename)
+    {
+        AssetManager assetManager = this.getAssets();
+        
+        InputStream in = null;
+        OutputStream out = null;
+        try
+        {
+            String newFileName = "/data/data/" + this.getPackageName() + "/" + filename;
+            
+            if(new File(newFileName).exists())
+            {
+                return;
+            }
+            
+            in = assetManager.open(filename);
+            out = new FileOutputStream(newFileName);
+            
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1)
+            {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out = null;
+        }
+        catch (Exception e)
+        {
+            Log.e("tag", e.getMessage());
+        }
+        
+    }
 }
