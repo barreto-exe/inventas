@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment;
 
 import com.teamihc.inventas.R;
 
-public class EstadisticasFragment extends Fragment {
+public class EstadisticasFragment extends Fragment
+{
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
+    {
         return inflater.inflate(R.layout.fragment_estadisticas, container, false);
-
+        
     }
 }

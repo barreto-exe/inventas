@@ -12,12 +12,14 @@ import androidx.annotation.Nullable;
 import com.teamihc.inventas.R;
 
 
-public class VentasFragment extends Fragment {
+public class VentasFragment extends Fragment
+{
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
+    {
         return inflater.inflate(R.layout.fragment_ventas, container, false);
-
+        
     }
 }
 

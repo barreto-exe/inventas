@@ -9,16 +9,20 @@ import android.view.View;
 import com.teamihc.inventas.R;
 
 
-public class CarritoActivity extends AppCompatActivity {
-
+public class CarritoActivity extends AppCompatActivity
+{
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
-
+        
     }
-    public void add_carrito(View view){
-        Intent intent =new Intent(this, AgregarArticuloActivity.class);
+    
+    public void add_carrito(View view)
+    {
+        Intent intent = new Intent(this, AgregarArticuloActivity.class);
         startActivity(intent);
     }
 }
