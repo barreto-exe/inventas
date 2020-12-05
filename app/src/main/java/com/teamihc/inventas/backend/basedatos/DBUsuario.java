@@ -1,4 +1,4 @@
-package com.teamihc.inventas;
+package com.teamihc.inventas.backend.basedatos;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;

@@ -1,4 +1,4 @@
-package com.teamihc.inventas;
+package com.teamihc.inventas.backend.basedatos;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
