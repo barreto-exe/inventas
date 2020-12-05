@@ -56,8 +56,10 @@ public class InventarioAdapter extends RecyclerView.Adapter<InventarioAdapter.Vi
             TextView precioD = (TextView)cardView.findViewById(R.id.precioD);
 
             descripcion.setText(articulo.getDescription());
-            precioBsS.setText(articulo.getPrice());
-            cantidadStock.setText(articulo.get)
+            precioBsS.setText("" + articulo.getPrice());
+            cantidadStock.setText("" + articulo.getCantidad());
+            costoD.setText("" + articulo.getCost());
+            precioD.setText("" + articulo.getPrice());
         }
     }
 }

@@ -27,6 +27,8 @@ public class Articulo
      * Código de barras.
      */
     private String code;
+
+    private int cantidad;
     
     /**
      * Base de Datos.
@@ -47,13 +49,14 @@ public class Articulo
      * @param db          es la base de datos donde se realizanrán las operaciones con dicho
      *                    artículo.
      */
-    public Articulo(String description, float cost, float price, String code, SQLiteDatabase db)
+    public Articulo(String description, float cost, float price, String code, int cantidad, SQLiteDatabase db)
     {
         this.description = description;
         this.cost = cost;
         this.price = price;
         this.code = code;
         this.db = db;
+        this.cantidad=cantidad;
     }
 
     public String getDescription() {
@@ -90,6 +93,14 @@ public class Articulo
 
     public SQLiteDatabase getDb() {
         return db;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     /**
