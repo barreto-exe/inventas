@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.*;
 import android.widget.Button;
@@ -17,11 +18,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.teamihc.inventas.backend.basedatos.DBMatriz;
+import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.fragments.EstadisticasFragment;
 import com.teamihc.inventas.fragments.InventarioFragment;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.fragments.TasasFragment;
 import com.teamihc.inventas.fragments.VentasFragment;
+
+import java.io.Console;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -44,7 +49,14 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         dialog = new Dialog(this);
+    
+        DBOperacion op = new DBOperacion("SELECT * FROM v_tasas");
+        DBMatriz resultado = op.consultar();
         
+        while(resultado.leer())
+        {
+            Log.println(Log.INFO,"Hola", resultado.getValor("cambio_dolar").toString());
+        }
     }
     
     //Llama a la pantalla de añadir venta
