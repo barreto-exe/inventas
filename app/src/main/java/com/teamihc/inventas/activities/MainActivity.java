@@ -1,4 +1,4 @@
-package com.teamihc.inventas;
+package com.teamihc.inventas.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.teamihc.inventas.fragments.EstadisticasFragment;
+import com.teamihc.inventas.fragments.InventarioFragment;
+import com.teamihc.inventas.R;
+import com.teamihc.inventas.fragments.TasasFragment;
+import com.teamihc.inventas.fragments.VentasFragment;
 
 public class MainActivity extends AppCompatActivity {
     // private View decorView ;
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(" ");
         if(savedInstanceState==null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new VentasPage()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new VentasFragment()).commit();
         }
         BottomNavigationView bottomNavigationView= findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -40,20 +45,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Llama a la pantalla de añadir venta
-    public void add_Ventas(View view){
-        Intent intent =new Intent(MainActivity.this, VenderClass.class);
+    public void addCarrito(View view){
+        Intent intent =new Intent(MainActivity.this, CarritoActivity.class);
         startActivity(intent);
     }
 
     //Llama a la pantalla de añadir producto al inventario
-    public void add_Producto(View view){
-        Intent intent =new Intent(MainActivity.this, CrearProductoClass.class);
+    public void addProducto(View view){
+        Intent intent =new Intent(MainActivity.this, CrearProductoActivity.class);
         startActivity(intent);
     }
 
     //Llama a la pantalla de cambiar la tasa de divisa
     public void cambiarTasa(View view){
-         dialog.setContentView(R.layout.cambiar_tasa);
+         dialog.setContentView(R.layout.view_cambiar_tasa);
          dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         EditText tasa= dialog.findViewById(R.id.tasa);
         Button aceptar= dialog.findViewById((R.id.aceptar_bttn));
@@ -98,16 +103,16 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment= null;
             switch (item.getItemId()){
                 case R.id.nav_ventas:{
-                    fragment= new VentasPage();
+                    fragment= new VentasFragment();
                     break;}
                 case R.id.nav_tasas:{
-                    fragment= new TasasPage();
+                    fragment= new TasasFragment();
                     break;}
                 case R.id.nav_inventario: {
-                    fragment= new InventarioPage();
+                    fragment= new InventarioFragment();
                     break;}
                 case R.id.nav_estadisticas:{
-                    fragment=new EstadisticasPage();
+                    fragment=new EstadisticasFragment();
                     break;}
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();

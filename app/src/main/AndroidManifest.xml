@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InVentas">
-        <activity android:name="com.teamihc.inventas.HistorialDeCambios"></activity>
-        <activity android:name="com.teamihc.inventas.AggArticuloClass" />
+        <activity android:name="com.teamihc.inventas.activities.HistorialTasaActivity"></activity>
+        <activity android:name="com.teamihc.inventas.activities.AgregarArticuloActivity" />
         <activity
-            android:name="com.teamihc.inventas.VenderClass"
-            android:parentActivityName="com.teamihc.inventas.VenderClass" />
+            android:name="com.teamihc.inventas.activities.CarritoActivity"
+            android:parentActivityName="com.teamihc.inventas.activities.CarritoActivity" />
         <activity
-            android:name="com.teamihc.inventas.CrearProductoClass"
-            android:parentActivityName="com.teamihc.inventas.CrearProductoClass" />
-        <activity android:name="com.teamihc.inventas.MainActivity">
+            android:name="com.teamihc.inventas.activities.CrearProductoActivity"
+            android:parentActivityName="com.teamihc.inventas.activities.CrearProductoActivity" />
+        <activity android:name="com.teamihc.inventas.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

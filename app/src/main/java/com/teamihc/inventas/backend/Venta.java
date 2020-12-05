@@ -1,4 +1,4 @@
-package com.example.inventas.backend;
+package com.teamihc.inventas.backend;
 
 /**
  * @author Karen

@@ -1,6 +1,5 @@
 package com.teamihc.inventas;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return 0;
     }
-//Aqui se deben pasar las cosas para que se rellenen los valores del cardView
+    
+    //Aqui se deben pasar las cosas para que se rellenen los valores del cardView
     public class HistorialAdapter extends RecyclerView.ViewHolder {
     ImageView cambio;
     TextView tasa, porcentaje, fecha;

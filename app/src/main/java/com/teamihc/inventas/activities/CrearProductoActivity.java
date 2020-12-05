@@ -1,4 +1,4 @@
-package com.teamihc.inventas;
+package com.teamihc.inventas.activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class CrearProductoClass extends AppCompatActivity {
+import com.teamihc.inventas.R;
+
+public class CrearProductoActivity extends AppCompatActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.crear_producto);
+        setContentView(R.layout.activity_crear_producto);
 
     }
 

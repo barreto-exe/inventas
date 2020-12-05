@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:onClick="salvarDatos"
-    tools:context=".CrearProductoClass"
+    tools:context=".activities.CrearProductoActivity"
     android:focusable="true">
 
     <EditText
@@ -139,7 +139,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/home_bar"
+        layout="@layout/view_home_bar"
         android:theme="@style/Theme.InVentas"
         tools:targetApi="m" />
 

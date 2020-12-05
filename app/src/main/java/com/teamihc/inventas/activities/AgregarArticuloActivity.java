@@ -1,14 +1,16 @@
-package com.teamihc.inventas;
+package com.teamihc.inventas.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class AggArticuloClass extends AppCompatActivity {
+import com.teamihc.inventas.R;
+
+public class AgregarArticuloActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.agregar_articulo);
+        setContentView(R.layout.activity_agregar_articulo);
 
     }
    /* public void onClick(View view){

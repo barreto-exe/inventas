@@ -1,4 +1,4 @@
-package com.example.inventas.backend;
+package com.teamihc.inventas.backend;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

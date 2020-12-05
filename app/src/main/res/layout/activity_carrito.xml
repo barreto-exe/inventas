@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VenderClass">
+    tools:context=".activities.CarritoActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -20,7 +20,7 @@
 
     <include
         android:id="@+id/include2"
-        layout="@layout/home_bar"
+        layout="@layout/view_home_bar"
         android:theme="@style/Theme.InVentas" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
