@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity
         
     }
     
-    
     //Llama a la pantalla de añadir venta
     public void addCarrito(View view)
     {
