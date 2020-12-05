@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_ventas"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:title="Ventas" />
+
+    <item
+        android:id="@+id/nav_tasas"
+        android:icon="@drawable/ic_payments_white_24dp"
+        android:title="Tasas" />
+
+    <item
+        android:id="@+id/nav_inventario"
+        android:icon="@drawable/ic_category_white_24dp"
+        android:title="Inventario" />
+    <item
+        android:id="@+id/nav_estadisticas"
+        android:icon="@drawable/ic_analytics_white_24dp"
+        android:title="Estadísticas" />
+</menu>
