@@ -16,7 +16,7 @@
             android:parentActivityName="com.teamihc.inventas.activities.CarritoActivity" />
         <activity
             android:name="com.teamihc.inventas.activities.CrearProductoActivity"
-            android:parentActivityName="com.teamihc.inventas.activities.CrearProductoActivity" />
+            android:parentActivityName="com.teamihc.inventas.fragments.InventarioFragment" />
         <activity android:name="com.teamihc.inventas.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

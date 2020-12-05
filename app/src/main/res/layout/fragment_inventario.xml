@@ -24,4 +24,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_black_48dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productos_inventarioRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="207dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

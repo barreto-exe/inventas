@@ -22,7 +22,7 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
     @Override
     public HistorialTasaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.id.infoTasa, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_tasa, parent, false);
         return new HistorialTasaAdapter(view);
     }
     
