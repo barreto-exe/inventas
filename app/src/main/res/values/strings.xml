@@ -19,4 +19,16 @@
     <string name="aqui_se_a_aden_productos_al_carrito">aqui se añaden productos al carrito</string>
     <string name="tasas">Tasas</string>
     <string name="historial_de_cambios">Historial de cambios</string>
+    <string name="precio">Precio $</string>
+    <string name="c_digo">Código</string>
+    <string name="costo">Costo $</string>
+    <string name="precio_bss">Precio BsS</string>
+    <string name="string_precio_bss" />
+    <string name="descripci_n">Descripción</string>
+    <string name="escriba_la_descripci_n_del_producto">Escriba la descripción del producto</string>
+    <string name="escriba_el_c_digo_del_producto">Escriba el código del producto</string>
+    <string name="indique_el_costo">Indique el costo</string>
+    <string name="indique_el_precio">Indique el precio</string>
+    <string name="imagen_que_sube_el_usuario">Imagen que sube el usuario</string>
+    <string name="guardar">GUARDAR</string>
 </resources>

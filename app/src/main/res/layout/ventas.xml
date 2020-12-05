@@ -8,7 +8,7 @@
     android:background="@color/white">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_venta"
+        android:id="@+id/mas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
