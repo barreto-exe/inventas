@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.inventas">
+    package="com.teamihc.inventas">
 
     <application
         android:allowBackup="true"
@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InVentas">
-        <activity android:name=".HistorialDeCambios"></activity>
-        <activity android:name=".AggArticuloClass" />
+        <activity android:name="com.teamihc.inventas.HistorialDeCambios"></activity>
+        <activity android:name="com.teamihc.inventas.AggArticuloClass" />
         <activity
-            android:name=".VenderClass"
-            android:parentActivityName=".VenderClass" />
+            android:name="com.teamihc.inventas.VenderClass"
+            android:parentActivityName="com.teamihc.inventas.VenderClass" />
         <activity
-            android:name=".CrearProductoClass"
-            android:parentActivityName=".CrearProductoClass" />
-        <activity android:name=".MainActivity">
+            android:name="com.teamihc.inventas.CrearProductoClass"
+            android:parentActivityName="com.teamihc.inventas.CrearProductoClass" />
+        <activity android:name="com.teamihc.inventas.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

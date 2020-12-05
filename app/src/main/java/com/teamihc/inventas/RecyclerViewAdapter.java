@@ -1,4 +1,4 @@
-package com.example.inventas;
+package com.teamihc.inventas;
 
 
 import android.content.Context;
@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.HistorialAdapter> {
     Context context;

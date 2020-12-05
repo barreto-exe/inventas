@@ -1,4 +1,4 @@
-package com.example.inventas;
+package com.teamihc.inventas;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

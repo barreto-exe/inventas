@@ -1,4 +1,4 @@
-package com.example.inventas;
+package com.teamihc.inventas;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
