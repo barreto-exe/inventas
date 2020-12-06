@@ -1,16 +1,11 @@
 package com.teamihc.inventas.backend.basedatos;
 
 import android.content.res.AssetManager;
-import android.net.Uri;
 
 import com.teamihc.inventas.BuildConfig;
-import com.teamihc.inventas.R;
-import com.teamihc.inventas.activities.MainActivity;
-import com.teamihc.inventas.backend.Herramientas;
+import com.teamihc.inventas.backend.entidades.Herramientas;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -19,8 +14,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import kotlin.text.UStringsKt;
 
 /**
  * Clase personalizada para manipular una base de dato SQLite fácilmente. Cada instancia de DBCon se

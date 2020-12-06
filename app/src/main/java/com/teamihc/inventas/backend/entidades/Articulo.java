@@ -1,4 +1,4 @@
-package com.teamihc.inventas.backend;
+package com.teamihc.inventas.backend.entidades;
 
 
 public class Articulo implements Entidad

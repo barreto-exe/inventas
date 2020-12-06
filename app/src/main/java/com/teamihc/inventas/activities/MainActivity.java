@@ -7,10 +7,8 @@ import androidx.fragment.app.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,9 +18,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.teamihc.inventas.BuildConfig;
-import com.teamihc.inventas.backend.Herramientas;
-import com.teamihc.inventas.backend.Tasa;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.fragments.EstadisticasFragment;
@@ -30,17 +25,6 @@ import com.teamihc.inventas.fragments.InventarioFragment;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.fragments.TasasFragment;
 import com.teamihc.inventas.fragments.VentasFragment;
-
-import java.io.Console;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.sql.Date;
-import java.time.Instant;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
 {

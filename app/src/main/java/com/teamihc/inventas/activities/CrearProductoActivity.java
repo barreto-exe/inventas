@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.backend.Articulo;
+import com.teamihc.inventas.backend.entidades.Articulo;
 
 public class CrearProductoActivity extends AppCompatActivity
 {

@@ -1,4 +1,4 @@
-package com.teamihc.inventas.backend;
+package com.teamihc.inventas.backend.entidades;
 
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 

@@ -1,4 +1,4 @@
-package com.teamihc.inventas.backend;
+package com.teamihc.inventas.backend.entidades;
 
 import android.content.res.AssetManager;
 import android.util.Log;

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.backend.Articulo;
-import com.teamihc.inventas.backend.InventarioAdapter;
+import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.adapters.InventarioAdapter;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
@@ -42,7 +42,6 @@ public class InventarioFragment extends Fragment
         mostrarDatos();
         
         return view;
-        
     }
     
     //como actualizar la lista??
