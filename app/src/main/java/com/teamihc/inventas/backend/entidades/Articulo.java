@@ -1,10 +1,13 @@
 package com.teamihc.inventas.backend.entidades;
 
 
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Articulo implements Entidad
 {
@@ -130,5 +133,16 @@ public class Articulo implements Entidad
                     (String) resultado.getValor("codigo"));
             listaArticulos.add(articulo);
         }
+    }
+
+    public void agregarStock(int cantidad, Date fechaHora)
+    {
+        String query = "INSERT INTO v_inventario(fecha, hora, id_articulo, cantidad) VALUES (?, ?, ?, ?)";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.pasarParametro(obtenerId());
+        op.pasarParametro(cantidad);
+        op.ejecutar();
     }
 }

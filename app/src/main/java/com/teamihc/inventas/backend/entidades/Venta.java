@@ -55,8 +55,6 @@ public class Venta implements Entidad
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
         op.ejecutar();
 
-        /* PENDIENTE: extraer el id_venta de la base de datos */
-
         for (ArticuloPxQ a : carrito.getCarrito())
         {
             /* Se registran los detalles de venta de cada artículo vendido en la tabla v_detalles_ventas */
@@ -68,7 +66,7 @@ public class Venta implements Entidad
             op.pasarParametro(a.getSubTotal());
             op.ejecutar();
 
-            /* PENDIENTE: preguntar si las ventas se reflejan en el inventario de forma negativa */
+            a.getArticulo().agregarStock(a.getCantidad(), fechaHora);
 
             /* PENDIENTE: modificar la cantidad de un artículo en v_articulos */
         }
