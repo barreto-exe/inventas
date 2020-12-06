@@ -7,28 +7,18 @@
     android:backgroundTint="#FFFFFF"
     android:clickable="true"
     android:focusable="true"
-    android:onClick="salvarDatos"
+
+    android:foregroundTint="#FFFFFF"
     tools:context=".activities.CrearProductoActivity">
 
 
     <include
-        android:id="@+id/include"
-        layout="@layout/view_home_bar"
+        android:id="@+id/crearInclude"
+        layout="@layout/view_crear_bar"
         android:theme="@style/Theme.InVentas"
-        tools:targetApi="m" />
+        />
 
-    <TextView
-        android:id="@+id/guardar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="salvarDatos"
-        android:text="@string/guardar"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/include"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -39,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/crearInclude"
         app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,10 +43,9 @@
 
             <EditText
                 android:id="@+id/codTxt"
-                android:layout_width="309dp"
+                android:layout_width="277dp"
                 android:layout_height="46dp"
                 android:layout_marginTop="110dp"
-                android:background="@drawable/escritura"
                 android:ems="10"
                 android:hint="@string/codigo"
                 android:importantForAutofill="no"
@@ -69,24 +58,22 @@
 
             <EditText
                 android:id="@+id/costo"
-                android:layout_width="309dp"
+                android:layout_width="277dp"
                 android:layout_height="46dp"
                 android:layout_marginTop="124dp"
-                android:background="@drawable/escritura"
                 android:ems="10"
                 android:hint="@string/costo"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/descripcionProd"
+                app:layout_constraintStart_toStartOf="@+id/descripcionProd"
                 app:layout_constraintTop_toBottomOf="@+id/descripcionProd" />
 
             <EditText
                 android:id="@+id/precio"
-                android:layout_width="309dp"
+                android:layout_width="277dp"
                 android:layout_height="46dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/escritura"
                 android:ems="10"
                 android:hint="@string/precio"
                 android:importantForAutofill="no"
@@ -101,7 +88,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
-                android:background="@drawable/cuadrado"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/c_digo"
                 android:textColor="@color/purple_200"
@@ -114,7 +100,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="81dp"
-                android:background="@drawable/cuadrado"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/precioD"
                 android:textColor="@color/purple_200"
@@ -123,10 +108,9 @@
 
             <EditText
                 android:id="@+id/descripcionProd"
-                android:layout_width="311dp"
-                android:layout_height="46dp"
+                android:layout_width="277dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="76dp"
-                android:background="@drawable/escritura"
                 android:ems="10"
                 android:hint="@string/descripci_n_del_producto"
                 android:importantForAutofill="no"
@@ -141,7 +125,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
-                android:background="@drawable/cuadrado"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/costoD"
                 android:textColor="@color/purple_200"
@@ -154,7 +137,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="70dp"
-                android:background="@drawable/cuadrado"
                 android:backgroundTintMode="src_over"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/descripci_n"
@@ -186,7 +168,6 @@
                 android:id="@+id/imageView2"
                 android:layout_width="412dp"
                 android:layout_height="116dp"
-                android:layout_marginTop="28dp"
                 android:contentDescription="@string/imagen_que_sube_el_usuario"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -210,8 +191,8 @@
                 android:id="@+id/precioAmostrarBs"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="56dp"
                 android:fontFamily="@font/amaranth_bold"
                 app:layout_constraintStart_toEndOf="@+id/precioBs"
                 app:layout_constraintTop_toBottomOf="@+id/precio" />
@@ -226,7 +207,9 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/_1"
+                android:gravity="center"
                 android:inputType="number"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toStartOf="@+id/aumentar"
                 app:layout_constraintStart_toEndOf="@+id/reducir"
                 app:layout_constraintTop_toBottomOf="@+id/descripcionProd" />
@@ -238,14 +221,14 @@
                 android:layout_marginTop="44dp"
                 android:layout_marginEnd="64dp"
                 android:clickable="true"
+                android:contentDescription="@string/todo"
+                android:focusable="true"
                 android:foreground="@drawable/add_black_24dp"
                 android:foregroundTint="@color/black"
                 app:backgroundTint="@color/teal_200"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descripcionProd"
-                app:rippleColor="#FFFFFF"
-                android:contentDescription="@string/todo"
-                android:focusable="true" />
+                app:rippleColor="#FFFFFF" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/reducir"

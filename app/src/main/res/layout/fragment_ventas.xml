@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mas"
         android:layout_width="wrap_content"
@@ -28,6 +29,7 @@
         android:id="@+id/txtVentasdelDia"
         android:layout_width="189dp"
         android:layout_height="28dp"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="480dp"
         android:fontFamily="@font/amaranth_bold_italic"
         android:gravity="start"
@@ -38,5 +40,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
