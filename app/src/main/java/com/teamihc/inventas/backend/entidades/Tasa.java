@@ -1,5 +1,7 @@
 package com.teamihc.inventas.backend.entidades;
 
+import com.teamihc.inventas.backend.Herramientas;
+import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
 import java.text.SimpleDateFormat;
@@ -60,6 +62,22 @@ public class Tasa implements Entidad
     @Override
     public int obtenerId()
     {
-        return 0;
+        String query =
+                "SELECT id FROM v_tasas WHERE" +
+                "fecha = ? " +
+                "AND hora = ?" +
+                "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+    
+        DBMatriz resultado = op.consultar();
+    
+        int id = -1;
+        if(resultado.leer())
+        {
+            id = (int) resultado.getValor("id_venta");
+        }
+        return id;
     }
 }

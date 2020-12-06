@@ -1,6 +1,7 @@
 package com.teamihc.inventas.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,25 +10,27 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.activities.CrearProductoActivity;
+import com.teamihc.inventas.activities.MainActivity;
+import com.teamihc.inventas.backend.entidades.Articulo;
+
+import java.util.ArrayList;
 
 public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener {
-//-----------Variables---------------
-    LayoutInflater inflater;
 
+    //LayoutInflater inflater;
     private View.OnClickListener listener;
-    //aqui se debe poner una lista para vaciar el contenido en cada cardView
+    private ArrayList<Articulo> listaArticulos;
 
-
-    //-------------------------------------------------------------------------------------
     //constructor, en este se le debe pasar tambien la lista por parametro
-    public ListaProductosRecyclerViewAdapter(Context context) {
-        this.inflater = LayoutInflater.from(context);
-        //this.lista que vas a crear= la lista que pasas por parametro
+    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
+        //this.inflater = LayoutInflater.from(context);
+        this.listaArticulos = listaArticulos;
     }
-
 
     @NonNull
     @Override
@@ -42,49 +45,46 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     //y que luego de ser consultada y vaciada en la lista se coloca ahí
     @Override
     public void onBindViewHolder(@NonNull ListaProductosAdapter holder, int position) {
-        //Aqui de acuerdo a lo que se extraiga de una clase que contenga las cosas de los productos se debe "vaciar" en lo que está en layout info_producto
-        //holder.imagenProd.setImageResource(lista.get(position).);
-        //holder.descripcion.setText(lista.get(position).);
-        //holder.cantidadStock.setText(lista.get(position).);
-        //holder.precioAmostrrBs.setText(lista.get(position).);
-        //holder.precioD.setText(lista.get(position).);
-        //holder.costoD.setText(lista.get(position).);
+        holder.asignarDatos(listaArticulos.get(position));
     }
-
 
     @Override
     public int getItemCount() {
-        return 0;
-        //debe retornar eltamaño de la lista
+        return listaArticulos.size();
     }
-
-
 
     //Esto es para que se pueda editar la cantidad del stock, se complementa con setOnClick()
     @Override
     public void onClick(View v) {
-        if(listener!=null){
-            listener.onClick(v);
-        }
+        ((MainActivity)v.getContext()).addProducto(v);
+
     }
 
-    public void setOnClick(View.OnClickListener view){
-        this.listener=view;
-    }
 
     //esto se queda así
     public class ListaProductosAdapter extends RecyclerView.ViewHolder {
-        ImageView foto;
-        TextView descripcion, cantidad, precioBsS, precioD, costoD;
+
+        CardView cardView;
 
         public ListaProductosAdapter(@NonNull View itemView) {
             super(itemView);
-            foto=itemView.findViewById(R.id.imagenProd);
-            descripcion=itemView.findViewById(R.id.descripcion);
-            cantidad=itemView.findViewById(R.id.cantidadStock);
-            precioBsS=itemView.findViewById(R.id.precioAmostrarBs);
-            precioD=itemView.findViewById(R.id.precioD);
-            costoD=itemView.findViewById(R.id.costoD);
+            cardView = (CardView)itemView.findViewById(R.id.info_producto);
+        }
+
+        public void asignarDatos(Articulo articulo) {
+            ImageView imagenProd = (ImageView)cardView.findViewById(R.id.imagenProd);
+            TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
+            TextView precioBsS =  (TextView)cardView.findViewById(R.id.precioBsS);
+            TextView cantidadStock = (TextView)cardView.findViewById(R.id.cantidadStock);
+            TextView costoD = (TextView)cardView.findViewById(R.id.costoD);
+            TextView precioD = (TextView)cardView.findViewById(R.id.precioD);
+
+            //imagenProd.setImageResource();
+            descripcion.setText(articulo.getDescripcion());
+            precioBsS.setText("" + 0);
+            cantidadStock.setText("" + articulo.getCantidad());
+            costoD.setText("" + articulo.getCosto());
+            precioD.setText("" + articulo.getPrecio());
         }
     }
 }

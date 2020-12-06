@@ -55,37 +55,6 @@ public class MainActivity extends AppCompatActivity
         
     }
     
-    private void ejemploBBDD()
-    {
-        //Cómo hacer un select
-        String query = "SELECT * FROM v_tasas WHERE fecha = ? ORDER BY fecha DESC LIMIT 1";
-        
-        //Esto se hace siempre, cargar el query en la operación
-        DBOperacion op = new DBOperacion(query);
-        
-        //Pasar los parámetros en el mismo orden de los signos de interrogación
-        op.pasarParametro("2020-10-10");
-        
-        //Realizar la consulta y vaciar la pila de resultados en la variable resultado
-        DBMatriz resultado = op.consultar();
-    
-        //Recorrer la pila de registros
-        while (resultado.leer())
-        {
-            //Castear el valor de cada registro en la columnda cambio_dolar
-            float cambioDolar = (float) resultado.getValor("monto");
-            
-            Log.println(Log.INFO, "Hola", String.valueOf(cambioDolar));
-        }
-    
-        //********************************************************************************
-        //Como hacer un insert o update
-        query = "INSERT INTO v_tasas(monto, fecha, hora) VALUES (10.0, '2020-10-10', '14:00:00')";
-        op = new DBOperacion(query);
-        op.ejecutar();
-    }
-    
-    
     //Llama a la pantalla de añadir venta
     public void addCarrito(View view)
     {
@@ -101,7 +70,7 @@ public class MainActivity extends AppCompatActivity
     }
     
     //Llama a la pantalla de cambiar la tasa de divisa
-    public void cambiarTasa(View view)
+    public void addTasa(View view)
     {
         dialog.setContentView(R.layout.view_cambiar_tasa);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

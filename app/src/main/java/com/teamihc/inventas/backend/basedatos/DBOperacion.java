@@ -3,7 +3,7 @@ package com.teamihc.inventas.backend.basedatos;
 import android.content.res.AssetManager;
 
 import com.teamihc.inventas.BuildConfig;
-import com.teamihc.inventas.backend.entidades.Herramientas;
+import com.teamihc.inventas.backend.Herramientas;
 
 import java.io.File;
 import java.sql.DriverManager;
