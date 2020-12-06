@@ -49,6 +49,7 @@ public class Carrito
             if (a.getArticulo().obtenerId() == articulo.obtenerId())
             {
                 carrito.remove(a);
+                return;
             }
         }
     }

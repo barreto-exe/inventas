@@ -76,8 +76,10 @@ public class MainActivity extends AppCompatActivity
         v.getCarrito().agregarArticulo(a1, 2);
         v.getCarrito().agregarArticulo(a2, 18);
         v.getCarrito().agregarArticulo(a3, 3);
+        v.getCarrito().eliminarArticulo(a1);
+        v.getCarrito().eliminarArticulo(a2);
         v.registrar();
-        Toast.makeText(MainActivity.this, "Venta registrada", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "Venta registrada: " + v.getCarrito().obtenerTotal(), Toast.LENGTH_SHORT).show();
     }
     
     //Llama a la pantalla de añadir producto al inventario
