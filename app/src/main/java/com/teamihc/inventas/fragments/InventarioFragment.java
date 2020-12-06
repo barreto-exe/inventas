@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.adapters.InventarioAdapter;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
@@ -48,7 +47,7 @@ public class InventarioFragment extends Fragment
     //Como validar???
     public void cargarLista()
     {
-        listaArticulos.clear();
+        //listaArticulos.clear();
         String query = "SELECT * FROM v_articulos ORDER BY descripcion ASC";
         DBOperacion op = new DBOperacion(query);
         DBMatriz resultado = op.consultar();
@@ -60,7 +59,7 @@ public class InventarioFragment extends Fragment
                     (Float) resultado.getValor("costo_unitario"),
                     (Float) resultado.getValor("precio_venta"),
                     (Integer) resultado.getValor("cantidad"),
-                    "0000");
+                    (String) resultado.getValor("codigo"));
             listaArticulos.add(articulo);
         }
     }
@@ -68,7 +67,7 @@ public class InventarioFragment extends Fragment
     public void mostrarDatos()
     {
         //recyclerView.clearFocus();
-        InventarioAdapter adapter = new InventarioAdapter(listaArticulos);
+        ListaProductosRecyclerViewAdapter adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
     }
 }
