@@ -40,12 +40,11 @@ public class CrearProductoActivity extends AppCompatActivity
                 descripcionProd.getText().toString(),
                 Float.parseFloat(costo.getText().toString()),
                 Float.parseFloat(precio.getText().toString()),
-                costo.getText().toString(),
                 0,
-                null
+                "0000"
         );
 
-        articulo.addToInventory();
+        articulo.registrar();
 
         finish();
     }
