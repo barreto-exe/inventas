@@ -1,6 +1,7 @@
 package com.teamihc.inventas.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.activities.CrearProductoActivity;
+import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
 import java.util.ArrayList;
@@ -53,14 +56,10 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     //Esto es para que se pueda editar la cantidad del stock, se complementa con setOnClick()
     @Override
     public void onClick(View v) {
-        if(listener!=null){
-            listener.onClick(v);
-        }
+        ((MainActivity)v.getContext()).addProducto(v);
+
     }
 
-    public void setOnClick(View.OnClickListener view){
-        this.listener=view;
-    }
 
     //esto se queda así
     public class ListaProductosAdapter extends RecyclerView.ViewHolder {

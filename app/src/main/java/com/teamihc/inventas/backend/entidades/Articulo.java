@@ -1,6 +1,11 @@
 package com.teamihc.inventas.backend.entidades;
 
 
+import com.teamihc.inventas.backend.basedatos.DBMatriz;
+import com.teamihc.inventas.backend.basedatos.DBOperacion;
+
+import java.util.ArrayList;
+
 public class Articulo implements Entidad
 {
     //<editor-fold defaultstate="collapsed" desc="Atributos">
@@ -84,5 +89,22 @@ public class Articulo implements Entidad
     public int obtenerId()
     {
         return 0;
+    }
+
+    public static void cargarInventarioEnLista(ArrayList<Articulo> listaArticulos){
+        String query = "SELECT * FROM v_articulos ORDER BY descripcion ASC";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            Articulo articulo = new Articulo(
+                    (String) resultado.getValor("descripcion"),
+                    (Float) resultado.getValor("costo_unitario"),
+                    (Float) resultado.getValor("precio_venta"),
+                    (Integer) resultado.getValor("cantidad"),
+                    (String) resultado.getValor("codigo"));
+            listaArticulos.add(articulo);
+        }
     }
 }

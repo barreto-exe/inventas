@@ -25,6 +25,7 @@ public class InventarioFragment extends Fragment
     ListaProductosRecyclerViewAdapter.ListaProductosAdapter listaProductosAdapter;
     RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
+    ListaProductosRecyclerViewAdapter adapter;
     
     //ArrayList de los productos
     @Nullable
@@ -36,39 +37,19 @@ public class InventarioFragment extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         
         listaArticulos = new ArrayList<Articulo>();
-        
-        cargarLista();
-        mostrarDatos();
+
+        Articulo.cargarInventarioEnLista(listaArticulos);
+        adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
+        recyclerView.setAdapter(adapter);
         
         return view;
     }
-    
-    //como actualizar la lista??
-    //Como validar???
-    public void cargarLista()
+
+    public void actualizarInventario()
     {
-        //listaArticulos.clear();
-        String query = "SELECT * FROM v_articulos ORDER BY descripcion ASC";
-        DBOperacion op = new DBOperacion(query);
-        DBMatriz resultado = op.consultar();
-        
-        while (resultado.leer())
-        {
-            Articulo articulo = new Articulo(
-                    (String) resultado.getValor("descripcion"),
-                    (Float) resultado.getValor("costo_unitario"),
-                    (Float) resultado.getValor("precio_venta"),
-                    (Integer) resultado.getValor("cantidad"),
-                    (String) resultado.getValor("codigo"));
-            listaArticulos.add(articulo);
-        }
-    }
-    
-    public void mostrarDatos()
-    {
-        //recyclerView.clearFocus();
-        ListaProductosRecyclerViewAdapter adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
-        recyclerView.setAdapter(adapter);
+        listaArticulos.clear();
+        Articulo.cargarInventarioEnLista(listaArticulos);
+        adapter.notifyDataSetChanged();
     }
 }
 
