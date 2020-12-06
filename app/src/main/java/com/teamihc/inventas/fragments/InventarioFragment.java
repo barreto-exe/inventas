@@ -47,10 +47,9 @@ public class InventarioFragment extends Fragment
     //como actualizar la lista??
     //Como validar???
     public void cargarLista(){
-
-        String query = "SELECT * FROM v_articulos";
+        listaArticulos.clear();
+        String query = "SELECT * FROM v_articulos ORDER BY descripcion ASC";
         DBOperacion op = new DBOperacion(query);
-        //parametros
         DBMatriz resultado = op.consultar();
 
         while(resultado.leer()){
