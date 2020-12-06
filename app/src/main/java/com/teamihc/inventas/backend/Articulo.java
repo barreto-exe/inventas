@@ -1,40 +1,13 @@
 package com.teamihc.inventas.backend;
 
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-public class Articulo
+public class Articulo implements Entidad
 {
     //<editor-fold defaultstate="collapsed" desc="Atributos">
-    /**
-     * Descripción del artículo (nombre, marca, peso neto).
-     */
-    private String description;
-    
-    /**
-     * Costo del artículo (en dólares).
-     */
-    private float cost;
-    
-    /**
-     * Precio de venta (en dólares).
-     */
-    private float price;
-    
-    /**
-     * Código de barras.
-     */
-    private String code;
-
-    private int cantidad;
-    
-    /**
-     * Base de Datos.
-     */
-    private final SQLiteDatabase db;
-    
+    private String descripcion;
+    private float costo;
+    private float precio;
+    private String codigo;
     //</editor-fold>
     
     
@@ -42,100 +15,29 @@ public class Articulo
      * Crea una instancia de un artículo, para poder hacer las operaciones básicas en la Base de
      * Datos (CRUD). Nota: Para un nuevo producto, la cantidad se settea automaticamente en 0
      *
-     * @param description es la descripción del artículo (nombre, marca, peso neto, etc).
-     * @param cost        es el costo del arículo en dólares.
-     * @param price       es el precio de venta del arículo en dólares.
-     * @param code        es el código de barras del artículo.
-     * @param db          es la base de datos donde se realizanrán las operaciones con dicho
+     * @param descripcion es la descripción del artículo (nombre, marca, peso neto, etc).
+     * @param costo        es el costo del arículo en dólares.
+     * @param precio       es el precio de venta del arículo en dólares.
+     * @param codigo        es el código de barras del artículo.
      *                    artículo.
      */
-    public Articulo(String description, float cost, float price, String code, int cantidad, SQLiteDatabase db)
+    public Articulo(String descripcion, float costo, float precio, String codigo)
     {
-        this.description = description;
-        this.cost = cost;
-        this.price = price;
-        this.code = code;
-        this.db = db;
-        this.cantidad=cantidad;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public float getCost() {
-        return cost;
-    }
-
-    public void setCost(float cost) {
-        this.cost = cost;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public SQLiteDatabase getDb() {
-        return db;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    /**
-     * Método para añadir un artículo nuevo al inventario.
-     *
-     * @return -1 si falta algún dato del artículo. 0 si ya existe un artículo con caracteristicas
-     * iguales. 1 si se añadió correctamente al inventario.
-     */
-    public int addToInventory()
-    {
-        if (description == null || cost == 0 || price == 0 || code == null)
-            return -1;
-        
-        Cursor row = db.rawQuery("SELECT id_articulo FROM v_articulos WHERE codigo = " + code, null);
-        
-        if (row.moveToFirst())
-        {
-            return 0;
-        } else
-        {
-            ContentValues register = new ContentValues();
-            
-            register.put("descripcion", description);
-            register.put("costo_unitario", cost);
-            register.put("precio_venta", price);
-            register.put("cantidad", 0);
-            register.put("codigo", code);
-            
-            db.insert("v_articulos", null, register);
-            db.close();
-            return 1;
-        }
-        
+        this.descripcion = descripcion;
+        this.costo = costo;
+        this.precio = precio;
+        this.codigo = codigo;
     }
     
+    @Override
+    public void registrar()
+    {
+    
+    }
+    
+    @Override
+    public int obtenerId()
+    {
+        return 0;
+    }
 }
-        /*AdminSQLiteOpenHelper helper = new AdminSQLiteOpenHelper(context, "InVentas", null, 1);
-        SQLiteDatabase db = helper.getWritableDatabase();*/
