@@ -8,6 +8,7 @@ import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.DoubleBinaryOperator;
 
 public class Articulo implements Entidad
 {
@@ -134,7 +135,13 @@ public class Articulo implements Entidad
             listaArticulos.add(articulo);
         }
     }
-
+    
+    /**
+     * Ingresa un nuevo movimiento en v_inventario y actualiza el total del stock (cantidad) en
+     * v_artículos.
+     * @param cantidad sumada o restada del stock.
+     * @param fechaHora en la que se realizó el movimiento.
+     */
     public void agregarStock(int cantidad, Date fechaHora)
     {
         /* Registrar stock en v_inventario */
@@ -151,5 +158,26 @@ public class Articulo implements Entidad
         op.pasarParametro(this.cantidad + cantidad);
         op.pasarParametro(obtenerId());
         op.ejecutar();
+    }
+    
+    /**
+     * Consulta el stock del artículo.
+     * @return la cantidad de unidades, o -1 si el artículo no está registrado en la BBDD
+     */
+    public int cantidadStock()
+    {
+        int id = obtenerId();
+        if(id == -1)
+        {
+            return -1;
+        }
+        
+        String query = "SELECT cantidad FROM v_articulos WHERE id = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        DBMatriz resultado = op.consultar();
+        resultado.leer();
+        
+        return (int) resultado.getValor("cantidad");
     }
 }

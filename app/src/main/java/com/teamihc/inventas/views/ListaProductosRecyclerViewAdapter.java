@@ -20,65 +20,73 @@ import com.teamihc.inventas.backend.entidades.Articulo;
 
 import java.util.ArrayList;
 
-public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener {
-
+public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener
+{
+    
     //LayoutInflater inflater;
     private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
-
+    
     //constructor, en este se le debe pasar tambien la lista por parametro
-    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
+    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos)
+    {
         //this.inflater = LayoutInflater.from(context);
         this.listaArticulos = listaArticulos;
     }
-
+    
     @NonNull
     @Override
-    public ListaProductosAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaProductosAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_producto, parent, false);
         view.setOnClickListener(this);
         return new ListaProductosAdapter(view);
     }
-
+    
     //Esto lo debes cambiar de acuerdo a tu lista, lo que está despues del ultimo punto representa el campo del nodo de la lista
     //ejemplo: holder.imagenProd.setImageResource(lista.get(position).fotoProducto); donde foto producto es la foto que está guardada en la base de datos
     //y que luego de ser consultada y vaciada en la lista se coloca ahí
     @Override
-    public void onBindViewHolder(@NonNull ListaProductosAdapter holder, int position) {
+    public void onBindViewHolder(@NonNull ListaProductosAdapter holder, int position)
+    {
         holder.asignarDatos(listaArticulos.get(position));
     }
-
+    
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return listaArticulos.size();
     }
-
+    
     //Esto es para que se pueda editar la cantidad del stock, se complementa con setOnClick()
     @Override
-    public void onClick(View v) {
-        ((MainActivity)v.getContext()).addProducto(v);
-
+    public void onClick(View v)
+    {
+        ((MainActivity) v.getContext()).addProducto(v);
+        
     }
-
-
+    
     //esto se queda así
-    public class ListaProductosAdapter extends RecyclerView.ViewHolder {
-
+    public class ListaProductosAdapter extends RecyclerView.ViewHolder
+    {
+        
         CardView cardView;
-
-        public ListaProductosAdapter(@NonNull View itemView) {
+        
+        public ListaProductosAdapter(@NonNull View itemView)
+        {
             super(itemView);
-            cardView = (CardView)itemView.findViewById(R.id.info_producto);
+            cardView = (CardView) itemView.findViewById(R.id.info_producto);
         }
-
-        public void asignarDatos(Articulo articulo) {
-            ImageView imagenProd = (ImageView)cardView.findViewById(R.id.imagenProd);
+        
+        public void asignarDatos(Articulo articulo)
+        {
+            ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
-            TextView precioBsS =  (TextView)cardView.findViewById(R.id.precioBsS);
-            TextView cantidadStock = (TextView)cardView.findViewById(R.id.cantidadStock);
-            TextView costoD = (TextView)cardView.findViewById(R.id.costoD);
-            TextView precioD = (TextView)cardView.findViewById(R.id.precioD);
-
+            TextView precioBsS = (TextView) cardView.findViewById(R.id.precioBsS);
+            TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
+            TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
+            TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
+            
             //imagenProd.setImageResource();
             descripcion.setText(articulo.getDescripcion());
             precioBsS.setText("" + 0);
