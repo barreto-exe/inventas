@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/info_producto"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/costoD"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/amaranth_bold"
+                android:text="@string/costodolares"
+                android:textColor="#FFC107"
+                app:layout_constraintStart_toEndOf="@+id/cantidadStock"
+                app:layout_constraintTop_toBottomOf="@+id/precioBsS" />
+
+            <TextView
+                android:id="@+id/precioD"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="52dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/amaranth_bold"
+                android:text="@string/preciodolares"
+                android:textColor="#74CF0A"
+                app:layout_constraintStart_toEndOf="@+id/costoD"
+                app:layout_constraintTop_toBottomOf="@+id/precioBsS" />
+
+            <ImageView
+                android:id="@+id/imagenProd"
+                android:layout_width="120dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/imagen_que_sube_el_usuario"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_launcher_background" />
+
+            <TextView
+                android:id="@+id/descripcion"
+                android:layout_width="wrap_content"
+                android:layout_height="31dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/amaranth_bold"
+                android:text="@string/descripci_n"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imagenProd"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/precioBsS"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/precio_en_bss"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/descripcion"
+                app:layout_constraintTop_toBottomOf="@+id/descripcion" />
+
+            <TextView
+                android:id="@+id/cantidadStock"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/amaranth_bold"
+                android:text="@string/cantidadstock"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/imagenProd"
+                app:layout_constraintTop_toBottomOf="@+id/precioBsS" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,76 +1,65 @@
 package com.teamihc.inventas.backend;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
+import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
-public class Tasa
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Tasa implements Entidad
 {
     //<editor-fold defaultstate="collapsed" desc="Atributos">
-    /**
-     * Precio de la tasa del día.
-     */
-    private float rate;
-    
-    
-    /**
-     * Fecha de registro de la nueva tasa.
-     */
-    private String date;
-    
-    
-    /**
-     * Hora de registro de la nueva tasa.
-     */
-    private String time;
-    
-    
-    /**
-     * Base de Datos.
-     */
-    private final SQLiteDatabase db;
+    private float monto;
+    private Date fechaHora;
     //</editor-fold>
     
     /**
      * Crea una instancia de una tasa, para poder añadir nuevas tasas a la Base de Datos.
      *
-     * @param rate es el precio de la tasa.
-     * @param date es la fecha de registro de la tasa.
-     * @param time es la hora de registro de la tasa.
-     * @param db   es la base de datos donde se guardarán las tasas.
+     * @param monto es el precio de la tasa.
+     * @param fechaHora es la fecha y hora de registro de la tasa.
      */
-    public Tasa(float rate, String date, String time, SQLiteDatabase db)
+    public Tasa(float monto, Date fechaHora)
     {
-        this.rate = rate;
-        this.date = date;
-        this.time = time;
-        this.db = db;
+        this.monto = monto;
+        this.fechaHora = fechaHora;
     }
     
-    public Tasa(String date, String time, SQLiteDatabase db)
+    //<editor-fold desc="Getters & Setters">
+    public float getMonto()
     {
-        this.date = date;
-        this.time = time;
-        this.db = db;
+        return monto;
     }
+    public void setMonto(float monto)
+    {
+        this.monto = monto;
+    }
+    public Date getFechaHora()
+    {
+        return fechaHora;
+    }
+    public void setFechaHora(Date fechaHora)
+    {
+        this.fechaHora = fechaHora;
+    }
+    //</editor-fold>
     
     /**
      * Método para añadir una nueva tasa a la Base de Datos.
      */
-    public void addRate()
+    @Override
+    public void registrar()
     {
-        ContentValues register = new ContentValues();
-        
-        register.put("cambio_dolar", rate);
-        register.put("fecha", date);
-        register.put("hora", time);
-        
-        db.insert("v_tasas", null, register);
-        db.close();
+        String query = "INSERT INTO v_tasas(monto, fecha, hora) VALUES (?, ?, ?)";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(monto);
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.ejecutar();
     }
     
-    
-    public float getRate()
+    @Override
+    public int obtenerId()
     {
-        return rate;
+        return 0;
     }
 }

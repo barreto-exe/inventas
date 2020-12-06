@@ -1,12 +1,26 @@
 package com.teamihc.inventas.backend.basedatos;
 
+import android.content.res.AssetManager;
+import android.net.Uri;
+
+import com.teamihc.inventas.BuildConfig;
+import com.teamihc.inventas.R;
+import com.teamihc.inventas.activities.MainActivity;
+import com.teamihc.inventas.backend.Herramientas;
+
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import kotlin.text.UStringsKt;
 
 /**
  * Clase personalizada para manipular una base de dato SQLite fácilmente. Cada instancia de DBCon se
@@ -18,13 +32,28 @@ import java.util.ArrayList;
  */
 public class DBOperacion
 {
-    public static String SERVIDOR = "java-server.brazilsouth.cloudapp.azure.com";
+    static
+    {
+        try
+        {
+            DriverManager.registerDriver((Driver) Class.forName("org.sqldroid.SQLDroidDriver").newInstance());
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Failed to register SQLDroidDriver");
+        }
+    }
     
+    private static final String NOMBRE_BD = "inventas.sqlite";
+    /**
+     * La versión de la base de datos.
+     * Este dato debe ser igual al que está en la tabla v_configuracion.
+     */
+    private static final String VERSION_BD = "2";
     /**
      * Representa la ubicación del archivo SQLite con respecto al ejecutable del programa.
      */
-    private static final String NOMBRE_BD = "db.db";
-    private static final String PATH_BD = "jdbc:sqlite:" + NOMBRE_BD;
+    private static final String PATH_BD = "jdbc:sqldroid:/data/data/" + BuildConfig.APPLICATION_ID + "/database/" + NOMBRE_BD;
     
     /**
      * Comando a ejecutar en la base de datos.
@@ -186,6 +215,35 @@ public class DBOperacion
     public void pasarParametro(Object valor)
     {
         parametros.add(valor);
+    }
+    
+    /**
+     * Verifica la versión actual de la base de datos, si está desactualizada, hace un upgrade.
+     * @param assetManager asset manager del activity.
+     */
+    public static void verificarBaseDatos(AssetManager assetManager)
+    {
+        boolean existe = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/database/" + NOMBRE_BD).exists();
+        
+        //Si la base de datos existe, verificar si se debe actualizar
+        if(existe)
+        {
+            String query = "SELECT version_bbdd FROM v_configuracion";
+            DBOperacion op = new DBOperacion(query);
+            DBMatriz resultado = op.consultar();
+
+            resultado.leer();
+            String version = (String) resultado.getValor("version_bbdd");
+
+            //Si está actualizada, no hago nada
+            if(version.equals(VERSION_BD))
+            {
+                return;
+            }
+        }
+        
+        //Actualizar la base de datos
+        Herramientas.copyFile("database/" + NOMBRE_BD, assetManager);
     }
     
 }
