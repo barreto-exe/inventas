@@ -20,11 +20,14 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
+import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.fragments.EstadisticasFragment;
 import com.teamihc.inventas.fragments.InventarioFragment;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.fragments.TasasFragment;
 import com.teamihc.inventas.fragments.VentasFragment;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -112,7 +115,8 @@ public class MainActivity extends AppCompatActivity
                 if (!tasa.getText().toString().contains("-") && !tasa.getText().toString().isEmpty())
                 {
                     dialog.dismiss();
-                    //añadir el codigo para BBDD
+                    Tasa t = new Tasa(Float.parseFloat(tasa.getText().toString()), Calendar.getInstance().getTime());
+                    t.registrar();
                     Toast.makeText(MainActivity.this, "Tasa aceptada", Toast.LENGTH_SHORT).show();
                 }
             }
