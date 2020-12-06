@@ -8,6 +8,7 @@ import com.teamihc.inventas.activities.MainActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -22,16 +23,47 @@ public class Herramientas
     
     /**
      * Copia un archivo de la carpeta assets del apk a la carpeta /data/data del teléfono.
-     * @param filename ruta del archivo en assets.
+     * @param path ruta del archivo en assets.
      * @param assetManager asset manager del activity.
      */
-    public static void copyFile(String filename, AssetManager assetManager)
+    public static void copyFileOrDir(String path, AssetManager assetManager)
+    {
+        String assets[] = null;
+        try
+        {
+            assets = assetManager.list(path);
+            if (assets.length == 0)
+            {
+                copyFile(path, assetManager);
+            } else
+            {
+                String fullPath = "/data/data/" + BuildConfig.APPLICATION_ID + "/" + path;
+                File dir = new File(fullPath);
+                if (!dir.exists())
+                    dir.mkdir();
+                for (int i = 0; i < assets.length; ++i)
+                {
+                    copyFileOrDir(path + "/" + assets[i], assetManager);
+                }
+            }
+        }
+        catch (IOException ex)
+        {
+            Log.e("tag", "I/O Exception", ex);
+        }
+    }
+    private static void copyFile(String filename, AssetManager assetManager)
     {
         InputStream in = null;
         OutputStream out = null;
         try
         {
             String newFileName = "/data/data/" + BuildConfig.APPLICATION_ID + "/" + filename;
+            
+            if(new File(newFileName).exists())
+            {
+                return;
+            }
             
             in = assetManager.open(filename);
             out = new FileOutputStream(newFileName);

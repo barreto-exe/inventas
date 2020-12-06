@@ -236,7 +236,7 @@ public class DBOperacion
         }
         
         //Actualizar la base de datos
-        Herramientas.copyFile("database/" + NOMBRE_BD, assetManager);
+        Herramientas.copyFileOrDir("database", assetManager);
     }
     
 }
