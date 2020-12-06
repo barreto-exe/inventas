@@ -1,47 +1,49 @@
 package com.teamihc.inventas.backend;
 
+import java.util.Date;
+
 /**
  * @author Karen
  */
-public class Venta
+public class Venta implements Entidad
 {
     //<editor-fold defaultstate="collapsed" desc="Atributos">
-    /**
-     * ID correspondiente a la venta.
-     */
-    private int idVenta;
-
-
-    /**
-     * ID tasa del día.
-     */
-    private int idRate;
-
-
-    /**
-     * Monto total a pagar.
-     */
-    private float total;
-
-
-    /**
-     * Fecha de la venta.
-     */
-    private String date;
-
-
-    /**
-     * Hora de la venta.
-     */
-    private String time;
-
+    private Tasa tasa;
+    private Date fechaHora;
     //</editor-fold>
-
-
-    public Venta(int idRate, String date, String time)
+    
+    public Venta(Tasa tasa, Date fechaHora)
     {
-        this.idRate = idRate;
-        this.date = date;
-        this.time = time;
+        this.tasa = tasa;
+        this.fechaHora = fechaHora;
+    }
+    
+    public Tasa getTasa()
+    {
+        return tasa;
+    }
+    public void setTasa(Tasa tasa)
+    {
+        this.tasa = tasa;
+    }
+    public Date getFechaHora()
+    {
+        return fechaHora;
+    }
+    public void setFechaHora(Date fechaHora)
+    {
+        this.fechaHora = fechaHora;
+    }
+    
+    @Override
+    public void registrar()
+    {
+    
+    }
+    
+    @Override
+    public int obtenerId()
+    {
+        return 0;
     }
 }

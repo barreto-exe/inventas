@@ -1,27 +1,15 @@
 package com.teamihc.inventas.backend;
 
-import android.content.ContentValues;
-
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Tasa
+public class Tasa implements Entidad
 {
     //<editor-fold defaultstate="collapsed" desc="Atributos">
-    /**
-     * Precio de la tasa del día.
-     */
     private float monto;
-    
-    
-    /**
-     * Fecha de registro de la nueva tasa.
-     */
     private Date fechaHora;
-    
     //</editor-fold>
     
     /**
@@ -36,10 +24,16 @@ public class Tasa
         this.fechaHora = fechaHora;
     }
     
+    public float getMonto()
+    {
+        return monto;
+    }
+    
     /**
      * Método para añadir una nueva tasa a la Base de Datos.
      */
-    public void addTasa()
+    @Override
+    public void registrar()
     {
         String query = "INSERT INTO v_tasas(monto, fecha, hora) VALUES (?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
@@ -49,9 +43,9 @@ public class Tasa
         op.ejecutar();
     }
     
-    
-    public float getMonto()
+    @Override
+    public int obtenerId()
     {
-        return monto;
+        return 0;
     }
 }
