@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_margin="10dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         app:cardCornerRadius="8dp"
@@ -19,14 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="363dp"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/costoD"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/amaranth_bold"
                 android:text="@string/costodolares"
@@ -38,7 +37,7 @@
                 android:id="@+id/precioD"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/amaranth_bold"
                 android:text="@string/preciodolares"

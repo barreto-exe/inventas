@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <include
+        android:id="@+id/include2"
+        layout="@layout/view_home_bar"
+        android:theme="@style/Theme.InVentas"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mas"
         android:layout_width="wrap_content"
@@ -28,6 +36,7 @@
         android:id="@+id/txtVentasdelDia"
         android:layout_width="189dp"
         android:layout_height="28dp"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="480dp"
         android:fontFamily="@font/amaranth_bold_italic"
         android:gravity="start"
@@ -38,5 +47,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
