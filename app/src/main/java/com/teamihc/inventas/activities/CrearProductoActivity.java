@@ -31,7 +31,7 @@ public class CrearProductoActivity extends AppCompatActivity
     
     public void salvarDatos(View view)
     {
-        TextView descripcionProd = (TextView)findViewById(R.id.descripcionProd);
+        /*TextView descripcionProd = (TextView)findViewById(R.id.descripcionProd);
         TextView costo = (TextView)findViewById(R.id.costo);
         TextView precio = (TextView)findViewById(R.id.precio);
         TextView codigo = (TextView)findViewById(R.id.codigo);
@@ -44,7 +44,7 @@ public class CrearProductoActivity extends AppCompatActivity
                 "0000"
         );
 
-        articulo.registrar();
+        articulo.registrar();*/
 
         finish();
     }
