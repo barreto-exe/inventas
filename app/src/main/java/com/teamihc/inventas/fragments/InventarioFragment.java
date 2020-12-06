@@ -53,9 +53,9 @@ public class InventarioFragment extends Fragment
         do{
             Articulo articulo = new Articulo(
                     (String)resultado.getValor("descripcion"),
-                    (Float) resultado.getValor("costo"),
-                    (Float)resultado.getValor("precio"),
-                    (String)resultado.getValor("codigo"),
+                    (Float) resultado.getValor("costo_unitario"),
+                    (Float)resultado.getValor("precio_venta"),
+                    (String)resultado.getValor("id_articulo"),
                     (Integer)resultado.getValor("cantidad"),
                     null);
             listaArticulos.add(articulo);
