@@ -36,7 +36,7 @@ public class CrearProductoActivity extends AppCompatActivity
         TextView descripcionProdView = (TextView) findViewById(R.id.descripcionProd);
         TextView costoView = (TextView) findViewById(R.id.costo);
         TextView precioView = (TextView) findViewById(R.id.precio);
-        TextView codigoView = (TextView) findViewById(R.id.codigo);
+        TextView codigoView = (TextView) findViewById(R.id.codTxt);
         TextView cantidadView = (TextView) findViewById(R.id.cantidad);  //Esta es el nuevo componente que se añadió
     
         //Hay que validar los datos ingresados en los campos de texto!!!!!
