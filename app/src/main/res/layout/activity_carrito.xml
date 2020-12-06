@@ -18,10 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/view_home_bar"
-        android:theme="@style/Theme.InVentas" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/producto"

@@ -1,13 +1,18 @@
 package com.teamihc.inventas.activities;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.teamihc.inventas.R;
@@ -22,16 +27,36 @@ public class CrearProductoActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_producto);
-        toolbar = findViewById(R.id.home_bar);
+        toolbar = findViewById(R.id.crearInclude);
         setSupportActionBar(toolbar);
-        ActionBar actionbar = getSupportActionBar();
+        getSupportActionBar().setTitle(" ");
         if (getSupportActionBar() != null)
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
-    
-    public void salvarDatos(View view)
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.crear_bar,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.guardar:{
+                salvarDatos();
+                break;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void salvarDatos()
     {
         TextView descripcionProdView = (TextView) findViewById(R.id.descripcionProd);
         TextView costoView = (TextView) findViewById(R.id.costo);
