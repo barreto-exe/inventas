@@ -76,7 +76,7 @@ public class Tasa implements Entidad
         int id = -1;
         if(resultado.leer())
         {
-            id = (int) resultado.getValor("id_venta");
+            id = (int) resultado.getValor("id_tasa");
         }
         return id;
     }

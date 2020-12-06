@@ -20,7 +20,9 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
+import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
+import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.fragments.EstadisticasFragment;
 import com.teamihc.inventas.fragments.InventarioFragment;
 import com.teamihc.inventas.R;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity
     // private View decorView ;
     private Toolbar toolbar;
     Dialog dialog;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -58,8 +60,24 @@ public class MainActivity extends AppCompatActivity
     //Llama a la pantalla de añadir venta
     public void addCarrito(View view)
     {
-        Intent intent = new Intent(MainActivity.this, CarritoActivity.class);
-        startActivity(intent);
+        Articulo a1, a2, a3;
+        a1 = (new Articulo("leche de soya", 0.75f, 1, 12, null));
+        a2 = new Articulo("almendras", 0.3f, 0.7f, 30, null);
+        a3 = new Articulo("pan integral", 0.6f, 0.95f, 8, "12345");
+
+        a1.registrar();
+        a2.registrar();
+        a3.registrar();
+
+        Tasa t = new Tasa(120, Calendar.getInstance().getTime());
+        t.registrar();
+
+        Venta v = new Venta(t , Calendar.getInstance().getTime());
+        v.getCarrito().agregarArticulo(a1, 2);
+        v.getCarrito().agregarArticulo(a2, 18);
+        v.getCarrito().agregarArticulo(a3, 3);
+        v.registrar();
+        Toast.makeText(MainActivity.this, "Venta registrada", Toast.LENGTH_SHORT).show();
     }
     
     //Llama a la pantalla de añadir producto al inventario
