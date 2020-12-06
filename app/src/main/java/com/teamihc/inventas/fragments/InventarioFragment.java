@@ -45,8 +45,10 @@ public class InventarioFragment extends Fragment
         return view;
     }
 
-    public void actualizarInventario()
+    @Override
+    public void onResume()
     {
+        super.onResume();
         listaArticulos.clear();
         Articulo.cargarInventarioEnLista(listaArticulos);
         adapter.notifyDataSetChanged();
