@@ -60,11 +60,6 @@ public class Herramientas
         {
             String newFileName = "/data/data/" + BuildConfig.APPLICATION_ID + "/" + filename;
             
-            if(new File(newFileName).exists())
-            {
-                return;
-            }
-            
             in = assetManager.open(filename);
             out = new FileOutputStream(newFileName);
             
