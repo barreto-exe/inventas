@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
     }
     
     //Llama a la pantalla de cambiar la tasa de divisa
-    public void cambiarTasa(View view)
+    public void addTasa(View view)
     {
         dialog.setContentView(R.layout.view_cambiar_tasa);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
