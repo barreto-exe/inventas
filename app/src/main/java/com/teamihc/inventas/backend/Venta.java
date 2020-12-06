@@ -18,6 +18,7 @@ public class Venta implements Entidad
         this.fechaHora = fechaHora;
     }
     
+    //<editor-fold desc="Getters & Setters">
     public Tasa getTasa()
     {
         return tasa;
@@ -34,6 +35,7 @@ public class Venta implements Entidad
     {
         this.fechaHora = fechaHora;
     }
+    //</editor-fold>
     
     @Override
     public void registrar()

@@ -24,10 +24,24 @@ public class Tasa implements Entidad
         this.fechaHora = fechaHora;
     }
     
+    //<editor-fold desc="Getters & Setters">
     public float getMonto()
     {
         return monto;
     }
+    public void setMonto(float monto)
+    {
+        this.monto = monto;
+    }
+    public Date getFechaHora()
+    {
+        return fechaHora;
+    }
+    public void setFechaHora(Date fechaHora)
+    {
+        this.fechaHora = fechaHora;
+    }
+    //</editor-fold>
     
     /**
      * Método para añadir una nueva tasa a la Base de Datos.
