@@ -137,12 +137,19 @@ public class Articulo implements Entidad
 
     public void agregarStock(int cantidad, Date fechaHora)
     {
+        /* Registrar stock en v_inventario */
         String query = "INSERT INTO v_inventario(fecha, hora, id_articulo, cantidad) VALUES (?, ?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
         op.pasarParametro(obtenerId());
         op.pasarParametro(cantidad);
+        op.ejecutar();
+
+        /* Actualizar cantidad de unidades disponibles de un artículo en v_articulos */
+        query = "UPDATE v_articulo SET cantidad = ? WHERE id_articulo = ?";
+        op.pasarParametro(this.cantidad + cantidad);
+        op.pasarParametro(obtenerId());
         op.ejecutar();
     }
 }

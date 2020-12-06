@@ -66,9 +66,8 @@ public class Venta implements Entidad
             op.pasarParametro(a.getSubTotal());
             op.ejecutar();
 
-            a.getArticulo().agregarStock(a.getCantidad(), fechaHora);
-
-            /* PENDIENTE: modificar la cantidad de un artículo en v_articulos */
+            /* Se registra la salida del articulo en v_inventario y se actualiza la cantidad disponible */
+            a.getArticulo().agregarStock(a.getCantidad() * -1, fechaHora);
         }
 
     }
