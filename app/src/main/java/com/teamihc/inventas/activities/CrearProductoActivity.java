@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 
 import com.teamihc.inventas.R;
@@ -30,6 +31,22 @@ public class CrearProductoActivity extends AppCompatActivity
     
     public void salvarDatos(View view)
     {
-        //Articulo articulo = new Articulo();
+        TextView descripcionProd = (TextView)findViewById(R.id.descripcionProd);
+        TextView costo = (TextView)findViewById(R.id.costo);
+        TextView precio = (TextView)findViewById(R.id.precio);
+        TextView codigo = (TextView)findViewById(R.id.codigo);
+
+        Articulo articulo = new Articulo(
+                descripcionProd.getText().toString(),
+                Float.parseFloat(costo.getText().toString()),
+                Float.parseFloat(precio.getText().toString()),
+                costo.getText().toString(),
+                0,
+                null
+        );
+
+        articulo.addToInventory();
+
+        finish();
     }
 }
