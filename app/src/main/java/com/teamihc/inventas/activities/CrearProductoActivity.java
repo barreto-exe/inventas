@@ -10,6 +10,7 @@ import android.view.View;
 
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Articulo;
 
 public class CrearProductoActivity extends AppCompatActivity
 {
@@ -29,6 +30,6 @@ public class CrearProductoActivity extends AppCompatActivity
     
     public void salvarDatos(View view)
     {
-    
+        //Articulo articulo = new Articulo();
     }
 }

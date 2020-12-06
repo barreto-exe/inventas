@@ -33,7 +33,7 @@ public class InventarioFragment extends Fragment
     {
         View view=inflater.inflate(R.layout.fragment_inventario, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.productos_inventarioRV);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         listaArticulos = new ArrayList<Articulo>();
 
@@ -43,6 +43,9 @@ public class InventarioFragment extends Fragment
         return view;
         
     }
+
+    //como actualizar la lista??
+    //Como validar???
     public void cargarLista(){
 
         String query = "SELECT * FROM v_articulos";
@@ -50,16 +53,17 @@ public class InventarioFragment extends Fragment
         //parametros
         DBMatriz resultado = op.consultar();
 
-        do{
+        while(resultado.leer()){
             Articulo articulo = new Articulo(
                     (String)resultado.getValor("descripcion"),
                     (Float) resultado.getValor("costo_unitario"),
                     (Float)resultado.getValor("precio_venta"),
-                    (String)resultado.getValor("id_articulo"),
+                    //(String)resultado.getValor("codigo"),
+                    "0000",
                     (Integer)resultado.getValor("cantidad"),
                     null);
             listaArticulos.add(articulo);
-        }while(resultado.leer());
+        }
 
     }
 
