@@ -32,4 +32,6 @@
     <string name="costodolares">costoDolares</string>
     <string name="preciodolares">precioDolares</string>
     <string name="precio_en_bss">Precio en BsS</string>
+    <string name="_1">1</string>
+    <string name="todo">TODO</string>
 </resources>
