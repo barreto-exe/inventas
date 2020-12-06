@@ -1,10 +1,16 @@
 package com.teamihc.inventas.backend.entidades;
 
 
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.function.DoubleBinaryOperator;
 
 public class Articulo implements Entidad
 {
@@ -99,7 +105,7 @@ public class Articulo implements Entidad
     public int obtenerId()
     {
         String query =
-                "SELECT id FROM v_articulos WHERE" +
+                "SELECT id_articulo FROM v_articulos WHERE " +
                 "descripcion = ? " +
                 "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
@@ -110,11 +116,36 @@ public class Articulo implements Entidad
         int id = -1;
         if(resultado.leer())
         {
-            id = (int) resultado.getValor("id_venta");
+            id = (int) resultado.getValor("id_articulo");
         }
         return id;
     }
-
+    
+    /**
+     * Obtiene una instancia del artículo que corresponda a la descripción indicada.
+     * @param descripcion del artículo.
+     * @return instancia del artículo de tipo Articulo
+     */
+    public static Articulo obtenerInstancia(@NotNull String descripcion)
+    {
+        String query = "SELECT * FROM v_articulos WHERE descripcion = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(descripcion.trim());
+        
+        DBMatriz resultado = op.consultar();
+        if(resultado.leer())
+        {
+            float costo   = (float) resultado.getValor("costo_unitario");
+            float precio  = (float) resultado.getValor("precio_venta");
+            int cantidad  = (int) resultado.getValor("cantidad");
+            String codigo = (String) resultado.getValor("codigo");
+    
+            return new Articulo(descripcion, costo, precio, cantidad, codigo );
+        }
+        
+        return null;
+    }
+    
     public static void cargarInventarioEnLista(ArrayList<Articulo> listaArticulos){
         String query = "SELECT * FROM v_articulos ORDER BY descripcion ASC";
         DBOperacion op = new DBOperacion(query);
@@ -130,5 +161,51 @@ public class Articulo implements Entidad
                     (String) resultado.getValor("codigo"));
             listaArticulos.add(articulo);
         }
+    }
+    
+    /**
+     * Ingresa un nuevo movimiento en v_inventario y actualiza el total del stock (cantidad) en
+     * v_artículos.
+     * @param cantidad sumada o restada del stock.
+     * @param fechaHora en la que se realizó el movimiento.
+     */
+    public void agregarStock(int cantidad, Date fechaHora)
+    {
+        /* Registrar stock en v_inventario */
+        String query = "INSERT INTO v_inventario(fecha, hora, id_articulo, cantidad) VALUES (?, ?, ?, ?)";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.pasarParametro(obtenerId());
+        op.pasarParametro(cantidad);
+        op.ejecutar();
+
+        /* Actualizar cantidad de unidades disponibles de un artículo en v_articulos */
+        query = "UPDATE v_articulo SET cantidad = ? WHERE id_articulo = ?";
+        op.setQuery(query);
+        op.pasarParametro(this.cantidad + cantidad);
+        op.pasarParametro(obtenerId());
+        op.ejecutar();
+    }
+    
+    /**
+     * Consulta el stock del artículo.
+     * @return la cantidad de unidades, o -1 si el artículo no está registrado en la BBDD
+     */
+    public int cantidadStock()
+    {
+        int id = obtenerId();
+        if(id == -1)
+        {
+            return -1;
+        }
+        
+        String query = "SELECT cantidad FROM v_articulos WHERE id = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        DBMatriz resultado = op.consultar();
+        resultado.leer();
+        
+        return (int) resultado.getValor("cantidad");
     }
 }

@@ -37,6 +37,7 @@ public class Venta implements Entidad
     public void setTasa(Tasa tasa){ this.tasa = tasa; }
     public Date getFechaHora(){ return fechaHora; }
     public void setFechaHora(Date fechaHora){ this.fechaHora = fechaHora; }
+    public Carrito getCarrito() { return carrito; }
     //</editor-fold>
     
     @Override
@@ -55,8 +56,6 @@ public class Venta implements Entidad
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
         op.ejecutar();
 
-        /* PENDIENTE: extraer el id_venta de la base de datos */
-
         for (ArticuloPxQ a : carrito.getCarrito())
         {
             /* Se registran los detalles de venta de cada artículo vendido en la tabla v_detalles_ventas */
@@ -68,9 +67,8 @@ public class Venta implements Entidad
             op.pasarParametro(a.getSubTotal());
             op.ejecutar();
 
-            /* PENDIENTE: preguntar si las ventas se reflejan en el inventario de forma negativa */
-
-            /* PENDIENTE: modificar la cantidad de un artículo en v_articulos */
+            /* Se registra la salida del articulo en v_inventario y se actualiza la cantidad disponible */
+            a.getArticulo().agregarStock(a.getCantidad() * -1, fechaHora);
         }
 
     }
@@ -79,9 +77,9 @@ public class Venta implements Entidad
     public int obtenerId()
     {
         String query =
-                "SELECT id FROM v_ventas WHERE" +
+                "SELECT id_venta FROM v_ventas WHERE " +
                 "fecha = ? " +
-                "AND hora = ?" +
+                "AND hora = ? " +
                 "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
