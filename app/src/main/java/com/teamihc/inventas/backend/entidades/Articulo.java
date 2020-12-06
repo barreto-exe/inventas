@@ -29,7 +29,7 @@ public class Articulo implements Entidad
      */
     public Articulo(String descripcion, float costo, float precio, int cantidad, String codigo)
     {
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.trim();
         this.costo = costo;
         this.precio = precio;
         this.cantidad = cantidad;
@@ -82,13 +82,37 @@ public class Articulo implements Entidad
     @Override
     public void registrar()
     {
-    
+        String query =
+                "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo) " +
+                "VALUES (?,?,?,?,?);";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(descripcion);
+        op.pasarParametro(costo);
+        op.pasarParametro(precio);
+        op.pasarParametro(cantidad);
+        op.pasarParametro(codigo);
+        
+        op.ejecutar();
     }
     
     @Override
     public int obtenerId()
     {
-        return 0;
+        String query =
+                "SELECT id FROM v_articulos WHERE" +
+                "descripcion = ? " +
+                "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(descripcion);
+        
+        DBMatriz resultado = op.consultar();
+        
+        int id = -1;
+        if(resultado.leer())
+        {
+            id = (int) resultado.getValor("id_venta");
+        }
+        return id;
     }
 
     public static void cargarInventarioEnLista(ArrayList<Articulo> listaArticulos){
