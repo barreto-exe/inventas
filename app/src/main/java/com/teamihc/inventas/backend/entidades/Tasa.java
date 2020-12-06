@@ -63,9 +63,9 @@ public class Tasa implements Entidad
     public int obtenerId()
     {
         String query =
-                "SELECT id FROM v_tasas WHERE" +
+                "SELECT id_tasa FROM v_tasas WHERE " +
                 "fecha = ? " +
-                "AND hora = ?" +
+                "AND hora = ? " +
                 "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));

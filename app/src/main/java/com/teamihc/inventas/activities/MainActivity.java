@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
     public void addCarrito(View view)
     {
         Articulo a1, a2, a3;
-        a1 = (new Articulo("leche de soya", 0.75f, 1, 12, null));
+        a1 = new Articulo("leche de soya", 0.75f, 1, 12, null);
         a2 = new Articulo("almendras", 0.3f, 0.7f, 30, null);
         a3 = new Articulo("pan integral", 0.6f, 0.95f, 8, "12345");
 

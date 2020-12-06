@@ -77,9 +77,9 @@ public class Venta implements Entidad
     public int obtenerId()
     {
         String query =
-                "SELECT id FROM v_ventas WHERE" +
+                "SELECT id_venta FROM v_ventas WHERE " +
                 "fecha = ? " +
-                "AND hora = ?" +
+                "AND hora = ? " +
                 "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));

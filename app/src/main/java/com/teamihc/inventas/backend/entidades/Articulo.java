@@ -102,7 +102,7 @@ public class Articulo implements Entidad
     public int obtenerId()
     {
         String query =
-                "SELECT id FROM v_articulos WHERE" +
+                "SELECT id_articulo FROM v_articulos WHERE " +
                 "descripcion = ? " +
                 "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
@@ -113,7 +113,7 @@ public class Articulo implements Entidad
         int id = -1;
         if(resultado.leer())
         {
-            id = (int) resultado.getValor("id_venta");
+            id = (int) resultado.getValor("id_articulo");
         }
         return id;
     }
@@ -148,6 +148,7 @@ public class Articulo implements Entidad
 
         /* Actualizar cantidad de unidades disponibles de un artículo en v_articulos */
         query = "UPDATE v_articulo SET cantidad = ? WHERE id_articulo = ?";
+        op.setQuery(query);
         op.pasarParametro(this.cantidad + cantidad);
         op.pasarParametro(obtenerId());
         op.ejecutar();
