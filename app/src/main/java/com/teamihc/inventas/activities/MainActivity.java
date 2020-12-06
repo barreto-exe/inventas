@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.teamihc.inventas.BuildConfig;
+import com.teamihc.inventas.backend.Herramientas;
+import com.teamihc.inventas.backend.Tasa;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.fragments.EstadisticasFragment;
@@ -36,6 +38,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
+import java.sql.Date;
+import java.time.Instant;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        copyFileOrDir("database");
+        DBOperacion.verificarBaseDatos(getAssets());
         
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.top_bar);
@@ -61,11 +66,9 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         dialog = new Dialog(this);
         
-        
-        ejemploBBDD();
     }
     
-    public void ejemploBBDD()
+    private void ejemploBBDD()
     {
         //Cómo hacer un select
         String query = "SELECT * FROM v_tasas WHERE fecha = ? ORDER BY fecha DESC LIMIT 1";
@@ -83,14 +86,14 @@ public class MainActivity extends AppCompatActivity
         while (resultado.leer())
         {
             //Castear el valor de cada registro en la columnda cambio_dolar
-            float cambioDolar = (float) resultado.getValor("cambio_dolar");
+            float cambioDolar = (float) resultado.getValor("monto");
             
             Log.println(Log.INFO, "Hola", String.valueOf(cambioDolar));
         }
     
         //********************************************************************************
         //Como hacer un insert o update
-        query = "INSERT INTO v_tasas(cambio_dolar, fecha, hora) VALUES (1, 10.0, '2020-10-10', '14:00:00')";
+        query = "INSERT INTO v_tasas(monto, fecha, hora) VALUES (10.0, '2020-10-10', '14:00:00')";
         op = new DBOperacion(query);
         op.ejecutar();
     }
@@ -189,73 +192,4 @@ public class MainActivity extends AppCompatActivity
         }
     };
     
-    /**
-     * Copia una carpeta o archivo a la carpeta /data/data/com.proyecto, tomando como origen la
-     * carpeta assets.
-     *
-     * @param path es la ruta que en /assets a copiar.
-     */
-    private void copyFileOrDir(String path)
-    {
-        AssetManager assetManager = this.getAssets();
-        String assets[] = null;
-        try
-        {
-            assets = assetManager.list(path);
-            if (assets.length == 0)
-            {
-                copyFile(path);
-            } else
-            {
-                String fullPath = "/data/data/" + this.getPackageName() + "/" + path;
-                File dir = new File(fullPath);
-                if (!dir.exists())
-                    dir.mkdir();
-                for (int i = 0; i < assets.length; ++i)
-                {
-                    copyFileOrDir(path + "/" + assets[i]);
-                }
-            }
-        }
-        catch (IOException ex)
-        {
-            Log.e("tag", "I/O Exception", ex);
-        }
-    }
-    private void copyFile(String filename)
-    {
-        AssetManager assetManager = this.getAssets();
-        
-        InputStream in = null;
-        OutputStream out = null;
-        try
-        {
-            String newFileName = "/data/data/" + this.getPackageName() + "/" + filename;
-            
-            if(new File(newFileName).exists())
-            {
-                return;
-            }
-            
-            in = assetManager.open(filename);
-            out = new FileOutputStream(newFileName);
-            
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1)
-            {
-                out.write(buffer, 0, read);
-            }
-            in.close();
-            in = null;
-            out.flush();
-            out.close();
-            out = null;
-        }
-        catch (Exception e)
-        {
-            Log.e("tag", e.getMessage());
-        }
-        
-    }
 }
