@@ -44,6 +44,16 @@ public class InventarioFragment extends Fragment
         return view;
     }
     
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        
+        //Refrescar inventario al volver al fragment
+        cargarLista();
+        mostrarDatos();
+    }
+    
     //como actualizar la lista??
     //Como validar???
     public void cargarLista()
