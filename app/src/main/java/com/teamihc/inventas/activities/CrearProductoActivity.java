@@ -14,7 +14,7 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
 public class CrearProductoActivity extends AppCompatActivity
-{
+{//RECUERDA QUE ESTÁN LOS DOS BOTONES DE "aumentar" y "reducir" para poder actualizar el valor que aparece
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,14 +28,14 @@ public class CrearProductoActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
-    
+
     public void salvarDatos(View view)
     {
         TextView descripcionProd = (TextView)findViewById(R.id.descripcionProd);
         TextView costo = (TextView)findViewById(R.id.costo);
         TextView precio = (TextView)findViewById(R.id.precio);
         TextView codigo = (TextView)findViewById(R.id.codigo);
-
+        TextView cantidad = (TextView)findViewById(R.id.cantidad);  //Esta es el nuevo componente que se añadió
         Articulo articulo = new Articulo(
                 descripcionProd.getText().toString(),
                 Float.parseFloat(costo.getText().toString()),
