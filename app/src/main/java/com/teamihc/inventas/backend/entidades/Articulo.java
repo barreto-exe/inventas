@@ -182,6 +182,7 @@ public class Articulo implements Entidad
 
         /* Actualizar cantidad de unidades disponibles de un artículo en v_articulos */
         query = "UPDATE v_articulo SET cantidad = ? WHERE id_articulo = ?";
+        op.setQuery(query);
         op.pasarParametro(this.cantidad + cantidad);
         op.pasarParametro(obtenerId());
         op.ejecutar();

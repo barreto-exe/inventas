@@ -37,6 +37,7 @@ public class Venta implements Entidad
     public void setTasa(Tasa tasa){ this.tasa = tasa; }
     public Date getFechaHora(){ return fechaHora; }
     public void setFechaHora(Date fechaHora){ this.fechaHora = fechaHora; }
+    public Carrito getCarrito() { return carrito; }
     //</editor-fold>
     
     @Override
