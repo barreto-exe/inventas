@@ -1,5 +1,6 @@
 package com.teamihc.inventas.backend.entidades;
 
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +27,6 @@ public class Venta implements Entidad
      */
     public Venta(Tasa tasa, Date fechaHora)
     {
-        this.total = total;
         this.tasa = tasa;
         this.fechaHora = fechaHora;
         carrito = new Carrito();

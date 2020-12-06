@@ -1,5 +1,6 @@
 package com.teamihc.inventas.backend.entidades;
 
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
