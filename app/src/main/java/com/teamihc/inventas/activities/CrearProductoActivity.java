@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
 public class CrearProductoActivity extends AppCompatActivity
@@ -34,21 +33,21 @@ public class CrearProductoActivity extends AppCompatActivity
     
     public void salvarDatos(View view)
     {
-        TextView descripcionProd = (TextView) findViewById(R.id.descripcionProd);
-        TextView costo = (TextView) findViewById(R.id.costo);
-        TextView precio = (TextView) findViewById(R.id.precio);
-        TextView codigo = (TextView) findViewById(R.id.codigo);
-        TextView cantidad = (TextView) findViewById(R.id.cantidad);  //Esta es el nuevo componente que se añadió
+        TextView descripcionProdView = (TextView) findViewById(R.id.descripcionProd);
+        TextView costoView = (TextView) findViewById(R.id.costo);
+        TextView precioView = (TextView) findViewById(R.id.precio);
+        TextView codigoView = (TextView) findViewById(R.id.codigo);
+        TextView cantidadView = (TextView) findViewById(R.id.cantidad);  //Esta es el nuevo componente que se añadió
+    
+        //Hay que validar los datos ingresados en los campos de texto!!!!!
+        //Porque da error si se dejan en blanco o tienen mal formato
+        String descripcion = descripcionProdView.getText().toString();
+        float costo   = Float.parseFloat(costoView.getText().toString());
+        float precio  = Float.parseFloat(precioView.getText().toString());
+        int cantidad  = Integer.parseInt(cantidadView.getText().toString());
+        String codigo = codigoView.getText().toString();
         
-        Articulo articulo = new Articulo(
-                descripcionProd.getText().toString(),
-                Float.parseFloat(costo.getText().toString()),
-                Float.parseFloat(precio.getText().toString()),
-                Integer.parseInt(cantidad.getText().toString()),
-                codigo.getText().toString()
-        );
-        
-        articulo.registrar();
+        new Articulo(descripcion, costo, precio, cantidad, codigo ).registrar();
         
         finish();
     }
