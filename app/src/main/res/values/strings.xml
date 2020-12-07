@@ -15,6 +15,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="aqui_se_a_aden_productos_al_carrito">aqui se añaden productos al carrito</string>
     <string name="tasas">Tasas</string>
+    <string name="tasa_del_dia">Tasa del día</string>
+    <string name="tasa_anterior">Tasa anterior</string>
     <string name="historial_de_cambios">Historial de cambios</string>
     <string name="c_digo">Código</string>
     <string name="precio_bss">Precio Bs.S:</string>

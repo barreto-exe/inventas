@@ -7,6 +7,7 @@ import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Tasa implements Entidad
@@ -120,7 +121,11 @@ public class Tasa implements Entidad
                     (String) resultado.getValor("fecha"),
                     (String) resultado.getValor("hora")
             );
-            lista.add(tasa);
+            
+            if(tasa.monto > 1)
+            {
+                lista.add(tasa);
+            }
         }
     }
     
@@ -141,24 +146,8 @@ public class Tasa implements Entidad
                     (String) resultado.getValor("hora")
             );
         }
+        
         return null;
-    }
-    
-    /**
-     * Compara el porcentaje de cambio con respecto a la tasa registrada anterior.
-     * @return
-     */
-    public float getPorcentajeCambio()
-    {
-        try
-        {
-            Tasa tasaAnterior = getTasaAnterior();
-            return (tasaAnterior.monto - this.monto) / tasaAnterior.monto * 100;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-        }
     }
     
     /**
@@ -180,6 +169,33 @@ public class Tasa implements Entidad
                     (String) resultado.getValor("hora")
             );
         }
+        
         return null;
+    }
+    
+    /**
+     * Compara el porcentaje de cambio con respecto a la tasa registrada anterior.
+     * @return
+     */
+    public float getPorcentajeCambio()
+    {
+        try
+        {
+            Tasa tasaAnterior = getTasaAnterior();
+            return (this.monto - tasaAnterior.monto) / tasaAnterior.monto * 100;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Tasa{" +
+                "monto=" + monto +
+                ", fechaHora=" + fechaHora +
+                '}';
     }
 }

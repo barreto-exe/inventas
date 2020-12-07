@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity
                     Tasa t = new Tasa(Float.parseFloat(tasa.getText().toString()), Calendar.getInstance().getTime());
                     t.registrar();
                     Toast.makeText(MainActivity.this, "Tasa aceptada", Toast.LENGTH_SHORT).show();
+                    getFragmentManager().beginTransaction().replace(R.id.layout_principal, new TasasFragment()).commit();
                 }
             }
         });

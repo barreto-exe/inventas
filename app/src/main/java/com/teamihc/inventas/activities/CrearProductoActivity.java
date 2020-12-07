@@ -109,9 +109,10 @@ public class CrearProductoActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-                float precioBs = Float.parseFloat(precioView.getText().toString());
+                float precioBs = 0;
                 try
                 {
+                    precioBs = Float.parseFloat(precioView.getText().toString());
                     precioBs *= Tasa.obtenerTasa().getMonto();
                 }
                 catch (Exception ex)
