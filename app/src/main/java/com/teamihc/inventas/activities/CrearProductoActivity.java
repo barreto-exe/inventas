@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.fragments.ConfirmarEliminacionDialogFragment;
 import com.teamihc.inventas.fragments.SobreescribirDialogFragment;
 
@@ -84,6 +87,42 @@ public class CrearProductoActivity extends AppCompatActivity
         }
         
         descripcion_original = ((TextView) findViewById(R.id.descripcionProd)).getText().toString();
+    
+        agregarListeners();
+    }
+    
+    private void agregarListeners()
+    {
+        //Actualizar equivalencia Dolar/Bs
+        precioView.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+            
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+            
+            }
+        
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                float precio = 0;
+                try
+                {
+                    precio = Float.parseFloat(precioView.getText().toString());
+                    precio *= Tasa.obtenerTasa().getMonto();
+                }
+                catch (Exception ex)
+                {
+                
+                }
+                precioBsView.setText(String.valueOf(precio));
+            }
+        });
     }
     
     private void llenarFormulario()
