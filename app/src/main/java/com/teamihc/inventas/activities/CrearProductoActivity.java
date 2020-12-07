@@ -46,7 +46,7 @@ public class CrearProductoActivity extends AppCompatActivity
         codigoView = (TextView) findViewById(R.id.codTxt);
         cantidadView = (TextView) findViewById(R.id.cantidad);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(" ");
+        getSupportActionBar().setTitle("");
         if (getSupportActionBar() != null)
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

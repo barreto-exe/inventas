@@ -33,4 +33,6 @@
     <string name="preciodolares">precioDolares</string>
     <string name="precio_en_bss">Precio en BsS</string>
     <string name="_1">1</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="unidades_disponibles">Unidades disponibles</string>
 </resources>

@@ -1,7 +1,10 @@
 package com.teamihc.inventas.views;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CrearProductoActivity;
+import com.teamihc.inventas.activities.ListaProductosVenta;
 import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
@@ -28,7 +32,9 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     //LayoutInflater inflater;
     private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
-    
+    Dialog dialog;
+
+
     //constructor, en este se le debe pasar tambien la lista por parametro
     public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos)
     {
@@ -63,12 +69,19 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     //Esto es para que se pueda editar la cantidad del stock, se complementa con setOnClick()
     @Override
     public void onClick(View v)
-    {
+    {   if (v.getContext() instanceof MainActivity){
         MainActivity mainActivity= ((MainActivity) v.getContext());
         TextView descripcion = (TextView)v.findViewById(R.id.descripcion);
         Intent intent = new Intent(mainActivity, CrearProductoActivity.class);
         intent.putExtra("descripcion", descripcion.getText().toString());
-        mainActivity.startActivity(intent);
+        mainActivity.startActivity(intent);}
+        else{
+       /* dialog.setContentView(R.layout.view_seleccionar_cantidad);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();*/
+        System.out.println("Seleccione cantidad de productos");
+    }
+
     }
 
     public class ListaProductosAdapter extends RecyclerView.ViewHolder

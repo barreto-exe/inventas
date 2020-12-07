@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     }
     
     //Llama a la pantalla de añadir venta
-    public void addCarrito(View view)
+/*    public void addCarrito(View view)
     {
         Articulo a1, a2, a3;
         a1 = new Articulo("leche de soya", 0.75f, 1, 12, null);
@@ -81,7 +81,15 @@ public class MainActivity extends AppCompatActivity
         v.registrar();
         Toast.makeText(MainActivity.this, "Venta registrada: " + v.getCarrito().obtenerTotal(), Toast.LENGTH_SHORT).show();
     }
-    
+    */
+
+    public void addCarrito(View view){
+        Intent intent = new Intent(MainActivity.this, ListaProductosVenta.class);
+        startActivity(intent);
+
+    }
+
+
     //Llama a la pantalla de añadir producto al inventario
     public void addProducto(View view)
     {

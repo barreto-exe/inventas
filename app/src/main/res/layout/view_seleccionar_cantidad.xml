@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/cantidad"
+                android:textColor="#434343"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/imagenProducto"
+                app:layout_constraintTop_toBottomOf="@+id/imagenProducto" />
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/mas"
+                android:layout_width="47dp"
+                android:layout_height="57dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="40dp"
+                android:clickable="true"
+                android:contentDescription="@string/todo"
+                android:focusable="true"
+                android:foreground="@drawable/add_black_24dp"
+                app:backgroundTint="@color/colorSecondary"
+                app:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/mas2"
+                android:layout_width="47dp"
+                android:layout_height="57dp"
+                android:layout_marginEnd="272dp"
+                android:layout_marginBottom="40dp"
+                android:clickable="true"
+                android:contentDescription="@string/todo"
+                android:focusable="true"
+                android:foreground="@drawable/remove_black_24dp"
+                app:backgroundTint="@color/colorSecondary"
+                app:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <EditText
+                android:id="@+id/cantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/amaranth_bold"
+                android:hint="@string/_1"
+                android:inputType="number"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/mas"
+                app:layout_constraintHorizontal_bias="0.52"
+                app:layout_constraintStart_toEndOf="@+id/mas2"
+                app:layout_constraintTop_toBottomOf="@+id/unidadesDispo"
+                android:autofillHints="" />
+
+            <ImageView
+                android:id="@+id/done"
+                android:layout_width="34dp"
+                android:layout_height="41dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="124dp"
+                android:contentDescription="@string/todo"
+                app:layout_constraintBottom_toTopOf="@+id/mas"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/done_black_24dp" />
+
+            <TextView
+                android:id="@+id/articulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="52dp"
+                android:layout_marginBottom="60dp"
+                android:fontFamily="@font/amaranth_bold"
+                android:text="@string/descripci_n"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintEnd_toStartOf="@+id/done" />
+
+            <TextView
+                android:id="@+id/unidadesDispo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/unidades_disponibles"
+                app:layout_constraintStart_toStartOf="@+id/articulo"
+                app:layout_constraintTop_toBottomOf="@+id/articulo" />
+
+            <ImageView
+                android:id="@+id/imagenProducto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/todo"
+                app:layout_constraintEnd_toStartOf="@+id/articulo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icono_con_fondo" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
