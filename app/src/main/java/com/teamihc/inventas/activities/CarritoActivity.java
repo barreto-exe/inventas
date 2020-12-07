@@ -14,17 +14,17 @@ import com.teamihc.inventas.R;
 
 public class CarritoActivity extends AppCompatActivity
 {
-    
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_carrito);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_carrito);
         setSupportActionBar(toolbar);
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.carrito_aceptar:
@@ -41,7 +41,7 @@ public class CarritoActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
 
         }
-    }
+    }*/
     
     public void add_carrito(View view)
     {

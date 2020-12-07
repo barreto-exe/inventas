@@ -6,17 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.CarritoActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_carrito"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        tools:ignore="MissingConstraints"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    <include
+        layout="@layout/carrito_bar"/>
 
-    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/producto"
