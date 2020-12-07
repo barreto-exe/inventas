@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
@@ -62,11 +64,13 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     @Override
     public void onClick(View v)
     {
-        ((MainActivity) v.getContext()).addProducto(v);
-        
+        MainActivity mainActivity= ((MainActivity) v.getContext());
+        TextView descripcion = (TextView)v.findViewById(R.id.descripcion);
+        Intent intent = new Intent(mainActivity, CrearProductoActivity.class);
+        intent.putExtra("descripcion", descripcion.getText().toString());
+        mainActivity.startActivity(intent);
     }
-    
-    //esto se queda así
+
     public class ListaProductosAdapter extends RecyclerView.ViewHolder
     {
         
