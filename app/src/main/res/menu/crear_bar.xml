@@ -7,6 +7,4 @@
         app:showAsAction="ifRoom|collapseActionView"
         android:title="@string/guardar"
         app:actionViewClass="android.widget.Button" />
-
-
 </menu>

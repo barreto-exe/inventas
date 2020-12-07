@@ -76,7 +76,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/porcentaje"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/icono_sin_fondo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
