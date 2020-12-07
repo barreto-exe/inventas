@@ -146,7 +146,7 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/wallows2"
+            android:background="@color/design_default_color_secondary_variant"
             android:contentDescription="@string/imagen_que_sube_el_usuario"
             android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
