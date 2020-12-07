@@ -3,7 +3,7 @@ package com.teamihc.inventas.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
+import android.app.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.top_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(" ");
+        //getSupportActionBar().setTitle(" ");
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new VentasFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.layout_principal, new VentasFragment()).commit();
         }
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 }
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.layout_principal, fragment).commit();
             return true;
         }
     };
