@@ -2,6 +2,8 @@ package com.teamihc.inventas.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +12,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
+
+import java.util.ArrayList;
 
 
 public class CarritoActivity extends AppCompatActivity
 {
     Toolbar toolbar;
+    ListaProductosRecyclerViewAdapter.ListaProductosAdapter listaProductosAdapter;
+    RecyclerView recyclerView;
+    private ArrayList<Articulo> listaArticulos;
+    ListaProductosRecyclerViewAdapter adapter;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -22,7 +33,32 @@ public class CarritoActivity extends AppCompatActivity
         setContentView(R.layout.activity_carrito);
         toolbar = (Toolbar) findViewById(R.id.toolbar_carrito);
         setSupportActionBar(toolbar);
+
+        recyclerView = (RecyclerView) findViewById(R.id.carrito_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+        recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
+
+        listaArticulos = new ArrayList<Articulo>();
+        cargarArticulos();
+        adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
+        recyclerView.setAdapter(adapter);
     }
+
+    private void cargarArticulos(){
+
+        if (getIntent().getExtras() == null) return;
+        Articulo articulo = Articulo.obtenerInstancia(getIntent().getExtras().getString("descripcion"));
+        listaArticulos.add(articulo);
+    }
+
+    /*@Override
+    public void onResume()
+    {
+        super.onResume();
+        Articulo articulo = Articulo.obtenerInstancia(getIntent().getExtras().getString("descripcion"));
+        listaArticulos.add(0, articulo);
+        adapter.notifyItemInserted(0);
+    }*/
 
     /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -45,7 +81,11 @@ public class CarritoActivity extends AppCompatActivity
     
     public void add_carrito(View view)
     {
-        //Intent intent = new Intent(this, AgregarArticuloActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ListaProductosVenta.class);
+        startActivity(intent);
+    }
+
+    public void mensaje(View view){
+        Toast.makeText(this, "Funciona", Toast.LENGTH_SHORT).show();
     }
 }
