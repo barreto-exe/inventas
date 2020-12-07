@@ -17,8 +17,8 @@
     <string name="tasas">Tasas</string>
     <string name="historial_de_cambios">Historial de cambios</string>
     <string name="c_digo">Código</string>
-    <string name="precio_bss">Precio BsS</string>
-    <string name="string_precio_bss" />
+    <string name="precio_bss">Precio Bs.S:</string>
+    <string name="equivalente">Equivalente</string>
     <string name="descripci_n">   Descripción</string>
     <string name="imagen_que_sube_el_usuario">Imagen que sube el usuario</string>
     <string name="guardar">GUARDAR</string>
@@ -27,7 +27,7 @@
     <string name="precio">"Precio"</string>
     <string name="precioD">Precio $</string>
     <string name="costoD">Costo $</string>
-    <string name="codigo">"Código"</string>
+    <string name="codigo_de_barras">"Código de barras"</string>
     <string name="cantidadstock">cantidadStock</string>
     <string name="costodolares">costoDolares</string>
     <string name="preciodolares">precioDolares</string>
