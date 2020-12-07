@@ -34,9 +34,8 @@ public class InventarioFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_inventario, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.productos_inventarioRV);
-        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
-        
+        recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
         listaArticulos = new ArrayList<Articulo>();
 
         Articulo.cargarInventarioEnLista(listaArticulos);

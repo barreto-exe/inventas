@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/view_infoTasa"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/infoTasa"
@@ -56,25 +56,22 @@
                 android:id="@+id/porcentaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="90dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/amaranth_bold"
                 android:text="porcentaje "
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.301" />
+                app:layout_constraintStart_toEndOf="@+id/cantidadTasa"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/cambio"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginBottom="45dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/porcentaje"
                 app:srcCompat="@drawable/ic_launcher_background" />
 

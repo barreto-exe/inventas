@@ -6,6 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.HistorialTasaActivity">
+    <include
+        android:id="@+id/historialToolbar"
+        layout="@layout/view_crear_bar"
+        android:theme="@style/Theme.InVentas"
+        />
 
 
     <TextView
