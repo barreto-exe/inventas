@@ -49,9 +49,9 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
         {
             super(itemView);
             cambio = itemView.findViewById(R.id.cambio);
-            tasa = itemView.findViewById(R.id.cantidadTasa);
-            porcentaje = itemView.findViewById(R.id.porcentaje);
-            fecha = itemView.findViewById(R.id.fecha);
+            tasa = itemView.findViewById(R.id.hora);
+            porcentaje = itemView.findViewById(R.id.ventaBsS);
+            fecha = itemView.findViewById(R.id.resumen);
         }
     }
 }
