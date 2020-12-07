@@ -8,10 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/icono_sin_fondo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.InVentas">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".activities.ListaProductosVenta"></activity>
         <activity android:name=".activities.HistorialTasaActivity" />
-        <activity android:name=".activities.AgregarArticuloActivity" />
         <activity
             android:name=".activities.CarritoActivity"
             android:parentActivityName=".activities.CarritoActivity" />

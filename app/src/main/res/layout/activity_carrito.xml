@@ -6,18 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activities.CarritoActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="289dp"
-        android:layout_height="92dp"
-        android:gravity="center_vertical"
-        android:text="@string/aqui_se_muestra_el_historial_de_venta_y_en_el_boton_se_a_ade_una_venta_nueva"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_carrito"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        tools:ignore="MissingConstraints"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/producto"
