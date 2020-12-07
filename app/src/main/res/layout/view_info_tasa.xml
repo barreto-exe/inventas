@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/hora"
+                android:id="@+id/cantidadTasa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -39,21 +39,21 @@
 
 
             <TextView
-                android:id="@+id/resumen"
+                android:id="@+id/fecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/amaranth"
                 android:text="fecha"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/hora"
+                app:layout_constraintEnd_toEndOf="@+id/cantidadTasa"
                 app:layout_constraintHorizontal_bias="0.091"
-                app:layout_constraintStart_toStartOf="@+id/hora"
-                app:layout_constraintTop_toBottomOf="@+id/hora" />
+                app:layout_constraintStart_toStartOf="@+id/cantidadTasa"
+                app:layout_constraintTop_toBottomOf="@+id/cantidadTasa" />
 
 
             <TextView
-                android:id="@+id/ventaBsS"
+                android:id="@+id/porcentaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -62,7 +62,7 @@
                 android:text="porcentaje "
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/hora"
+                app:layout_constraintStart_toEndOf="@+id/cantidadTasa"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -72,7 +72,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ventaBsS"
+                app:layout_constraintStart_toEndOf="@+id/porcentaje"
                 app:srcCompat="@drawable/icono_sin_fondo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
