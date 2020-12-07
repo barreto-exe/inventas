@@ -9,15 +9,33 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
+import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.backend.entidades.Tasa;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+/**
+ * @author Karen
+ */
 public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<HistorialTasaRecyclerViewAdapter.HistorialTasaAdapter>
 {
-    Context context;
-    
-    //List<> aqui se debe poner un lista de los cambios del dolar
+    private ArrayList<Tasa> listaTasas;
+
+    /**
+     * Crea una instancia de RecyclerView que contendrá una lista con el cambio de las tasas.
+     * @param listaTasas es la lista que contiene a cada una de las tasas registradas en el tiempo.
+     */
+    public HistorialTasaRecyclerViewAdapter(ArrayList<Tasa> listaTasas)
+    {
+        this.listaTasas = listaTasas;
+    }
+
     @NonNull
     @Override
     public HistorialTasaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -25,33 +43,43 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_tasa, parent, false);
         return new HistorialTasaAdapter(view);
     }
-    
+
     @Override
     public void onBindViewHolder(@NonNull HistorialTasaAdapter holder, int position)
     {
-        //Aqui de acuerdo a lo que se extraiga de una clase que contenga las cosas de las tasas se debe "vaciar" en lo que está en layout info_tasa
-        //holder.cambio.setImageResource(lista.get(position).);
+        holder.asignarDatos(listaTasas.get(position));
     }
-    
+
     @Override
     public int getItemCount()
     {
-        return 0;
+        return listaTasas.size();
     }
-    
-    //Aqui se deben pasar las cosas para que se rellenen los valores del cardView
+
     public class HistorialTasaAdapter extends RecyclerView.ViewHolder
     {
-        ImageView cambio;
-        TextView tasa, porcentaje, fecha;
-        
+        CardView cardView;
+
         public HistorialTasaAdapter(@NonNull View itemView)
         {
             super(itemView);
-            cambio = itemView.findViewById(R.id.cambio);
-            tasa = itemView.findViewById(R.id.cantidadTasa);
-            porcentaje = itemView.findViewById(R.id.porcentaje);
-            fecha = itemView.findViewById(R.id.fecha);
+            cardView = (CardView) itemView.findViewById(R.id.info_tasa);
+        }
+
+        public void asignarDatos(Tasa tasa)
+        {
+            ImageView imagenCambio = (ImageView) cardView.findViewById(R.id.cambio);
+            TextView monto = (TextView) cardView.findViewById(R.id.cantidadTasa);
+            TextView fecha = (TextView) cardView.findViewById(R.id.fecha);
+            TextView porcentaje = (TextView) cardView.findViewById(R.id.porcentaje);
+
+            String date = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(tasa.getFechaHora()) +
+                    " " + new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(tasa.getFechaHora());
+
+            //imagenCambio.setImageResource();
+            monto.setText(tasa.getMonto() + " Bs.S.");
+            fecha.setText(date);
+            porcentaje.setText("10%");
         }
     }
 }

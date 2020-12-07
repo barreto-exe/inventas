@@ -19,7 +19,7 @@ public class Tasa implements Entidad
     /**
      * Crea una instancia de una tasa, para poder añadir nuevas tasas a la Base de Datos.
      *
-     * @param monto es el precio de la tasa.
+     * @param monto     es el precio de la tasa.
      * @param fechaHora es la fecha y hora de registro de la tasa.
      */
     public Tasa(float monto, Date fechaHora)
@@ -28,19 +28,43 @@ public class Tasa implements Entidad
         this.fechaHora = fechaHora;
     }
     
+    /**
+     * Crea una instancia de una tasa, para poder añadir nuevas tasas a la Base de Datos.
+     *
+     * @param monto es el precio de la tasa.
+     * @param fecha en formato dd/MM/yyyy
+     * @param hora  en formato hh:mm:ss
+     */
+    public Tasa(float monto, String fecha, String hora)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try
+        {
+            this.fechaHora = sdf.parse(fecha + " " + hora);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        this.monto = monto;
+    }
+    
     //<editor-fold desc="Getters & Setters">
     public float getMonto()
     {
         return monto;
     }
+    
     public void setMonto(float monto)
     {
         this.monto = monto;
     }
+    
     public Date getFechaHora()
     {
         return fechaHora;
     }
+    
     public void setFechaHora(Date fechaHora)
     {
         this.fechaHora = fechaHora;
@@ -66,40 +90,54 @@ public class Tasa implements Entidad
     {
         String query =
                 "SELECT id_tasa FROM v_tasas WHERE " +
-                "fecha = ? " +
-                "AND hora = ? " +
-                "LIMIT 1";
+                        "fecha = ? " +
+                        "AND hora = ? " +
+                        "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
-    
+        
         DBMatriz resultado = op.consultar();
-    
+        
         int id = -1;
-        if(resultado.leer())
+        if (resultado.leer())
         {
             id = (int) resultado.getValor("id_tasa");
         }
         return id;
     }
-
-    public static void cargarHistoricoEnLista(ArrayList<Tasa> lista){
+    
+    public static void cargarHistoricoEnLista(ArrayList<Tasa> lista)
+    {
         String query = "SELECT * FROM v_tasas ORDER BY id_tasa DESC";
         DBOperacion op = new DBOperacion(query);
         DBMatriz resultado = op.consultar();
-
+        
         while (resultado.leer())
         {
-            String formato = (String) resultado.getValor("fecha") + " " + (String) resultado.getValor("hora");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-            try {
-                Tasa tasa = new Tasa((Float) resultado.getValor("monto"), sdf.parse(formato));
-                lista.add(tasa);
-
-            } catch (ParseException e) {
-                System.out.println(e.getMessage());
-            }
+            Tasa tasa = new Tasa(
+                    (Float) resultado.getValor("monto"),
+                    (String) resultado.getValor("fecha"),
+                    (String) resultado.getValor("hora")
+            );
+            lista.add(tasa);
         }
+    }
+    
+    /**
+     * @return la tasa del día.
+     */
+    public static Tasa obtenerTasa()
+    {
+        String query = "SELECT * FROM v_tasas ORDER BY id_tasa DESC LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
+        resultado.leer();
+    
+        return new Tasa(
+                (Float) resultado.getValor("monto"),
+                (String) resultado.getValor("fecha"),
+                (String) resultado.getValor("hora")
+        );
     }
 }

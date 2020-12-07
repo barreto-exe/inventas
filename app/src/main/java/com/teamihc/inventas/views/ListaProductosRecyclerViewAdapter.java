@@ -109,7 +109,7 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
             
             //imagenProd.setImageResource();
             descripcion.setText(articulo.getDescripcion());
-            precioBsS.setText("" + 0);
+            precioBsS.setText("" + articulo.getPrecioBs());
             cantidadStock.setText("" + articulo.getCantidad());
             costoD.setText("" + articulo.getCosto());
             precioD.setText("" + articulo.getPrecio());

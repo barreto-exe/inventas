@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
     
     public void openHistorico(View view)
     {
-        Intent intent = new Intent(MainActivity.this, CrearProductoActivity.class);
+        Intent intent = new Intent(MainActivity.this, HistorialTasaActivity.class);
         startActivity(intent);
     }
     

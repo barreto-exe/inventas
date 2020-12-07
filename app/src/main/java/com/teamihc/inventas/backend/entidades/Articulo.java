@@ -22,7 +22,6 @@ public class Articulo implements Entidad
     private String codigo;
     //</editor-fold>
     
-    
     /**
      * Crea una instancia de un artículo, para poder hacer las operaciones básicas en la Base de
      * Datos (CRUD). Nota: Para un nuevo producto, la cantidad se settea automaticamente en 0
@@ -83,6 +82,12 @@ public class Articulo implements Entidad
     {
         this.codigo = codigo;
     }
+    
+    public float getPrecioBs()
+    {
+        Tasa tasaDia = Tasa.obtenerTasa();
+        return precio * tasaDia.getMonto();
+    }
     //</editor-fold>
     
     @Override
@@ -90,7 +95,7 @@ public class Articulo implements Entidad
     {
         String query =
                 "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo) " +
-                "VALUES (?,?,?,?,?);";
+                        "VALUES (?,?,?,?,?);";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         op.pasarParametro(costo);
@@ -106,15 +111,15 @@ public class Articulo implements Entidad
     {
         String query =
                 "SELECT id_articulo FROM v_articulos WHERE " +
-                "descripcion = ? " +
-                "LIMIT 1";
+                        "descripcion = ? " +
+                        "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         
         DBMatriz resultado = op.consultar();
         
         int id = -1;
-        if(resultado.leer())
+        if (resultado.leer())
         {
             id = (int) resultado.getValor("id_articulo");
         }
@@ -123,6 +128,7 @@ public class Articulo implements Entidad
     
     /**
      * Obtiene una instancia del artículo que corresponda a la descripción indicada.
+     *
      * @param descripcion del artículo.
      * @return instancia del artículo de tipo Articulo
      */
@@ -133,24 +139,25 @@ public class Articulo implements Entidad
         op.pasarParametro(descripcion.trim());
         
         DBMatriz resultado = op.consultar();
-        if(resultado.leer())
+        if (resultado.leer())
         {
-            float costo   = (float) resultado.getValor("costo_unitario");
-            float precio  = (float) resultado.getValor("precio_venta");
-            int cantidad  = (int) resultado.getValor("cantidad");
+            float costo = (float) resultado.getValor("costo_unitario");
+            float precio = (float) resultado.getValor("precio_venta");
+            int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
-    
-            return new Articulo(descripcion, costo, precio, cantidad, codigo );
+            
+            return new Articulo(descripcion, costo, precio, cantidad, codigo);
         }
         
         return null;
     }
     
-    public static void cargarInventarioEnLista(ArrayList<Articulo> listaArticulos){
+    public static void cargarInventarioEnLista(ArrayList<Articulo> listaArticulos)
+    {
         String query = "SELECT * FROM v_articulos ORDER BY descripcion ASC";
         DBOperacion op = new DBOperacion(query);
         DBMatriz resultado = op.consultar();
-
+        
         while (resultado.leer())
         {
             Articulo articulo = new Articulo(
@@ -166,7 +173,8 @@ public class Articulo implements Entidad
     /**
      * Ingresa un nuevo movimiento en v_inventario y actualiza el total del stock (cantidad) en
      * v_artículos.
-     * @param cantidad sumada o restada del stock.
+     *
+     * @param cantidad  sumada o restada del stock.
      * @param fechaHora en la que se realizó el movimiento.
      */
     public void agregarStock(int cantidad, Date fechaHora)
@@ -183,12 +191,13 @@ public class Articulo implements Entidad
     
     /**
      * Consulta el stock del artículo.
+     *
      * @return la cantidad de unidades, o -1 si el artículo no está registrado en la BBDD
      */
     public int cantidadStock()
     {
         int id = obtenerId();
-        if(id == -1)
+        if (id == -1)
         {
             return -1;
         }
@@ -201,8 +210,9 @@ public class Articulo implements Entidad
         
         return (int) resultado.getValor("cantidad");
     }
-
-    public void actualizar(){
+    
+    public void actualizar()
+    {
         String query = "UPDATE v_articulos SET costo_unitario = ?, precio_venta = ?, cantidad = ?, codigo = ? WHERE descripcion = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(costo);
@@ -212,8 +222,9 @@ public class Articulo implements Entidad
         op.pasarParametro(descripcion);
         op.ejecutar();
     }
-
-    public void eliminar(){
+    
+    public void eliminar()
+    {
         String query = "DELETE FROM v_articulos WHERE descripcion = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
