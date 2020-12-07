@@ -132,13 +132,16 @@ public class Tasa implements Entidad
         String query = "SELECT * FROM v_tasas ORDER BY id_tasa DESC LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         DBMatriz resultado = op.consultar();
-        resultado.leer();
-    
-        return new Tasa(
-                (Float) resultado.getValor("monto"),
-                (String) resultado.getValor("fecha"),
-                (String) resultado.getValor("hora")
-        );
+        
+        if(resultado.leer())
+        {
+            return new Tasa(
+                    (Float) resultado.getValor("monto"),
+                    (String) resultado.getValor("fecha"),
+                    (String) resultado.getValor("hora")
+            );
+        }
+        return null;
     }
     
     /**

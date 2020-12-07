@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
@@ -110,17 +109,15 @@ public class CrearProductoActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s)
             {
-                float precio = 0;
+                float precioBs = Float.parseFloat(precioView.getText().toString());
                 try
                 {
-                    precio = Float.parseFloat(precioView.getText().toString());
-                    precio *= Tasa.obtenerTasa().getMonto();
+                    precioBs *= Tasa.obtenerTasa().getMonto();
                 }
                 catch (Exception ex)
                 {
-                
                 }
-                precioBsView.setText(String.valueOf(precio));
+                precioBsView.setText(String.valueOf(precioBs));
             }
         });
     }

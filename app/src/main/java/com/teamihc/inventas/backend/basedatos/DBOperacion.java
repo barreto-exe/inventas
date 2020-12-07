@@ -42,7 +42,7 @@ public class DBOperacion
      * La versión de la base de datos.
      * Este dato debe ser igual al que está en la tabla v_configuracion.
      */
-    private static final String VERSION_BD = "4";
+    private static final String VERSION_BD = "5";
     /**
      * Representa la ubicación del archivo SQLite con respecto al ejecutable del programa.
      */

@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.function.DoubleBinaryOperator;
 
@@ -86,7 +87,10 @@ public class Articulo implements Entidad
     public float getPrecioBs()
     {
         Tasa tasaDia = Tasa.obtenerTasa();
-        return precio * tasaDia.getMonto();
+        if(tasaDia != null)
+            return precio * tasaDia.getMonto();
+        else
+            return precio;
     }
     //</editor-fold>
     
@@ -104,6 +108,8 @@ public class Articulo implements Entidad
         op.pasarParametro(codigo);
         
         op.ejecutar();
+        
+        agregarStock(cantidad, Calendar.getInstance().getTime());
     }
     
     @Override
