@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
 
+
     android:foregroundTint="#FFFFFF"
     tools:context=".activities.CrearProductoActivity">
 
@@ -48,6 +49,7 @@
                 android:layout_marginTop="110dp"
                 android:ems="10"
                 android:hint="@string/codigo"
+                android:text=""
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="@+id/costo"
@@ -63,6 +65,7 @@
                 android:layout_marginTop="124dp"
                 android:ems="10"
                 android:hint="@string/costo"
+                android:text=""
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="@+id/descripcionProd"
@@ -76,6 +79,7 @@
                 android:layout_marginTop="50dp"
                 android:ems="10"
                 android:hint="@string/precio"
+                android:text=""
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="@+id/costo"
@@ -115,6 +119,7 @@
                 android:hint="@string/descripci_n_del_producto"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
+                android:text=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.51"
                 app:layout_constraintStart_toStartOf="parent"
@@ -207,6 +212,7 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/_1"
+                android:text=""
                 android:gravity="center"
                 android:inputType="number"
                 android:orientation="horizontal"
