@@ -7,22 +7,23 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fotoproducto_bttn"
+        android:id="@+id/addProductobttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="113dp"
-        android:background="@color/teal_200"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorSecondary"
         android:clickable="true"
         android:contentDescription="@string/todo"
         android:focusable="true"
         android:foregroundGravity="right|bottom"
-        android:onClick="addProducto"
-        app:backgroundTint="@color/teal_200"
+        android:onClick="openCrearProducto"
+        app:backgroundTint="@color/colorSecondary"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_black_48dp" />
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar5"
@@ -31,15 +32,17 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productos_inventarioRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar5"
         android:foregroundGravity="top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

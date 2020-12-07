@@ -1,6 +1,6 @@
 package com.teamihc.inventas.fragments;
 
-import androidx.fragment.app.Fragment;
+import android.app.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,8 @@ import com.teamihc.inventas.R;
 
 public class TasasFragment extends Fragment
 {
+
+    //aqui se vacia la info de la tasa actual y de la estadistica del cambio de tasas
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)

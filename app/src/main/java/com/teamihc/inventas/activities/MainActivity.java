@@ -3,7 +3,8 @@ package com.teamihc.inventas.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
+
+import android.app.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     // private View decorView ;
     private Toolbar toolbar;
     Dialog dialog;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,10 +47,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.top_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(" ");
+        //getSupportActionBar().setTitle(" ");
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new VentasFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.layout_principal, new VentasFragment()).commit();
         }
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -57,40 +58,26 @@ public class MainActivity extends AppCompatActivity
         
     }
     
-    //Llama a la pantalla de añadir venta
-    public void addCarrito(View view)
-    {
-        Articulo a1, a2, a3;
-        a1 = new Articulo("leche de soya", 0.75f, 1, 12, null);
-        a2 = new Articulo("almendras", 0.3f, 0.7f, 30, null);
-        a3 = new Articulo("pan integral", 0.6f, 0.95f, 8, "12345");
-
-        a1.registrar();
-        a2.registrar();
-        a3.registrar();
-
-        Tasa t = new Tasa(120, Calendar.getInstance().getTime());
-        t.registrar();
-
-        Venta v = new Venta(t , Calendar.getInstance().getTime());
-        v.getCarrito().agregarArticulo(a1, 2);
-        v.getCarrito().agregarArticulo(a2, 18);
-        v.getCarrito().agregarArticulo(a3, 3);
-        v.getCarrito().eliminarArticulo(a1);
-        v.getCarrito().eliminarArticulo(a2);
-        v.registrar();
-        Toast.makeText(MainActivity.this, "Venta registrada: " + v.getCarrito().obtenerTotal(), Toast.LENGTH_SHORT).show();
-    }
-    
-    //Llama a la pantalla de añadir producto al inventario
-    public void addProducto(View view)
+    public void openHistorico(View view)
     {
         Intent intent = new Intent(MainActivity.this, CrearProductoActivity.class);
         startActivity(intent);
     }
     
-    //Llama a la pantalla de cambiar la tasa de divisa
-    public void addTasa(View view)
+    public void openCarrito(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, ListaProductosVenta.class);
+        startActivity(intent);
+        Toast.makeText(MainActivity.this, "Falta hacer este módulo", Toast.LENGTH_SHORT).show();
+    }
+    
+    public void openCrearProducto(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, CrearProductoActivity.class);
+        startActivity(intent);
+    }
+    
+    public void openCambiarTasa(View view)
     {
         dialog.setContentView(R.layout.view_cambiar_tasa);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -134,7 +121,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }*/
     
-    //Es lo que hace que aparezcan las pantallas cuando son seleccionadas
+    /**
+     * Switch entre fragmets del bottom_bar en el main activity.
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener()
     {
         @Override
@@ -164,7 +153,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 }
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.layout_principal, fragment).commit();
             return true;
         }
     };

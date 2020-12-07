@@ -4,9 +4,8 @@
     android:id="@+id/crear_bar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/purple_200"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    >
-
+    android:background="@color/colorPrimary"
+    app:titleTextColor="@color/white"
+    android:theme="@style/Theme.MaterialComponents.DayNight">
 
 </androidx.appcompat.widget.Toolbar>

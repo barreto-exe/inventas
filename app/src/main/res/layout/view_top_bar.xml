@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/top_bar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@drawable/toolbar"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-
+    android:layout_height="64dp"
+    android:background="@color/colorPrimary"
+    android:theme="@style/Theme.MaterialComponents.DayNight">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@drawable/logo_toolbar" />
+    </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

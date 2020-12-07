@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <item android:id="@+id/nav_editar"
+        android:title="editar"
+        android:icon="@drawable/lapiz_blanco"
+        app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/guardar"
-        app:showAsAction="ifRoom|collapseActionView"
-        android:title="@string/guardar"
-        app:actionViewClass="android.widget.Button" />
-
-
+        android:id="@+id/nav_eliminar"
+        android:title="eliminar"
+        app:showAsAction="never"/>
 </menu>

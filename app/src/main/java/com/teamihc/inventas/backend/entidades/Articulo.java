@@ -179,13 +179,6 @@ public class Articulo implements Entidad
         op.pasarParametro(obtenerId());
         op.pasarParametro(cantidad);
         op.ejecutar();
-
-        /* Actualizar cantidad de unidades disponibles de un artículo en v_articulos */
-        query = "UPDATE v_articulo SET cantidad = ? WHERE id_articulo = ?";
-        op.setQuery(query);
-        op.pasarParametro(this.cantidad + cantidad);
-        op.pasarParametro(obtenerId());
-        op.ejecutar();
     }
     
     /**
@@ -207,5 +200,23 @@ public class Articulo implements Entidad
         resultado.leer();
         
         return (int) resultado.getValor("cantidad");
+    }
+
+    public void actualizar(){
+        String query = "UPDATE v_articulos SET costo_unitario = ?, precio_venta = ?, cantidad = ?, codigo = ? WHERE descripcion = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(costo);
+        op.pasarParametro(precio);
+        op.pasarParametro(cantidad);
+        op.pasarParametro(codigo);
+        op.pasarParametro(descripcion);
+        op.ejecutar();
+    }
+
+    public void eliminar(){
+        String query = "DELETE FROM v_articulos WHERE descripcion = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(descripcion);
+        op.ejecutar();
     }
 }

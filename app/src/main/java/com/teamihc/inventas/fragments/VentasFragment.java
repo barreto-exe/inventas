@@ -1,6 +1,6 @@
 package com.teamihc.inventas.fragments;
 
-import androidx.fragment.app.Fragment;
+import android.app.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
