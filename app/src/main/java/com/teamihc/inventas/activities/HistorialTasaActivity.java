@@ -38,6 +38,7 @@ public class HistorialTasaActivity extends AppCompatActivity
         }
         listaTasas = new ArrayList<Tasa>();
         Tasa.cargarHistoricoEnLista(listaTasas);
+        adapter = new HistorialTasaRecyclerViewAdapter(listaTasas);
         historico.setAdapter(adapter);
     }
 }
