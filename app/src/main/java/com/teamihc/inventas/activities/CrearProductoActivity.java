@@ -1,16 +1,10 @@
 package com.teamihc.inventas.activities;
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,8 +13,8 @@ import android.widget.Toast;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.views.ConfirmarEliminacionDialogFragment;
-import com.teamihc.inventas.views.SobreescribirDialogFragment;
+import com.teamihc.inventas.fragments.ConfirmarEliminacionDialogFragment;
+import com.teamihc.inventas.fragments.SobreescribirDialogFragment;
 
 import java.util.Date;
 
