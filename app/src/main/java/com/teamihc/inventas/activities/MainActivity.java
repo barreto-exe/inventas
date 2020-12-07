@@ -81,6 +81,13 @@ public class MainActivity extends AppCompatActivity
         v.registrar();
         Toast.makeText(MainActivity.this, "Venta registrada: " + v.getCarrito().obtenerTotal(), Toast.LENGTH_SHORT).show();
     }
+
+    //Llama a la pantalla de historico de tasas
+    public void verHistorico(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, CrearProductoActivity.class);
+        startActivity(intent);
+    }
     
     //Llama a la pantalla de añadir producto al inventario
     public void addProducto(View view)
