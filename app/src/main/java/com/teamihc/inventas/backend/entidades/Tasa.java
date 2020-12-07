@@ -59,8 +59,6 @@ public class Tasa implements Entidad
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
         op.ejecutar();
-
-        cargarHistoricoEnLista(new ArrayList<>());
     }
     
     @Override
@@ -98,8 +96,6 @@ public class Tasa implements Entidad
             try {
                 Tasa tasa = new Tasa((Float) resultado.getValor("monto"), sdf.parse(formato));
                 lista.add(tasa);
-                System.out.println(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(sdf.parse(formato)));
-                System.out.println(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(sdf.parse(formato)));
 
             } catch (ParseException e) {
                 System.out.println(e.getMessage());
