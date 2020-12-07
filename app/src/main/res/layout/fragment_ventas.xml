@@ -18,7 +18,7 @@
         android:focusable="true"
         android:foreground="@drawable/add_black_24dp"
         android:foregroundGravity="center"
-        android:onClick="addCarrito"
+        android:onClick="openCarrito"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

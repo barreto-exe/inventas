@@ -17,7 +17,7 @@
         android:contentDescription="@string/todo"
         android:focusable="true"
         android:foregroundGravity="right|bottom"
-        android:onClick="addProducto"
+        android:onClick="openCrearProducto"
         app:backgroundTint="@color/colorSecondary"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
