@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.ListaProductosVenta;
 import com.teamihc.inventas.activities.MainActivity;
@@ -69,20 +70,19 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     @Override
     public void onClick(View v)
     {
+        TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
+
         if (v.getContext() instanceof MainActivity)
         {
             MainActivity mainActivity = ((MainActivity) v.getContext());
-            TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
             Intent intent = new Intent(mainActivity, CrearProductoActivity.class);
             intent.putExtra("descripcion", descripcion.getText().toString());
             mainActivity.startActivity(intent);
-        }
-        else
-        {
-       /* dialog.setContentView(R.layout.view_seleccionar_cantidad);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();*/
-            System.out.println("Seleccione cantidad de productos");
+        } else{
+            ListaProductosVenta listaProductosVenta = ((ListaProductosVenta) v.getContext());
+            TextView bundle = listaProductosVenta.findViewById(R.id.carrito_descripcion_textView);
+            bundle.setText(descripcion.getText().toString());
+            listaProductosVenta.finish();
         }
         
     }

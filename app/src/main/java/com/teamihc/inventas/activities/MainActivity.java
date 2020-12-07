@@ -66,9 +66,8 @@ public class MainActivity extends AppCompatActivity
     
     public void openCarrito(View view)
     {
-        Intent intent = new Intent(MainActivity.this, ListaProductosVenta.class);
+        Intent intent = new Intent(MainActivity.this, CarritoActivity.class);
         startActivity(intent);
-        Toast.makeText(MainActivity.this, "Falta hacer este módulo", Toast.LENGTH_SHORT).show();
     }
     
     public void openCrearProducto(View view)
