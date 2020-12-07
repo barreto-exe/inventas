@@ -7,30 +7,36 @@
     tools:context=".activities.MainActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        >
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/nav_bar"
-        />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#3989D3"
-        app:itemTextColor="#FFFF"
-        app:menu="@menu/nav_bar"
-        />
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <include
+            android:id="@+id/inventas_logo"
             layout="@layout/view_top_bar"
             android:theme="@style/Theme.InVentas" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/inventas_logo"
+            android:layout_above="@id/nav_bar"
+            android:id="@+id/layout_principal">
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#3989D3"
+            app:itemTextColor="@drawable/bottom_navigation_selector"
+            app:itemIconTint="@drawable/bottom_navigation_selector"
+            app:menu="@menu/nav_bar" />
 
     </RelativeLayout>
 

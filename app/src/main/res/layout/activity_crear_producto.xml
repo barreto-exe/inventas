@@ -9,10 +9,114 @@
     android:orientation="vertical"
     tools:context=".activities.CrearProductoActivity">
 
-    <include
-        android:id="@+id/crearInclude"
-        layout="@layout/view_crear_bar"
-        android:theme="@style/Theme.InVentas" />
+    <FrameLayout
+        android:id="@+id/barra_azul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <include
+            android:id="@+id/menu_crear_producto"
+            layout="@layout/view_crear_bar"
+            android:theme="@style/Theme.InVentas" />
+
+        <Button
+            android:id="@+id/guardar_btn"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="GUARDAR"
+            android:fontFamily="sans-serif"
+            android:clickable="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:onClick="salvarDatos"
+            android:visibility="invisible"
+            android:backgroundTint="@color/colorSecondary"
+            tools:ignore="RtlCompat">
+
+        </Button>
+
+        <Button
+            android:id="@+id/editar_btn"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="EDITAR"
+            android:fontFamily="sans-serif"
+            android:clickable="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:onClick="permitirEdicion"
+            android:visibility="invisible"
+            android:backgroundTint="@color/colorSecondary"
+            tools:ignore="RtlCompat">
+
+        </Button>
+
+        <Button
+            android:id="@+id/cancelar_btn"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:text="CANCELAR"
+            android:fontFamily="sans-serif"
+            android:clickable="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="65dp"
+            android:onClick="bloquearEdicion"
+            android:visibility="invisible"
+            android:backgroundTint="@color/colorSecondary"
+            tools:ignore="RtlCompat">
+
+        </Button>
+
+        <Button
+            android:id="@+id/borrar_btn"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:text="BORRAR"
+            android:fontFamily="sans-serif"
+            android:clickable="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="65dp"
+            android:onClick="eliminarArticulo"
+            android:visibility="visible"
+            android:backgroundTint="#C60C28"
+            tools:ignore="RtlCompat">
+
+        </Button>
+
+        <Button
+            android:id="@+id/retroceder_btn"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:onClick="salir"
+            android:visibility="visible"
+            android:foreground="@drawable/arrow_back_24"
+            tools:ignore="RtlCompat">
+
+        </Button>
+    </FrameLayout>
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,14 +133,14 @@
         app:backgroundTint="@color/colorSecondary"
         app:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/crearInclude"
+        app:layout_constraintTop_toTopOf="@+id/barra_azul"
         app:srcCompat="@drawable/add_a_photo_black_24dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:layout_constraintTop_toBottomOf="@+id/crearInclude"
+        app:layout_constraintTop_toBottomOf="@+id/barra_azul"
         app:layout_editor_absoluteX="0dp"
         app:layout_editor_absoluteY="55dp">
 

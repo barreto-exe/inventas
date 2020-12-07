@@ -12,12 +12,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.views.ConfirmarEliminacionDialogFragment;
 import com.teamihc.inventas.views.SobreescribirDialogFragment;
 
 import java.util.Date;
@@ -32,28 +34,53 @@ public class CrearProductoActivity extends AppCompatActivity
     private  TextView precioView ;
     private TextView codigoView;
     private TextView cantidadView;
+    private Button guardar_btn;
+    private Button editar_btn;
+    private Button cancelar_btn;
+    private Button borrar_btn;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_producto);
-        toolbar = findViewById(R.id.crearInclude);
+        toolbar = findViewById(R.id.crear_bar);
 
         descripcionProdView = (TextView) findViewById(R.id.descripcionProd);
         costoView = (TextView) findViewById(R.id.costo);
         precioView = (TextView) findViewById(R.id.precio);
         codigoView = (TextView) findViewById(R.id.codTxt);
         cantidadView = (TextView) findViewById(R.id.cantidad);
-        setSupportActionBar(toolbar);
+        guardar_btn= (Button) findViewById(R.id.guardar_btn);
+        editar_btn= (Button) findViewById(R.id.editar_btn);
+        cancelar_btn= (Button) findViewById(R.id.cancelar_btn);
+        borrar_btn= (Button) findViewById(R.id.borrar_btn);
+
+        /*setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         if (getSupportActionBar() != null)
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        }*/
 
-        if (getIntent().getExtras() != null)
+        //si estamos en modo edicion
+        if (getIntent().getExtras() != null){
             llenarFormulario();
+
+            guardar_btn.setVisibility(TextView.INVISIBLE);
+            editar_btn.setVisibility(TextView.VISIBLE);
+            cancelar_btn.setVisibility(TextView.INVISIBLE);
+            borrar_btn.setVisibility(TextView.VISIBLE);
+            bloquearCampos();
+
+        //si estamos en modo creacion
+        }else{
+            guardar_btn.setVisibility(TextView.VISIBLE);
+            editar_btn.setVisibility(TextView.INVISIBLE);
+            cancelar_btn.setVisibility(TextView.VISIBLE);
+            borrar_btn.setVisibility(TextView.INVISIBLE);
+            desbloquearCampos();
+        }
 
         descripcion_original = ((TextView)findViewById(R.id.descripcionProd)).getText().toString();
     }
@@ -70,25 +97,24 @@ public class CrearProductoActivity extends AppCompatActivity
         cantidad_original = articulo.getCantidad();
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.crear_bar,menu);
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.guardar:{
-                salvarDatos();
+            case R.id.nav_eliminar:{
+                eliminarArticulo();
                 break;
             }
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public void actualizarArticulo(Articulo articulo, int cambio_stock){
         articulo.actualizar();
@@ -123,7 +149,39 @@ public class CrearProductoActivity extends AppCompatActivity
         return todoBien;
     }
 
-    public void salvarDatos()
+    private void bloquearCampos(){
+        descripcionProdView.setEnabled(false);
+        costoView.setEnabled(false);
+        precioView.setEnabled(false);
+        codigoView.setEnabled(false);
+        cantidadView.setEnabled(false);
+    }
+
+    private void desbloquearCampos(){
+        descripcionProdView.setEnabled(true);
+        costoView.setEnabled(true);
+        precioView.setEnabled(true);
+        codigoView.setEnabled(true);
+        cantidadView.setEnabled(true);
+    }
+
+    public void permitirEdicion(View view){
+        guardar_btn.setVisibility(TextView.VISIBLE);
+        editar_btn.setVisibility(TextView.INVISIBLE);
+        cancelar_btn.setVisibility(TextView.VISIBLE);
+        borrar_btn.setVisibility(TextView.INVISIBLE);
+        desbloquearCampos();
+    }
+
+    public void bloquearEdicion(View view){
+        guardar_btn.setVisibility(TextView.INVISIBLE);
+        editar_btn.setVisibility(TextView.VISIBLE);
+        cancelar_btn.setVisibility(TextView.INVISIBLE);
+        borrar_btn.setVisibility(TextView.VISIBLE);
+        bloquearCampos();
+    }
+
+    public void salvarDatos(View view)
     {
         if (!validarDatos()){
             Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
@@ -146,6 +204,7 @@ public class CrearProductoActivity extends AppCompatActivity
                 //es un articulo nuevo?
                 if (descripcion_original.equals("")){
                     articulo.registrar();
+                    Toast.makeText(getApplicationContext(), "Articulo registrado con exito", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
                     //Si se cambia la descripcion, eliminar articulo y registrar uno nuevo
@@ -162,5 +221,14 @@ public class CrearProductoActivity extends AppCompatActivity
             //estamos en modo edicion, actualizar
             actualizarArticulo(articulo, cambio_stock);
         }
+    }
+
+    public void eliminarArticulo(View view){
+        Articulo articulo = Articulo.obtenerInstancia(descripcion_original);
+        new ConfirmarEliminacionDialogFragment(this, articulo).show(getSupportFragmentManager(), null);
+    }
+
+    public void salir(View view){
+        finish();
     }
 }

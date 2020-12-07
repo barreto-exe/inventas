@@ -4,7 +4,9 @@ import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Tasa implements Entidad
@@ -79,5 +81,25 @@ public class Tasa implements Entidad
             id = (int) resultado.getValor("id_tasa");
         }
         return id;
+    }
+
+    public static void cargarHistoricoEnLista(ArrayList<Tasa> lista){
+        String query = "SELECT * FROM v_tasas ORDER BY id_tasa DESC";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            String formato = (String) resultado.getValor("fecha") + " " + (String) resultado.getValor("hora");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+            try {
+                Tasa tasa = new Tasa((Float) resultado.getValor("monto"), sdf.parse(formato));
+                lista.add(tasa);
+
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
