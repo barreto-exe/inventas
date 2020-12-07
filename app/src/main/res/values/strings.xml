@@ -35,4 +35,9 @@
     <string name="_1">1</string>
     <string name="cantidad">Cantidad</string>
     <string name="unidades_disponibles">Unidades disponibles</string>
+    <string name="venta_dolares">venta dolares</string>
+    <string name="factura">factura</string>
+    <string name="hora">Hora</string>
+    <string name="venta_en_bolivares">venta en bolivares</string>
+    <string name="resumen_factura">resumen factura</string>
 </resources>
