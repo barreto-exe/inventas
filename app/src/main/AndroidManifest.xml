@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icono"
+        android:icon="@drawable/icono_con_fondo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icono_sin_fondo"
         android:supportsRtl="true"
         android:theme="@style/Theme.InVentas">
         <activity android:name="com.teamihc.inventas.activities.HistorialTasaActivity"></activity>

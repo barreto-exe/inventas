@@ -25,17 +25,17 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
         android:layout_marginBottom="113dp"
-        android:background="@color/teal_200"
+        android:background="@color/colorSecondary"
         android:clickable="true"
         android:contentDescription="@string/todo"
         android:focusable="true"
-        android:foregroundGravity="right|bottom"
+        android:foreground="@drawable/add_black_24dp"
+        android:foregroundGravity="center"
         android:onClick="add_carrito"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="@color/colorSecondary"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_black_48dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -72,8 +72,18 @@ public class CrearProductoActivity extends AppCompatActivity
         int cantidad  = Integer.parseInt(cantidadView.getText().toString());
         String codigo = codigoView.getText().toString();
         
-        new Articulo(descripcion, costo, precio, cantidad, codigo ).registrar();
+        Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo );
         
-        finish();
+        //Verificar si el artículo existe
+        if(articulo.obtenerId() != -1)
+        {
+            //Ya existe, se debería preguntar si quiere sobreescribir
+            Toast.makeText(this, "Ya existe ese artículo, ¿desea sobreescribir?", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            articulo.registrar();
+            finish();
+        }
     }
 }

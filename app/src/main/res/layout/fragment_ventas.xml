@@ -15,15 +15,13 @@
         android:layout_marginEnd="52dp"
         android:layout_marginBottom="113dp"
         android:clickable="true"
-        android:contentDescription="@string/todo"
         android:focusable="true"
-        android:foregroundGravity="right|bottom"
+        android:foreground="@drawable/add_black_24dp"
+        android:foregroundGravity="center"
         android:onClick="addCarrito"
-        app:backgroundTint="@color/teal_200"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_black_48dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/txtVentasdelDia"
@@ -40,8 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
