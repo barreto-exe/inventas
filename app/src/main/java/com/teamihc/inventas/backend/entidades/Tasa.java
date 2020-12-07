@@ -140,4 +140,43 @@ public class Tasa implements Entidad
                 (String) resultado.getValor("hora")
         );
     }
+    
+    /**
+     * Compara el porcentaje de cambio con respecto a la tasa registrada anterior.
+     * @return
+     */
+    public float getPorcentajeCambio()
+    {
+        try
+        {
+            Tasa tasaAnterior = getTasaAnterior();
+            return (tasaAnterior.monto - this.monto) / tasaAnterior.monto * 100;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
+    }
+    
+    /**
+     * Consulta la tasa registrada anterior a la actual.
+     * @return la tasa anterior, o null si no existe.
+     */
+    public Tasa getTasaAnterior()
+    {
+        String query = "SELECT * FROM v_tasas WHERE id_tasa = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(obtenerId() - 1);
+        DBMatriz resultado = op.consultar();
+        
+        if (resultado.leer())
+        {
+            return new Tasa(
+                    (Float) resultado.getValor("monto"),
+                    (String) resultado.getValor("fecha"),
+                    (String) resultado.getValor("hora")
+            );
+        }
+        return null;
+    }
 }

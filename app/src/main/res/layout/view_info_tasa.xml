@@ -22,11 +22,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <TextView
                 android:id="@+id/cantidadTasa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="32dp"
                 android:fontFamily="@font/amaranth_bold"
@@ -35,8 +36,8 @@
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.478" />
 
             <TextView
                 android:id="@+id/fecha"
@@ -56,8 +57,8 @@
                 android:id="@+id/porcentaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/amaranth_bold"
                 android:text="porcentaje "
                 android:textColor="#000000"
@@ -67,13 +68,14 @@
 
             <ImageView
                 android:id="@+id/cambio"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="50dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginBottom="28dp"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/porcentaje"
-                app:srcCompat="@drawable/icono_sin_fondo" />
+                app:srcCompat="@drawable/ic_arrow_drop_up_24px" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

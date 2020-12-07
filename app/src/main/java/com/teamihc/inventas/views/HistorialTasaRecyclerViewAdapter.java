@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
@@ -76,10 +77,24 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
             String date = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(tasa.getFechaHora()) +
                     " " + new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(tasa.getFechaHora());
 
-            //imagenCambio.setImageResource();
-            monto.setText(tasa.getMonto() + " Bs.S.");
+            float porcentajeCambio = tasa.getPorcentajeCambio();
+            
+            monto.setText(""+tasa.getMonto());
             fecha.setText(date);
-            porcentaje.setText("10%");
+            porcentaje.setText(""+Math.abs(porcentajeCambio));
+            if(porcentajeCambio == 0)
+            {
+                imagenCambio.setVisibility(View.INVISIBLE);
+            }
+            else if(porcentajeCambio > 0)
+            {
+                imagenCambio.setImageResource(R.drawable.ic_arrow_drop_up_24px);
+            }
+            else if(porcentajeCambio < 0)
+            {
+                imagenCambio.setImageResource(R.drawable.ic_arrow_drop_down_24px);
+            }
+    
         }
     }
 }
