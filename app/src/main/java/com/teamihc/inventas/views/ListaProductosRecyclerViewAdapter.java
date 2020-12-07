@@ -80,14 +80,9 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
             mainActivity.startActivity(intent);
         } else{
             ListaProductosVenta listaProductosVenta = ((ListaProductosVenta) v.getContext());
-            Intent intent = new Intent(listaProductosVenta, CarritoActivity.class);
-            intent.putExtra("descripcion", descripcion.getText().toString());
-            listaProductosVenta.startActivity(intent);
-            /*
-            ListaProductosVenta listaProductosVenta = ((ListaProductosVenta) v.getContext());
-
+            TextView bundle = listaProductosVenta.findViewById(R.id.carrito_descripcion_textView);
+            bundle.setText(descripcion.getText().toString());
             listaProductosVenta.finish();
-            */
         }
         
     }

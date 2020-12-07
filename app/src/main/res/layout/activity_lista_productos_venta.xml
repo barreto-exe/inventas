@@ -20,4 +20,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seleccionToolbar" />
 
+    <fragment
+        android:id="@+id/carrito_descripcion_fragment"
+        android:name="com.teamihc.inventas.fragments.CarritoDescripcionFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_carrito_descripcion">
+
+    </fragment>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

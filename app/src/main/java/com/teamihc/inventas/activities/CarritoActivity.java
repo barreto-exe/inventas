@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teamihc.inventas.R;
@@ -39,26 +40,21 @@ public class CarritoActivity extends AppCompatActivity
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
 
         listaArticulos = new ArrayList<Articulo>();
-        cargarArticulos();
+
         adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
     }
 
-    private void cargarArticulos(){
-
-        if (getIntent().getExtras() == null) return;
-        Articulo articulo = Articulo.obtenerInstancia(getIntent().getExtras().getString("descripcion"));
-        listaArticulos.add(articulo);
-    }
-
-    /*@Override
+    @Override
     public void onResume()
     {
         super.onResume();
-        Articulo articulo = Articulo.obtenerInstancia(getIntent().getExtras().getString("descripcion"));
+        TextView textView = (TextView)findViewById(R.id.carrito_descripcion_textView);
+        if (textView.getText().toString().equals("")) return;
+        Articulo articulo = Articulo.obtenerInstancia(textView.getText().toString());
         listaArticulos.add(0, articulo);
         adapter.notifyItemInserted(0);
-    }*/
+    }
 
     /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
