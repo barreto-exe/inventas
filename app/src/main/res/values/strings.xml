@@ -27,7 +27,7 @@
     <string name="precio">"Precio"</string>
     <string name="precioD">Precio $</string>
     <string name="costoD">Costo $</string>
-    <string name="codigo">"Código"</string>
+    <string name="codigo_de_barras">"Código de barras"</string>
     <string name="cantidadstock">cantidadStock</string>
     <string name="costodolares">costoDolares</string>
     <string name="preciodolares">precioDolares</string>

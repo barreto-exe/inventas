@@ -174,64 +174,78 @@
 
 
             <LinearLayout
-                android:padding="10dp"
-                android:layout_width="wrap_content"
+                android:padding="40dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <EditText
-                    android:id="@+id/descripcionProd"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/descripcionProdLayout"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:layout_width="280dp"
-                    android:layout_height="50dp"
-                    android:ems="10"
-                    android:hint="@string/descripci_n_del_producto"
-                    android:importantForAutofill="no"
-                    android:inputType="textPersonName"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/descripci_n"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/descripcionProd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
 
-
-                <EditText
-                    android:id="@+id/costo"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/costoLayout"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:layout_width="280dp"
-                    android:layout_height="46dp"
-                    android:ems="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/costo"
-                    android:importantForAutofill="no"
-                    android:inputType="numberDecimal" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/costo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/precio"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/precioLayout"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:layout_width="280dp"
-                    android:layout_height="46dp"
-                    android:ems="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/precio"
-                    android:importantForAutofill="no"
-                    android:inputType="numberDecimal"
-                    app:layout_constraintEnd_toEndOf="@+id/costo"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/costo"
-                    app:layout_constraintTop_toBottomOf="@+id/costo" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/precio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/codTxt"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/codTxtLayout"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:layout_width="280dp"
-                    android:layout_height="46dp"
-                    android:ems="10"
-                    android:hint="@string/codigo"
-                    android:importantForAutofill="no"
-                    android:inputType="numberDecimal"
-                    app:layout_constraintEnd_toEndOf="@+id/costo"
-                    app:layout_constraintHorizontal_bias="0.0"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/codigo_de_barras"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/codTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -241,7 +255,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/precioBsEtiqueta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/amaranth_bold"
@@ -258,62 +271,28 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/amaranth_bold"
                             android:hint="99.999.999,999"
+                            android:textAlignment="viewEnd"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/cantidadLayout"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/reducir"
-                        android:layout_width="44dp"
-                        android:layout_height="49dp"
-                        android:clickable="true"
-                        android:contentDescription="@string/todo"
-                        android:focusable="true"
-                        android:foreground="@drawable/remove_black_24dp"
-                        android:foregroundTint="@color/black"
-                        app:backgroundTint="@color/colorSecondary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/descripcionProd"
-                        app:rippleColor="#FFFFFF" />
-
-                    <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cantidad"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/cantidad"
-                        android:layout_width="118dp"
-                        android:layout_height="52dp"
-                        android:autofillHints=""
-                        android:ems="10"
-                        android:gravity="center"
-                        android:hint="@string/_1"
                         android:inputType="number"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toStartOf="@+id/aumentar"
-                        app:layout_constraintStart_toEndOf="@+id/reducir"
-                        app:layout_constraintTop_toBottomOf="@+id/descripcionProd" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/aumentar"
-                        android:layout_width="44dp"
-                        android:layout_height="49dp"
-                        android:clickable="true"
-                        android:contentDescription="@string/todo"
-                        android:focusable="true"
-                        android:foreground="@drawable/add_black_24dp"
-                        android:foregroundTint="@color/black"
-                        app:backgroundTint="@color/colorSecondary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/descripcionProd"
-                        app:rippleColor="#FFFFFF" />
-
-                </LinearLayout>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
