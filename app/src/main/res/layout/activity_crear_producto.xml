@@ -25,6 +25,7 @@
         android:contentDescription="@string/todo"
         android:focusable="true"
         android:foregroundGravity="right|bottom"
+        android:onClick="obtenerImagen"
         app:backgroundTint="@color/colorSecondary"
         app:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +41,7 @@
         app:layout_editor_absoluteY="55dp">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imagenProd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/imagen_que_sube_el_usuario"

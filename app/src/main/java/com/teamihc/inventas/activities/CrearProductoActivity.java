@@ -1,10 +1,16 @@
 package com.teamihc.inventas.activities;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -12,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +29,10 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.dialogs.ConfirmarEliminacionDialogFragment;
+import com.teamihc.inventas.dialogs.ElegirProveedorDeImagenDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearProductoActivity extends AppCompatActivity
@@ -37,7 +47,11 @@ public class CrearProductoActivity extends AppCompatActivity
     private TextInputEditText codigoView;
     private TextInputEditText cantidadView;
     private boolean modoEdicion;
-    
+    private ImageView imagenProd;
+
+    //request code to pick image
+    private static final int IMAGES_CODE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -51,6 +65,8 @@ public class CrearProductoActivity extends AppCompatActivity
         precioBsView = findViewById(R.id.precioBs);
         codigoView = findViewById(R.id.codTxt);
         cantidadView = findViewById(R.id.cantidad);
+        imagenProd = (ImageView) findViewById(R.id.imagenProd);
+
         toolbar = findViewById(R.id.crearArticuloToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.articulo);
@@ -276,6 +292,48 @@ public class CrearProductoActivity extends AppCompatActivity
         {
             articulo.agregarStock(cambio_stock, new Date());
         }
+        finish();
+    }
+
+    //<-------------------------------Metodos para capturar una foto------------------------------->
+
+    public void obtenerImagen(View view){
+        new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
+    }
+
+    public void imagenDesdeGaleria(){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Elija una opcion"), IMAGES_CODE);
+    }
+
+    public void imagenDesdeCamara(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(intent, IMAGES_CODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK){
+            //data.getClipData() == null
+            //imagenProd.setImageURI(data.getData());
+            if (data.getExtras() == null){
+                imagenProd.setImageURI(data.getData());
+            }else{
+                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                imagenProd.setImageBitmap(imageBitmap);
+            }
+        }
+    }
+    //<-------------------------------Metodos para capturar una foto------------------------------->
+
+    public void salir(View view)
+    {
         finish();
     }
 }
