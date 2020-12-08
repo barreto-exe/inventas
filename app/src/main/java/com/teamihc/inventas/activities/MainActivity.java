@@ -66,24 +66,8 @@ public class MainActivity extends AppCompatActivity
     
     public void openCarrito(View view)
     {
-        Articulo a1, a2, a3;
-        a1 = new Articulo("leche de soya", 0.75f, 1, 12, null);
-        a2 = new Articulo("almendras", 0.3f, 0.7f, 30, null);
-        a3 = new Articulo("pan integral", 0.6f, 0.95f, 8, "12345");
-
-        a1.registrar();
-        a2.registrar();
-        a3.registrar();
-
-        Tasa t = new Tasa(120, Calendar.getInstance().getTime());
-        t.registrar();
-
-        Venta v = new Venta(t , Calendar.getInstance().getTime());
-        v.getCarrito().agregarArticulo(a1, 2);
-        v.getCarrito().agregarArticulo(a2, 18);
-        v.getCarrito().agregarArticulo(a3, 3);
-        v.registrar();
-        Toast.makeText(MainActivity.this, "Venta registrada", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, CarritoActivity.class);
+        startActivity(intent);
     }
     
     public void openCrearProducto(View view)
