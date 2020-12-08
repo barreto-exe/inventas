@@ -16,6 +16,9 @@
             android:name=".activities.CarritoActivity"
             android:parentActivityName=".activities.CarritoActivity" />
         <activity
+            android:name=".activities.FacturaActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
             android:name=".activities.CrearProductoActivity"
             android:parentActivityName=".activities.MainActivity" />
         <activity android:name=".activities.MainActivity">
