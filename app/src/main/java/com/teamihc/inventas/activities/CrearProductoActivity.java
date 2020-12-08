@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -303,9 +304,7 @@ public class CrearProductoActivity extends AppCompatActivity
     public void imagenDesdeGaleria(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-        //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), IMAGES_CODE);
+        startActivityForResult(Intent.createChooser(intent, "Elija una opcion"), IMAGES_CODE);
     }
 
     public void imagenDesdeCamara(){
@@ -320,9 +319,15 @@ public class CrearProductoActivity extends AppCompatActivity
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK
-            && data.getClipData() == null){
+        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK){
+            //data.getClipData() == null
+            //imagenProd.setImageURI(data.getData());
+            if (data.getExtras() == null){
                 imagenProd.setImageURI(data.getData());
+            }else{
+                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                imagenProd.setImageBitmap(imageBitmap);
+            }
         }
     }
     //<-------------------------------Metodos para capturar una foto------------------------------->
