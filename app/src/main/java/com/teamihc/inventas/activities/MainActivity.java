@@ -66,6 +66,12 @@ public class MainActivity extends AppCompatActivity
     
     public void openCarrito(View view)
     {
+        if(Articulo.cantidadArticulosRegistrados() < 1)
+        {
+            Toast.makeText(MainActivity.this, "No hay artículos registrados.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
         Intent intent = new Intent(MainActivity.this, CarritoActivity.class);
         startActivity(intent);
     }

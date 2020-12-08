@@ -209,6 +209,18 @@ public class Articulo implements Entidad
         }
     }
     
+    public static int cantidadArticulosRegistrados()
+    {
+        String query = "SELECT COUNT(*) AS cantidad FROM v_articulos";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
+        if(resultado.leer() && resultado.getValor("cantidad") != null)
+        {
+            return (int) resultado.getValor("cantidad");
+        }
+        return 0;
+    }
+    
     /**
      * Ingresa un nuevo movimiento en v_inventario y actualiza el total del stock (cantidad) en
      * v_artículos.
