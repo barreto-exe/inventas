@@ -1,9 +1,13 @@
 package com.teamihc.inventas.activities;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +29,7 @@ import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.dialogs.ConfirmarEliminacionDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearProductoActivity extends AppCompatActivity
@@ -37,7 +44,11 @@ public class CrearProductoActivity extends AppCompatActivity
     private TextInputEditText codigoView;
     private TextInputEditText cantidadView;
     private boolean modoEdicion;
-    
+    private ImageView imagenProd;
+
+    //request code to pick image
+    private static final int PICK_IMAGES_CODE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -51,6 +62,8 @@ public class CrearProductoActivity extends AppCompatActivity
         precioBsView = findViewById(R.id.precioBs);
         codigoView = findViewById(R.id.codTxt);
         cantidadView = findViewById(R.id.cantidad);
+        imagenProd = (ImageView) findViewById(R.id.imagenProd);
+
         toolbar = findViewById(R.id.crearArticuloToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.articulo);
@@ -276,6 +289,32 @@ public class CrearProductoActivity extends AppCompatActivity
         {
             articulo.agregarStock(cambio_stock, new Date());
         }
+        finish();
+    }
+
+    //<-------------------------------Metodos para capturar una foto------------------------------->
+    public void obtenerImagen(View view){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+        //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), PICK_IMAGES_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGES_CODE && resultCode == Activity.RESULT_OK
+            && data.getClipData() == null){
+                imagenProd.setImageURI(data.getData());
+        }
+    }
+    //<-------------------------------Metodos para capturar una foto------------------------------->
+
+    public void salir(View view)
+    {
         finish();
     }
 }
