@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
@@ -36,6 +37,7 @@ public class CarritoActivity extends AppCompatActivity
     private ImageButton carrito_cancelar;
     private ImageButton carrito_eliminar;
     private ImageButton carrito_retroceder;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,6 +55,7 @@ public class CarritoActivity extends AppCompatActivity
         carrito_cancelar = (ImageButton)findViewById(R.id.carrito_cancelar);
         carrito_eliminar = (ImageButton)findViewById(R.id.carrito_eliminar);
         carrito_retroceder = (ImageButton)findViewById(R.id.carrito_retroceder);
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.producto);
 
         listaArticulos = new ArrayList<Articulo>();
 
@@ -69,18 +72,22 @@ public class CarritoActivity extends AppCompatActivity
         transaction = getFragmentManager().beginTransaction();
         transaction.hide(fragment);
         transaction.commit();
-        carrito_aceptar.setVisibility(ImageButton.INVISIBLE);
-        carrito_cancelar.setVisibility(ImageButton.INVISIBLE);
-        carrito_retroceder.setVisibility(ImageButton.VISIBLE);
+
+        carrito_aceptar.setVisibility(ImageButton.VISIBLE);
+        carrito_cancelar.setVisibility(ImageButton.VISIBLE);
+        carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
+        floatingActionButton.setVisibility(ImageButton.VISIBLE);
     }
 
     public void showFragment(){
         transaction = getFragmentManager().beginTransaction();
         transaction.show(fragment);
         transaction.commit();
-        carrito_aceptar.setVisibility(ImageButton.VISIBLE);
-        carrito_cancelar.setVisibility(ImageButton.VISIBLE);
-        carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
+
+        carrito_aceptar.setVisibility(ImageButton.INVISIBLE);
+        carrito_cancelar.setVisibility(ImageButton.INVISIBLE);
+        carrito_retroceder.setVisibility(ImageButton.VISIBLE);
+        floatingActionButton.setVisibility(ImageButton.INVISIBLE);
     }
 
     public void cargarArticulo(String descripcion) {

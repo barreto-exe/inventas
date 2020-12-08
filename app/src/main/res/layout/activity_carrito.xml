@@ -121,7 +121,7 @@
         android:name="com.teamihc.inventas.fragments.ListaProductosVentaFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/app_bar_layout_carrito"
         android:layout_alignParentBottom="true"
         tools:layout="@layout/fragment_lista_productos_venta"/>
 
