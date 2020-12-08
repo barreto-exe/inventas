@@ -70,7 +70,7 @@ public class CarritoActivity extends AppCompatActivity
         carrito_total_dolares = (TextView) findViewById(R.id.carrito_total_dolares);
         
         listaArticulos = new ArrayList<Articulo>();
-        adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
+        adapter = new ListaProductosCarritoRVAdapter(listaArticulos, R.layout.view_info_producto_factura);
         recyclerView.setAdapter(adapter);
         
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
@@ -168,7 +168,7 @@ public class CarritoActivity extends AppCompatActivity
         return modoBorrar;
     }
     
-    public void cargarArticulo(String descripcion)
+    public void cargarArticulo(String descripcion, int cantidad)
     {
         if (descripcion == null)
         {
@@ -183,10 +183,9 @@ public class CarritoActivity extends AppCompatActivity
             }
         }
         Articulo articulo = Articulo.obtenerInstancia(descripcion);
-        articulo.setCantidad(0);
+        articulo.setCantidad(cantidad);
         listaArticulos.add(0, articulo);
         adapter.notifyItemInserted(0);
-        hideFragment();
         calcularTotal();
     }
     
@@ -248,7 +247,7 @@ public class CarritoActivity extends AppCompatActivity
         {
             listaArticulos.add(aux.get(i));
         }
-        adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
+        adapter = new ListaProductosCarritoRVAdapter(listaArticulos, R.layout.view_info_producto_factura);
         recyclerView.setAdapter(adapter);
     }
     

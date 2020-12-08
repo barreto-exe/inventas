@@ -50,16 +50,31 @@ public class SeleccionarCantidadDialogFragment extends DialogFragment {
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        if (articulo.getCantidad()>=Integer.parseInt(cantidad.getText().toString())){
-                            activity.modificarCantidad(articulo.getDescripcion(), cantidad.getText().toString());
+                        int cantidad_int = Integer.parseInt(cantidad.getText().toString());
+
+                        if (articulo.getCantidad() >= cantidad_int && cantidad_int != 0){
+
+                            if (getArguments().getString("modo").equals("creacion")){
+
+                                activity.cargarArticulo(articulo.getDescripcion(), cantidad_int);
+
+                            }else{
+
+                                activity.modificarCantidad(articulo.getDescripcion(), cantidad.getText().toString());
+                            }
+
+                            activity.hideFragment();
+
                         }else{
-                            Toast.makeText(activity, "Ha excedido las unidades disponibles del articulo", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "Cantidad invalida", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
                 .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) { }
+                    public void onClick(DialogInterface dialog, int which) {
+                        activity.hideFragment();
+                    }
                 });
 
         return builder.create();

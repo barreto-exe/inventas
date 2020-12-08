@@ -1,5 +1,6 @@
 package com.teamihc.inventas.views;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,12 +16,11 @@ import java.util.ArrayList;
 
 public class ListaProductosCarritoRVAdapter extends ListaProductosRVAdapter
 {
-    
-    public ListaProductosCarritoRVAdapter(ArrayList<Articulo> listaArticulos)
-    {
-        super(listaArticulos);
+
+    public ListaProductosCarritoRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId) {
+        super(listaArticulos, layoutId);
     }
-    
+
     @Override
     public void onClick(View v)
     {
@@ -47,7 +47,11 @@ public class ListaProductosCarritoRVAdapter extends ListaProductosRVAdapter
         else
         {
             Articulo articulo = Articulo.obtenerInstancia(descripcion.getText().toString());
-            new SeleccionarCantidadDialogFragment(carritoActivity, articulo).show(carritoActivity.getFragmentManager(), null);
+            Bundle bundle = new Bundle();
+            bundle.putString("modo", "edicion");
+            SeleccionarCantidadDialogFragment dialog = new SeleccionarCantidadDialogFragment(carritoActivity, articulo);
+            dialog.setArguments(bundle);
+            dialog.show(carritoActivity.getFragmentManager(), null);
         }
     }
     
