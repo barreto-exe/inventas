@@ -20,6 +20,7 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
 import com.teamihc.inventas.fragments.VentasFragment;
+import com.teamihc.inventas.views.ListaProductosCarritoRecyclerViewAdapter;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class CarritoActivity extends AppCompatActivity
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    private ListaProductosRecyclerViewAdapter adapter;
+    private ListaProductosCarritoRecyclerViewAdapter adapter;
     private Fragment fragment;
     private FragmentTransaction transaction;
     private ImageButton carrito_aceptar;
@@ -58,13 +59,20 @@ public class CarritoActivity extends AppCompatActivity
         floatingActionButton = (FloatingActionButton)findViewById(R.id.producto);
 
         listaArticulos = new ArrayList<Articulo>();
-        adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
+        adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
 
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
         //transaction = getFragmentManager().beginTransaction();
 
-        hideFragment();
+        transaction = getFragmentManager().beginTransaction();
+        transaction.hide(fragment);
+        transaction.commit();
+
+        carrito_aceptar.setVisibility(ImageButton.VISIBLE);
+        carrito_cancelar.setVisibility(ImageButton.VISIBLE);
+        carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
+        floatingActionButton.setVisibility(ImageButton.VISIBLE);
     }
 
     public void hideFragment(){

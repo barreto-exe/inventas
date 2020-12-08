@@ -23,18 +23,13 @@ import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
 
 import java.util.ArrayList;
 
-public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener
-{
-    
+public abstract class ListaProductosRecyclerViewAdapter
+        extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter>
+        implements View.OnClickListener, View.OnLongClickListener {
 
-    private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
-    Dialog dialog;
 
-
-    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos)
-    {
-
+    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
         this.listaArticulos = listaArticulos;
     }
     
@@ -59,30 +54,7 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     {
         return listaArticulos.size();
     }
-    
-    //Esto es para que se pueda editar la cantidad del stock, se complementa con setOnClick()
-    @Override
-    public void onClick(View v)
-    {
-        TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
 
-        if (v.getContext() instanceof MainActivity)
-        {
-            MainActivity mainActivity = ((MainActivity) v.getContext());
-            Intent intent = new Intent(mainActivity, CrearProductoActivity.class);
-            intent.putExtra("descripcion", descripcion.getText().toString());
-            mainActivity.startActivity(intent);
-        } else{
-            CarritoActivity carritoActivity = ((CarritoActivity) v.getContext());
-            carritoActivity.hideFragment();
-            carritoActivity.cargarArticulo(descripcion.getText().toString());
-
-            //carritoActivity.getFragmentManager().beginTransaction().hide(new ListaProductosVentaFragment());
-            //carritoActivity.getFragmentManager().beginTransaction().remove(new ListaProductosVentaFragment());
-        }
-        
-    }
-    
     public class ListaProductosAdapter extends RecyclerView.ViewHolder
     {
         
