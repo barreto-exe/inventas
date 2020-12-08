@@ -31,7 +31,7 @@ public class HistorialTasaActivity extends AppCompatActivity
         historico.getLayoutManager().setMeasurementCacheEnabled(false);
         toolbar = findViewById(R.id.historialToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Histórico");
+        getSupportActionBar().setTitle(R.string.historico);
         if (getSupportActionBar() != null)
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

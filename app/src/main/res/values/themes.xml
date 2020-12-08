@@ -12,5 +12,8 @@
         <item name="android:windowLightStatusBar">false</item>
 
         <item name="actionMenuTextColor">@color/white</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="android:colorControlNormal">@color/white</item>
     </style>
 </resources>

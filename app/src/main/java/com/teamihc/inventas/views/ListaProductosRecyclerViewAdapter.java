@@ -26,15 +26,15 @@ import java.util.ArrayList;
 public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener
 {
     
-
+    
     private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
     Dialog dialog;
-
-
+    
+    
     public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos)
     {
-
+        
         this.listaArticulos = listaArticulos;
     }
     
@@ -47,7 +47,7 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
         return new ListaProductosAdapter(view);
     }
     
-
+    
     @Override
     public void onBindViewHolder(@NonNull ListaProductosAdapter holder, int position)
     {
@@ -65,18 +65,20 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     public void onClick(View v)
     {
         TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
-
+        
         if (v.getContext() instanceof MainActivity)
         {
             MainActivity mainActivity = ((MainActivity) v.getContext());
             Intent intent = new Intent(mainActivity, CrearProductoActivity.class);
             intent.putExtra("descripcion", descripcion.getText().toString());
             mainActivity.startActivity(intent);
-        } else{
+        }
+        else
+        {
             CarritoActivity carritoActivity = ((CarritoActivity) v.getContext());
             carritoActivity.hideFragment();
             carritoActivity.cargarArticulo(descripcion.getText().toString());
-
+            
             //carritoActivity.getFragmentManager().beginTransaction().hide(new ListaProductosVentaFragment());
             //carritoActivity.getFragmentManager().beginTransaction().remove(new ListaProductosVentaFragment());
         }

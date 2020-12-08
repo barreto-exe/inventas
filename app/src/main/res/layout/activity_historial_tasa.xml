@@ -17,7 +17,7 @@
 
         <include
             android:id="@+id/historialToolbar"
-            layout="@layout/view_crear_bar"
+            layout="@layout/view_topbar_historial_tasa"
             android:theme="@style/Theme.InVentas"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

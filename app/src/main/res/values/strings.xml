@@ -2,6 +2,7 @@
     <string name="app_name">InVentas</string>
     <string name="ventas_del_dia">Ventas del día</string>
     <string name="todo">TODO</string>
+    <string name="articulo">Artículo</string>
     <string name="historico">Histórico</string>
     <string name="efectivo">Efectivo</string>
     <string name="punto">Punto</string>
@@ -17,13 +18,14 @@
     <string name="tasas">Tasas</string>
     <string name="tasa_del_dia">Tasa del día</string>
     <string name="tasa_anterior">Tasa anterior</string>
+    <string name="unidades_en_su_inventario">Unidades en su inventario</string>
     <string name="historial_de_cambios">Historial de cambios</string>
     <string name="c_digo">Código</string>
     <string name="precio_bss">Precio Bs.S:</string>
     <string name="equivalente">Equivalente</string>
     <string name="descripci_n">   Descripción</string>
     <string name="imagen_que_sube_el_usuario">Imagen que sube el usuario</string>
-    <string name="guardar">GUARDAR</string>
+    <string name="guardar">Guardar</string>
     <string name="costo">"Costo"</string>
     <string name="descripci_n_del_producto">"Descripción del producto"</string>
     <string name="precio">"Precio"</string>
@@ -42,4 +44,6 @@
     <string name="hora">Hora</string>
     <string name="venta_en_bolivares">venta en bolivares</string>
     <string name="resumen_factura">resumen factura</string>
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
 </resources>

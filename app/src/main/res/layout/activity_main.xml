@@ -15,7 +15,7 @@
 
         <include
             android:id="@+id/inventas_logo"
-            layout="@layout/view_top_bar"
+            layout="@layout/view_topbar"
             android:theme="@style/Theme.InVentas" />
 
         <RelativeLayout

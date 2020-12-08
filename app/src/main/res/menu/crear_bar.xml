@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/nav_editar"
-        android:title="editar"
-        android:icon="@drawable/lapiz_blanco"
-        app:showAsAction="ifRoom"/>
+
     <item
-        android:id="@+id/nav_eliminar"
-        android:title="eliminar"
-        app:showAsAction="never"/>
+        android:id="@+id/nav_guardar"
+        android:icon="@drawable/ic_save_24px"
+        android:title="@string/guardar"
+        app:showAsAction="ifRoom" />
+
+    <group android:id="@+id/group_edicion">
+        <item
+            android:id="@+id/nav_editar"
+            android:icon="@drawable/lapiz_blanco"
+            android:title="@string/editar"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/nav_eliminar"
+            android:title="@string/eliminar"
+            app:showAsAction="never" />
+    </group>
 </menu>

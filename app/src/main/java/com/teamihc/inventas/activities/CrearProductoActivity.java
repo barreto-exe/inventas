@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,10 +36,7 @@ public class CrearProductoActivity extends AppCompatActivity
     private TextView precioBsView;
     private TextInputEditText codigoView;
     private TextInputEditText cantidadView;
-    private Button guardar_btn;
-    private Button editar_btn;
-    private Button cancelar_btn;
-    private Button borrar_btn;
+    private boolean modoEdicion;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,48 +45,25 @@ public class CrearProductoActivity extends AppCompatActivity
         setContentView(R.layout.activity_crear_producto);
         toolbar = findViewById(R.id.crear_bar);
         
-        descripcionProdView = (TextInputEditText) findViewById(R.id.descripcionProd);
-        costoView = (TextInputEditText) findViewById(R.id.costo);
-        precioView = (TextInputEditText) findViewById(R.id.precio);
-        precioBsView = (TextView) findViewById(R.id.precioBs);
-        codigoView = (TextInputEditText) findViewById(R.id.codTxt);
-        cantidadView = (TextInputEditText) findViewById(R.id.cantidad);
-        guardar_btn = (Button) findViewById(R.id.guardar_btn);
-        editar_btn = (Button) findViewById(R.id.editar_btn);
-        cancelar_btn = (Button) findViewById(R.id.cancelar_btn);
-        borrar_btn = (Button) findViewById(R.id.borrar_btn);
-
-        /*setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        if (getSupportActionBar() != null)
-        {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }*/
+        descripcionProdView = findViewById(R.id.descripcionProd);
+        costoView = findViewById(R.id.costo);
+        precioView = findViewById(R.id.precio);
+        precioBsView = findViewById(R.id.precioBs);
+        codigoView = findViewById(R.id.codTxt);
+        cantidadView = findViewById(R.id.cantidad);
+        toolbar = findViewById(R.id.crearArticuloToolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.articulo);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         
-        //si estamos en modo edicion
-        if (getIntent().getExtras() != null)
+        modoEdicion = getIntent().getExtras() != null;
+        if (modoEdicion)
         {
             llenarFormulario();
-            
-            guardar_btn.setVisibility(TextView.INVISIBLE);
-            editar_btn.setVisibility(TextView.VISIBLE);
-            cancelar_btn.setVisibility(TextView.INVISIBLE);
-            borrar_btn.setVisibility(TextView.VISIBLE);
             bloquearCampos();
-            
-            //si estamos en modo creacion
-        }
-        else
-        {
-            guardar_btn.setVisibility(TextView.VISIBLE);
-            editar_btn.setVisibility(TextView.INVISIBLE);
-            cancelar_btn.setVisibility(TextView.VISIBLE);
-            borrar_btn.setVisibility(TextView.INVISIBLE);
-            desbloquearCampos();
         }
         
         descripcion_original = ((TextView) findViewById(R.id.descripcionProd)).getText().toString();
-    
         agregarListeners();
     }
     
@@ -100,12 +77,13 @@ public class CrearProductoActivity extends AppCompatActivity
             {
             
             }
+            
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
             
             }
-        
+            
             @Override
             public void afterTextChanged(Editable s)
             {
@@ -121,6 +99,73 @@ public class CrearProductoActivity extends AppCompatActivity
                 precioBsView.setText(String.valueOf(precioBs));
             }
         });
+        
+        //Salir de la ventana
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.crear_bar, menu);
+        
+        if (!modoEdicion)
+        {
+            menu.setGroupVisible(R.id.group_edicion, false);
+        }
+        
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.nav_eliminar:
+            {
+                eliminarArticulo();
+                break;
+            }
+            case R.id.nav_editar:
+            {
+                permitirEdicion();
+                break;
+            }
+            case R.id.nav_guardar:
+            {
+                salvarDatos();
+                break;
+            }
+        }
+        
+        return super.onOptionsItemSelected(item);
+    }
+    
+    private void bloquearCampos()
+    {
+        descripcionProdView.setEnabled(false);
+        costoView.setEnabled(false);
+        precioView.setEnabled(false);
+        codigoView.setEnabled(false);
+        cantidadView.setEnabled(false);
+    }
+    
+    private void permitirEdicion()
+    {
+        descripcionProdView.setEnabled(true);
+        costoView.setEnabled(true);
+        precioView.setEnabled(true);
+        codigoView.setEnabled(true);
+        cantidadView.setEnabled(true);
     }
     
     private void llenarFormulario()
@@ -136,107 +181,47 @@ public class CrearProductoActivity extends AppCompatActivity
         
         cantidad_original = articulo.getCantidad();
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.crear_bar,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_eliminar:{
-                eliminarArticulo();
-                break;
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-    
-    public void actualizarArticulo(Articulo articulo, int cambio_stock)
-    {
-        articulo.actualizar();
-        if (cambio_stock != 0)
-        {
-            articulo.agregarStock(cambio_stock, new Date());
-        }
-        finish();
-    }
     
     public boolean validarDatos()
     {
-        
         boolean todoBien = true;
+        String error = "No puede estar vacío.";
         
         if (descripcionProdView.getText().toString().equals(""))
         {
-            descripcionProdView.setBackgroundColor(getResources().getColor(R.color.rosado));
+            descripcionProdView.setError(error);
             todoBien = false;
         }
         if (costoView.getText().toString().equals(""))
         {
-            costoView.setBackgroundColor(getResources().getColor(R.color.rosado));
+            costoView.setError(error);
             todoBien = false;
         }
         if (precioView.getText().toString().equals(""))
         {
-            precioView.setBackgroundColor(getResources().getColor(R.color.rosado));
+            precioView.setError(error);
             todoBien = false;
         }
         if (cantidadView.getText().toString().equals("") ||
                 Integer.parseInt(cantidadView.getText().toString()) < 0)
         {
-            cantidadView.setBackgroundColor(getResources().getColor(R.color.rosado));
+            cantidadView.setError("Revise este campo.");
             todoBien = false;
         }
         
         return todoBien;
     }
     
-    private void bloquearCampos()
+    public void eliminarArticulo()
     {
-        descripcionProdView.setEnabled(false);
-        costoView.setEnabled(false);
-        precioView.setEnabled(false);
-        codigoView.setEnabled(false);
-        cantidadView.setEnabled(false);
+        Articulo articulo = Articulo.obtenerInstancia(descripcion_original);
+        new ConfirmarEliminacionDialogFragment(this, articulo).show(getSupportFragmentManager(), null);
     }
     
-    private void desbloquearCampos()
-    {
-        descripcionProdView.setEnabled(true);
-        costoView.setEnabled(true);
-        precioView.setEnabled(true);
-        codigoView.setEnabled(true);
-        cantidadView.setEnabled(true);
-    }
-    
-    public void permitirEdicion(View view)
-    {
-        guardar_btn.setVisibility(TextView.VISIBLE);
-        editar_btn.setVisibility(TextView.INVISIBLE);
-        cancelar_btn.setVisibility(TextView.VISIBLE);
-        borrar_btn.setVisibility(TextView.INVISIBLE);
-        desbloquearCampos();
-    }
-    
-    public void bloquearEdicion(View view)
-    {
-        guardar_btn.setVisibility(TextView.INVISIBLE);
-        editar_btn.setVisibility(TextView.VISIBLE);
-        cancelar_btn.setVisibility(TextView.INVISIBLE);
-        borrar_btn.setVisibility(TextView.VISIBLE);
-        bloquearCampos();
-    }
-    
-    public void salvarDatos(View view)
+    public void salvarDatos()
     {
         if (!validarDatos())
         {
-            Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
             return;
         }
         
@@ -284,14 +269,13 @@ public class CrearProductoActivity extends AppCompatActivity
         }
     }
     
-    public void eliminarArticulo(View view)
+    public void actualizarArticulo(Articulo articulo, int cambio_stock)
     {
-        Articulo articulo = Articulo.obtenerInstancia(descripcion_original);
-        new ConfirmarEliminacionDialogFragment(this, articulo).show(getSupportFragmentManager(), null);
-    }
-    
-    public void salir(View view)
-    {
+        articulo.actualizar();
+        if (cambio_stock != 0)
+        {
+            articulo.agregarStock(cambio_stock, new Date());
+        }
         finish();
     }
 }
