@@ -21,7 +21,6 @@ public class ListaProductosCarrito2RecyclerViewAdapter extends ListaProductosRec
     public void onClick(View v) {
         TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
         CarritoActivity carritoActivity = ((CarritoActivity) v.getContext());
-        carritoActivity.hideFragment();
         carritoActivity.cargarArticulo(descripcion.getText().toString());
     }
 

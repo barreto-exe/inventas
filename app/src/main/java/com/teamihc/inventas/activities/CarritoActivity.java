@@ -18,12 +18,15 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.backend.entidades.Tasa;
+import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
 import com.teamihc.inventas.fragments.VentasFragment;
 import com.teamihc.inventas.views.ListaProductosCarritoRecyclerViewAdapter;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -161,8 +164,8 @@ public class CarritoActivity extends AppCompatActivity
 
     public void cargarArticulo(String descripcion) {
         if (descripcion==null) {return;}
-        for (String s : basura){
-            if (s.equals(descripcion)){
+        for (Articulo articulo : listaArticulos){
+            if (articulo.getDescripcion().equals(descripcion)){
                 Toast.makeText(this, "Este articulo ya fue elegido", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -171,6 +174,7 @@ public class CarritoActivity extends AppCompatActivity
         articulo.setCantidad(0);
         listaArticulos.add(0, articulo);
         adapter.notifyItemInserted(0);
+        hideFragment();
         calcularTotal();
     }
     
@@ -226,7 +230,10 @@ public class CarritoActivity extends AppCompatActivity
     }
 
     public void aceptar(View view){
-
+        Venta venta = new Venta(Tasa.obtenerTasa(), new Date());
+        venta.registrar();
+        Toast.makeText(this, "Venta registrada con exito", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void modificarCantidad(String descripcion, String cantidad) {
@@ -236,6 +243,7 @@ public class CarritoActivity extends AppCompatActivity
             }
         }
 
+        calcularTotal();
         actualizarLista();
     }
 
@@ -244,8 +252,8 @@ public class CarritoActivity extends AppCompatActivity
         float total_bolivares = 0;
 
         for (Articulo articulo : listaArticulos){
-            total_dolares += articulo.getPrecio();
-            total_bolivares += articulo.getPrecioBs();
+            total_dolares += articulo.getPrecio() * articulo.getCantidad();
+            total_bolivares += articulo.getPrecioBs() * articulo.getCantidad();
         }
         carrito_total_dolares.setText(total_dolares+"");
         carrito_total_bolivares.setText(total_bolivares+"");
