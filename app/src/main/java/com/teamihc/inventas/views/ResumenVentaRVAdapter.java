@@ -43,7 +43,7 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
     public ResumenVentaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_venta, parent, false);
-        view.setOnClickListener(this); /*esto lo pones cuando tengas lo de la factura para que al tocar el cardView vayas a la otra ventana*/
+        view.setOnClickListener(this);
         return new ResumenVentaAdapter(view);
     }
     

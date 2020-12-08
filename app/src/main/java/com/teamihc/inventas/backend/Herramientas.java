@@ -32,6 +32,7 @@ public class Herramientas
     
     public static final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING);
     public static final SimpleDateFormat FORMATO_TIEMPO = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING);
+    public static final SimpleDateFormat FORMATO_FECHATIEMPO = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING + " " +Herramientas.FORMATO_TIEMPO_STRING);
     public static final NumberFormat FOMATO_MONEDA = NumberFormat.getNumberInstance(new Locale("es","VE"));
     
     public static String formatearMonedaBs(float monto)

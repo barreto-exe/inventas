@@ -38,10 +38,9 @@ public class Tasa implements Entidad
      */
     public Tasa(float monto, String fecha, String hora)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try
         {
-            this.fechaHora = sdf.parse(fecha + " " + hora);
+            this.fechaHora = Herramientas.FORMATO_FECHATIEMPO.parse(fecha + " " + hora);
         }
         catch (ParseException e)
         {

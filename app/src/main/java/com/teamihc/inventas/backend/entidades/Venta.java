@@ -3,10 +3,12 @@ package com.teamihc.inventas.backend.entidades;
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -111,13 +113,26 @@ public class Venta implements Entidad
         while (resultado.leer())
         {
             int id = (int) resultado.getValor("id_venta");
-            Venta venta = new Venta(Tasa.obtenerTasa(), fecha);
-
-            ArrayList<ArticuloPxQ> factura = new ArrayList<ArticuloPxQ>();
-            Carrito.cargarFacturaEnLista(factura, id);
-            venta.setCarrito(factura);
-
-            lista.add(venta);
+            String fechaVenta = (String) resultado.getValor("fecha");
+            String horaVenta  = (String) resultado.getValor("hora");
+    
+            Venta venta = null;
+            try
+            {
+                venta = new Venta(
+                        Tasa.obtenerTasa(),
+                        Herramientas.FORMATO_FECHATIEMPO.parse(fechaVenta + " " + horaVenta)
+                );
+    
+                ArrayList<ArticuloPxQ> factura = new ArrayList<ArticuloPxQ>();
+                Carrito.cargarFacturaEnLista(factura, id);
+                venta.setCarrito(factura);
+    
+                lista.add(venta);
+            }
+            catch (ParseException e)
+            {
+            }
         }
     }
 }
