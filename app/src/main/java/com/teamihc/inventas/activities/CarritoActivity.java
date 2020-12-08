@@ -70,6 +70,7 @@ public class CarritoActivity extends AppCompatActivity
 
     public void hideFragment(){
         transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         transaction.hide(fragment);
         transaction.commit();
 
@@ -81,6 +82,7 @@ public class CarritoActivity extends AppCompatActivity
 
     public void showFragment(){
         transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         transaction.show(fragment);
         transaction.commit();
 
