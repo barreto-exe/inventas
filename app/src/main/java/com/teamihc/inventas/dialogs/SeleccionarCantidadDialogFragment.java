@@ -52,7 +52,7 @@ public class SeleccionarCantidadDialogFragment extends DialogFragment {
                     {
                         int cantidad_int = Integer.parseInt(cantidad.getText().toString());
 
-                        if (articulo.getCantidad() >= cantidad_int){
+                        if (articulo.getCantidad() >= cantidad_int && cantidad_int != 0){
 
                             if (getArguments().getString("modo").equals("creacion")){
 
@@ -66,8 +66,7 @@ public class SeleccionarCantidadDialogFragment extends DialogFragment {
                             activity.hideFragment();
 
                         }else{
-                            Toast.makeText(activity, "Ha excedido las unidades disponibles del articulo", Toast.LENGTH_SHORT).show();
-                            activity.showFragment();
+                            Toast.makeText(activity, "Cantidad invalida", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
