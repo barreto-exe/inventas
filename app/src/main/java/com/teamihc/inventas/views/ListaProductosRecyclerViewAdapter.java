@@ -39,6 +39,7 @@ public abstract class ListaProductosRecyclerViewAdapter
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_producto, parent, false);
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         return new ListaProductosAdapter(view);
     }
     
@@ -66,8 +67,7 @@ public abstract class ListaProductosRecyclerViewAdapter
             cardView = (CardView) itemView.findViewById(R.id.info_producto);
         }
         
-        public void asignarDatos(Articulo articulo)
-        {
+        public void asignarDatos(Articulo articulo) {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
             TextView precioBsS = (TextView) cardView.findViewById(R.id.precioBsS);

@@ -58,12 +58,11 @@ public class CarritoActivity extends AppCompatActivity
         carrito_retroceder = (ImageButton)findViewById(R.id.carrito_retroceder);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.producto);
 
-        listaArticulos = new ArrayList<Articulo>();
+        listaArticulos = new ArrayList<>();
         adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
 
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
-        //transaction = getFragmentManager().beginTransaction();
 
         transaction = getFragmentManager().beginTransaction();
         transaction.hide(fragment);
