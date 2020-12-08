@@ -46,7 +46,7 @@ public class CarritoActivity extends AppCompatActivity
     private LinkedList<String> basura;
     private TextView carrito_total_dolares;
     private TextView carrito_total_bolivares;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -58,38 +58,39 @@ public class CarritoActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.carrito_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
-
-        carrito_aceptar = (ImageButton)findViewById(R.id.carrito_aceptar);
-        carrito_cancelar = (ImageButton)findViewById(R.id.carrito_cancelar);
-        carrito_eliminar = (ImageButton)findViewById(R.id.carrito_eliminar);
-        carrito_retroceder = (ImageButton)findViewById(R.id.carrito_retroceder);
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.producto);
-        contador = (TextView)findViewById(R.id.contador);
-        carrito_cancelar_eliminar = (ImageButton)findViewById(R.id.carrito_cancelar_eliminar);
-        carrito_total_bolivares = (TextView)findViewById(R.id.carrito_total_bolivares);
-        carrito_total_dolares = (TextView)findViewById(R.id.carrito_total_dolares);
-
+        
+        carrito_aceptar = (ImageButton) findViewById(R.id.carrito_aceptar);
+        carrito_cancelar = (ImageButton) findViewById(R.id.carrito_cancelar);
+        carrito_eliminar = (ImageButton) findViewById(R.id.carrito_eliminar);
+        carrito_retroceder = (ImageButton) findViewById(R.id.carrito_retroceder);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.producto);
+        contador = (TextView) findViewById(R.id.contador);
+        carrito_cancelar_eliminar = (ImageButton) findViewById(R.id.carrito_cancelar_eliminar);
+        carrito_total_bolivares = (TextView) findViewById(R.id.carrito_total_bolivares);
+        carrito_total_dolares = (TextView) findViewById(R.id.carrito_total_dolares);
+        
         listaArticulos = new ArrayList<Articulo>();
         adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
         
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
-
+        
         transaction = getFragmentManager().beginTransaction();
         transaction.hide(fragment);
         transaction.commit();
-
+        
         carrito_aceptar.setVisibility(ImageButton.VISIBLE);
         carrito_cancelar.setVisibility(ImageButton.VISIBLE);
         carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
         floatingActionButton.setVisibility(ImageButton.VISIBLE);
-
+        
         modoBorrar = false;
         basura = new LinkedList<String>();
     }
     
     public void hideFragment()
     {
+        transaction = getFragmentManager().beginTransaction();
         transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         transaction.hide(fragment);
@@ -113,9 +114,11 @@ public class CarritoActivity extends AppCompatActivity
         carrito_retroceder.setVisibility(ImageButton.VISIBLE);
         floatingActionButton.setVisibility(ImageButton.INVISIBLE);
     }
-
-    public void modoBorrar(String descripcion){
+    
+    public void modoBorrar(String descripcion)
+    {
         toolbar.setBackgroundColor(getColor(R.color.rojo));
+        toolbar.setTitle("");
         carrito_aceptar.setVisibility(View.INVISIBLE);
         carrito_cancelar.setVisibility(View.INVISIBLE);
         carrito_eliminar.setVisibility(View.VISIBLE);
@@ -124,12 +127,13 @@ public class CarritoActivity extends AppCompatActivity
         contador.setVisibility(View.VISIBLE);
         carrito_cancelar_eliminar.setVisibility(View.VISIBLE);
         contador.setText("1");
-
+        
         modoBorrar = true;
         agregarABasura(descripcion);
     }
-
-    private void modoEditar() {
+    
+    private void modoEditar()
+    {
         toolbar.setBackgroundColor(getColor(R.color.colorPrimary));
         carrito_aceptar.setVisibility(View.VISIBLE);
         carrito_cancelar.setVisibility(View.VISIBLE);
@@ -138,32 +142,42 @@ public class CarritoActivity extends AppCompatActivity
         floatingActionButton.setVisibility(View.VISIBLE);
         contador.setVisibility(View.INVISIBLE);
         carrito_cancelar_eliminar.setVisibility(View.INVISIBLE);
-
+        
         modoBorrar = false;
         actualizarLista();
     }
-
-    public void agregarABasura(String descripcion) {
+    
+    public void agregarABasura(String descripcion)
+    {
         basura.add(descripcion);
-        contador.setText(basura.size()+"");
+        contador.setText(basura.size() + "");
     }
-
-    public void quitarDeBasura(String descripcion) {
+    
+    public void quitarDeBasura(String descripcion)
+    {
         basura.remove(descripcion);
-        contador.setText(basura.size()+"");
-        if (basura.size()==0){
+        contador.setText(basura.size() + "");
+        if (basura.size() == 0)
+        {
             modoEditar();
         }
     }
-
-    public boolean isModoBorrar() {
+    
+    public boolean isModoBorrar()
+    {
         return modoBorrar;
     }
-
-    public void cargarArticulo(String descripcion) {
-        if (descripcion==null) {return;}
-        for (Articulo articulo : listaArticulos){
-            if (articulo.getDescripcion().equals(descripcion)){
+    
+    public void cargarArticulo(String descripcion)
+    {
+        if (descripcion == null)
+        {
+            return;
+        }
+        for (Articulo articulo : listaArticulos)
+        {
+            if (articulo.getDescripcion().equals(descripcion))
+            {
                 Toast.makeText(this, "Este articulo ya fue elegido", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -190,18 +204,23 @@ public class CarritoActivity extends AppCompatActivity
     {
         finish();
     }
-
-    public void cancelarEliminar(View view){
+    
+    public void cancelarEliminar(View view)
+    {
         basura.clear();
         modoEditar();
         actualizarLista();
     }
-
-    public void eliminar(View view){
-       // String s=basura.pop();
-        for (int i=0; i<basura.size(); i++){
-            for (int j=0; j<listaArticulos.size(); j++){
-                if (basura.get(i).equals(listaArticulos.get(j).getDescripcion())){
+    
+    public void eliminar(View view)
+    {
+        // String s=basura.pop();
+        for (int i = 0; i < basura.size(); i++)
+        {
+            for (int j = 0; j < listaArticulos.size(); j++)
+            {
+                if (basura.get(i).equals(listaArticulos.get(j).getDescripcion()))
+                {
                     listaArticulos.remove(j);
                     break;
                 }
@@ -212,56 +231,66 @@ public class CarritoActivity extends AppCompatActivity
         modoEditar();
         calcularTotal();
     }
-
-    private void actualizarLista() {
+    
+    private void actualizarLista()
+    {
         adapter.notifyDataSetChanged();
-        ArrayList<Articulo>aux = new ArrayList<>();
-
-        for (int i=0; i<listaArticulos.size(); i++){
+        ArrayList<Articulo> aux = new ArrayList<>();
+        
+        for (int i = 0; i < listaArticulos.size(); i++)
+        {
             aux.add(listaArticulos.get(i));
         }
         listaArticulos.clear();
         adapter.notifyDataSetChanged();
-
-        for (int i=0; i<aux.size(); i++){
+        
+        for (int i = 0; i < aux.size(); i++)
+        {
             listaArticulos.add(aux.get(i));
         }
         adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
     }
-
-    public void aceptar(View view){
-        if (Float.parseFloat(carrito_total_dolares.getText().toString()) == 0){
+    
+    public void aceptar(View view)
+    {
+        if (Float.parseFloat(carrito_total_dolares.getText().toString()) == 0)
+        {
             Toast.makeText(this, "No se ha registrado ningun articulo", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        
         Venta venta = new Venta(Tasa.obtenerTasa(), new Date());
         venta.registrar();
         Toast.makeText(this, "Venta registrada con exito", Toast.LENGTH_SHORT).show();
         finish();
     }
-
-    public void modificarCantidad(String descripcion, String cantidad) {
-        for (Articulo a : listaArticulos){
-            if (a.getDescripcion().equals(descripcion)){
+    
+    public void modificarCantidad(String descripcion, String cantidad)
+    {
+        for (Articulo a : listaArticulos)
+        {
+            if (a.getDescripcion().equals(descripcion))
+            {
                 a.setCantidad(Integer.parseInt(cantidad));
             }
         }
-
+        
         calcularTotal();
         actualizarLista();
     }
-
-    public void calcularTotal(){
+    
+    public void calcularTotal()
+    {
         float total_dolares = 0;
         float total_bolivares = 0;
-
-        for (Articulo articulo : listaArticulos){
+        
+        for (Articulo articulo : listaArticulos)
+        {
             total_dolares += articulo.getPrecio() * articulo.getCantidad();
             total_bolivares += articulo.getPrecioBs() * articulo.getCantidad();
         }
-        carrito_total_dolares.setText(total_dolares+"");
-        carrito_total_bolivares.setText(total_bolivares+"");
+        carrito_total_dolares.setText(total_dolares + "");
+        carrito_total_bolivares.setText(total_bolivares + "");
     }
 }
