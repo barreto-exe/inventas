@@ -13,11 +13,12 @@ import java.util.ArrayList;
 
 public class ListaProductosInventarioRVAdapter extends ListaProductosRVAdapter
 {
-
-    public ListaProductosInventarioRVAdapter(ArrayList<Articulo> listaArticulos) {
+    
+    public ListaProductosInventarioRVAdapter(ArrayList<Articulo> listaArticulos)
+    {
         super(listaArticulos);
     }
-
+    
     @Override
     public void onClick(View v)
     {
@@ -27,9 +28,10 @@ public class ListaProductosInventarioRVAdapter extends ListaProductosRVAdapter
         intent.putExtra("descripcion", descripcion.getText().toString());
         mainActivity.startActivity(intent);
     }
-
+    
     @Override
-    public boolean onLongClick(View v) {
+    public boolean onLongClick(View v)
+    {
         return false;
     }
 }

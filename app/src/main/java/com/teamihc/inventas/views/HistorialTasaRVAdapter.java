@@ -75,8 +75,8 @@ public class HistorialTasaRVAdapter extends RecyclerView.Adapter<HistorialTasaRV
             
             String date =
                     Herramientas.FORMATO_FECHA.format(tasa.getFechaHora())
-                    + " " +
-                    Herramientas.FORMATO_TIEMPO.format(tasa.getFechaHora());
+                            + " " +
+                            Herramientas.FORMATO_TIEMPO.format(tasa.getFechaHora());
             
             float porcentajeCambio = tasa.getPorcentajeCambio();
             
@@ -96,7 +96,7 @@ public class HistorialTasaRVAdapter extends RecyclerView.Adapter<HistorialTasaRV
             {
                 imagenCambio.setImageResource(R.drawable.ic_arrow_drop_down_24px);
             }
-    
+            
         }
     }
 }

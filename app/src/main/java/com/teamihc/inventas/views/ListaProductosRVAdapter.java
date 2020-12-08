@@ -25,12 +25,14 @@ import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
 
 public abstract class ListaProductosRVAdapter
         extends RecyclerView.Adapter<ListaProductosRVAdapter.ListaProductosAdapter>
-        implements View.OnClickListener, View.OnLongClickListener {
-
+        implements View.OnClickListener, View.OnLongClickListener
+{
+    
     private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
-
-    public ListaProductosRVAdapter(ArrayList<Articulo> listaArticulos) {
+    
+    public ListaProductosRVAdapter(ArrayList<Articulo> listaArticulos)
+    {
         this.listaArticulos = listaArticulos;
     }
     
@@ -93,7 +95,8 @@ public abstract class ListaProductosRVAdapter
             cardView = (CardView) itemView.findViewById(R.id.info_producto);
         }
         
-        public void asignarDatos(Articulo articulo) {
+        public void asignarDatos(Articulo articulo)
+        {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
             TextView precioBsS = (TextView) cardView.findViewById(R.id.precioBsS);

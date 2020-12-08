@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.activities.CrearProductoActivity;
@@ -28,36 +30,41 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
     private View.OnClickListener listener;
     private ArrayList<Venta> listaVenta;
     Dialog dialog;
-
-
+    
+    
     //Constructor
     public ResumenVentaRVAdapter(ArrayList<Venta> listaVenta)
     {
         this.listaVenta = listaVenta;
     }
-
+    
     @NonNull
     @Override
-    public ResumenVentaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ResumenVentaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_venta, parent, false);
-         view.setOnClickListener(this); /*esto lo pones cuando tengas lo de la factura para que al tocar el cardView vayas a la otra ventana*/
+        view.setOnClickListener(this); /*esto lo pones cuando tengas lo de la factura para que al tocar el cardView vayas a la otra ventana*/
         return new ResumenVentaAdapter(view);
     }
-
+    
     @Override
     public void onBindViewHolder(@NonNull ResumenVentaAdapter holder, int position)
     {
         holder.asignarDatos(listaVenta.get(position));
     }
-
+    
     @Override
-    public int getItemCount() { return listaVenta.size(); }
-
-    @Override
-    public void onClick(View view) {
-
+    public int getItemCount()
+    {
+        return listaVenta.size();
     }
-
+    
+    @Override
+    public void onClick(View view)
+    {
+    
+    }
+    
     /*  @Override
       public void onClick(View v) {
           //Lleva a la factura, no estoy muy segura de esto, gustavo puede que sepa un chin mas
@@ -67,23 +74,25 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
           mainActivity.startActivity(intent);
       }
   */
-    public class ResumenVentaAdapter extends RecyclerView.ViewHolder {
-
+    public class ResumenVentaAdapter extends RecyclerView.ViewHolder
+    {
+        
         CardView cardView;
         TextView fecha;
-
-        public ResumenVentaAdapter(@NonNull View itemView) {
+        
+        public ResumenVentaAdapter(@NonNull View itemView)
+        {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.infoVenta);
         }
-
+        
         public void asignarDatos(Venta venta)
         {
             TextView hora = (TextView) cardView.findViewById(R.id.hora);
             TextView ventaBsS = (TextView) cardView.findViewById(R.id.ventaBsS);
             TextView resumen = (TextView) cardView.findViewById(R.id.resumen);
             TextView ventaD = (TextView) cardView.findViewById(R.id.ventaD);
-
+            
             float monto = venta.getCarrito().obtenerTotal();
             float conversion = monto * Tasa.obtenerTasa().getMonto();
             hora.setText(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(venta.getFechaHora()));
