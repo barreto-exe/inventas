@@ -99,6 +99,15 @@
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/imagenProd"
                 app:layout_constraintTop_toBottomOf="@+id/precioBsS" />
+
+            <TextView
+                android:id="@+id/modo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:text="0"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

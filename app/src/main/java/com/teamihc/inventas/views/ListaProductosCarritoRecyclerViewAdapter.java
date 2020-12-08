@@ -28,7 +28,9 @@ public class ListaProductosCarritoRecyclerViewAdapter extends ListaProductosRecy
 
     @Override
     public boolean onLongClick(View v) {
-        CardView cardView = (CardView)
+        CardView cardView = (CardView)v.findViewById(R.id.info_producto);
+        cardView.setBackgroundColor(v.getResources().getColor(R.color.rosado));
+
         return true;
     }
 }
