@@ -82,6 +82,7 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
             monto.setText(""+tasa.getMonto());
             fecha.setText(date);
             porcentaje.setText(""+Math.abs(porcentajeCambio));
+
             if(porcentajeCambio == 0)
             {
                 imagenCambio.setVisibility(View.INVISIBLE);
@@ -94,7 +95,6 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
             {
                 imagenCambio.setImageResource(R.drawable.ic_arrow_drop_down_24px);
             }
-    
         }
     }
 }

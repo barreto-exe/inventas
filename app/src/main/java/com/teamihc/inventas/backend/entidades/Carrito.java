@@ -2,6 +2,9 @@ package com.teamihc.inventas.backend.entidades;
 
 import androidx.annotation.NonNull;
 
+import com.teamihc.inventas.backend.basedatos.DBMatriz;
+import com.teamihc.inventas.backend.basedatos.DBOperacion;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +22,8 @@ public class Carrito
     public Carrito(){ carrito = new ArrayList<ArticuloPxQ>(); }
 
     public ArrayList<ArticuloPxQ> getCarrito() { return carrito; }
+
+    public void setCarrito(ArrayList<ArticuloPxQ> carrito) { this.carrito = carrito; }
 
     /**
      * Método para agregar un artículo al carrito y especificar la cantidad de unidades
@@ -71,5 +76,23 @@ public class Carrito
         }
 
         return total;
+    }
+
+    public static void cargarFacturaEnLista(ArrayList<ArticuloPxQ> lista, int id)
+    {
+        String query = "SELECT * FROM v_detalles_ventas WHERE id_venta = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            Articulo articulo = Articulo.obtenerInstancia((int) resultado.getValor("id_articulo"));
+            if (articulo == null)
+                return;
+
+            ArticuloPxQ a = new ArticuloPxQ(articulo, (int) resultado.getValor("cantidad"));
+            lista.add(a);
+        }
     }
 }
