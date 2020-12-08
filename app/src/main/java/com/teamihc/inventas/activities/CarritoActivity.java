@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,14 +20,10 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
-import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
-import com.teamihc.inventas.fragments.VentasFragment;
-import com.teamihc.inventas.views.ListaProductosCarritoRecyclerViewAdapter;
-import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
+import com.teamihc.inventas.views.ListaProductosCarritoRVAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -38,7 +32,7 @@ public class CarritoActivity extends AppCompatActivity
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    private ListaProductosCarritoRecyclerViewAdapter adapter;
+    private ListaProductosCarritoRVAdapter adapter;
     private Fragment fragment;
     private FragmentTransaction transaction;
     private ImageButton carrito_aceptar;
@@ -76,7 +70,7 @@ public class CarritoActivity extends AppCompatActivity
         carrito_total_dolares = (TextView)findViewById(R.id.carrito_total_dolares);
 
         listaArticulos = new ArrayList<Articulo>();
-        adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
+        adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
         
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
@@ -232,7 +226,7 @@ public class CarritoActivity extends AppCompatActivity
         for (int i=0; i<aux.size(); i++){
             listaArticulos.add(aux.get(i));
         }
-        adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
+        adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
     }
 

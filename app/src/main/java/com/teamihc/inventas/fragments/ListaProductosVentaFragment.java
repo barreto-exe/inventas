@@ -1,7 +1,6 @@
 package com.teamihc.inventas.fragments;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,8 +13,7 @@ import android.view.ViewGroup;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.views.ListaProductosCarrito2RecyclerViewAdapter;
-import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
+import com.teamihc.inventas.views.ListaProductosCarrito2RVAdapter;
 
 import java.util.ArrayList;
 
@@ -24,7 +22,7 @@ public class ListaProductosVentaFragment extends Fragment {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    private ListaProductosCarrito2RecyclerViewAdapter adapter;
+    private ListaProductosCarrito2RVAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
@@ -40,7 +38,7 @@ public class ListaProductosVentaFragment extends Fragment {
         listaArticulos = new ArrayList<Articulo>();
         Articulo.cargarInventarioEnLista(listaArticulos);
 
-        adapter = new ListaProductosCarrito2RecyclerViewAdapter(listaArticulos);
+        adapter = new ListaProductosCarrito2RVAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
 
         return view;

@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.backend.basedatos.DBMatriz;
-import com.teamihc.inventas.backend.basedatos.DBOperacion;
-import com.teamihc.inventas.views.ListaProductosInventarioRecyclerViewAdapter;
-import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
+import com.teamihc.inventas.views.ListaProductosInventarioRVAdapter;
 
 import java.util.ArrayList;
 
@@ -25,7 +22,7 @@ public class InventarioFragment extends Fragment
 {
     private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    private ListaProductosInventarioRecyclerViewAdapter adapter;
+    private ListaProductosInventarioRVAdapter adapter;
     
     //ArrayList de los productos
     @Nullable
@@ -39,7 +36,7 @@ public class InventarioFragment extends Fragment
         listaArticulos = new ArrayList<Articulo>();
 
         Articulo.cargarInventarioEnLista(listaArticulos);
-        adapter = new ListaProductosInventarioRecyclerViewAdapter(listaArticulos);
+        adapter = new ListaProductosInventarioRVAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
         
         return view;

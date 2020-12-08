@@ -1,9 +1,7 @@
 package com.teamihc.inventas.views;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
@@ -15,9 +13,10 @@ import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
 import java.util.ArrayList;
 
-public class ListaProductosCarritoRecyclerViewAdapter extends ListaProductosRecyclerViewAdapter{
+public class ListaProductosCarritoRVAdapter extends ListaProductosRVAdapter
+{
 
-    public ListaProductosCarritoRecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
+    public ListaProductosCarritoRVAdapter(ArrayList<Articulo> listaArticulos) {
         super(listaArticulos);
     }
 

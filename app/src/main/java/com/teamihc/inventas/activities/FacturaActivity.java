@@ -9,11 +9,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.views.FacturaRVAdapter;
-import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
 

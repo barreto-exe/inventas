@@ -1,6 +1,5 @@
 package com.teamihc.inventas.views;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.Herramientas;
-import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
  * @author Karen
  */
-public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<HistorialTasaRecyclerViewAdapter.HistorialTasaAdapter>
+public class HistorialTasaRVAdapter extends RecyclerView.Adapter<HistorialTasaRVAdapter.HistorialTasaAdapter>
 {
     private ArrayList<Tasa> listaTasas;
     
@@ -35,7 +31,7 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
      *
      * @param listaTasas es la lista que contiene a cada una de las tasas registradas en el tiempo.
      */
-    public HistorialTasaRecyclerViewAdapter(ArrayList<Tasa> listaTasas)
+    public HistorialTasaRVAdapter(ArrayList<Tasa> listaTasas)
     {
         this.listaTasas = listaTasas;
     }

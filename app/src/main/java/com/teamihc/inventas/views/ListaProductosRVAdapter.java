@@ -1,7 +1,5 @@
 package com.teamihc.inventas.views;
 
-import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,24 +16,21 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.MainActivity;
-import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
 
 import java.util.ArrayList;
 
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
-import static com.teamihc.inventas.backend.Herramientas.SIMBOLO_BS;
-import static com.teamihc.inventas.backend.Herramientas.FOMATO_MONEDA;
-public abstract class ListaProductosRecyclerViewAdapter
-        extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter>
+
+public abstract class ListaProductosRVAdapter
+        extends RecyclerView.Adapter<ListaProductosRVAdapter.ListaProductosAdapter>
         implements View.OnClickListener, View.OnLongClickListener {
 
     private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
 
-    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
+    public ListaProductosRVAdapter(ArrayList<Articulo> listaArticulos) {
         this.listaArticulos = listaArticulos;
     }
     

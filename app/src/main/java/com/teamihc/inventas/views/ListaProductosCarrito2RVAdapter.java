@@ -2,7 +2,6 @@ package com.teamihc.inventas.views;
 
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
@@ -10,9 +9,10 @@ import com.teamihc.inventas.backend.entidades.Articulo;
 
 import java.util.ArrayList;
 
-public class ListaProductosCarrito2RecyclerViewAdapter extends ListaProductosRecyclerViewAdapter{
+public class ListaProductosCarrito2RVAdapter extends ListaProductosRVAdapter
+{
 
-    public ListaProductosCarrito2RecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
+    public ListaProductosCarrito2RVAdapter(ArrayList<Articulo> listaArticulos) {
         super(listaArticulos);
     }
 

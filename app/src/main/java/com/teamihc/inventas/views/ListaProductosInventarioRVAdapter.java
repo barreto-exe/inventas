@@ -5,16 +5,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
 import java.util.ArrayList;
 
-public class ListaProductosInventarioRecyclerViewAdapter extends ListaProductosRecyclerViewAdapter {
+public class ListaProductosInventarioRVAdapter extends ListaProductosRVAdapter
+{
 
-    public ListaProductosInventarioRecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
+    public ListaProductosInventarioRVAdapter(ArrayList<Articulo> listaArticulos) {
         super(listaArticulos);
     }
 

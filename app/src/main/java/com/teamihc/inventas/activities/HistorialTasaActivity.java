@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Tasa;
-import com.teamihc.inventas.views.HistorialTasaRecyclerViewAdapter;
+import com.teamihc.inventas.views.HistorialTasaRVAdapter;
 
 import java.util.ArrayList;
 
@@ -17,9 +17,9 @@ public class HistorialTasaActivity extends AppCompatActivity
 {
     RecyclerView historico;
     Toolbar toolbar;
-    HistorialTasaRecyclerViewAdapter.HistorialTasaAdapter listaTasasAdapter;
+    HistorialTasaRVAdapter.HistorialTasaAdapter listaTasasAdapter;
     private ArrayList<Tasa> listaTasas;
-    HistorialTasaRecyclerViewAdapter adapter;
+    HistorialTasaRVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +38,7 @@ public class HistorialTasaActivity extends AppCompatActivity
         }
         listaTasas = new ArrayList<Tasa>();
         Tasa.cargarHistoricoEnLista(listaTasas);
-        adapter = new HistorialTasaRecyclerViewAdapter(listaTasas);
+        adapter = new HistorialTasaRVAdapter(listaTasas);
         historico.setAdapter(adapter);
     }
 }
