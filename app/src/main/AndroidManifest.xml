@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/icono_sin_fondo"
         android:supportsRtl="true"
         android:theme="@style/Theme.InVentas">
-        <activity android:name=".activities.ListaProductosVenta"></activity>
+        <activity android:name=".fragments.ListaProductosVentaFragment"></activity>
         <activity android:name=".activities.HistorialTasaActivity" />
         <activity
             android:name=".activities.CarritoActivity"

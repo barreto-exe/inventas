@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/carrito_layout"
     tools:context=".activities.CarritoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -37,7 +38,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="#00FFFFFF"
                 android:clickable="true"
-                android:onClick="mensaje"
+                android:onClick="aceptar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/toolbar_carrito"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,11 +51,25 @@
                 android:layout_marginStart="16dp"
                 android:background="#00FFFFFF"
                 android:clickable="true"
-                android:onClick="mensaje"
+                android:onClick="cancelar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_close_white_24dp" />
+
+            <ImageButton
+                android:id="@+id/carrito_retroceder"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:background="#00FFFFFF"
+                android:clickable="true"
+                android:onClick="retroceder"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/arrow_back_24" />
 
             <ImageButton
                 android:id="@+id/carrito_eliminar"
@@ -63,7 +78,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="#00FFFFFF"
                 android:clickable="true"
-                android:onClick="mensaje"
+                android:onClick="eliminar"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/toolbar_carrito"
@@ -87,10 +102,10 @@
         android:id="@+id/producto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/app_bar_layout_carrito"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="450dp"
-        android:layout_marginEnd="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/colorSecondary"
         android:clickable="true"
         android:contentDescription="@string/todo"
@@ -102,15 +117,12 @@
         app:elevation="10dp" />
 
     <fragment
-        android:id="@+id/carrito_descripcion_fragment"
-        android:name="com.teamihc.inventas.fragments.CarritoDescripcionFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/fragment_lista_productos_venta"
+        android:name="com.teamihc.inventas.fragments.ListaProductosVentaFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:visibility="invisible"
-        tools:layout="@layout/fragment_carrito_descripcion">
-
-    </fragment>
-
+        tools:layout="@layout/fragment_lista_productos_venta"/>
 
 </RelativeLayout>
