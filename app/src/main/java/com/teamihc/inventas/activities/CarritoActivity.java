@@ -2,19 +2,24 @@ package com.teamihc.inventas.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import android.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
+import com.teamihc.inventas.fragments.VentasFragment;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -22,12 +27,18 @@ import java.util.ArrayList;
 
 public class CarritoActivity extends AppCompatActivity
 {
-    Toolbar toolbar;
-    ListaProductosRecyclerViewAdapter.ListaProductosAdapter listaProductosAdapter;
-    RecyclerView recyclerView;
+    private Toolbar toolbar;
+    private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    ListaProductosRecyclerViewAdapter adapter;
-    Dialog dialog;
+    private ListaProductosRecyclerViewAdapter adapter;
+    private Fragment fragment;
+    private FragmentTransaction transaction;
+    private ImageButton carrito_aceptar;
+    private ImageButton carrito_cancelar;
+    private ImageButton carrito_eliminar;
+    private ImageButton carrito_retroceder;
+    private FloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -39,50 +50,71 @@ public class CarritoActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.carrito_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
-        dialog=new Dialog(this);
+
+        carrito_aceptar = (ImageButton)findViewById(R.id.carrito_aceptar);
+        carrito_cancelar = (ImageButton)findViewById(R.id.carrito_cancelar);
+        carrito_eliminar = (ImageButton)findViewById(R.id.carrito_eliminar);
+        carrito_retroceder = (ImageButton)findViewById(R.id.carrito_retroceder);
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.producto);
+
         listaArticulos = new ArrayList<Articulo>();
         adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
+
+        fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
+        //transaction = getFragmentManager().beginTransaction();
+
+        hideFragment();
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        TextView textView = (TextView)findViewById(R.id.carrito_descripcion_textView);
-        if (textView.getText().toString().equals("")) return;
-        Articulo articulo = Articulo.obtenerInstancia(textView.getText().toString());
+    public void hideFragment(){
+        transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        transaction.hide(fragment);
+        transaction.commit();
+
+        carrito_aceptar.setVisibility(ImageButton.VISIBLE);
+        carrito_cancelar.setVisibility(ImageButton.VISIBLE);
+        carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
+        floatingActionButton.setVisibility(ImageButton.VISIBLE);
+    }
+
+    public void showFragment(){
+        transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        transaction.show(fragment);
+        transaction.commit();
+
+        carrito_aceptar.setVisibility(ImageButton.INVISIBLE);
+        carrito_cancelar.setVisibility(ImageButton.INVISIBLE);
+        carrito_retroceder.setVisibility(ImageButton.VISIBLE);
+        floatingActionButton.setVisibility(ImageButton.INVISIBLE);
+    }
+
+    public void cargarArticulo(String descripcion) {
+        if (descripcion==null) {return;}
+        Articulo articulo = Articulo.obtenerInstancia(descripcion);
         listaArticulos.add(0, articulo);
         adapter.notifyItemInserted(0);
     }
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.carrito_aceptar:
-                Toast.makeText(this, "aceptar", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.carrito_cancelar:
-                Toast.makeText(this, "cancelar", Toast.LENGTH_SHORT).show();
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
-        }
-    }*/
     
-    public void add_carrito(View view)
-    {
-        Intent intent = new Intent(this, ListaProductosVenta.class);
-        startActivity(intent);
+    public void add_carrito(View view){
+        showFragment();
     }
 
+    public void retroceder(View view){
+        hideFragment();
+    }
 
-    public void mensaje(View view){
-        Toast.makeText(this, "Funciona", Toast.LENGTH_SHORT).show();
+    public void cancelar(View view){
+        finish();
+    }
+
+    public void eliminar(View view){
+
+    }
+
+    public void aceptar(View view){
+
     }
 }

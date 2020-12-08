@@ -1,29 +1,25 @@
 package com.teamihc.inventas.views;
 
 import android.app.Dialog;
-import android.content.Context;
+import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.activities.CrearProductoActivity;
-import com.teamihc.inventas.activities.ListaProductosVenta;
 import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
 
 import java.util.ArrayList;
 
@@ -77,10 +73,12 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
             intent.putExtra("descripcion", descripcion.getText().toString());
             mainActivity.startActivity(intent);
         } else{
-            ListaProductosVenta listaProductosVenta = ((ListaProductosVenta) v.getContext());
-            TextView bundle = listaProductosVenta.findViewById(R.id.carrito_descripcion_textView);
-            bundle.setText(descripcion.getText().toString());
-            listaProductosVenta.finish();
+            CarritoActivity carritoActivity = ((CarritoActivity) v.getContext());
+            carritoActivity.hideFragment();
+            carritoActivity.cargarArticulo(descripcion.getText().toString());
+
+            //carritoActivity.getFragmentManager().beginTransaction().hide(new ListaProductosVentaFragment());
+            //carritoActivity.getFragmentManager().beginTransaction().remove(new ListaProductosVentaFragment());
         }
         
     }
