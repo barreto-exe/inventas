@@ -18,6 +18,8 @@
     <string name="tasas">Tasas</string>
     <string name="tasa_del_dia">Tasa del día</string>
     <string name="tasa_anterior">Tasa anterior</string>
+    <string name="ganancia_total">Ganancia total</string>
+    <string name="ingreso_total">Ingreso total</string>
     <string name="unidades_en_su_inventario">Unidades en su inventario</string>
     <string name="historial_de_cambios">Historial de cambios</string>
     <string name="c_digo">Código</string>
@@ -46,4 +48,10 @@
     <string name="resumen_factura">resumen factura</string>
     <string name="editar">Editar</string>
     <string name="eliminar">Eliminar</string>
+    <string name="mas_vendido">Más vendido</string>
+    <string name="menos_vendido">Menos vendido</string>
+    <string name="dia_con_mas_ventas">Más ventas</string>
+    <string name="dia_con_menos_ventas">Menos ventas</string>
+    <string name="dia_con_mas_ingreso">Más ingresos</string>
+    <string name="dia_con_menos_ingreso">Menos ingresos</string>
 </resources>

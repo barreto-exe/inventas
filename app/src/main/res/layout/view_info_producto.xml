@@ -25,89 +25,90 @@
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/img_marquesa_de_chocolate_con_ron_6900_orig" />
 
-                <LinearLayout
-                    android:layout_margin="16dp"
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/descripcion"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Leche condensadaaa"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/precioBsS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Bs.S 99.999.999,99"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+                    tools:layout_editor_absoluteX="16dp">
 
                     <TextView
-                        android:id="@+id/descripcion"
+                        android:id="@+id/cantidadStock"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="Leche condensadaaa"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="5"
                         android:textColor="@color/black"
-                        android:textSize="24sp" />
-                    <TextView
-                        android:id="@+id/precioBsS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_light"
-                        android:text="Bs.S 99.999.999,99"
                         android:textSize="20sp" />
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout2"
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
-                        tools:layout_editor_absoluteX="16dp">
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray" />
 
-                        <TextView
-                            android:id="@+id/cantidadStock"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/roboto_bold"
-                            android:layout_weight="1"
-                            android:text="5"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/costoD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="$ 5"
+                        android:textAlignment="center"
+                        android:textColor="#FF5722"
+                        android:textSize="20sp" />
 
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/darker_gray" />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray" />
 
-                        <TextView
-                            android:id="@+id/costoD"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="$ 5"
-                            android:textAlignment="center"
-                            android:textColor="#FF5722"
-                            android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/precioD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="$ 5"
+                        android:textAlignment="center"
+                        android:textColor="#74CF0A"
+                        android:textSize="20sp" />
 
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/darker_gray" />
-
-                        <TextView
-                            android:id="@+id/precioD"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="$ 5"
-                            android:textAlignment="center"
-                            android:textColor="#74CF0A"
-                            android:textSize="20sp" />
-
-                    </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/modo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="0"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
