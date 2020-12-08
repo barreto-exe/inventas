@@ -164,6 +164,7 @@ public class CarritoActivity extends AppCompatActivity
             }
         }
         Articulo articulo = Articulo.obtenerInstancia(descripcion);
+        articulo.setCantidad(0);
         listaArticulos.add(0, articulo);
         adapter.notifyItemInserted(0);
     }

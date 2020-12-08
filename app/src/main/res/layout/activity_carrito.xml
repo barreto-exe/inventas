@@ -123,9 +123,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/app_bar_layout_carrito"
-        android:layout_alignParentBottom="true">
+        android:layout_above="@id/total_pagar"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/total_pagar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true">
+
+        <Text
+
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/producto"
