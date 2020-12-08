@@ -62,7 +62,8 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
     @Override
     public void onClick(View view)
     {
-    
+        FacturaActivity facturaActivity = (FacturaActivity) view.getContext();
+        TextView id;
     }
     
     /*  @Override
@@ -92,12 +93,15 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
             TextView ventaBsS = (TextView) cardView.findViewById(R.id.ventaBsS);
             TextView resumen = (TextView) cardView.findViewById(R.id.resumen);
             TextView ventaD = (TextView) cardView.findViewById(R.id.ventaD);
+            TextView id = (TextView) cardView.findViewById(R.id.idVenta);
             
             float monto = venta.getCarrito().obtenerTotal();
             float conversion = monto * Tasa.obtenerTasa().getMonto();
             hora.setText(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(venta.getFechaHora()));
             ventaD.setText(Float.toString(monto));
             ventaBsS.setText(Float.toString(conversion));
+            id.setText(Integer.toString(venta.obtenerId()));
+
             fecha = (TextView) cardView.findViewById(R.id.fechaActual);
         }
     }

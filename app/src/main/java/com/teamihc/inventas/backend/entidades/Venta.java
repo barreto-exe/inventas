@@ -105,7 +105,7 @@ public class Venta implements Entidad
 
     public static void cargarVentasEnLista(ArrayList<Venta> lista, Date fecha)
     {
-        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
+        String query = "SELECT * FROM v_ventas WHERE fecha = ? ORDER BY id_venta DESC";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
         DBMatriz resultado = op.consultar();
@@ -134,5 +134,23 @@ public class Venta implements Entidad
             {
             }
         }
+    }
+
+    /**
+     * Método para obtener el ingreso total obtenido en un día determinado.
+     * @param fecha es la fecha del día que se quiere obtener el ingreso total.
+     */
+    public static float obtenerIngresoDia(Date fecha)
+    {
+        Float ingreso = 0f;
+        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+            ingreso += (Float) resultado.getValor("total");
+
+        return ingreso;
     }
 }
