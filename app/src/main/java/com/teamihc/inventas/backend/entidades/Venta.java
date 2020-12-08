@@ -5,6 +5,8 @@ import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
 import java.text.SimpleDateFormat;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -37,7 +39,11 @@ public class Venta implements Entidad
     public void setTasa(Tasa tasa){ this.tasa = tasa; }
     public Date getFechaHora(){ return fechaHora; }
     public void setFechaHora(Date fechaHora){ this.fechaHora = fechaHora; }
-    public Carrito getCarrito() { return carrito; }
+    private void setCarrito(ArrayList<ArticuloPxQ> lista){ this.carrito.setCarrito(lista); }
+
+    public Carrito getCarrito() { return carrito;
+
+    }
     //</editor-fold>
     
     @Override
@@ -93,5 +99,25 @@ public class Venta implements Entidad
             id = (int) resultado.getValor("id_venta");
         }
         return id;
+    }
+
+    public static void cargarVentasEnLista(ArrayList<Venta> lista, Date fecha)
+    {
+        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            int id = (int) resultado.getValor("id_venta");
+            Venta venta = new Venta(Tasa.obtenerTasa(), fecha);
+
+            ArrayList<ArticuloPxQ> factura = new ArrayList<ArticuloPxQ>();
+            Carrito.cargarFacturaEnLista(factura, id);
+            venta.setCarrito(factura);
+
+            lista.add(venta);
+        }
     }
 }

@@ -14,7 +14,11 @@ import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.FacturaActivity;
 import com.teamihc.inventas.activities.MainActivity;
+import com.teamihc.inventas.backend.Herramientas;
+import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAdapter.ResumenVentaAdapter>
@@ -72,13 +76,12 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
             TextView ventaBsS = (TextView) cardView.findViewById(R.id.ventaBsS);
             TextView resumen = (TextView) cardView.findViewById(R.id.resumen);
             TextView ventaD = (TextView) cardView.findViewById(R.id.ventaD);
-/*
 
-            hora.setText((CharSequence) venta.getFechaHora());
-            //resumen.setText("" + venta.el campo del resumen);
-          //  ventaD.setText("" + venta. el campo de cuanto se vendio en dolares );
-            //   ventaBsS.setText("" + venta. el campo de cuanto se vendió en bolivares);
-*/
+            float monto = venta.getCarrito().obtenerTotal();
+            float conversion = monto * Tasa.obtenerTasa().getMonto();
+            hora.setText(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(venta.getFechaHora()));
+            ventaD.setText(Float.toString(monto));
+            ventaBsS.setText(Float.toString(conversion));
         }
     }
 }

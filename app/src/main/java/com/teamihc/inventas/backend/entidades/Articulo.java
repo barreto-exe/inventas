@@ -163,6 +163,33 @@ public class Articulo implements Entidad
         
         return null;
     }
+
+    /**
+     * Obtiene una instancia del artículo que corresponda al ID indicado.
+     *
+     * @param id del artículo.
+     * @return instancia del artículo de tipo Articulo
+     */
+    public static Articulo obtenerInstancia(int id)
+    {
+        String query = "SELECT * FROM v_articulos WHERE id_articulo = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
+            String descripcion = (String) resultado.getValor("descripcion");
+            float costo = (float) resultado.getValor("costo_unitario");
+            float precio = (float) resultado.getValor("precio_venta");
+            int cantidad = (int) resultado.getValor("cantidad");
+            String codigo = (String) resultado.getValor("codigo");
+
+            return new Articulo(descripcion, costo, precio, cantidad, codigo);
+        }
+
+        return null;
+    }
     
     public static void cargarInventarioEnLista(ArrayList<Articulo> listaArticulos)
     {
