@@ -24,8 +24,10 @@ public class VentasFragment extends Fragment
 {
     RecyclerView recyclerView;
     ResumenVentaRVAdapter.ResumenVentaAdapter listaVentaAdapter;
-    ResumenVentaRVAdapter adapter;
     ArrayList<Venta> listaVentas;
+    ResumenVentaRVAdapter adapter;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
@@ -34,19 +36,22 @@ public class VentasFragment extends Fragment
         recyclerView = (RecyclerView) view.findViewById(R.id.ventasDelDia);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
+
         listaVentas = new ArrayList<Venta>();
         Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter= new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
+
         return view;
     }
 
 
-    //Para que se actualice el recycler
     @Override
     public void onResume() {
         super.onResume();
-        //Falta codigo con respecto al llenado de la lista de ventas, ver InventarioFragment
+        listaVentas.clear();
+        Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
+        adapter.notifyDataSetChanged();
     }
 
 
