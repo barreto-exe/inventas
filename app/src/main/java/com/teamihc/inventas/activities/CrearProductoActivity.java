@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.dialogs.ConfirmarEliminacionDialogFragment;
+import com.teamihc.inventas.dialogs.ElegirProveedorDeImagenDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class CrearProductoActivity extends AppCompatActivity
     private ImageView imagenProd;
 
     //request code to pick image
-    private static final int PICK_IMAGES_CODE = 0;
+    private static final int IMAGES_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -293,12 +295,24 @@ public class CrearProductoActivity extends AppCompatActivity
     }
 
     //<-------------------------------Metodos para capturar una foto------------------------------->
+
     public void obtenerImagen(View view){
+        new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
+    }
+
+    public void imagenDesdeGaleria(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
         //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), PICK_IMAGES_CODE);
+        startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), IMAGES_CODE);
+    }
+
+    public void imagenDesdeCamara(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(intent, IMAGES_CODE);
+        }
     }
 
     @Override
@@ -306,7 +320,7 @@ public class CrearProductoActivity extends AppCompatActivity
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGES_CODE && resultCode == Activity.RESULT_OK
+        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK
             && data.getClipData() == null){
                 imagenProd.setImageURI(data.getData());
         }

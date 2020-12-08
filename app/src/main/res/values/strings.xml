@@ -46,4 +46,7 @@
     <string name="resumen_factura">resumen factura</string>
     <string name="editar">Editar</string>
     <string name="eliminar">Eliminar</string>
+    <string name="seleccionar_imagen">Seleccionar imagen</string>
+    <string name="tomar_foto">Tomar foto</string>
+    <string name="elegir_una_foto">Elegir una foto</string>
 </resources>
