@@ -137,19 +137,20 @@ public class Venta implements Entidad
     }
 
     /**
-     * Método para obtener las ganancias obtenidas en un día determinado.
-     * @param ganancia es donde se guarda la ganancia total diaria.
-     * @param fecha es la fecha del día que se quiere obtener la ganancia total.
+     * Método para obtener el ingreso total obtenido en un día determinado.
+     * @param fecha es la fecha del día que se quiere obtener el ingreso total.
      */
-    public static void obtenerGananciaDia(float ganancia, Date fecha)
+    public static float obtenerIngresoDia(Date fecha)
     {
-        ganancia = 0;
+        Float ingreso = 0f;
         String query = "SELECT * FROM v_ventas WHERE fecha = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
         DBMatriz resultado = op.consultar();
 
         while (resultado.leer())
-            ganancia += (Float) resultado.getValor("total");
+            ingreso += (Float) resultado.getValor("total");
+
+        return ingreso;
     }
 }
