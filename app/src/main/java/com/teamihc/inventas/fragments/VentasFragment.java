@@ -46,5 +46,7 @@ public class VentasFragment extends Fragment
         super.onResume();
         //Falta codigo con respecto al llenado de la lista de ventas, ver InventarioFragment
     }
+
+
 }
 

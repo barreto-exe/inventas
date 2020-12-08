@@ -30,15 +30,15 @@ import java.util.ArrayList;
 public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener
 {
     
-    //LayoutInflater inflater;
+
     private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
     Dialog dialog;
-    
-    //constructor, en este se le debe pasar tambien la lista por parametro
+
+
     public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos)
     {
-        //this.inflater = LayoutInflater.from(context);
+
         this.listaArticulos = listaArticulos;
     }
     
@@ -51,9 +51,7 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
         return new ListaProductosAdapter(view);
     }
     
-    //Esto lo debes cambiar de acuerdo a tu lista, lo que está despues del ultimo punto representa el campo del nodo de la lista
-    //ejemplo: holder.imagenProd.setImageResource(lista.get(position).fotoProducto); donde foto producto es la foto que está guardada en la base de datos
-    //y que luego de ser consultada y vaciada en la lista se coloca ahí
+
     @Override
     public void onBindViewHolder(@NonNull ListaProductosAdapter holder, int position)
     {
