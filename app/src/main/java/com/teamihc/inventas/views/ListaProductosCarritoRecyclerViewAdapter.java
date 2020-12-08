@@ -26,6 +26,7 @@ public class ListaProductosCarritoRecyclerViewAdapter extends ListaProductosRecy
         CarritoActivity carritoActivity = (CarritoActivity)v.getContext();
         CardView cardView = (CardView)v.findViewById(R.id.info_producto);
         TextView descripcion = (TextView)v.findViewById(R.id.descripcion);
+
         if (carritoActivity.isModoBorrar()){
             TextView modo = (TextView)v.findViewById(R.id.modo);
             if(modo.getText().toString().equals("0")){

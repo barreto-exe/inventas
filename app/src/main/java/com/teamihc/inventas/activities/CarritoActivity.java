@@ -24,6 +24,7 @@ import com.teamihc.inventas.views.ListaProductosCarritoRecyclerViewAdapter;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 
@@ -43,7 +44,7 @@ public class CarritoActivity extends AppCompatActivity
     private TextView contador;
     private ImageButton carrito_cancelar_eliminar;
     private boolean modoBorrar;
-    private LinkedList basura;
+    private LinkedList<String> basura;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,7 +66,7 @@ public class CarritoActivity extends AppCompatActivity
         contador = (TextView)findViewById(R.id.contador);
         carrito_cancelar_eliminar = (ImageButton)findViewById(R.id.carrito_cancelar_eliminar);
 
-        listaArticulos = new ArrayList<>();
+        listaArticulos = new ArrayList<Articulo>();
         adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
 
@@ -81,7 +82,7 @@ public class CarritoActivity extends AppCompatActivity
         floatingActionButton.setVisibility(ImageButton.VISIBLE);
 
         modoBorrar = false;
-        basura = new LinkedList<>();
+        basura = new LinkedList<String>();
     }
 
     public void hideFragment(){
@@ -180,21 +181,33 @@ public class CarritoActivity extends AppCompatActivity
     }
 
     public void eliminar(View view){
-        while(!basura.isEmpty()){
-            for (Articulo a: listaArticulos){
-                if(a.getDescripcion().equals(basura.pop())){
-                    listaArticulos.remove(a);
+       // String s=basura.pop();
+        for (int i=0; i<basura.size(); i++){
+            for (int j=0; j<listaArticulos.size(); j++){
+                if (basura.get(i).equals(listaArticulos.get(j).getDescripcion())){
+                    listaArticulos.remove(j);
                     break;
                 }
             }
         }
-
+        basura.clear();
         actualizarLista();
         modoEditar();
     }
 
     private void actualizarLista() {
         adapter.notifyDataSetChanged();
+        ArrayList<Articulo>aux = new ArrayList<>();
+
+        for (int i=0; i<listaArticulos.size(); i++){
+            aux.add(listaArticulos.get(i));
+        }
+        listaArticulos.clear();
+        adapter.notifyDataSetChanged();
+
+        for (int i=0; i<aux.size(); i++){
+            listaArticulos.add(aux.get(i));
+        }
         adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
     }
