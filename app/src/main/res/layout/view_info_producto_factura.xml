@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="1 x Ejemplo"
+                    android:text="Descripcion"
                     android:textColor="@color/black"
                     android:layout_marginStart="16dp"
                     android:textSize="20sp"
@@ -53,13 +53,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <TextView
-                    android:id="@+id/monto"
+                    android:id="@+id/cantidad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="$ 9,99"
+                    android:text="100"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/descripcion"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/costoD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="9,99"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:layout_marginEnd="16dp"
@@ -67,6 +80,20 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="$"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/costoD"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 

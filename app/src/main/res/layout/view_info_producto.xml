@@ -58,7 +58,7 @@
                         tools:layout_editor_absoluteX="16dp">
 
                         <TextView
-                            android:id="@+id/cantidadStock"
+                            android:id="@+id/cantidad"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto_bold"

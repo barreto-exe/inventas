@@ -64,7 +64,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
         {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
-            TextView monto = (TextView) cardView.findViewById(R.id.monto);
+            TextView monto = (TextView) cardView.findViewById(R.id.costoD);
             
             
             //imagenProd.setImageResource();

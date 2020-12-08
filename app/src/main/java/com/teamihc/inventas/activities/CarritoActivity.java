@@ -70,7 +70,7 @@ public class CarritoActivity extends AppCompatActivity
         carrito_total_dolares = (TextView) findViewById(R.id.carrito_total_dolares);
         
         listaArticulos = new ArrayList<Articulo>();
-        adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
+        adapter = new ListaProductosCarritoRVAdapter(listaArticulos, R.layout.view_info_producto_factura);
         recyclerView.setAdapter(adapter);
         
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
@@ -248,7 +248,7 @@ public class CarritoActivity extends AppCompatActivity
         {
             listaArticulos.add(aux.get(i));
         }
-        adapter = new ListaProductosCarritoRVAdapter(listaArticulos);
+        adapter = new ListaProductosCarritoRVAdapter(listaArticulos, R.layout.view_info_producto_factura);
         recyclerView.setAdapter(adapter);
     }
     

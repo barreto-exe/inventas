@@ -36,7 +36,7 @@ public class InventarioFragment extends Fragment
         listaArticulos = new ArrayList<Articulo>();
 
         Articulo.cargarInventarioEnLista(listaArticulos);
-        adapter = new ListaProductosInventarioRVAdapter(listaArticulos);
+        adapter = new ListaProductosInventarioRVAdapter(listaArticulos, R.layout.view_info_producto);
         recyclerView.setAdapter(adapter);
         
         return view;
