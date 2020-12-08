@@ -45,6 +45,8 @@ public class CarritoActivity extends AppCompatActivity
     private ImageButton carrito_cancelar_eliminar;
     private boolean modoBorrar;
     private LinkedList<String> basura;
+    private TextView carrito_total_dolares;
+    private TextView carrito_total_bolivares;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,6 +67,8 @@ public class CarritoActivity extends AppCompatActivity
         floatingActionButton = (FloatingActionButton)findViewById(R.id.producto);
         contador = (TextView)findViewById(R.id.contador);
         carrito_cancelar_eliminar = (ImageButton)findViewById(R.id.carrito_cancelar_eliminar);
+        carrito_total_bolivares = (TextView)findViewById(R.id.carrito_total_bolivares);
+        carrito_total_dolares = (TextView)findViewById(R.id.carrito_total_dolares);
 
         listaArticulos = new ArrayList<Articulo>();
         adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
@@ -167,6 +171,7 @@ public class CarritoActivity extends AppCompatActivity
         articulo.setCantidad(0);
         listaArticulos.add(0, articulo);
         adapter.notifyItemInserted(0);
+        calcularTotal();
     }
     
     public void add_carrito(View view){
@@ -200,6 +205,7 @@ public class CarritoActivity extends AppCompatActivity
         basura.clear();
         actualizarLista();
         modoEditar();
+        calcularTotal();
     }
 
     private void actualizarLista() {
@@ -231,5 +237,17 @@ public class CarritoActivity extends AppCompatActivity
         }
 
         actualizarLista();
+    }
+
+    public void calcularTotal(){
+        float total_dolares = 0;
+        float total_bolivares = 0;
+
+        for (Articulo articulo : listaArticulos){
+            total_dolares += articulo.getPrecio();
+            total_bolivares += articulo.getPrecioBs();
+        }
+        carrito_total_dolares.setText(total_dolares+"");
+        carrito_total_bolivares.setText(total_bolivares+"");
     }
 }
