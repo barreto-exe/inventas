@@ -49,7 +49,7 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
         return 0;
     }
 
-    @Override
+  /*  @Override
     public void onClick(View v) {
         //Lleva a la factura, no estoy muy segura de esto, gustavo puede que sepa un chin mas
         MainActivity mainActivity = ((MainActivity) v.getContext());
@@ -57,7 +57,7 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
         //intent.putExtra("descripcion", descripcion.getText().toString());
         mainActivity.startActivity(intent);
     }
-
+*/
     public class ResumenVentaAdapter extends RecyclerView.ViewHolder {
 
         CardView cardView;
