@@ -24,6 +24,7 @@ import com.teamihc.inventas.views.ListaProductosCarritoRecyclerViewAdapter;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class CarritoActivity extends AppCompatActivity
@@ -39,6 +40,10 @@ public class CarritoActivity extends AppCompatActivity
     private ImageButton carrito_eliminar;
     private ImageButton carrito_retroceder;
     private FloatingActionButton floatingActionButton;
+    private TextView contador;
+    private ImageButton carrito_cancelar_eliminar;
+    private boolean modoBorrar;
+    private LinkedList basura;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +62,8 @@ public class CarritoActivity extends AppCompatActivity
         carrito_eliminar = (ImageButton)findViewById(R.id.carrito_eliminar);
         carrito_retroceder = (ImageButton)findViewById(R.id.carrito_retroceder);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.producto);
+        contador = (TextView)findViewById(R.id.contador);
+        carrito_cancelar_eliminar = (ImageButton)findViewById(R.id.carrito_cancelar_eliminar);
 
         listaArticulos = new ArrayList<>();
         adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
@@ -72,6 +79,9 @@ public class CarritoActivity extends AppCompatActivity
         carrito_cancelar.setVisibility(ImageButton.VISIBLE);
         carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
         floatingActionButton.setVisibility(ImageButton.VISIBLE);
+
+        modoBorrar = false;
+        basura = new LinkedList<>();
     }
 
     public void hideFragment(){
@@ -98,6 +108,52 @@ public class CarritoActivity extends AppCompatActivity
         floatingActionButton.setVisibility(ImageButton.INVISIBLE);
     }
 
+    public void modoBorrar(String descripcion){
+        toolbar.setBackgroundColor(getColor(R.color.rojo));
+        carrito_aceptar.setVisibility(View.INVISIBLE);
+        carrito_cancelar.setVisibility(View.INVISIBLE);
+        carrito_eliminar.setVisibility(View.VISIBLE);
+        carrito_retroceder.setVisibility(View.INVISIBLE);
+        floatingActionButton.setVisibility(View.INVISIBLE);
+        contador.setVisibility(View.VISIBLE);
+        carrito_cancelar_eliminar.setVisibility(View.VISIBLE);
+        contador.setText("1");
+
+        modoBorrar = true;
+        agregarABasura(descripcion);
+    }
+
+    private void modoEditar() {
+        toolbar.setBackgroundColor(getColor(R.color.colorPrimary));
+        carrito_aceptar.setVisibility(View.VISIBLE);
+        carrito_cancelar.setVisibility(View.VISIBLE);
+        carrito_eliminar.setVisibility(View.INVISIBLE);
+        carrito_retroceder.setVisibility(View.INVISIBLE);
+        floatingActionButton.setVisibility(View.VISIBLE);
+        contador.setVisibility(View.INVISIBLE);
+        carrito_cancelar_eliminar.setVisibility(View.INVISIBLE);
+
+        modoBorrar = false;
+        actualizarLista();
+    }
+
+    public void agregarABasura(String descripcion) {
+        basura.add(descripcion);
+        contador.setText(basura.size()+"");
+    }
+
+    public void quitarDeBasura(String descripcion) {
+        basura.remove(descripcion);
+        contador.setText(basura.size()+"");
+        if (basura.size()==0){
+            modoEditar();
+        }
+    }
+
+    public boolean isModoBorrar() {
+        return modoBorrar;
+    }
+
     public void cargarArticulo(String descripcion) {
         if (descripcion==null) {return;}
         Articulo articulo = Articulo.obtenerInstancia(descripcion);
@@ -117,8 +173,30 @@ public class CarritoActivity extends AppCompatActivity
         finish();
     }
 
-    public void eliminar(View view){
+    public void cancelarEliminar(View view){
+        basura.clear();
+        modoEditar();
+        actualizarLista();
+    }
 
+    public void eliminar(View view){
+        while(!basura.isEmpty()){
+            for (Articulo a: listaArticulos){
+                if(a.getDescripcion().equals(basura.pop())){
+                    listaArticulos.remove(a);
+                    break;
+                }
+            }
+        }
+
+        actualizarLista();
+        modoEditar();
+    }
+
+    private void actualizarLista() {
+        adapter.notifyDataSetChanged();
+        adapter = new ListaProductosCarritoRecyclerViewAdapter(listaArticulos);
+        recyclerView.setAdapter(adapter);
     }
 
     public void aceptar(View view){

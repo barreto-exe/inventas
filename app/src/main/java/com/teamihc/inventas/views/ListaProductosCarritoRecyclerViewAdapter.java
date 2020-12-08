@@ -23,14 +23,32 @@ public class ListaProductosCarritoRecyclerViewAdapter extends ListaProductosRecy
     @Override
     public void onClick(View v)
     {
-
+        CarritoActivity carritoActivity = (CarritoActivity)v.getContext();
+        CardView cardView = (CardView)v.findViewById(R.id.info_producto);
+        TextView descripcion = (TextView)v.findViewById(R.id.descripcion);
+        if (carritoActivity.isModoBorrar()){
+            TextView modo = (TextView)v.findViewById(R.id.modo);
+            if(modo.getText().toString().equals("0")){
+                cardView.setBackgroundColor(v.getResources().getColor(R.color.rosado));
+                carritoActivity.agregarABasura(descripcion.getText().toString());
+                modo.setText("1");
+            }else{
+                cardView.setBackgroundColor(v.getResources().getColor(R.color.white));
+                carritoActivity.quitarDeBasura(descripcion.getText().toString());
+                modo.setText("0");
+            }
+        }
     }
 
     @Override
     public boolean onLongClick(View v) {
         CardView cardView = (CardView)v.findViewById(R.id.info_producto);
         cardView.setBackgroundColor(v.getResources().getColor(R.color.rosado));
-
+        TextView modo = (TextView)v.findViewById(R.id.modo);
+        modo.setText("1");
+        TextView descripcion = (TextView)v.findViewById(R.id.descripcion);
+        CarritoActivity carritoActivity = (CarritoActivity)v.getContext();
+        carritoActivity.modoBorrar(descripcion.getText().toString());
         return true;
     }
 }
