@@ -23,7 +23,7 @@ import com.teamihc.inventas.fragments.SobreescribirDialogFragment;
 import java.util.Date;
 
 public class CrearProductoActivity extends AppCompatActivity
-{//RECUERDA QUE ESTÁN LOS DOS BOTONES DE "aumentar" y "reducir" para poder actualizar el valor que aparece
+{
     private Toolbar toolbar;
     private String descripcion_original = "";
     private int cantidad_original = 0;

@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ public class CarritoActivity extends AppCompatActivity
     RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
     ListaProductosRecyclerViewAdapter adapter;
-    
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,9 +39,8 @@ public class CarritoActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.carrito_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
-
+        dialog=new Dialog(this);
         listaArticulos = new ArrayList<Articulo>();
-
         adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
     }
@@ -80,6 +80,7 @@ public class CarritoActivity extends AppCompatActivity
         Intent intent = new Intent(this, ListaProductosVenta.class);
         startActivity(intent);
     }
+
 
     public void mensaje(View view){
         Toast.makeText(this, "Funciona", Toast.LENGTH_SHORT).show();

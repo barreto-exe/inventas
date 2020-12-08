@@ -9,13 +9,14 @@
         android:roundIcon="@drawable/icono_sin_fondo"
         android:supportsRtl="true"
         android:theme="@style/Theme.InVentas">
-        <activity android:name=".activities.ListaProductosVenta"></activity>
+        <activity android:name=".activities.FacturaActivity"></activity>
+        <activity android:name=".activities.ListaProductosVenta" />
         <activity
             android:name=".activities.HistorialTasaActivity"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.AgregarArticuloActivity"
-            android:parentActivityName=".activities.CarritoActivity"/>
+            android:parentActivityName=".activities.CarritoActivity" />
         <activity
             android:name=".activities.CarritoActivity"
             android:parentActivityName=".activities.CarritoActivity" />

@@ -1,6 +1,7 @@
 package com.teamihc.inventas.views;
 
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.activities.CarritoActivity;
+import com.teamihc.inventas.activities.CrearProductoActivity;
+import com.teamihc.inventas.activities.FacturaActivity;
+import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.entidades.Venta;
 import java.util.ArrayList;
 
@@ -44,11 +49,15 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
         return 0;
     }
 
-  /*  @Override
+    @Override
     public void onClick(View v) {
-        //Lleva a la factura
+        //Lleva a la factura, no estoy muy segura de esto, gustavo puede que sepa un chin mas
+        MainActivity mainActivity = ((MainActivity) v.getContext());
+        Intent intent = new Intent(mainActivity,FacturaActivity.class);
+        //intent.putExtra("descripcion", descripcion.getText().toString());
+        mainActivity.startActivity(intent);
     }
-*/
+
     public class ResumenVentaAdapter extends RecyclerView.ViewHolder {
 
         CardView cardView;
