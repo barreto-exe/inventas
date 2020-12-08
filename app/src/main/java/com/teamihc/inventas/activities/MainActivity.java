@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         dialog = new Dialog(this);
-        
+
     }
     
     public void openHistorico(View view)

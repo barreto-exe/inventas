@@ -15,6 +15,7 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
+import com.teamihc.inventas.views.ListaProductosInventarioRecyclerViewAdapter;
 import com.teamihc.inventas.views.ListaProductosRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class InventarioFragment extends Fragment
 {
     private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    private ListaProductosRecyclerViewAdapter adapter;
+    private ListaProductosInventarioRecyclerViewAdapter adapter;
     
     //ArrayList de los productos
     @Nullable
@@ -38,7 +39,7 @@ public class InventarioFragment extends Fragment
         listaArticulos = new ArrayList<Articulo>();
 
         Articulo.cargarInventarioEnLista(listaArticulos);
-        adapter = new ListaProductosRecyclerViewAdapter(listaArticulos);
+        adapter = new ListaProductosInventarioRecyclerViewAdapter(listaArticulos);
         recyclerView.setAdapter(adapter);
         
         return view;
