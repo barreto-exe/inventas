@@ -107,6 +107,8 @@
                 android:background="#00FFFFFF"
                 android:text="0"
                 android:textColor="@color/white"
+                android:textSize="30dp"
+                android:gravity="center"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/toolbar_carrito"

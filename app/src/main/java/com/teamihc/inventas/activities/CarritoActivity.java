@@ -157,6 +157,12 @@ public class CarritoActivity extends AppCompatActivity
 
     public void cargarArticulo(String descripcion) {
         if (descripcion==null) {return;}
+        for (String s : basura){
+            if (s.equals(descripcion)){
+                Toast.makeText(this, "Este articulo ya fue elegido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         Articulo articulo = Articulo.obtenerInstancia(descripcion);
         listaArticulos.add(0, articulo);
         adapter.notifyItemInserted(0);
@@ -214,5 +220,15 @@ public class CarritoActivity extends AppCompatActivity
 
     public void aceptar(View view){
 
+    }
+
+    public void modificarCantidad(String descripcion, String cantidad) {
+        for (Articulo a : listaArticulos){
+            if (a.getDescripcion().equals(descripcion)){
+                a.setCantidad(Integer.parseInt(cantidad));
+            }
+        }
+
+        actualizarLista();
     }
 }

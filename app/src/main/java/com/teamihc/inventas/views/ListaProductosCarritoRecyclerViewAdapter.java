@@ -11,6 +11,7 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,9 @@ public class ListaProductosCarritoRecyclerViewAdapter extends ListaProductosRecy
                 carritoActivity.quitarDeBasura(descripcion.getText().toString());
                 modo.setText("0");
             }
+        }else{
+            Articulo articulo = Articulo.obtenerInstancia(descripcion.getText().toString());
+            new SeleccionarCantidadDialogFragment(carritoActivity, articulo).show(carritoActivity.getFragmentManager(), null);
         }
     }
 

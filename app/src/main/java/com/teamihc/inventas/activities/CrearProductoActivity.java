@@ -17,8 +17,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
-import com.teamihc.inventas.fragments.ConfirmarEliminacionDialogFragment;
-import com.teamihc.inventas.fragments.SobreescribirDialogFragment;
+import com.teamihc.inventas.dialogs.ConfirmarEliminacionDialogFragment;
+import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
 import java.util.Date;
 
