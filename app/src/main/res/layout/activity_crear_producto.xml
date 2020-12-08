@@ -43,13 +43,14 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/design_default_color_secondary_variant"
             android:contentDescription="@string/imagen_que_sube_el_usuario"
-            android:scaleType="centerInside"
+            android:elevation="8dp"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_marquesa_de_chocolate_con_ron_6900_orig" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
