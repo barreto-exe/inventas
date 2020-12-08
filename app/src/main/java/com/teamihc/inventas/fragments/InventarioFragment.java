@@ -22,10 +22,9 @@ import java.util.ArrayList;
 
 public class InventarioFragment extends Fragment
 {
-    ListaProductosRecyclerViewAdapter.ListaProductosAdapter listaProductosAdapter;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    ListaProductosRecyclerViewAdapter adapter;
+    private ListaProductosRecyclerViewAdapter adapter;
     
     //ArrayList de los productos
     @Nullable
