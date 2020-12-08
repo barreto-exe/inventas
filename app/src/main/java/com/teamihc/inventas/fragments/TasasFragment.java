@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -20,6 +21,8 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Tasa;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class TasasFragment extends Fragment
@@ -29,6 +32,7 @@ public class TasasFragment extends Fragment
     private TextView tasaAnterior;
     private ImageView iconoSubida;
     ArrayList<BarEntry> cambioTasa;
+    ArrayList<Tasa> listaTasas;
     //aqui se vacia la info de la tasa actual y de la estadistica del cambio de tasas
     @Nullable
     @Override
@@ -36,16 +40,16 @@ public class TasasFragment extends Fragment
     {
         view = inflater.inflate(R.layout.fragment_tasas, container, false);
         refrescarTasaDia();
+
         BarChart barChart = view.findViewById(R.id.tasaChart);
         llenarChart();
         BarDataSet barDataSet = new BarDataSet(cambioTasa, "Cambio de la tasa del dólar");
-        barDataSet.setColor(Color.BLUE);
+        barDataSet.setColor(getResources().getColor(R.color.bars));
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
-
         BarData barData=new BarData(barDataSet);
         barChart.setFitBars(true);
-        barData.setBarWidth(2f);
+      //  barData.setBarWidth(2f);
 
         barChart.setData(barData);
         barChart.getDescription().setText("Tasa");
@@ -64,13 +68,15 @@ public class TasasFragment extends Fragment
     }
 
     public void llenarChart(){
+        listaTasas=new ArrayList<>();
+        Tasa.cargarHistoricoEnLista(listaTasas);
         cambioTasa = new ArrayList<>();
-        cambioTasa.add(new BarEntry(20,192));
-        cambioTasa.add(new BarEntry(30,532));
-        cambioTasa.add(new BarEntry(60,130));
-        cambioTasa.add(new BarEntry(70,323));
-        cambioTasa.add(new BarEntry(88,224));
-        cambioTasa.add(new BarEntry(90,192));
+        Collections.reverse(listaTasas);
+        for(int i=0; i<listaTasas.size(); i++){
+            BarEntry b=new BarEntry(i,listaTasas.get(i).getMonto());
+            cambioTasa.add(b);
+        }
+
     }
 
     /**
