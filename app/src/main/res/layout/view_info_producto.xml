@@ -48,27 +48,14 @@
                         android:text="Bs.S 99.999.999,99"
                         android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/cantidadStock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/amaranth_bold"
-                android:text="@string/cantidadstock"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@+id/imagenProd"
-                app:layout_constraintTop_toBottomOf="@+id/precioBsS" />
-
-            <TextView
-                android:id="@+id/modo"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:text="0"
-                android:visibility="invisible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+                        tools:layout_editor_absoluteX="16dp">
 
                         <TextView
                             android:id="@+id/cantidadStock"
@@ -115,7 +102,12 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/modo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="0"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
