@@ -24,23 +24,18 @@ import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
 
 import java.util.ArrayList;
 
-import static com.teamihc.inventas.backend.Herramientas.FOMATO_MONEDA;
-import static com.teamihc.inventas.backend.Herramientas.SIMBOLO_BS;
-import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
+import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
+import static com.teamihc.inventas.backend.Herramientas.SIMBOLO_BS;
+import static com.teamihc.inventas.backend.Herramientas.FOMATO_MONEDA;
+public abstract class ListaProductosRecyclerViewAdapter
+        extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter>
+        implements View.OnClickListener, View.OnLongClickListener {
 
-public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener
-{
-    
-    
     private View.OnClickListener listener;
     private ArrayList<Articulo> listaArticulos;
-    Dialog dialog;
-    
-    
-    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos)
-    {
-        
+
+    public ListaProductosRecyclerViewAdapter(ArrayList<Articulo> listaArticulos) {
         this.listaArticulos = listaArticulos;
     }
     
@@ -50,6 +45,7 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_producto, parent, false);
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         return new ListaProductosAdapter(view);
     }
     
@@ -102,8 +98,7 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
             cardView = (CardView) itemView.findViewById(R.id.info_producto);
         }
         
-        public void asignarDatos(Articulo articulo)
-        {
+        public void asignarDatos(Articulo articulo) {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
             TextView precioBsS = (TextView) cardView.findViewById(R.id.precioBsS);

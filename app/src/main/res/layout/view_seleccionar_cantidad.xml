@@ -41,6 +41,7 @@
                 android:layout_marginStart="92dp"
                 android:layout_marginBottom="24dp"
                 android:inputType="number"
+                android:text="0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -52,6 +53,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:contentDescription="@string/todo"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/done_black_24dp" />
