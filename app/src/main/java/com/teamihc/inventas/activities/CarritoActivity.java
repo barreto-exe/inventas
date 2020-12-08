@@ -230,6 +230,11 @@ public class CarritoActivity extends AppCompatActivity
     }
 
     public void aceptar(View view){
+        if (Float.parseFloat(carrito_total_dolares.getText().toString()) == 0){
+            Toast.makeText(this, "No se ha registrado ningun articulo", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Venta venta = new Venta(Tasa.obtenerTasa(), new Date());
         venta.registrar();
         Toast.makeText(this, "Venta registrada con exito", Toast.LENGTH_SHORT).show();
