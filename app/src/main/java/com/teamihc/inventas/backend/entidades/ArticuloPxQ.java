@@ -37,4 +37,9 @@ public class ArticuloPxQ
     //</editor-fold>
 
 
+    @NotNull
+    @Override
+    public String toString() {
+        return cantidad + " x " + articulo.getDescripcion();
+    }
 }

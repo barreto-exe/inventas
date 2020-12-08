@@ -18,6 +18,8 @@ import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -68,7 +70,7 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
             cardView = (CardView) itemView.findViewById(R.id.info_tasa);
         }
         
-        public void asignarDatos(Tasa tasa)
+        public void asignarDatos(@NotNull Tasa tasa)
         {
             ImageView imagenCambio = (ImageView) cardView.findViewById(R.id.cambio);
             TextView monto = (TextView) cardView.findViewById(R.id.cantidadTasa);

@@ -12,14 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.FacturaAdapter> {
 
-    ArrayList<Articulo> listaProductos;
+    ArrayList<ArticuloPxQ> listaProductos;
 
-    public FacturaRVAdapter(ArrayList<Articulo> listaProductos) {
+    public FacturaRVAdapter(ArrayList<ArticuloPxQ> listaProductos) {
         this.listaProductos = listaProductos;
     }
 
@@ -49,7 +52,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.info_producto);
         }
-        public void asignarDatos(Articulo articulo)
+        public void asignarDatos(@NotNull ArticuloPxQ articulo)
         {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
@@ -57,9 +60,8 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
 
 
             //imagenProd.setImageResource();
-            descripcion.setText(articulo.getDescripcion());
-            monto.setText("" + articulo.getPrecio());
-
+            descripcion.setText(articulo.toString());
+            monto.setText(Float.toString(articulo.getSubTotal()));
         }
     }
 }
