@@ -105,7 +105,7 @@ public class Venta implements Entidad
 
     public static void cargarVentasEnLista(ArrayList<Venta> lista, Date fecha)
     {
-        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
+        String query = "SELECT * FROM v_ventas WHERE fecha = ? ORDER BY id_venta DESC";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
         DBMatriz resultado = op.consultar();
