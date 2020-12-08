@@ -61,7 +61,7 @@ public class Articulo implements Entidad
     }
     public float getPrecio()
     {
-        return precio;
+        return Math.round(precio*100.0f)/100.0f;
     }
     public void setPrecio(float precio)
     {
@@ -83,14 +83,20 @@ public class Articulo implements Entidad
     {
         this.codigo = codigo;
     }
-    
     public float getPrecioBs()
     {
         Tasa tasaDia = Tasa.obtenerTasa();
+        
+        float precioBs = 0;
         if(tasaDia != null)
-            return precio * tasaDia.getMonto();
+        {
+            precioBs = precio * tasaDia.getMonto();
+        }
         else
-            return precio;
+        {
+            precioBs = precio;
+        }
+        return Math.round(precioBs*100.0f)/100.0f;
     }
     //</editor-fold>
     
@@ -188,8 +194,8 @@ public class Articulo implements Entidad
         /* Registrar stock en v_inventario */
         String query = "INSERT INTO v_inventario(fecha, hora, id_articulo, cantidad) VALUES (?, ?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.pasarParametro(obtenerId());
         op.pasarParametro(cantidad);
         op.ejecutar();

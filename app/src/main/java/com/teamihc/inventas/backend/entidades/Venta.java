@@ -52,8 +52,8 @@ public class Venta implements Entidad
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(tasa.obtenerId());
         op.pasarParametro(carrito.obtenerTotal());
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.ejecutar();
 
         for (ArticuloPxQ a : carrito.getCarrito())
@@ -82,8 +82,8 @@ public class Venta implements Entidad
                 "AND hora = ? " +
                 "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
     
         DBMatriz resultado = op.consultar();
     

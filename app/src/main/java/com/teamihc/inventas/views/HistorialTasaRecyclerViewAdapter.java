@@ -27,16 +27,17 @@ import java.util.ArrayList;
 public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<HistorialTasaRecyclerViewAdapter.HistorialTasaAdapter>
 {
     private ArrayList<Tasa> listaTasas;
-
+    
     /**
      * Crea una instancia de RecyclerView que contendrá una lista con el cambio de las tasas.
+     *
      * @param listaTasas es la lista que contiene a cada una de las tasas registradas en el tiempo.
      */
     public HistorialTasaRecyclerViewAdapter(ArrayList<Tasa> listaTasas)
     {
         this.listaTasas = listaTasas;
     }
-
+    
     @NonNull
     @Override
     public HistorialTasaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -44,57 +45,59 @@ public class HistorialTasaRecyclerViewAdapter extends RecyclerView.Adapter<Histo
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_tasa, parent, false);
         return new HistorialTasaAdapter(view);
     }
-
+    
     @Override
     public void onBindViewHolder(@NonNull HistorialTasaAdapter holder, int position)
     {
         holder.asignarDatos(listaTasas.get(position));
     }
-
+    
     @Override
     public int getItemCount()
     {
         return listaTasas.size();
     }
-
+    
     public class HistorialTasaAdapter extends RecyclerView.ViewHolder
     {
         CardView cardView;
-
+        
         public HistorialTasaAdapter(@NonNull View itemView)
         {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.info_tasa);
         }
-
+        
         public void asignarDatos(Tasa tasa)
         {
             ImageView imagenCambio = (ImageView) cardView.findViewById(R.id.cambio);
             TextView monto = (TextView) cardView.findViewById(R.id.cantidadTasa);
             TextView fecha = (TextView) cardView.findViewById(R.id.fecha);
             TextView porcentaje = (TextView) cardView.findViewById(R.id.porcentaje);
-
-            String date = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(tasa.getFechaHora()) +
-                    " " + new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(tasa.getFechaHora());
-
+            
+            String date =
+                    Herramientas.FORMATO_FECHA.format(tasa.getFechaHora())
+                    + " " +
+                    Herramientas.FORMATO_TIEMPO.format(tasa.getFechaHora());
+            
             float porcentajeCambio = tasa.getPorcentajeCambio();
             
-            monto.setText(""+tasa.getMonto());
+            monto.setText("" + tasa.getMonto());
             fecha.setText(date);
-            porcentaje.setText(""+Math.abs(porcentajeCambio));
-            if(porcentajeCambio == 0)
+            porcentaje.setText("" + Math.abs(porcentajeCambio));
+            if (porcentajeCambio == 0)
             {
                 imagenCambio.setVisibility(View.INVISIBLE);
             }
-            else if(porcentajeCambio > 0)
+            else if (porcentajeCambio > 0)
             {
                 imagenCambio.setImageResource(R.drawable.ic_arrow_drop_up_24px);
             }
-            else if(porcentajeCambio < 0)
+            else if (porcentajeCambio < 0)
             {
                 imagenCambio.setImageResource(R.drawable.ic_arrow_drop_down_24px);
             }
-    
+            
         }
     }
 }

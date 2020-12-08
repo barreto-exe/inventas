@@ -18,10 +18,16 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.MainActivity;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.fragments.ListaProductosVentaFragment;
 
 import java.util.ArrayList;
+
+import static com.teamihc.inventas.backend.Herramientas.FOMATO_MONEDA;
+import static com.teamihc.inventas.backend.Herramientas.SIMBOLO_BS;
+import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
+import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 
 public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<ListaProductosRecyclerViewAdapter.ListaProductosAdapter> implements View.OnClickListener
 {
@@ -107,10 +113,10 @@ public class ListaProductosRecyclerViewAdapter extends RecyclerView.Adapter<List
             
             //imagenProd.setImageResource();
             descripcion.setText(articulo.getDescripcion());
-            precioBsS.setText("" + articulo.getPrecioBs());
+            precioBsS.setText(formatearMonedaBs(articulo.getPrecioBs()));
             cantidadStock.setText("" + articulo.getCantidad());
-            costoD.setText("" + articulo.getCosto());
-            precioD.setText("" + articulo.getPrecio());
+            costoD.setText(formatearMonedaDolar(articulo.getCosto()));
+            precioD.setText(formatearMonedaDolar(articulo.getPrecio()));
         }
     }
 }

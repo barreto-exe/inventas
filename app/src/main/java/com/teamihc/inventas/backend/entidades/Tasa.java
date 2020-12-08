@@ -81,8 +81,8 @@ public class Tasa implements Entidad
         String query = "INSERT INTO v_tasas(monto, fecha, hora) VALUES (?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(monto);
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.ejecutar();
     }
     
@@ -95,8 +95,8 @@ public class Tasa implements Entidad
                         "AND hora = ? " +
                         "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fechaHora));
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
+        op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         
         DBMatriz resultado = op.consultar();
         
