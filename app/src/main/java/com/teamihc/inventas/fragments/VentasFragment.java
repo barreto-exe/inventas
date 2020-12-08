@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.views.ResumenVentaRVAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class VentasFragment extends Fragment
@@ -29,11 +31,11 @@ public class VentasFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_ventas, container, false);
-        //Falta codigo con respecto al llenado de la lista de ventas
         recyclerView = (RecyclerView) view.findViewById(R.id.ventasDelDia);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
-        // aqui cargas la lista
+        listaVentas = new ArrayList<Venta>();
+        Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter= new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
         return view;

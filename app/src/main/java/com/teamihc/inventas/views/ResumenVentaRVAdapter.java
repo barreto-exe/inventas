@@ -20,6 +20,7 @@ import com.teamihc.inventas.backend.entidades.Venta;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAdapter.ResumenVentaAdapter>
         /*implements View.OnClickListener*/{
@@ -31,7 +32,7 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
 
     //Constructor
     public ResumenVentaRVAdapter(ArrayList<Venta> listaVenta) {
-       // this.listaVenta = listaVenta;
+        this.listaVenta = listaVenta;
     }
 
     @NonNull
@@ -44,13 +45,12 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
 
     @Override
     public void onBindViewHolder(@NonNull ResumenVentaAdapter holder, int position) {
-       // holder.asignarDatos(listaVenta.get(position));
+        holder.asignarDatos(listaVenta.get(position));
     }
 
     @Override
     public int getItemCount() {
-    //    return listaVenta.size();
-        return 0;
+        return listaVenta.size();
     }
 
   /*  @Override
@@ -65,9 +65,12 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
     public class ResumenVentaAdapter extends RecyclerView.ViewHolder {
 
         CardView cardView;
+        TextView fecha;
         public ResumenVentaAdapter(@NonNull View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.infoVenta);
+            fecha = (TextView) cardView.findViewById(R.id.fechaActual);
+            fecha.setText(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(Calendar.getInstance().getTime()));
         }
 
         public void asignarDatos(Venta venta)
