@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -56,7 +55,7 @@ public class Venta implements Entidad
         String query = "INSERT INTO v_ventas(id_tasa, total, fecha, hora, ganancia) VALUES (?, ?, ?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(tasa.obtenerId());
-        op.pasarParametro(carrito.obtenerTotal());
+        op.pasarParametro(carrito.obtenerTotalDolares());
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.pasarParametro(carrito.obtenerGanancia());
@@ -114,6 +113,15 @@ public class Venta implements Entidad
 
             lista.add(obtenerInstancia(id));
         }
+    }
+
+    /**
+     * Método para calcular la cantidad de referencias que se encuentran en el carrito.
+     * @return retorna la cantidad de referencias en el carrito.
+     */
+    public int cantidadReferencias()
+    {
+        return carrito.getCarrito().size();
     }
 
     public static Venta obtenerInstancia(int id)
