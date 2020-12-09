@@ -3,7 +3,6 @@ package com.teamihc.inventas.views;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +13,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.activities.CarritoActivity;
-import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.FacturaActivity;
 import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.Herramientas;
-import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
-import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAdapter.ResumenVentaAdapter> implements View.OnClickListener
 {
@@ -93,7 +86,7 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
             TextView ventaD = (TextView) cardView.findViewById(R.id.ventaD);
             TextView id = (TextView) cardView.findViewById(R.id.idVenta);
             
-            float monto = venta.getCarrito().obtenerTotal();
+            float monto = venta.getCarrito().obtenerTotalDolares();
             float conversion = monto * Tasa.obtenerTasa().getMonto();
             hora.setText(Herramientas.FORMATO_TIEMPO_FRONT.format(venta.getFechaHora()));
             ventaD.setText(Float.toString(monto));

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
-import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.views.FacturaRVAdapter;
 
@@ -22,6 +21,7 @@ public class FacturaActivity extends AppCompatActivity {
     private ArrayList<ArticuloPxQ> listaProductosVendidos;
     private FacturaRVAdapter adapter;
     private int idVenta;
+    private Venta venta;
     TextView totalD, totalBsS,resumen;
 
 
@@ -31,6 +31,7 @@ public class FacturaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_factura);
         idVenta = Integer.parseInt(getIntent().getExtras().getString("id"));
+        venta = Venta.obtenerInstancia(idVenta);
 
         setSupportActionBar(toolbar);
         toolbar = findViewById(R.id.toolb_factura);
@@ -50,10 +51,13 @@ public class FacturaActivity extends AppCompatActivity {
         totalBsS=findViewById(R.id.totalBsS);
         resumen=findViewById(R.id.itemsCompra);
 
+        totalD.setText(venta.getCarrito().obtenerTotalDolares() + " $ ");
+        totalBsS.setText(venta.getCarrito().obtenerTotalBsS() + " Bs.S.");
+        resumen.setText(venta.cantidadReferencias() + " referencias cargadas");
+
 
         //Falta codigo con respecto al llenado de la lista de ventas
-        listaProductosVendidos = new ArrayList<ArticuloPxQ>();
-        Carrito.cargarFacturaEnLista(listaProductosVendidos, idVenta);
+        listaProductosVendidos = venta.getCarrito().getCarrito();
 
         //falta poner el total tambien de la venta en dolares y bolivares y el numero de referencias (ver prototipo)
         //totalD.setText(" "+venta.obtener el monto de la venta);
