@@ -238,6 +238,17 @@ public class Articulo implements Entidad
         op.pasarParametro(obtenerId());
         op.pasarParametro(cantidad);
         op.ejecutar();
+
+        if (cantidad > 0)
+        {
+            this.cantidad += cantidad;
+        }
+        else
+        {
+            this.cantidad -= cantidad;
+        }
+
+        actualizar();
     }
     
     /**

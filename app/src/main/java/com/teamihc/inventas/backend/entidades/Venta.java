@@ -42,10 +42,7 @@ public class Venta implements Entidad
     public Date getFechaHora(){ return fechaHora; }
     public void setFechaHora(Date fechaHora){ this.fechaHora = fechaHora; }
     private void setCarrito(ArrayList<ArticuloPxQ> lista){ this.carrito.setCarrito(lista); }
-
-    public Carrito getCarrito() { return carrito;
-
-    }
+    public Carrito getCarrito() { return carrito; }
     //</editor-fold>
     
     @Override
@@ -56,12 +53,13 @@ public class Venta implements Entidad
             return;
 
         /*Se registran los datos correspondientes en la tabla de v_ventas y se genera el id_venta*/
-        String query = "INSERT INTO v_ventas(id_tasa, total, fecha, hora) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO v_ventas(id_tasa, total, fecha, hora, ganancia) VALUES (?, ?, ?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(tasa.obtenerId());
         op.pasarParametro(carrito.obtenerTotal());
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
+        op.pasarParametro(carrito.obtenerGanancia());
         op.ejecutar();
 
         for (ArticuloPxQ a : carrito.getCarrito())
@@ -152,5 +150,23 @@ public class Venta implements Entidad
             ingreso += (Float) resultado.getValor("total");
 
         return ingreso;
+    }
+
+    /**
+     * Método para obtener la ganancia total obtenido en un día determinado.
+     * @param fecha es la fecha del día que se quiere obtener la ganancia total.
+     */
+    public static float obtenerGananciaDia(Date fecha)
+    {
+        Float ganancia = 0f;
+        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+            ganancia += (Float) resultado.getValor("ganancia");
+
+        return ganancia;
     }
 }

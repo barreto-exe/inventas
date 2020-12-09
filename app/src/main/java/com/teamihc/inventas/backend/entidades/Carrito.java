@@ -78,6 +78,25 @@ public class Carrito
         return total;
     }
 
+    /**
+     * Método para calcular el monto total de gannancias de los artículos que se encuentran en el carrito.
+     * @return retorna el monto total de ganancias.
+     */
+    public float obtenerGanancia()
+    {
+        float total = 0;
+
+        if (!carrito.isEmpty())
+        {
+            for (ArticuloPxQ a : carrito)
+            {
+                total += a.getGanancias();
+            }
+        }
+
+        return total;
+    }
+
     public static void cargarFacturaEnLista(ArrayList<ArticuloPxQ> lista, int id)
     {
         String query = "SELECT * FROM v_detalles_ventas WHERE id_venta = ?";
