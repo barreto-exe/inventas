@@ -14,6 +14,25 @@ import java.util.Date;
 public class Estadisticas
 {
     /**
+     * @return retorna arreglo de Dates con la fecha del primer y último día de la semana en curso.
+     * Desde [0] DOMINGO (primer día de la semana).
+     * Hasta [2] SÁBADO (último día de la semana).
+     */
+    public static Date[] limiteSemana()
+    {
+        Date dias[] = new Date[2];
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        dias[0] = c.getTime();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        dias[1] = c.getTime();
+
+        return dias;
+    }
+
+    /**
      *
      * @return retorna arreglo de strings con fecha de cada dia de la semana en curso.
      */
@@ -22,25 +41,25 @@ public class Estadisticas
         String dias[] = new String[7];
         Calendar c = Calendar.getInstance();
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
         dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
         dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
         dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
         dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
         dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         return dias;
@@ -51,19 +70,19 @@ public class Estadisticas
         switch (index)
         {
             case 0:
-                return "Lunes";
-            case 1:
-                return "Martes";
-            case 2:
-                return "Miercoles";
-            case 3:
-                return "Jueves";
-            case 4:
-                return "Viernes";
-            case 5:
-                return "Sábado";
-            case 6:
                 return "Domingo";
+            case 1:
+                return "Lunes";
+            case 2:
+                return "Martes";
+            case 3:
+                return "Miercoles";
+            case 4:
+                return "Jueves";
+            case 5:
+                return "Viernes";
+            case 6:
+                return "Sábado";
         }
         return null;
     }
@@ -87,13 +106,13 @@ public class Estadisticas
 
     /**
      * Guarda en un arreglo la ganancia obtenida cada día.
-     * [0] Lunes.
-     * [1] Martes.
-     * [2] Miercoles.
-     * [3] Jueves.
-     * [4] Viernes.
-     * [5] Sábado.
-     * [6] Domingo.
+     * [0] Domingo.
+     * [1] Lunes.
+     * [2] Martes.
+     * [3] Miercoles.
+     * [4] Jueves.
+     * [5] Viernes.
+     * [6] Sábado.
      * @param gananciaDiaria es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo debe ser siete (7).
      */
     public static void calcularGananciaDiaria(float[] gananciaDiaria)
@@ -106,14 +125,13 @@ public class Estadisticas
 
     /**
      * Guarda en un arreglo la ganancia obtenida cada día.
-     * Posiciones:
-     * [0] Lunes.
-     * [1] Martes.
-     * [2] Miercoles.
-     * [3] Jueves.
-     * [4] Viernes.
-     * [5] Sábado.
-     * [6] Domingo.
+     * Posiciones:[0] Domingo.
+     * [1] Lunes.
+     * [2] Martes.
+     * [3] Miercoles.
+     * [4] Jueves.
+     * [5] Viernes.
+     * [6] Sábado.
      * @param ingresoDiario es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo debe ser siete (7).
      */
     public static void calcularIngresoDiario(float[] ingresoDiario)
@@ -127,13 +145,13 @@ public class Estadisticas
     /**
      * Guarda en un arreglo la cantidad de ventas obtenida cada día.
      * Posiciones:
-     * [0] Lunes.
-     * [1] Martes.
-     * [2] Miercoles.
-     * [3] Jueves.
-     * [4] Viernes.
-     * [5] Sábado.
-     * [6] Domingo.
+     * [0] Domingo.
+     * [1] Lunes.
+     * [2] Martes.
+     * [3] Miercoles.
+     * [4] Jueves.
+     * [5] Viernes.
+     * [6] Sábado.
      * @param ventasDiaria es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo debe ser siete (7).
      */
     public static void calcularVentasDiaria(int[] ventasDiaria)

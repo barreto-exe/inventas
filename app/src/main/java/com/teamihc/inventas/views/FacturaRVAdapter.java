@@ -56,7 +56,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
         public FacturaAdapter(@NonNull View itemView)
         {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.info_producto);
+            cardView = (CardView) itemView.findViewById(R.id.info_producto_factura);
         }
         
         public void asignarDatos(@NotNull ArticuloPxQ articulo)

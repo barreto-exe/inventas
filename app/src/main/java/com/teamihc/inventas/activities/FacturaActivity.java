@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class FacturaActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private FacturaRVAdapter.FacturaAdapter listaProductosAdapter;
     private RecyclerView recyclerView;
     private ArrayList<ArticuloPxQ> listaProductosVendidos;
     private FacturaRVAdapter adapter;
