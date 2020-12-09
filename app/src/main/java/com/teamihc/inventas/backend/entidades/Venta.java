@@ -35,24 +35,24 @@ public class Venta implements Entidad
         this.fechaHora = fechaHora;
         carrito = new Carrito();
     }
-    
+
     //<editor-fold desc="Getters & Setters">
     public Tasa getTasa(){ return tasa; }
     public void setTasa(Tasa tasa){ this.tasa = tasa; }
     public Date getFechaHora(){ return fechaHora; }
     public void setFechaHora(Date fechaHora){ this.fechaHora = fechaHora; }
-    private void setCarrito(Carrito carrito){ this.carrito = carrito; }
+    private void setCarrito(ArrayList<ArticuloPxQ> lista){ this.carrito.setCarrito(lista); }
 
     public Carrito getCarrito() { return carrito;
 
     }
     //</editor-fold>
-    
+
     @Override
     public void registrar()
     {
         /* Si el carrito está vacío, no procesa la venta */
-        if (carrito.isEmpty())
+        if (carrito.getCarrito().isEmpty())
             return;
 
         /*Se registran los datos correspondientes en la tabla de v_ventas y se genera el id_venta*/
@@ -64,7 +64,7 @@ public class Venta implements Entidad
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.ejecutar();
 
-        for (ArticuloPxQ a : carrito)
+        for (ArticuloPxQ a : carrito.getCarrito())
         {
             /* Se registran los detalles de venta de cada artículo vendido en la tabla v_detalles_ventas */
             query = "INSERT INTO v_detalles_ventas(id_venta, id_articulo, cantidad, subtotal) VALUES (?, ?, ?, ?)";
@@ -80,21 +80,21 @@ public class Venta implements Entidad
         }
 
     }
-    
+
     @Override
     public int obtenerId()
     {
         String query =
                 "SELECT id_venta FROM v_ventas WHERE " +
-                "fecha = ? " +
-                "AND hora = ? " +
-                "LIMIT 1";
+                        "fecha = ? " +
+                        "AND hora = ? " +
+                        "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
-    
+
         DBMatriz resultado = op.consultar();
-    
+
         int id = -1;
         if(resultado.leer())
         {
@@ -115,7 +115,7 @@ public class Venta implements Entidad
             int id = (int) resultado.getValor("id_venta");
             String fechaVenta = (String) resultado.getValor("fecha");
             String horaVenta  = (String) resultado.getValor("hora");
-    
+
             Venta venta = null;
             try
             {
@@ -123,11 +123,11 @@ public class Venta implements Entidad
                         Tasa.obtenerTasa(),
                         Herramientas.FORMATO_FECHATIEMPO.parse(fechaVenta + " " + horaVenta)
                 );
-    
-                Carrito factura = new Carrito();
+
+                ArrayList<ArticuloPxQ> factura = new ArrayList<ArticuloPxQ>();
                 Carrito.cargarFacturaEnLista(factura, id);
                 venta.setCarrito(factura);
-    
+
                 lista.add(venta);
             }
             catch (ParseException e)

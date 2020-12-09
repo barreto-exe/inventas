@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
-
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
-import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 
 public class ListaProductosCarritoRVAdapter extends RecyclerView.Adapter<ListaProductosCarritoRVAdapter.ListaProductosAdapter>
@@ -45,13 +43,13 @@ public class ListaProductosCarritoRVAdapter extends RecyclerView.Adapter<ListaPr
 
     @Override
     public void onBindViewHolder(@NonNull ListaProductosCarritoRVAdapter.ListaProductosAdapter holder, int position) {
-        holder.asignarDatos(carrito.get(position));
+        holder.asignarDatos(carrito.getCarrito().get(position));
     }
 
     @Override
     public int getItemCount()
     {
-        return carrito.size();
+        return carrito.getCarrito().size();
     }
 
     @Override
@@ -116,7 +114,6 @@ public class ListaProductosCarritoRVAdapter extends RecyclerView.Adapter<ListaPr
             TextView cantidad = (TextView) cardView.findViewById(R.id.cantidad);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
-            Toast.makeText(cardView.getContext(), articulo.getArticulo().getDescripcion(), Toast.LENGTH_SHORT).show();
             //imagenProd.setImageResource();
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidad.setText("" + articulo.getCantidad());

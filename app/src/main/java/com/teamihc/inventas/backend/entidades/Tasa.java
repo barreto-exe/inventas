@@ -16,7 +16,7 @@ public class Tasa implements Entidad
     private float monto;
     private Date fechaHora;
     //</editor-fold>
-    
+
     /**
      * Crea una instancia de una tasa, para poder añadir nuevas tasas a la Base de Datos.
      *
@@ -28,7 +28,7 @@ public class Tasa implements Entidad
         this.monto = monto;
         this.fechaHora = fechaHora;
     }
-    
+
     /**
      * Crea una instancia de una tasa, para poder añadir nuevas tasas a la Base de Datos.
      *
@@ -48,29 +48,29 @@ public class Tasa implements Entidad
         }
         this.monto = monto;
     }
-    
+
     //<editor-fold desc="Getters & Setters">
     public float getMonto()
     {
         return monto;
     }
-    
+
     public void setMonto(float monto)
     {
         this.monto = monto;
     }
-    
+
     public Date getFechaHora()
     {
         return fechaHora;
     }
-    
+
     public void setFechaHora(Date fechaHora)
     {
         this.fechaHora = fechaHora;
     }
     //</editor-fold>
-    
+
     /**
      * Método para añadir una nueva tasa a la Base de Datos.
      */
@@ -84,7 +84,7 @@ public class Tasa implements Entidad
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.ejecutar();
     }
-    
+
     @Override
     public int obtenerId()
     {
@@ -96,9 +96,9 @@ public class Tasa implements Entidad
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
-        
+
         DBMatriz resultado = op.consultar();
-        
+
         int id = -1;
         if (resultado.leer())
         {
@@ -106,13 +106,13 @@ public class Tasa implements Entidad
         }
         return id;
     }
-    
+
     public static void cargarHistoricoEnLista(ArrayList<Tasa> lista)
     {
         String query = "SELECT * FROM v_tasas ORDER BY id_tasa DESC";
         DBOperacion op = new DBOperacion(query);
         DBMatriz resultado = op.consultar();
-        
+
         while (resultado.leer())
         {
             Tasa tasa = new Tasa(
@@ -120,14 +120,14 @@ public class Tasa implements Entidad
                     (String) resultado.getValor("fecha"),
                     (String) resultado.getValor("hora")
             );
-            
+
             if(tasa.monto > 1)
             {
                 lista.add(tasa);
             }
         }
     }
-    
+
     /**
      * @return la tasa del día.
      */
@@ -136,7 +136,7 @@ public class Tasa implements Entidad
         String query = "SELECT * FROM v_tasas ORDER BY id_tasa DESC LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         DBMatriz resultado = op.consultar();
-        
+
         if(resultado.leer())
         {
             return new Tasa(
@@ -145,10 +145,10 @@ public class Tasa implements Entidad
                     (String) resultado.getValor("hora")
             );
         }
-        
+
         return null;
     }
-    
+
     /**
      * Consulta la tasa registrada anterior a la actual.
      * @return la tasa anterior, o null si no existe.
@@ -159,7 +159,7 @@ public class Tasa implements Entidad
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(obtenerId() - 1);
         DBMatriz resultado = op.consultar();
-        
+
         if (resultado.leer())
         {
             return new Tasa(
@@ -168,10 +168,10 @@ public class Tasa implements Entidad
                     (String) resultado.getValor("hora")
             );
         }
-        
+
         return null;
     }
-    
+
     /**
      * Compara el porcentaje de cambio con respecto a la tasa registrada anterior.
      * @return
@@ -188,7 +188,7 @@ public class Tasa implements Entidad
             return 0;
         }
     }
-    
+
     @Override
     public String toString()
     {

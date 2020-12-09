@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
-import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
 public class SeleccionarCantidadDialogFragment extends DialogFragment {
