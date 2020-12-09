@@ -77,13 +77,15 @@ public abstract class ListaProductosRVAdapter
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
-    
+            TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
+            
             //imagenProd.setImageResource();
             if (descripcion!=null) {descripcion.setText(articulo.getDescripcion());}
             if (precioBsS!=null) {precioBsS.setText(formatearMonedaBs(articulo.getPrecioBs()));}
             if (cantidadStock!=null){cantidadStock.setText("" + articulo.getCantidad());}
             if (costoD!=null){costoD.setText(formatearMonedaDolar(articulo.getCosto()));}
             if (precioD!=null) {precioD.setText(formatearMonedaDolar(articulo.getPrecio()));}
+            if (subtotal!=null) {subtotal.setText(formatearMonedaDolar(articulo.getPrecio() * articulo.getCantidad()));}
         }
     }
 }
