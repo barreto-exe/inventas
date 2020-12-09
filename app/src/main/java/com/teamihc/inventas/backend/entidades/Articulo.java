@@ -240,17 +240,12 @@ public class Articulo implements Entidad
         op.pasarParametro(id);
         op.pasarParametro(cantidad);
         op.ejecutar();
-
-        if (cantidad > 0)
-        {
-            this.cantidad += cantidad;
-        }
-        else
-        {
-            this.cantidad -= cantidad;
-        }
-
-        actualizar();
+    
+        query = "UPDATE v_articulos SET cantidad = (SELECT SUM(cantidad) FROM v_inventario WHERE id_articulo = ?) WHERE id_articulo = ?;";
+        op = new DBOperacion(query);
+        op.pasarParametro(id);
+        op.pasarParametro(id);
+        op.ejecutar();
     }
     
     /**
