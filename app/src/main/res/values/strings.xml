@@ -57,4 +57,5 @@
     <string name="dia_con_menos_ventas">Menos ventas</string>
     <string name="dia_con_mas_ingreso">Más ingresos</string>
     <string name="dia_con_menos_ingreso">Menos ingresos</string>
+    <string name="ganancias">Ganancias</string>
 </resources>

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/degradado">
+    android:layout_height="match_parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mas"
@@ -34,42 +33,72 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txtVentasdelDia"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="32dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ventas_del_dia"
-            android:textColor="@color/white"
-            android:textSize="32sp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/fechaActual"
-            android:layout_marginLeft="32dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#D6D6D6"
-            android:text="Viernes, 01/01/2020 "
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/txtVentasdelDia"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ventas_del_dia"
+                android:textColor="@color/black"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/fechaActual"
+                android:layout_marginLeft="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#434343"
+                android:layout_marginBottom="16dp"
+                android:text="Viernes, 01/01/2020 "
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
             app:cardCornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
             <LinearLayout
+                android:background="#C1C1C1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp">
+                android:paddingTop="16dp"
+                android:paddingHorizontal="8dp"
+                android:orientation="vertical"
+                android:paddingBottom="32dp">
+
+                <TextView
+                    android:text="$24"
+                    android:textColor="#3F9843"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textSize="32sp"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="@string/ganancias"
+                    android:textColor="#434343"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ventasDelDia"
+                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="32dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
