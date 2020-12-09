@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
+import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.views.FacturaRVAdapter;
 
@@ -36,6 +37,9 @@ public class FacturaActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         //Falta codigo con respecto al llenado de la lista de ventas
+        listaProductosVendidos = new ArrayList<ArticuloPxQ>();
+        Carrito.cargarFacturaEnLista(listaProductosVendidos, );
+
         recyclerView = (RecyclerView) findViewById(R.id.factura);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);

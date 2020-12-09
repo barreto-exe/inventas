@@ -68,13 +68,13 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
         FacturaActivity facturaActivity = (FacturaActivity) view.getContext();
         TextView id = (TextView) view.findViewById(R.id.idVenta);
 
-        Venta venta = Venta.
-        Articulo articulo = Articulo.obtenerInstancia(descripcion.getText().toString());
+        Venta venta = Venta.obtenerInstancia(Integer.parseInt(id.getText().toString()));
+        /*Articulo articulo = Articulo.obtenerInstancia(descripcion.getText().toString());
         Bundle bundle = new Bundle();
         bundle.putString("modo", "edicion");
         SeleccionarCantidadDialogFragment dialog = new SeleccionarCantidadDialogFragment(carritoActivity, articulo);
         dialog.setArguments(bundle);
-        dialog.show(carritoActivity.getFragmentManager(), null);
+        dialog.show(carritoActivity.getFragmentManager(), null);*/
     }
     
     /*  @Override
