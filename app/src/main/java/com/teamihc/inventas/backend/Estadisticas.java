@@ -6,6 +6,7 @@ import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author Karen
@@ -334,41 +335,60 @@ public class Estadisticas
 
 
     /**
-     * Calcula el arículo más vendido en una semana.
-     * @return instnacia del artículo más vendido.
+     * Calcula el artículo más vendido en un rango de tiempo.
+     * @param desde la fecha de inicio del rango (inclusivo).
+     * @param hasta la fecha de fin del rango (exclusivo)
+     * @return instancia del artículo más vendido.
      */
-    public static Articulo articuloMasVendido()
+    public static Articulo articuloMasVendido(Date desde, Date hasta)
     {
-        /*String query = "SELECT * FROM v_articulos";
+        String query =
+                "SELECT d.id_articulo, SUM( d.cantidad ) AS veces_vendido, SUM( v.ganancia ) AS total_ganancia " +
+                "FROM v_detalles_ventas d  " +
+                "INNER JOIN v_ventas v ON (v.id_venta = d.id_venta)  " +
+                "WHERE fecha >= ? AND fecha <= ?  " +
+                "GROUP BY d.id_articulo  " +
+                "ORDER BY d.cantidad DESC " +
+                "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
         DBMatriz resultado = op.consultar();
 
-        while (resultado.leer())
+        if(resultado.leer())
         {
-            int cantidad
-            for (int i = 0; i < 7; i++)
-            {
-
-            }
-            Articulo articulo = new Articulo(
-                    (String) resultado.getValor("descripcion"),
-                    (Float) resultado.getValor("costo_unitario"),
-                    (Float) resultado.getValor("precio_venta"),
-                    (Integer) resultado.getValor("cantidad"),
-                    (String) resultado.getValor("codigo"));
+            return Articulo.obtenerInstancia((int)resultado.getValor("d.id_articulo"));
         }
 
-        String diaSemana[] = diasSemana();*/
         return null;
     }
-
+    
     /**
-     * Calcula el arículo menos vendido en una semana.
-     * @return instnacia del artículo menos vendido.
+     * Calcula el artículo menos vendido en un rango de tiempo.
+     * @param desde la fecha de inicio del rango (inclusivo).
+     * @param hasta la fecha de fin del rango (exclusivo)
+     * @return instancia del artículo menos vendido.
      */
-    public static Articulo articuloMenosVendido()
+    public static Articulo articuloMenosVendido(Date desde, Date hasta)
     {
-
+        String query =
+                "SELECT d.id_articulo, SUM( d.cantidad ) AS veces_vendido, SUM( v.ganancia ) AS total_ganancia " +
+                        "FROM v_detalles_ventas d  " +
+                        "INNER JOIN v_ventas v ON (v.id_venta = d.id_venta)  " +
+                        "WHERE fecha >= ? AND fecha <= ?  " +
+                        "GROUP BY d.id_articulo  " +
+                        "ORDER BY d.cantidad ASC " +
+                        "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+        DBMatriz resultado = op.consultar();
+        
+        if(resultado.leer())
+        {
+            return Articulo.obtenerInstancia((int)resultado.getValor("d.id_articulo"));
+        }
+        
         return null;
     }
 }
