@@ -16,11 +16,12 @@ import java.util.ArrayList;
 
 public class ListaProductosCarritoRVAdapter extends ListaProductosRVAdapter
 {
-
-    public ListaProductosCarritoRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId) {
+    
+    public ListaProductosCarritoRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId)
+    {
         super(listaArticulos, layoutId);
     }
-
+    
     @Override
     public void onClick(View v)
     {
