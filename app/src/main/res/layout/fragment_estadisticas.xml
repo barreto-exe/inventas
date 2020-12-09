@@ -34,7 +34,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="$ 325,40"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="#00BCD4"
                         android:textSize="26sp" />
 
                     <TextView
@@ -65,7 +65,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="$ 825,56"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="#00BCD4"
                         android:textSize="26sp" />
 
                     <TextView
@@ -78,6 +78,13 @@
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
+
+            <Spinner
+                android:id="@+id/decision"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="100dp"
+                android:gravity="center|right" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

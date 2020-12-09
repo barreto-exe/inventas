@@ -16,31 +16,31 @@ public class Estadisticas
      *
      * @return retorna arreglo de strings con fecha de cada dia de la semana en curso.
      */
-    private static String[] diasSemana()
+    public static String[] diasSemana()
     {
         String dias[] = new String[7];
         Calendar c = Calendar.getInstance();
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[0] = Herramientas.FORMATO_FECHA.format(c);
+        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[1] = Herramientas.FORMATO_FECHA.format(c);
+        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[2] = Herramientas.FORMATO_FECHA.format(c);
+        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[3] = Herramientas.FORMATO_FECHA.format(c);
+        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[4] = Herramientas.FORMATO_FECHA.format(c);
+        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[5] = Herramientas.FORMATO_FECHA.format(c);
+        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        dias[6] = Herramientas.FORMATO_FECHA.format(c);
+        dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         return dias;
     }
@@ -200,6 +200,23 @@ public class Estadisticas
         return intToDay(indexDia);
     }
 
+    public static String diaMenorIngreso()
+    {
+        String diaSemana[] = diasSemana();
+        float ingresosDiarios[] = new float[7];
+        calcularIngresoDiario(ingresosDiarios);
+        float ingresoMenor = ingresosDiarios[0];
+        int indexDia = 0;
+
+        for (int i = 0; i < 7; i++)
+            if (ingresosDiarios[i] < ingresoMenor)
+            {
+                indexDia = i;
+            }
+
+        return intToDay(indexDia);
+    }
+
     /**
      * @return string con el nombre del día con mayor cantidad de ventas.
      */
@@ -213,6 +230,24 @@ public class Estadisticas
 
         for (int i = 0; i < 7; i++)
             if (ventasDiarias[i] > diaMayor)
+            {
+                indexDia = i;
+            }
+
+        return intToDay(indexDia);
+    }
+
+
+    public static String diaMenorCantVentas()
+    {
+        String diaSemana[] = diasSemana();
+        int ventasDiarias[] = new int[7];
+        calcularVentasDiaria(ventasDiarias);
+        int diaMenor = ventasDiarias[0];
+        int indexDia = 0;
+
+        for (int i = 0; i < 7; i++)
+            if (ventasDiarias[i] < diaMenor)
             {
                 indexDia = i;
             }
@@ -238,6 +273,65 @@ public class Estadisticas
 
         return diaMayor;
     }
+
+    public static int menorCantVentas()
+    {
+        String diaSemana[] = diasSemana();
+        int ventasDiarias[] = new int[7];
+        calcularVentasDiaria(ventasDiarias);
+        int diaMenor = ventasDiarias[0];
+
+        for (int i = 0; i < 7; i++)
+            if (ventasDiarias[i] < diaMenor)
+            {
+                diaMenor = ventasDiarias[i];
+            }
+
+        return diaMenor;
+    }
+
+    /**
+     *
+     * @return el mayor ingreso de la semana
+     */
+    public static float mayorIngreso()
+    {
+        String diaSemana[] = diasSemana();
+        float ingresosDiarios[] = new float[7];
+        calcularIngresoDiario(ingresosDiarios);
+        float diaMayor = ingresosDiarios[0];
+
+        for (int i = 0; i < 7; i++)
+            if (ingresosDiarios[i] > diaMayor)
+            {
+                diaMayor = ingresosDiarios[i];
+            }
+
+        return diaMayor;
+    }
+
+    /**
+     *
+     * @return el menor ingreso de la semana
+     */
+    public static float menorIngreso()
+    {
+        String diaSemana[] = diasSemana();
+        float ingresosDiarios[] = new float[7];
+        calcularIngresoDiario(ingresosDiarios);
+        float diaMenor = ingresosDiarios[0];
+
+        for (int i = 0; i < 7; i++)
+            if (ingresosDiarios[i] < diaMenor)
+            {
+                diaMenor = ingresosDiarios[i];
+            }
+
+        return diaMenor;
+    }
+
+
+
 
     /**
      * Calcula el arículo más vendido en una semana.
