@@ -10,20 +10,11 @@ import java.util.ArrayList;
 /**
  * @author Karen
  */
-public class Carrito
+public class Carrito extends ArrayList<ArticuloPxQ>
 {
-    //<editor-fold defaultstate="collapsed" desc="Atributos">
-    private ArrayList<ArticuloPxQ> carrito;
-    //</editor-fold>
-
     /**
      * Crea una instancia de un carrito vacío, que luego podrá ser manipulado.
      */
-    public Carrito(){ carrito = new ArrayList<ArticuloPxQ>(); }
-
-    public ArrayList<ArticuloPxQ> getCarrito() { return carrito; }
-
-    public void setCarrito(ArrayList<ArticuloPxQ> carrito) { this.carrito = carrito; }
 
     /**
      * Método para agregar un artículo al carrito y especificar la cantidad de unidades
@@ -38,9 +29,14 @@ public class Carrito
         if (articulo.getCantidad() < cantidad)
             return 0;
 
-        carrito.add(new ArticuloPxQ(articulo,cantidad));
+        add(new ArticuloPxQ(articulo,cantidad));
 
         return 1;
+    }
+
+    public int agregarArticulo(ArticuloPxQ articulo)
+    {
+        return agregarArticulo(articulo.getArticulo(), articulo.getCantidad());
     }
 
     /**
@@ -49,11 +45,11 @@ public class Carrito
      */
     public void eliminarArticulo(@NonNull Articulo articulo)
     {
-        for (ArticuloPxQ a: carrito)
+        for (ArticuloPxQ a: this)
         {
             if (a.getArticulo().obtenerId() == articulo.obtenerId())
             {
-                carrito.remove(a);
+                remove(a);
                 return;
             }
         }
@@ -67,9 +63,9 @@ public class Carrito
     {
         float total = 0;
 
-        if (!carrito.isEmpty())
+        if (!isEmpty())
         {
-            for (ArticuloPxQ a : carrito)
+            for (ArticuloPxQ a : this)
             {
                 total += a.getSubTotal();
             }

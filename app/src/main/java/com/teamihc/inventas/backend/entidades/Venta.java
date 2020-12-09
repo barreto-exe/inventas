@@ -41,7 +41,7 @@ public class Venta implements Entidad
     public void setTasa(Tasa tasa){ this.tasa = tasa; }
     public Date getFechaHora(){ return fechaHora; }
     public void setFechaHora(Date fechaHora){ this.fechaHora = fechaHora; }
-    private void setCarrito(ArrayList<ArticuloPxQ> lista){ this.carrito.setCarrito(lista); }
+    private void setCarrito(Carrito carrito){ this.carrito = carrito; }
 
     public Carrito getCarrito() { return carrito;
 
@@ -52,7 +52,7 @@ public class Venta implements Entidad
     public void registrar()
     {
         /* Si el carrito está vacío, no procesa la venta */
-        if (carrito.getCarrito().isEmpty())
+        if (carrito.isEmpty())
             return;
 
         /*Se registran los datos correspondientes en la tabla de v_ventas y se genera el id_venta*/
@@ -64,7 +64,7 @@ public class Venta implements Entidad
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.ejecutar();
 
-        for (ArticuloPxQ a : carrito.getCarrito())
+        for (ArticuloPxQ a : carrito)
         {
             /* Se registran los detalles de venta de cada artículo vendido en la tabla v_detalles_ventas */
             query = "INSERT INTO v_detalles_ventas(id_venta, id_articulo, cantidad, subtotal) VALUES (?, ?, ?, ?)";
@@ -124,7 +124,7 @@ public class Venta implements Entidad
                         Herramientas.FORMATO_FECHATIEMPO.parse(fechaVenta + " " + horaVenta)
                 );
     
-                ArrayList<ArticuloPxQ> factura = new ArrayList<ArticuloPxQ>();
+                Carrito factura = new Carrito();
                 Carrito.cargarFacturaEnLista(factura, id);
                 venta.setCarrito(factura);
     

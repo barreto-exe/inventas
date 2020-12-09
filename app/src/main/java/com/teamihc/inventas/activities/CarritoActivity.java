@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
+import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.views.ListaProductosCarritoRVAdapter;
@@ -31,7 +33,7 @@ public class CarritoActivity extends AppCompatActivity
 {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private ArrayList<Articulo> listaArticulos;
+    private Carrito carrito;
     private ListaProductosCarritoRVAdapter adapter;
     private Fragment fragment;
     private FragmentTransaction transaction;
@@ -68,9 +70,9 @@ public class CarritoActivity extends AppCompatActivity
         carrito_cancelar_eliminar = (ImageButton) findViewById(R.id.carrito_cancelar_eliminar);
         carrito_total_bolivares = (TextView) findViewById(R.id.carrito_total_bolivares);
         carrito_total_dolares = (TextView) findViewById(R.id.carrito_total_dolares);
-        
-        listaArticulos = new ArrayList<Articulo>();
-        adapter = new ListaProductosCarritoRVAdapter(listaArticulos, R.layout.view_info_producto_factura);
+
+        carrito = new Carrito();
+        adapter = new ListaProductosCarritoRVAdapter(carrito);
         recyclerView.setAdapter(adapter);
         
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
@@ -174,17 +176,16 @@ public class CarritoActivity extends AppCompatActivity
         {
             return;
         }
-        for (Articulo articulo : listaArticulos)
+        for (ArticuloPxQ articulo : carrito)
         {
-            if (articulo.getDescripcion().equals(descripcion))
+            if (articulo.getArticulo().getDescripcion().equals(descripcion))
             {
                 Toast.makeText(this, "Este articulo ya fue elegido", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
         Articulo articulo = Articulo.obtenerInstancia(descripcion);
-        articulo.setCantidad(cantidad);
-        listaArticulos.add(0, articulo);
+        carrito.agregarArticulo(articulo, cantidad);
         adapter.notifyItemInserted(0);
         calcularTotal();
     }
@@ -216,14 +217,8 @@ public class CarritoActivity extends AppCompatActivity
         // String s=basura.pop();
         for (int i = 0; i < basura.size(); i++)
         {
-            for (int j = 0; j < listaArticulos.size(); j++)
-            {
-                if (basura.get(i).equals(listaArticulos.get(j).getDescripcion()))
-                {
-                    listaArticulos.remove(j);
-                    break;
-                }
-            }
+            Articulo articulo = Articulo.obtenerInstancia(basura.get(i));
+            carrito.eliminarArticulo(articulo);
         }
         basura.clear();
         actualizarLista();
@@ -234,20 +229,20 @@ public class CarritoActivity extends AppCompatActivity
     private void actualizarLista()
     {
         adapter.notifyDataSetChanged();
-        ArrayList<Articulo> aux = new ArrayList<>();
+        Carrito aux = new Carrito();
         
-        for (int i = 0; i < listaArticulos.size(); i++)
+        for (int i = 0; i < carrito.size(); i++)
         {
-            aux.add(listaArticulos.get(i));
+            aux.agregarArticulo(carrito.get(i));
         }
-        listaArticulos.clear();
+        carrito.clear();
         adapter.notifyDataSetChanged();
         
         for (int i = 0; i < aux.size(); i++)
         {
-            listaArticulos.add(aux.get(i));
+            carrito.agregarArticulo(aux.get(i));
         }
-        adapter = new ListaProductosCarritoRVAdapter(listaArticulos, R.layout.view_info_producto_factura);
+        adapter = new ListaProductosCarritoRVAdapter(carrito);
         recyclerView.setAdapter(adapter);
     }
     
@@ -267,9 +262,9 @@ public class CarritoActivity extends AppCompatActivity
     
     public void modificarCantidad(String descripcion, String cantidad)
     {
-        for (Articulo a : listaArticulos)
+        for (ArticuloPxQ a : carrito)
         {
-            if (a.getDescripcion().equals(descripcion))
+            if (a.getArticulo().getDescripcion().equals(descripcion))
             {
                 a.setCantidad(Integer.parseInt(cantidad));
             }
@@ -281,15 +276,7 @@ public class CarritoActivity extends AppCompatActivity
     
     public void calcularTotal()
     {
-        float total_dolares = 0;
-        float total_bolivares = 0;
-        
-        for (Articulo articulo : listaArticulos)
-        {
-            total_dolares += articulo.getPrecio() * articulo.getCantidad();
-            total_bolivares += articulo.getPrecioBs() * articulo.getCantidad();
-        }
-        carrito_total_dolares.setText(total_dolares + "");
-        carrito_total_bolivares.setText(total_bolivares + "");
+        carrito_total_dolares.setText(carrito.obtenerTotal() + "");
+        carrito_total_bolivares.setText(carrito.obtenerTotal() * Tasa.obtenerTasa().getMonto() + "");
     }
 }

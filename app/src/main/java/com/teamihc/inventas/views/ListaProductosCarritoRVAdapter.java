@@ -1,24 +1,70 @@
 package com.teamihc.inventas.views;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
+import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
-import java.util.ArrayList;
+import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
+import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 
-public class ListaProductosCarritoRVAdapter extends ListaProductosRVAdapter
+public class ListaProductosCarritoRVAdapter extends RecyclerView.Adapter<ListaProductosCarritoRVAdapter.ListaProductosAdapter>
+        implements View.OnClickListener, View.OnLongClickListener
 {
+    private Carrito carrito;
+    private CardView cardView;
 
-    public ListaProductosCarritoRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId) {
-        super(listaArticulos, layoutId);
+    public ListaProductosCarritoRVAdapter(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
+    @NonNull
+    @Override
+    public ListaProductosAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_producto_factura, parent, false);
+        view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
+        return new ListaProductosAdapter(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ListaProductosCarritoRVAdapter.ListaProductosAdapter holder, int position) {
+        holder.asignarDatos(carrito.get(position));
+    }
+
+    @Override
+    public int getItemCount()
+    {
+        return carrito.size();
+    }
+
+    @Override
+    public boolean onLongClick(View v)
+    {
+        CardView cardView = (CardView) v.findViewById(R.id.info_producto);
+        cardView.setBackgroundColor(v.getResources().getColor(R.color.rosado));
+        TextView modo = (TextView) v.findViewById(R.id.modo);
+        modo.setText("1");
+        TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
+        CarritoActivity carritoActivity = (CarritoActivity) v.getContext();
+        carritoActivity.modoBorrar(descripcion.getText().toString());
+        return true;
     }
 
     @Override
@@ -27,7 +73,7 @@ public class ListaProductosCarritoRVAdapter extends ListaProductosRVAdapter
         CarritoActivity carritoActivity = (CarritoActivity) v.getContext();
         CardView cardView = (CardView) v.findViewById(R.id.info_producto);
         TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
-        
+
         if (carritoActivity.isModoBorrar())
         {
             TextView modo = (TextView) v.findViewById(R.id.modo);
@@ -54,17 +100,28 @@ public class ListaProductosCarritoRVAdapter extends ListaProductosRVAdapter
             dialog.show(carritoActivity.getFragmentManager(), null);
         }
     }
-    
-    @Override
-    public boolean onLongClick(View v)
+
+    public class ListaProductosAdapter extends RecyclerView.ViewHolder
     {
-        CardView cardView = (CardView) v.findViewById(R.id.info_producto);
-        cardView.setBackgroundColor(v.getResources().getColor(R.color.rosado));
-        TextView modo = (TextView) v.findViewById(R.id.modo);
-        modo.setText("1");
-        TextView descripcion = (TextView) v.findViewById(R.id.descripcion);
-        CarritoActivity carritoActivity = (CarritoActivity) v.getContext();
-        carritoActivity.modoBorrar(descripcion.getText().toString());
-        return true;
+        public ListaProductosAdapter(@NonNull View itemView)
+        {
+            super(itemView);
+            cardView = (CardView) itemView.findViewById(R.id.info_producto);
+        }
+
+        public void asignarDatos(ArticuloPxQ articulo)
+        {
+            ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
+            TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
+            TextView cantidad = (TextView) cardView.findViewById(R.id.cantidad);
+            TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
+
+            Toast.makeText(cardView.getContext(), articulo.getArticulo().getDescripcion(), Toast.LENGTH_SHORT).show();
+            //imagenProd.setImageResource();
+            descripcion.setText(articulo.getArticulo().getDescripcion());
+            cantidad.setText("" + articulo.getCantidad());
+            subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));
+        }
     }
+
 }
