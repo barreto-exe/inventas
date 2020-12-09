@@ -16,31 +16,31 @@ public class Estadisticas
      *
      * @return retorna arreglo de strings con fecha de cada dia de la semana en curso.
      */
-    private static String[] diasSemana()
+    public static String[] diasSemana()
     {
         String dias[] = new String[7];
         Calendar c = Calendar.getInstance();
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[0] = Herramientas.FORMATO_FECHA.format(c);
+        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[1] = Herramientas.FORMATO_FECHA.format(c);
+        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[2] = Herramientas.FORMATO_FECHA.format(c);
+        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[3] = Herramientas.FORMATO_FECHA.format(c);
+        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[4] = Herramientas.FORMATO_FECHA.format(c);
+        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[5] = Herramientas.FORMATO_FECHA.format(c);
+        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        dias[6] = Herramientas.FORMATO_FECHA.format(c);
+        dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         return dias;
     }
