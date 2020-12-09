@@ -240,13 +240,17 @@ public class Articulo implements Entidad
         op.pasarParametro(id);
         op.pasarParametro(cantidad);
         op.ejecutar();
-    
-    
-        query = "UPDATE v_articulos SET cantidad = (SELECT SUM(cantidad) FROM v_inventario WHERE id_articulo = ?) WHERE id_articulo = ?;";
-        op = new DBOperacion(query);
-        op.pasarParametro(id);
-        op.pasarParametro(id);
-        op.ejecutar();
+
+        if (cantidad > 0)
+        {
+            this.cantidad += cantidad;
+        }
+        else
+        {
+            this.cantidad -= cantidad;
+        }
+
+        actualizar();
     }
     
     /**
@@ -289,5 +293,23 @@ public class Articulo implements Entidad
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         op.ejecutar();
+    }
+
+    public static int calcularCantVendidosDia(int id, int fecha)
+    {
+        int cantidad = 0;
+
+        String query = "SELECT * FROM v_detalles_ventas WHERE id_articulo = ? AND fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        op.pasarParametro(fecha);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            cantidad += (int) resultado.getValor("cantidad");
+        }
+
+        return cantidad;
     }
 }
