@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -64,7 +63,7 @@ public class Venta implements Entidad
         String query = "INSERT INTO v_ventas(id_tasa, total, fecha, hora, ganancia) VALUES (?, ?, ?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(tasa.obtenerId());
-        op.pasarParametro(carrito.obtenerTotal());
+        op.pasarParametro(carrito.obtenerTotalDolares());
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.pasarParametro(carrito.obtenerGanancia());
@@ -119,10 +118,34 @@ public class Venta implements Entidad
         while (resultado.leer())
         {
             int id = (int) resultado.getValor("id_venta");
+
+            lista.add(obtenerInstancia(id));
+        }
+    }
+
+    /**
+     * Método para calcular la cantidad de referencias que se encuentran en el carrito.
+     * @return retorna la cantidad de referencias en el carrito.
+     */
+    public int cantidadReferencias()
+    {
+        return carrito.getCarrito().size();
+    }
+
+    public static Venta obtenerInstancia(int id)
+    {
+        String query = "SELECT * FROM v_ventas WHERE id_venta = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
             String fechaVenta = (String) resultado.getValor("fecha");
             String horaVenta  = (String) resultado.getValor("hora");
 
             Venta venta = null;
+
             try
             {
                 venta = new Venta(
@@ -134,12 +157,14 @@ public class Venta implements Entidad
                 Carrito.cargarFacturaEnLista(factura, id);
                 venta.setCarrito(factura);
 
-                lista.add(venta);
+                return venta;
             }
             catch (ParseException e)
             {
             }
         }
+
+        return null;
     }
 
     /**

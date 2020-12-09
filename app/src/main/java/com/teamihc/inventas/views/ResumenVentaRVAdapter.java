@@ -17,7 +17,6 @@ import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAdapter.ResumenVentaAdapter> implements View.OnClickListener
@@ -57,19 +56,14 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
     @Override
     public void onClick(View view)
     {
-        FacturaActivity facturaActivity = (FacturaActivity) view.getContext();
-        TextView id;
+        TextView id = (TextView) view.findViewById(R.id.idVenta);
+        MainActivity mainActivity = ((MainActivity) view.getContext());
+        Intent intent = new Intent(mainActivity, FacturaActivity.class);
+        intent.putExtra("id", id.getText().toString());
+        mainActivity.startActivity(intent);
     }
-    
-    /*  @Override
-      public void onClick(View v) {
-          //Lleva a la factura, no estoy muy segura de esto, gustavo puede que sepa un chin mas
-          MainActivity mainActivity = ((MainActivity) v.getContext());
-          Intent intent = new Intent(mainActivity,FacturaActivity.class);
-          //intent.putExtra("descripcion", descripcion.getText().toString());
-          mainActivity.startActivity(intent);
-      }
-  */
+
+
     public class ResumenVentaAdapter extends RecyclerView.ViewHolder
     {
         
@@ -90,13 +84,13 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
             TextView ventaD = (TextView) cardView.findViewById(R.id.ventaD);
             TextView id = (TextView) cardView.findViewById(R.id.idVenta);
             
-            float monto = venta.getCarrito().obtenerTotal();
+            float monto = venta.getCarrito().obtenerTotalDolares();
             float conversion = monto * Tasa.obtenerTasa().getMonto();
-            hora.setText(new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING).format(venta.getFechaHora()));
+            hora.setText(Herramientas.FORMATO_TIEMPO_FRONT.format(venta.getFechaHora()));
             ventaD.setText(Float.toString(monto));
             ventaBsS.setText(Float.toString(conversion));
             id.setText(Integer.toString(venta.obtenerId()));
-
+            
             fecha = (TextView) cardView.findViewById(R.id.fechaActual);
         }
     }

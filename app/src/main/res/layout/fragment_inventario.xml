@@ -42,6 +42,7 @@
       -->
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginBottom="64dp"
         android:id="@+id/productos_inventarioRV"
         android:layout_width="408dp"
         android:layout_height="655dp"

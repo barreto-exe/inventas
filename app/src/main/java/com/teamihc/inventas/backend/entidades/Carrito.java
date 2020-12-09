@@ -60,10 +60,10 @@ public class Carrito
     }
 
     /**
-     * Método para calcular el monto total a pagar por los artículos que se encuentran en el carrito.
+     * Método para calcular el monto total (en dólares) a pagar por los artículos que se encuentran en el carrito.
      * @return retorna el monto total a pagar (retorna 0 si el carrito está vacío).
      */
-    public float obtenerTotal()
+    public float obtenerTotalDolares()
     {
         float total = 0;
 
@@ -76,6 +76,25 @@ public class Carrito
         }
 
         return total;
+    }
+
+    /**
+     * Método para calcular el monto total (en bolívares) a pagar por los artículos que se encuentran en el carrito.
+     * @return retorna el monto total a pagar (retorna 0 si el carrito está vacío).
+     */
+    public float obtenerTotalBsS()
+    {
+        float total = obtenerTotalDolares();
+        return total * Tasa.obtenerTasa().getMonto();
+    }
+
+    /**
+     * Método para calcular la cantidad de referencias que se encuentran en el carrito.
+     * @return retorna la cantidad de referencias en el carrito.
+     */
+    public int cantidadReferencias()
+    {
+        return carrito.size();
     }
 
     /**

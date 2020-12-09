@@ -11,73 +11,72 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
 
-            <TextView
-                android:id="@+id/cantidadTasa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="32dp"
-                android:fontFamily="@font/amaranth_bold"
-                android:text="TextView"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.478" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/fecha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/amaranth"
-                android:text="fecha"
-                android:textColor="#000000"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/cantidadTasa"
-                app:layout_constraintHorizontal_bias="0.091"
-                app:layout_constraintStart_toStartOf="@+id/cantidadTasa"
-                app:layout_constraintTop_toBottomOf="@+id/cantidadTasa" />
+                <TextView
+                    android:id="@+id/cantidadTasa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99.505.031,09 Bs.S"
+                    android:maxLines="1"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
 
+                <TextView
+                    android:id="@+id/fecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01/01/2020, 01:20 p.m."
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="10"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/porcentaje"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="100dp"
-                android:fontFamily="@font/amaranth_bold"
-                android:text="porcentaje "
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="12,75%"
                 android:textColor="#000000"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/cambio"
                 android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginBottom="28dp"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/porcentaje"
                 app:srcCompat="@drawable/ic_arrow_drop_up_24px" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
         />
     </androidx.cardview.widget.CardView>
