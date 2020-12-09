@@ -39,9 +39,12 @@ public class FacturaActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.factura);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
+
         totalD=findViewById(R.id.totalD);
         totalBsS=findViewById(R.id.totalBsS);
         resumen=findViewById(R.id.itemsCompra);
+
+
         listaProductosVendidos = new ArrayList<ArticuloPxQ>();
         //Aqui cargas la lista
         //falta poner el total tambien de la venta en dolares y bolivares y el numero de referencias (ver prototipo)
