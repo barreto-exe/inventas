@@ -65,27 +65,14 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
     @Override
     public void onClick(View view)
     {
-        FacturaActivity facturaActivity = (FacturaActivity) view.getContext();
         TextView id = (TextView) view.findViewById(R.id.idVenta);
-        
-        Venta venta = Venta.obtenerInstancia(Integer.parseInt(id.getText().toString()));
-        /*Articulo articulo = Articulo.obtenerInstancia(descripcion.getText().toString());
-        Bundle bundle = new Bundle();
-        bundle.putString("modo", "edicion");
-        SeleccionarCantidadDialogFragment dialog = new SeleccionarCantidadDialogFragment(carritoActivity, articulo);
-        dialog.setArguments(bundle);
-        dialog.show(carritoActivity.getFragmentManager(), null);*/
+        MainActivity mainActivity = ((MainActivity) view.getContext());
+        Intent intent = new Intent(mainActivity, FacturaActivity.class);
+        intent.putExtra("id", id.getText().toString());
+        mainActivity.startActivity(intent);
     }
-    
-    /*  @Override
-      public void onClick(View v) {
-          //Lleva a la factura, no estoy muy segura de esto, gustavo puede que sepa un chin mas
-          MainActivity mainActivity = ((MainActivity) v.getContext());
-          Intent intent = new Intent(mainActivity,FacturaActivity.class);
-          //intent.putExtra("descripcion", descripcion.getText().toString());
-          mainActivity.startActivity(intent);
-      }
-  */
+
+
     public class ResumenVentaAdapter extends RecyclerView.ViewHolder
     {
         

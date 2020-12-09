@@ -22,23 +22,26 @@ public class FacturaActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<ArticuloPxQ> listaProductosVendidos;
     private FacturaRVAdapter adapter;
-    Venta venta;
+    private int idVenta;
     TextView totalD, totalBsS,resumen;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_factura);
+        idVenta = Integer.parseInt(getIntent().getExtras().getString("id"));
+
         setSupportActionBar(toolbar);
         toolbar = findViewById(R.id.toolb_factura);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Resumen de Venta");
+
         if (getSupportActionBar() != null)
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        //Falta codigo con respecto al llenado de la lista de ventas
-        listaProductosVendidos = new ArrayList<ArticuloPxQ>();
-        Carrito.cargarFacturaEnLista(listaProductosVendidos, );
 
         recyclerView = (RecyclerView) findViewById(R.id.factura);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
@@ -49,11 +52,12 @@ public class FacturaActivity extends AppCompatActivity {
         resumen=findViewById(R.id.itemsCompra);
 
 
+        //Falta codigo con respecto al llenado de la lista de ventas
         listaProductosVendidos = new ArrayList<ArticuloPxQ>();
-        //Aqui cargas la lista
+        Carrito.cargarFacturaEnLista(listaProductosVendidos, idVenta);
+
         //falta poner el total tambien de la venta en dolares y bolivares y el numero de referencias (ver prototipo)
         //totalD.setText(" "+venta.obtener el monto de la venta);
-
 
         adapter = new FacturaRVAdapter(listaProductosVendidos);
         recyclerView.setAdapter(adapter);

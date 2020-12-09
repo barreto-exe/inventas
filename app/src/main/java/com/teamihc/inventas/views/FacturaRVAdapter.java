@@ -69,7 +69,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
             
             //imagenProd.setImageResource();
             descripcion.setText(articulo.getArticulo().getDescripcion());
-            cantidad.setText(articulo.getCantidad());
+            cantidad.setText(Integer.toString(articulo.getCantidad()));
             monto.setText(Float.toString(articulo.getSubTotal()));
         }
     }
