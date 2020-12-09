@@ -2,19 +2,15 @@ package com.teamihc.inventas.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.app.FragmentTransaction;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
@@ -23,8 +19,6 @@ import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.views.ListaProductosCarritoRVAdapter;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -256,11 +250,7 @@ public class CarritoActivity extends AppCompatActivity
             return;
         }
 
-        Venta venta = new Venta(Tasa.obtenerTasa(), new Date());
-        for(Articulo articulo : listaArticulos)
-        {
-            venta.getCarrito().agregarArticulo(articulo, articulo.getCantidad());
-        }
+        Venta venta = new Venta(Tasa.obtenerTasa(), new Date(), carrito);
         venta.registrar();
         Toast.makeText(this, "Venta registrada con exito", Toast.LENGTH_SHORT).show();
         finish();

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/inventas_logo"
-            android:layout_alignParentBottom="true"/>
+            android:layout_above="@id/nav_bar"/>
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

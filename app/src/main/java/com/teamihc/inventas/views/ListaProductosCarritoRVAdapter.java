@@ -111,12 +111,12 @@ public class ListaProductosCarritoRVAdapter extends RecyclerView.Adapter<ListaPr
         {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
-            TextView cantidad = (TextView) cardView.findViewById(R.id.cantidad);
+            TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
             //imagenProd.setImageResource();
             descripcion.setText(articulo.getArticulo().getDescripcion());
-            cantidad.setText("" + articulo.getCantidad());
+            cantidadStock.setText("" + articulo.getCantidad());
             subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));
         }
     }

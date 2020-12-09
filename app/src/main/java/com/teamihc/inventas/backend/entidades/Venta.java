@@ -36,12 +36,20 @@ public class Venta implements Entidad
         carrito = new Carrito();
     }
 
+    public Venta(Tasa tasa, Date fechaHora, Carrito carrito)
+    {
+        this.tasa = tasa;
+        this.fechaHora = fechaHora;
+        this.carrito = carrito;
+    }
+
     //<editor-fold desc="Getters & Setters">
     public Tasa getTasa(){ return tasa; }
     public void setTasa(Tasa tasa){ this.tasa = tasa; }
     public Date getFechaHora(){ return fechaHora; }
     public void setFechaHora(Date fechaHora){ this.fechaHora = fechaHora; }
     private void setCarrito(ArrayList<ArticuloPxQ> lista){ this.carrito.setCarrito(lista); }
+    public void setCarrito(Carrito carrito){ this.carrito = carrito; }
     public Carrito getCarrito() { return carrito; }
     //</editor-fold>
 
