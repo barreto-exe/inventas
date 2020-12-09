@@ -25,13 +25,18 @@ import java.util.Locale;
  */
 public class Herramientas
 {
-    public static final String FORMATO_FECHA_STRING = "dd/MM/yyyy";
-    public static final String FORMATO_TIEMPO_STRING = "hh:mm:ss";
+    public static final String FORMATO_FECHA_STRING = "yyyy/MM/dd";
+    public static final String FORMATO_FECHA_FRONT_STRING = "dd/MM/yyyy";
+    public static final String FORMATO_TIEMPO_STRING = "HH:mm:ss";
+    public static final String FORMATO_TIEMPO_FRONT_STRING = "HH:mm";
     public static final String SIMBOLO_BS = "Bs.S";
     public static final String SIMBOLO_D  = "$";
     
+    
     public static final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING);
+    public static final SimpleDateFormat FORMATO_FECHA_FRONT = new SimpleDateFormat(Herramientas.FORMATO_FECHA_FRONT_STRING);
     public static final SimpleDateFormat FORMATO_TIEMPO = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING);
+    public static final SimpleDateFormat FORMATO_TIEMPO_FRONT = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_FRONT_STRING);
     public static final SimpleDateFormat FORMATO_FECHATIEMPO = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING + " " +Herramientas.FORMATO_TIEMPO_STRING);
     public static final NumberFormat FOMATO_MONEDA = NumberFormat.getNumberInstance(new Locale("es","VE"));
     

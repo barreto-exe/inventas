@@ -26,34 +26,31 @@ public class VentasFragment extends Fragment
     ResumenVentaRVAdapter.ResumenVentaAdapter listaVentaAdapter;
     ArrayList<Venta> listaVentas;
     ResumenVentaRVAdapter adapter;
-
-
+    
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_ventas, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.ventasDelDia);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
-
+        
         listaVentas = new ArrayList<Venta>();
         Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
-        adapter= new ResumenVentaRVAdapter(listaVentas);
+        adapter = new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
-
+        
         return view;
     }
-
-
+    
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         listaVentas.clear();
         Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter.notifyDataSetChanged();
     }
-
-
 }
 

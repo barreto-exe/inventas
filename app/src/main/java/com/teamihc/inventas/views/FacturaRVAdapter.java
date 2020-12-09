@@ -46,8 +46,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
     @Override
     public int getItemCount()
     {
-        //return listaProductos.size();
-        return 0;
+        return listaProductos.size();
     }
     
     public class FacturaAdapter extends RecyclerView.ViewHolder
@@ -57,18 +56,20 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
         public FacturaAdapter(@NonNull View itemView)
         {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.info_producto);
+            cardView = (CardView) itemView.findViewById(R.id.info_producto_factura);
         }
         
         public void asignarDatos(@NotNull ArticuloPxQ articulo)
         {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
+            TextView cantidad = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView monto = (TextView) cardView.findViewById(R.id.costoD);
             
             
             //imagenProd.setImageResource();
-            descripcion.setText(articulo.toString());
+            descripcion.setText(articulo.getArticulo().getDescripcion());
+            cantidad.setText(Integer.toString(articulo.getCantidad()));
             monto.setText(Float.toString(articulo.getSubTotal()));
         }
     }

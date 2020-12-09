@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/view_infoTasa"
@@ -9,89 +9,75 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/infoVenta"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="5dp"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:padding="16dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/hora"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_weight="9"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="32dp"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/hora"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/hora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="12:00 p.m."
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
+                <TextView
+                    android:id="@+id/resumen"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="1 harina, 2 huevos, 3 pollos"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="vertical">
+                <TextView
+                    android:singleLine="true"
+                    android:ellipsize="start"
+                    android:id="@+id/ventaBsS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Bs.S. 999.999.999,99"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/ventaD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$ 55"
+                    android:textColor="#55950B"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/resumen"
-                android:layout_width="150dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/resumen_factura"
-                android:textColor="#000000"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/hora"
-                app:layout_constraintHorizontal_bias="0.091"
-                app:layout_constraintStart_toStartOf="@+id/hora"
-                app:layout_constraintTop_toBottomOf="@+id/hora" />
-
-
-            <TextView
-                android:id="@+id/ventaBsS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/venta_en_bolivares"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/ventaD"
-                app:layout_constraintTop_toBottomOf="@+id/ventaD" />
-
-            <TextView
-                android:id="@+id/ventaD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/venta_dolares"
-                android:textColor="#55950B"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/idVenta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="id venta"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+        <TextView
+            android:id="@+id/idVenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id venta"
+            android:visibility="gone" />
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

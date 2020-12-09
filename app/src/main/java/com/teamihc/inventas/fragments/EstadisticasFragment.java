@@ -158,8 +158,8 @@ public class EstadisticasFragment extends Fragment {
 
         float gananciaT = Estadisticas.gananciaTotalSemanal();
         float ingresoT = Estadisticas.ingresoTotalSemanal();
-        Articulo masV = Estadisticas.articuloMasVendido();
-        Articulo menosV = Estadisticas.articuloMenosVendido();
+        /*Articulo masV = Estadisticas.articuloMasVendido();
+        Articulo menosV = Estadisticas.articuloMenosVendido();*/
         String diaMasV=Estadisticas.diaMayorCantVentas();
         String diaMasI=Estadisticas.diaMayorIngreso();
         String diaMenosV=Estadisticas.diaMenorCantVentas();

@@ -40,26 +40,25 @@
 
             <TextView
                 android:id="@+id/txtVentasdelDia"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/ventas_del_dia"
                 android:textColor="@color/black"
                 android:textSize="32sp" />
 
             <TextView
                 android:id="@+id/fechaActual"
-                android:layout_marginLeft="32dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#434343"
+                android:layout_marginLeft="32dp"
                 android:layout_marginBottom="16dp"
                 android:text="Viernes, 01/01/2020 "
+                android:textColor="#434343"
                 android:textSize="16sp" />
 
         </LinearLayout>
-
 
 
         <androidx.cardview.widget.CardView
@@ -71,37 +70,38 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
             <LinearLayout
-                android:background="#C1C1C1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="16dp"
-                android:paddingHorizontal="8dp"
+                android:background="#C1C1C1"
                 android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingTop="16dp"
                 android:paddingBottom="32dp">
 
                 <TextView
-                    android:text="$24"
-                    android:textColor="#3F9843"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
-                    android:textSize="32sp"
+                    android:text="$24"
                     android:textAlignment="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="#3F9843"
+                    android:textSize="32sp" />
+
                 <TextView
-                    android:text="@string/ganancias"
-                    android:textColor="#434343"
-                    android:fontFamily="@font/roboto_light"
-                    android:textSize="16sp"
-                    android:textAlignment="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/ganancias"
+                    android:textAlignment="center"
+                    android:textColor="#434343"
+                    android:textSize="16sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ventasDelDia"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="32dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="32dp"
                     android:foregroundGravity="top"
                     app:layout_constraintTop_toBottomOf="@+id/txtVentasdelDia" />
             </LinearLayout>
