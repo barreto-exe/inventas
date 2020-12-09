@@ -134,7 +134,7 @@ public class Articulo implements Entidad
     {
         String query =
                 "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo, imagen) " +
-                        "VALUES (?,?,?,?,?);";
+                        "VALUES (?,?,?,?,?,?);";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         op.pasarParametro(costo);
@@ -188,9 +188,12 @@ public class Articulo implements Entidad
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
 
+            Bitmap imagen = null;
             byte[] imagenByte = (byte[]) resultado.getValor("imagen");
-            ByteArrayInputStream stream = new ByteArrayInputStream(imagenByte);
-            Bitmap imagen = BitmapFactory.decodeStream(stream);
+            if (imagenByte != null) {
+                ByteArrayInputStream stream = new ByteArrayInputStream(imagenByte);
+                imagen = BitmapFactory.decodeStream(stream);
+            }
             
             return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         }
@@ -242,7 +245,8 @@ public class Articulo implements Entidad
                     (Float) resultado.getValor("costo_unitario"),
                     (Float) resultado.getValor("precio_venta"),
                     (Integer) resultado.getValor("cantidad"),
-                    (String) resultado.getValor("codigo"));
+                    (String) resultado.getValor("codigo"),
+                    (Bitmap) resultado.getValor("imagen"));
             listaArticulos.add(articulo);
         }
     }
