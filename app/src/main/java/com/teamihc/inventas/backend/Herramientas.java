@@ -1,7 +1,10 @@
 package com.teamihc.inventas.backend;
 
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,11 +12,15 @@ import androidx.annotation.Nullable;
 import com.teamihc.inventas.BuildConfig;
 import com.teamihc.inventas.activities.MainActivity;
 
+import org.sqldroid.SQLDroidBlob;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
@@ -104,5 +111,55 @@ public class Herramientas
             Log.e("tag", e.getMessage());
         }
         
+    }
+
+    public static byte[] bitmapToArray(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+        return stream.toByteArray();
+    }
+
+    public static Bitmap blobToBitmap(SQLDroidBlob blob){
+        byte[] array = null;
+
+        try {
+            int size = (int) blob.length();
+            array = blob.getBytes(0, size);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return BitmapFactory.decodeByteArray(array, 0, array.length);
+    }
+
+    public static Bitmap comprimirImagen(Bitmap imagen){
+        byte[] array = bitmapToArray(imagen);
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(array, 0, array.length, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options.outHeight, options.outWidth);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(array, 0, array.length);
+    }
+
+    public static int calculateInSampleSize(int height, int width) {
+        // Raw height and width of image
+        final int reqHeight = 4000;
+        final  int reqWidth = 4000;
+        int inSampleSize = 1;
+
+        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        // height and width larger than the requested height and width.
+        while ((height / inSampleSize) >= reqHeight && (width / inSampleSize) >= reqWidth) {
+            inSampleSize *= 2;
+        }
+
+        return inSampleSize;
     }
 }

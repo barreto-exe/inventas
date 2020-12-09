@@ -177,7 +177,7 @@ public class CrearProductoActivity extends AppCompatActivity
         precioView.setEnabled(false);
         codigoView.setEnabled(false);
         cantidadView.setEnabled(false);
-        fotoproducto_btn.setEnabled(false);
+        fotoproducto_btn.setClickable(false);
     }
     
     private void permitirEdicion()
@@ -187,7 +187,7 @@ public class CrearProductoActivity extends AppCompatActivity
         precioView.setEnabled(true);
         codigoView.setEnabled(true);
         cantidadView.setEnabled(true);
-        fotoproducto_btn.setEnabled(true);
+        fotoproducto_btn.setClickable(true);
     }
     
     private void llenarFormulario()
@@ -200,7 +200,7 @@ public class CrearProductoActivity extends AppCompatActivity
         precioBsView.setText(articulo.getPrecioBs() + "");
         codigoView.setText(articulo.getCodigo());
         cantidadView.setText(articulo.getCantidad() + "");
-        
+        imagenProd.setImageBitmap(articulo.getImagen());
         cantidad_original = articulo.getCantidad();
     }
     
@@ -252,7 +252,6 @@ public class CrearProductoActivity extends AppCompatActivity
         float precio = Float.parseFloat(precioView.getText().toString());
         int cantidad = Integer.parseInt(cantidadView.getText().toString());
         String codigo = codigoView.getText().toString();
-
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imagenProd.getDrawable();
         Bitmap imagen = bitmapDrawable.getBitmap();
 
@@ -268,8 +267,11 @@ public class CrearProductoActivity extends AppCompatActivity
                 //es un articulo nuevo?
                 if (descripcion_original.equals(""))
                 {
-                    articulo.registrar();
-                    Toast.makeText(getApplicationContext(), "Articulo registrado con exito", Toast.LENGTH_SHORT).show();
+                    if (articulo.registrar()) {
+                        Toast.makeText(getApplicationContext(), "Articulo registrado con exito", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "ERROR al registrar articulo", Toast.LENGTH_SHORT).show();
+                    }
                     finish();
                 }
                 else

@@ -54,11 +54,11 @@ public class Venta implements Entidad
     //</editor-fold>
 
     @Override
-    public void registrar()
+    public boolean registrar()
     {
         /* Si el carrito está vacío, no procesa la venta */
         if (carrito.getCarrito().isEmpty())
-            return;
+            return false;
 
         /*Se registran los datos correspondientes en la tabla de v_ventas y se genera el id_venta*/
         String query = "INSERT INTO v_ventas(id_tasa, total, fecha, hora, ganancia) VALUES (?, ?, ?, ?, ?)";
@@ -84,7 +84,7 @@ public class Venta implements Entidad
             /* Se registra la salida del articulo en v_inventario y se actualiza la cantidad disponible */
             a.getArticulo().agregarStock(a.getCantidad() * -1, fechaHora);
         }
-
+        return true;
     }
 
     @Override

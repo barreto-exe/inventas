@@ -11,14 +11,18 @@ import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
 import org.jetbrains.annotations.NotNull;
+import org.sqldroid.SQLDroidBlob;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.function.DoubleBinaryOperator;
+
+import static com.teamihc.inventas.backend.Herramientas.*;
 
 public class Articulo implements Entidad
 {
@@ -121,16 +125,8 @@ public class Articulo implements Entidad
     }
     //</editor-fold>
 
-    //<--------------------Imagen----------------------------------
-    private byte[] obtenerImagenByteArray(){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        imagen.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        return stream.toByteArray();
-    }
-    //<--------------------Imagen----------------------------------
-
     @Override
-    public void registrar()
+    public boolean registrar()
     {
         String query =
                 "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo, imagen) " +
@@ -141,11 +137,15 @@ public class Articulo implements Entidad
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
-        op.pasarParametro(obtenerImagenByteArray());
+        Bitmap imagenComprimida = comprimirImagen(imagen);
+        op.pasarParametro(bitmapToArray(imagenComprimida));
+
+        if (op.ejecutar() != 0){
+            agregarStock(cantidad, Calendar.getInstance().getTime());
+            return true;
+        }
         
-        op.ejecutar();
-        
-        agregarStock(cantidad, Calendar.getInstance().getTime());
+       return false;
     }
     
     @Override
@@ -187,13 +187,7 @@ public class Articulo implements Entidad
             float precio = (float) resultado.getValor("precio_venta");
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
-
-            Bitmap imagen = null;
-            byte[] imagenByte = (byte[]) resultado.getValor("imagen");
-            if (imagenByte != null) {
-                ByteArrayInputStream stream = new ByteArrayInputStream(imagenByte);
-                imagen = BitmapFactory.decodeStream(stream);
-            }
+            Bitmap imagen = blobToBitmap((SQLDroidBlob) resultado.getValor("imagen"));
             
             return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         }
@@ -221,10 +215,7 @@ public class Articulo implements Entidad
             float precio = (float) resultado.getValor("precio_venta");
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
-
-            byte[] imagenByte = (byte[]) resultado.getValor("imagen");
-            ByteArrayInputStream stream = new ByteArrayInputStream(imagenByte);
-            Bitmap imagen = BitmapFactory.decodeStream(stream);
+            Bitmap imagen = blobToBitmap((SQLDroidBlob) resultado.getValor("imagen"));
 
             return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         }
@@ -246,7 +237,7 @@ public class Articulo implements Entidad
                     (Float) resultado.getValor("precio_venta"),
                     (Integer) resultado.getValor("cantidad"),
                     (String) resultado.getValor("codigo"),
-                    (Bitmap) resultado.getValor("imagen"));
+                    blobToBitmap((SQLDroidBlob) resultado.getValor("imagen")) );
             listaArticulos.add(articulo);
         }
     }
@@ -321,8 +312,9 @@ public class Articulo implements Entidad
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
+        op.pasarParametro(bitmapToArray(imagen));
         op.pasarParametro(descripcion);
-        op.pasarParametro(obtenerImagenByteArray());
+
         op.ejecutar();
     }
     
