@@ -74,9 +74,10 @@ public abstract class ListaProductosRVAdapter
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
             TextView precioBsS = (TextView) cardView.findViewById(R.id.precioBsS);
-            TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidad);
+            TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
+            TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
             
             //imagenProd.setImageResource();
             if (descripcion!=null) {descripcion.setText(articulo.getDescripcion());}
@@ -84,6 +85,7 @@ public abstract class ListaProductosRVAdapter
             if (cantidadStock!=null){cantidadStock.setText("" + articulo.getCantidad());}
             if (costoD!=null){costoD.setText(formatearMonedaDolar(articulo.getCosto()));}
             if (precioD!=null) {precioD.setText(formatearMonedaDolar(articulo.getPrecio()));}
+            if (subtotal!=null) {subtotal.setText(formatearMonedaDolar(articulo.getPrecio() * articulo.getCantidad()));}
         }
     }
 }
