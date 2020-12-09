@@ -1,17 +1,28 @@
 package com.teamihc.inventas.backend.entidades;
 
 
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
 import org.jetbrains.annotations.NotNull;
+import org.sqldroid.SQLDroidBlob;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.function.DoubleBinaryOperator;
+
+import static com.teamihc.inventas.backend.Herramientas.*;
 
 public class Articulo implements Entidad
 {
@@ -21,6 +32,7 @@ public class Articulo implements Entidad
     private float precio;
     private int cantidad;
     private String codigo;
+    private Bitmap imagen;
     //</editor-fold>
     
     /**
@@ -40,6 +52,16 @@ public class Articulo implements Entidad
         this.precio = precio;
         this.cantidad = cantidad;
         this.codigo = codigo;
+    }
+
+    public Articulo(String descripcion, float costo, float precio, int cantidad, String codigo, Bitmap imagen)
+    {
+        this.descripcion = descripcion.trim();
+        this.costo = costo;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.codigo = codigo;
+        this.imagen = imagen;
     }
     
     //<editor-fold desc="Getters & Setters">
@@ -83,6 +105,9 @@ public class Articulo implements Entidad
     {
         this.codigo = codigo;
     }
+    public Bitmap getImagen() { return imagen; }
+    public void setImagen(Bitmap imagen) { this.imagen = imagen; }
+
     public float getPrecioBs()
     {
         Tasa tasaDia = Tasa.obtenerTasa();
@@ -99,23 +124,28 @@ public class Articulo implements Entidad
         return Math.round(precioBs*100.0f)/100.0f;
     }
     //</editor-fold>
-    
+
     @Override
-    public void registrar()
+    public boolean registrar()
     {
         String query =
-                "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo) " +
-                        "VALUES (?,?,?,?,?);";
+                "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo, imagen) " +
+                        "VALUES (?,?,?,?,?,?);";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         op.pasarParametro(costo);
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
+        Bitmap imagenComprimida = comprimirImagen(imagen);
+        op.pasarParametro(bitmapToArray(imagenComprimida));
+
+        if (op.ejecutar() != 0){
+            agregarStock(cantidad, Calendar.getInstance().getTime());
+            return true;
+        }
         
-        op.ejecutar();
-        
-        agregarStock(cantidad, Calendar.getInstance().getTime());
+       return false;
     }
     
     @Override
@@ -157,8 +187,9 @@ public class Articulo implements Entidad
             float precio = (float) resultado.getValor("precio_venta");
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
+            Bitmap imagen = blobToBitmap((SQLDroidBlob) resultado.getValor("imagen"));
             
-            return new Articulo(descripcion, costo, precio, cantidad, codigo);
+            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         }
         
         return null;
@@ -184,8 +215,9 @@ public class Articulo implements Entidad
             float precio = (float) resultado.getValor("precio_venta");
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
+            Bitmap imagen = blobToBitmap((SQLDroidBlob) resultado.getValor("imagen"));
 
-            return new Articulo(descripcion, costo, precio, cantidad, codigo);
+            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         }
 
         return null;
@@ -204,7 +236,8 @@ public class Articulo implements Entidad
                     (Float) resultado.getValor("costo_unitario"),
                     (Float) resultado.getValor("precio_venta"),
                     (Integer) resultado.getValor("cantidad"),
-                    (String) resultado.getValor("codigo"));
+                    (String) resultado.getValor("codigo"),
+                    blobToBitmap((SQLDroidBlob) resultado.getValor("imagen")) );
             listaArticulos.add(articulo);
         }
     }
@@ -272,13 +305,16 @@ public class Articulo implements Entidad
     
     public void actualizar()
     {
-        String query = "UPDATE v_articulos SET costo_unitario = ?, precio_venta = ?, cantidad = ?, codigo = ? WHERE descripcion = ?";
+        String query = "UPDATE v_articulos SET costo_unitario = ?, precio_venta = ?, cantidad = ?, " +
+                "codigo = ?, imagen = ? WHERE descripcion = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(costo);
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
+        op.pasarParametro(bitmapToArray(imagen));
         op.pasarParametro(descripcion);
+
         op.ejecutar();
     }
     

@@ -15,7 +15,7 @@
         android:theme="@style/Theme.InVentas" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fotoproducto_bttn"
+        android:id="@+id/fotoproducto_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorSecondary"

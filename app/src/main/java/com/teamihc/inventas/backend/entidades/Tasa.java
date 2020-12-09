@@ -75,7 +75,7 @@ public class Tasa implements Entidad
      * Método para añadir una nueva tasa a la Base de Datos.
      */
     @Override
-    public void registrar()
+    public boolean registrar()
     {
         String query = "INSERT INTO v_tasas(monto, fecha, hora) VALUES (?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
@@ -83,6 +83,8 @@ public class Tasa implements Entidad
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
         op.ejecutar();
+
+        return true;
     }
 
     @Override

@@ -5,7 +5,7 @@ public interface Entidad
     /**
      * Hace un insert de la entidad en la base de datos.
      */
-    public void registrar();
+    public boolean registrar();
     
     /**
      * Hace una búsqueda de la instancia en la base de datos.
