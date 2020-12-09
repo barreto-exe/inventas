@@ -15,6 +15,7 @@ public class ArticuloPxQ
     private Articulo articulo;
     private int cantidad;
     private float subTotal;
+    private float ganancias;
     //</editor-fold>
 
     /**
@@ -26,6 +27,7 @@ public class ArticuloPxQ
         this.articulo = articulo;
         this.cantidad = cantidad;
         subTotal = articulo.getPrecio() * cantidad;
+        ganancias = (articulo.getPrecio() - articulo.getCosto()) * cantidad;
     }
 
     //<editor-fold desc="Getters & Setters">
@@ -34,6 +36,7 @@ public class ArticuloPxQ
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; subTotal = articulo.getPrecio() * cantidad;}
     public float getSubTotal() { return subTotal; }
+    public float getGanancias() { return ganancias; }
     //</editor-fold>
 
 

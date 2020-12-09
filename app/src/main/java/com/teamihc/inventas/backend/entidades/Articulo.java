@@ -231,13 +231,26 @@ public class Articulo implements Entidad
     public void agregarStock(int cantidad, Date fechaHora)
     {
         /* Registrar stock en v_inventario */
-        String query = "INSERT INTO v_inventario(fecha, hora, id_articulo, cantidad) VALUES (?, ?, ?, ?)";
+        String query =
+                "INSERT INTO v_inventario(fecha, hora, id_articulo, cantidad) VALUES (?, ?, ?, ?);";
+        int id = obtenerId();
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
-        op.pasarParametro(obtenerId());
+        op.pasarParametro(id);
         op.pasarParametro(cantidad);
         op.ejecutar();
+
+        if (cantidad > 0)
+        {
+            this.cantidad += cantidad;
+        }
+        else
+        {
+            this.cantidad -= cantidad;
+        }
+
+        actualizar();
     }
     
     /**
@@ -280,5 +293,23 @@ public class Articulo implements Entidad
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         op.ejecutar();
+    }
+
+    public static int calcularCantVendidosDia(int id, int fecha)
+    {
+        int cantidad = 0;
+
+        String query = "SELECT * FROM v_detalles_ventas WHERE id_articulo = ? AND fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        op.pasarParametro(fecha);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            cantidad += (int) resultado.getValor("cantidad");
+        }
+
+        return cantidad;
     }
 }

@@ -74,10 +74,10 @@ public abstract class ListaProductosRVAdapter
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
             TextView precioBsS = (TextView) cardView.findViewById(R.id.precioBsS);
-            TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidad);
+            TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
-            
+    
             //imagenProd.setImageResource();
             if (descripcion!=null) {descripcion.setText(articulo.getDescripcion());}
             if (precioBsS!=null) {precioBsS.setText(formatearMonedaBs(articulo.getPrecioBs()));}
