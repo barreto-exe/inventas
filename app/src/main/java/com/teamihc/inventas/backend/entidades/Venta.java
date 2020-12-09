@@ -111,27 +111,44 @@ public class Venta implements Entidad
         while (resultado.leer())
         {
             int id = (int) resultado.getValor("id_venta");
+
+            lista.add(obtenerInstancia(id));
+        }
+    }
+
+    public static Venta obtenerInstancia(int id)
+    {
+        String query = "SELECT * FROM v_ventas WHERE id_venta = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
             String fechaVenta = (String) resultado.getValor("fecha");
             String horaVenta  = (String) resultado.getValor("hora");
-    
+
             Venta venta = null;
+
             try
             {
                 venta = new Venta(
                         Tasa.obtenerTasa(),
                         Herramientas.FORMATO_FECHATIEMPO.parse(fechaVenta + " " + horaVenta)
                 );
-    
+
                 ArrayList<ArticuloPxQ> factura = new ArrayList<ArticuloPxQ>();
                 Carrito.cargarFacturaEnLista(factura, id);
                 venta.setCarrito(factura);
-    
-                lista.add(venta);
+
+                return venta;
             }
             catch (ParseException e)
             {
             }
         }
+
+        return null;
     }
 
     /**

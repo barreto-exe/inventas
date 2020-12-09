@@ -3,6 +3,7 @@ package com.teamihc.inventas.views;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,10 @@ import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.FacturaActivity;
 import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.Herramientas;
+import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
+import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,7 +66,15 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
     public void onClick(View view)
     {
         FacturaActivity facturaActivity = (FacturaActivity) view.getContext();
-        TextView id;
+        TextView id = (TextView) view.findViewById(R.id.idVenta);
+
+        Venta venta = Venta.
+        Articulo articulo = Articulo.obtenerInstancia(descripcion.getText().toString());
+        Bundle bundle = new Bundle();
+        bundle.putString("modo", "edicion");
+        SeleccionarCantidadDialogFragment dialog = new SeleccionarCantidadDialogFragment(carritoActivity, articulo);
+        dialog.setArguments(bundle);
+        dialog.show(carritoActivity.getFragmentManager(), null);
     }
     
     /*  @Override
