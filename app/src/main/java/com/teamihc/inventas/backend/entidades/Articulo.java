@@ -292,4 +292,22 @@ public class Articulo implements Entidad
         op.pasarParametro(descripcion);
         op.ejecutar();
     }
+
+    public static int calcularCantVendidosDia(int id, int fecha)
+    {
+        int cantidad = 0;
+
+        String query = "SELECT * FROM v_detalles_ventas WHERE id_articulo = ? AND fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
+        op.pasarParametro(fecha);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            cantidad += (int) resultado.getValor("cantidad");
+        }
+
+        return cantidad;
+    }
 }

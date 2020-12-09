@@ -1,5 +1,7 @@
 package com.teamihc.inventas.backend;
 
+import com.teamihc.inventas.backend.basedatos.DBMatriz;
+import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
@@ -243,7 +245,26 @@ public class Estadisticas
      */
     public static Articulo articuloMasVendido()
     {
+        /*String query = "SELECT * FROM v_articulos";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
 
+        while (resultado.leer())
+        {
+            int cantidad
+            for (int i = 0; i < 7; i++)
+            {
+
+            }
+            Articulo articulo = new Articulo(
+                    (String) resultado.getValor("descripcion"),
+                    (Float) resultado.getValor("costo_unitario"),
+                    (Float) resultado.getValor("precio_venta"),
+                    (Integer) resultado.getValor("cantidad"),
+                    (String) resultado.getValor("codigo"));
+        }
+
+        String diaSemana[] = diasSemana();*/
         return null;
     }
 
