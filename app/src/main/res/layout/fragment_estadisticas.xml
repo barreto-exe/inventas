@@ -178,7 +178,8 @@
                                         android:fontFamily="@font/roboto_light"
                                         android:maxLines="2"
                                         android:text="45 Unidades"
-                                        android:textSize="12sp" />
+                                        android:textSize="12sp"
+                                        android:visibility="gone" />
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -373,7 +374,8 @@
                                         android:fontFamily="@font/roboto_light"
                                         android:maxLines="2"
                                         android:text="45 Unidades"
-                                        android:textSize="12sp" />
+                                        android:textSize="12sp"
+                                        android:visibility="gone" />
                                 </LinearLayout>
                             </LinearLayout>
 

@@ -41,6 +41,8 @@ public class EstadisticasFragment extends Fragment {
     float[] listaIngresos=new float[7];
     String [] opciones= {"Número de ventas","Ingreso en dólares","Ganancia en dólares"};
     BarChart barChart;
+    String masV,menosV,diaMasV,diaMasI,diaMenosV,diaMenosI;
+    float ingresoT,gananciaT;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -156,47 +158,53 @@ public class EstadisticasFragment extends Fragment {
 
     private void refrescarEstadisticas() {
 
-        float gananciaT = Estadisticas.gananciaTotalSemanal();
-        float ingresoT = Estadisticas.ingresoTotalSemanal();
-        /*Articulo masV = Estadisticas.articuloMasVendido();
-        Articulo menosV = Estadisticas.articuloMenosVendido();*/
-        String diaMasV=Estadisticas.diaMayorCantVentas();
-        String diaMasI=Estadisticas.diaMayorIngreso();
-        String diaMenosV=Estadisticas.diaMenorCantVentas();
-        String diaMenosI= Estadisticas.diaMenorIngreso();
         Date [] semana=new Date[2];
-
+        semana= (Date[]) Estadisticas.limiteSemana();
+        gananciaT = Estadisticas.gananciaTotalSemanal();
+        ingresoT = Estadisticas.ingresoTotalSemanal();
+        Articulo masV = Estadisticas.articuloMasVendido(semana[0],semana[1]);
+        Articulo menosV = Estadisticas.articuloMenosVendido(semana[0],semana[1]);
+        diaMasV=Estadisticas.diaMayorCantVentas();
+        diaMasI=Estadisticas.diaMayorIngreso();
+        diaMenosV=Estadisticas.diaMenorCantVentas();
+        diaMenosI= Estadisticas.diaMenorIngreso();
 
 
         if (gananciaT > 0) {
-            gananciaTotal.setText("" + gananciaT);
+            gananciaTotal.setText("$"+"" + gananciaT);
         } else {
             gananciaTotal.setText("-");
         }
 
         if (ingresoT > 0) {
-            ingresoTotal.setText("" + ingresoT);
+            ingresoTotal.setText("$"+"" + ingresoT);
         } else {
             ingresoTotal.setText("-");
         }
 
-       //if (masV!=null) {
-
-        //} else {
+       if (masV!=null) {
+           descripcionMasVendido.setText(masV.getDescripcion());
+           precioBsMasVendido.setText("Bs.S."+Float.toString(masV.getPrecioBs()));
+           //cantidadMasVendido.setText(Integer.toString(masV.getCantidad());
+           imagenMasVendido.setImageResource(R.color.colorPrimary);
+        } else {
             descripcionMasVendido.setText("-");
             precioBsMasVendido.setText("-");
-            cantidadMasVendido.setText("-");
+         //   cantidadMasVendido.setText("-");
             imagenMasVendido.setImageResource(R.color.colorPrimary);
-        //}
+        }
 
-        //if (menosV!=null) {
-
-        //} else {
+        if (menosV!=null) {
+            descripcionMenosVendido.setText(menosV.getDescripcion());
+            precioBsMenosVendido.setText("Bs.S"+Float.toString(menosV.getPrecioBs()));
+        //    cantidadMenosVendido.setText(Integer.toString(menosV.getCantidad()));
+            imagenMenosVendido.setImageResource(R.color.colorPrimary);
+        } else {
             descripcionMenosVendido.setText("-");
             precioBsMenosVendido.setText("-");
-            cantidadMenosVendido.setText("-");
+       //     cantidadMenosVendido.setText("-");
             imagenMenosVendido.setImageResource(R.color.colorPrimary);
-        //}
+        }
 
         if(diaMasV!=null && Estadisticas.mayorCantVentas()>0){
             diaMasVentas.setText(diaMasV);
@@ -209,7 +217,7 @@ public class EstadisticasFragment extends Fragment {
 
         if(diaMasI!=null && Estadisticas.mayorIngreso()>0){
             diaMasIngresos.setText(diaMasI);
-            ingresos_diaMasIngresos.setText(""+Estadisticas.mayorIngreso());
+            ingresos_diaMasIngresos.setText("$"+""+Estadisticas.mayorIngreso());
         }else{
             diaMasIngresos.setText("-");
             ingresos_diaMasIngresos.setText("-");
@@ -226,7 +234,7 @@ public class EstadisticasFragment extends Fragment {
 
         if(diaMenosI!=null && Estadisticas.menorIngreso()>0){
             diaMenosIngresos.setText(diaMenosI);
-            ingresos_diaMenosIngresos.setText(""+Estadisticas.menorIngreso());
+            ingresos_diaMenosIngresos.setText("$"+""+Estadisticas.menorIngreso());
         }else{
             diaMenosIngresos.setText("-");
             ingresos_diaMenosIngresos.setText("-");
@@ -242,7 +250,7 @@ public class EstadisticasFragment extends Fragment {
     public void init() {
         descripcionMasVendido = (TextView) view.findViewById(R.id.descripcionMasVendido);
         precioBsMasVendido = (TextView) view.findViewById(R.id.precioBsMasVendido);
-        cantidadMasVendido = (TextView) view.findViewById(R.id.cantidadMasVendido);
+     //   cantidadMasVendido = (TextView) view.findViewById(R.id.cantidadMasVendido);
         imagenMasVendido = (ImageView) view.findViewById(R.id.imagenMasVendido);
 
 
@@ -254,7 +262,7 @@ public class EstadisticasFragment extends Fragment {
 
         descripcionMenosVendido = (TextView) view.findViewById(R.id.descripcionMenosVendido);
         precioBsMenosVendido = (TextView) view.findViewById(R.id.precioBsMenosVendido);
-        cantidadMenosVendido = (TextView) view.findViewById(R.id.cantidadMenosVendido);
+      //  cantidadMenosVendido = (TextView) view.findViewById(R.id.cantidadMenosVendido);
         imagenMenosVendido = (ImageView) view.findViewById(R.id.imagenMenosVendido);
 
         diaMenosVentas = (TextView) view.findViewById(R.id.diaMenosVentas);

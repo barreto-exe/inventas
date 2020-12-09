@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/info_producto"
+        android:id="@+id/info_producto_factura"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_margin="10dp"
