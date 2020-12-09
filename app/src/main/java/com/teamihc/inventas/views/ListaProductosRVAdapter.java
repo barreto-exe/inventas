@@ -13,9 +13,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.activities.CarritoActivity;
-import com.teamihc.inventas.activities.CrearProductoActivity;
-import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
 import java.util.ArrayList;
@@ -77,7 +74,6 @@ public abstract class ListaProductosRVAdapter
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
-            TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
             
             //imagenProd.setImageResource();
             if (descripcion!=null) {descripcion.setText(articulo.getDescripcion());}
@@ -85,7 +81,6 @@ public abstract class ListaProductosRVAdapter
             if (cantidadStock!=null){cantidadStock.setText("" + articulo.getCantidad());}
             if (costoD!=null){costoD.setText(formatearMonedaDolar(articulo.getCosto()));}
             if (precioD!=null) {precioD.setText(formatearMonedaDolar(articulo.getPrecio()));}
-            if (subtotal!=null) {subtotal.setText(formatearMonedaDolar(articulo.getPrecio() * articulo.getCantidad()));}
         }
     }
 }

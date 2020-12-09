@@ -2,7 +2,6 @@ package com.teamihc.inventas.views;
 
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +12,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.activities.CarritoActivity;
-import com.teamihc.inventas.activities.CrearProductoActivity;
 import com.teamihc.inventas.activities.FacturaActivity;
-import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAdapter.ResumenVentaAdapter> implements View.OnClickListener
 {

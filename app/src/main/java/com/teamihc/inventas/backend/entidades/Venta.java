@@ -35,7 +35,7 @@ public class Venta implements Entidad
         this.fechaHora = fechaHora;
         carrito = new Carrito();
     }
-    
+
     //<editor-fold desc="Getters & Setters">
     public Tasa getTasa(){ return tasa; }
     public void setTasa(Tasa tasa){ this.tasa = tasa; }
@@ -44,7 +44,7 @@ public class Venta implements Entidad
     private void setCarrito(ArrayList<ArticuloPxQ> lista){ this.carrito.setCarrito(lista); }
     public Carrito getCarrito() { return carrito; }
     //</editor-fold>
-    
+
     @Override
     public void registrar()
     {
@@ -78,21 +78,21 @@ public class Venta implements Entidad
         }
 
     }
-    
+
     @Override
     public int obtenerId()
     {
         String query =
                 "SELECT id_venta FROM v_ventas WHERE " +
-                "fecha = ? " +
-                "AND hora = ? " +
-                "LIMIT 1";
+                        "fecha = ? " +
+                        "AND hora = ? " +
+                        "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(fechaHora));
         op.pasarParametro(Herramientas.FORMATO_TIEMPO.format(fechaHora));
-    
+
         DBMatriz resultado = op.consultar();
-    
+
         int id = -1;
         if(resultado.leer())
         {
@@ -113,7 +113,7 @@ public class Venta implements Entidad
             int id = (int) resultado.getValor("id_venta");
             String fechaVenta = (String) resultado.getValor("fecha");
             String horaVenta  = (String) resultado.getValor("hora");
-    
+
             Venta venta = null;
             try
             {
@@ -121,11 +121,11 @@ public class Venta implements Entidad
                         Tasa.obtenerTasa(),
                         Herramientas.FORMATO_FECHATIEMPO.parse(fechaVenta + " " + horaVenta)
                 );
-    
+
                 ArrayList<ArticuloPxQ> factura = new ArrayList<ArticuloPxQ>();
                 Carrito.cargarFacturaEnLista(factura, id);
                 venta.setCarrito(factura);
-    
+
                 lista.add(venta);
             }
             catch (ParseException e)
