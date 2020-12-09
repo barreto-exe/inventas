@@ -138,12 +138,12 @@ public class Venta implements Entidad
      * Método para obtener el ingreso total obtenido en un día determinado.
      * @param fecha es la fecha del día que se quiere obtener el ingreso total.
      */
-    public static float obtenerIngresoDia(Date fecha)
+    public static float obtenerIngresoDia(String fecha)
     {
         Float ingreso = 0f;
         String query = "SELECT * FROM v_ventas WHERE fecha = ?";
         DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
+        op.pasarParametro(fecha);
         DBMatriz resultado = op.consultar();
 
         while (resultado.leer())
@@ -156,58 +156,16 @@ public class Venta implements Entidad
      * Método para obtener la ganancia total obtenido en un día determinado.
      * @param fecha es la fecha del día que se quiere obtener la ganancia total.
      */
-    public static float obtenerGananciaDia(Date fecha)
+    public static float obtenerGananciaDia(String fecha)
     {
         Float ganancia = 0f;
         String query = "SELECT * FROM v_ventas WHERE fecha = ?";
         DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
+        op.pasarParametro(fecha);
         DBMatriz resultado = op.consultar();
 
         while (resultado.leer())
             ganancia += (Float) resultado.getValor("ganancia");
-
-        return ganancia;
-    }
-
-    /********************************** MËTODO DE ESTADÍSTICAS ***************************************/
-
-    private static String[] diasSemana()
-    {
-        String dias[] = new String[7];
-        Calendar c = Calendar.getInstance();
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[0] = Herramientas.FORMATO_FECHA.format(c);
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[1] = Herramientas.FORMATO_FECHA.format(c);
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[2] = Herramientas.FORMATO_FECHA.format(c);
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[3] = Herramientas.FORMATO_FECHA.format(c);
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[4] = Herramientas.FORMATO_FECHA.format(c);
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[5] = Herramientas.FORMATO_FECHA.format(c);
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        dias[6] = Herramientas.FORMATO_FECHA.format(c);
-
-        return dias;
-    }
-
-
-    public static float gananciaSemanal()
-    {
-        float ganancia = 0;
-        String dias[] = diasSemana();
-
-        
 
         return ganancia;
     }
