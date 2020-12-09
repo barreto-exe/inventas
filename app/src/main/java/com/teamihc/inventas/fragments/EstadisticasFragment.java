@@ -1,33 +1,28 @@
 package com.teamihc.inventas.fragments;
 
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.Nullable;
-
-import android.app.Fragment;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.Estadisticas;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.backend.entidades.Tasa;
-import com.teamihc.inventas.backend.entidades.Venta;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 
 public class EstadisticasFragment extends Fragment {
     private View view;
@@ -158,8 +153,8 @@ public class EstadisticasFragment extends Fragment {
 
     private void refrescarEstadisticas() {
 
-        Date [] semana=new Date[2];
-        semana= (Date[]) Estadisticas.limiteSemana();
+      Date[] semana= new Date[2];
+        semana= Estadisticas.limiteSemana();
         gananciaT = Estadisticas.gananciaTotalSemanal();
         ingresoT = Estadisticas.ingresoTotalSemanal();
         Articulo masV = Estadisticas.articuloMasVendido(semana[0],semana[1]);
