@@ -25,6 +25,7 @@ import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -163,7 +164,7 @@ public class EstadisticasFragment extends Fragment {
         String diaMasI=Estadisticas.diaMayorIngreso();
         String diaMenosV=Estadisticas.diaMenorCantVentas();
         String diaMenosI= Estadisticas.diaMenorIngreso();
-
+        Date [] semana=new Date[2];
 
 
 
