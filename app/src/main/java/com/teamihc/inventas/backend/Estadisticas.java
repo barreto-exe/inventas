@@ -1,5 +1,6 @@
 package com.teamihc.inventas.backend;
 
+import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
 import java.util.Calendar;
@@ -121,6 +122,26 @@ public class Estadisticas
     }
 
     /**
+     * Guarda en un arreglo la cantidad de ventas obtenida cada día.
+     * Posiciones:
+     * [0] Lunes.
+     * [1] Martes.
+     * [2] Miercoles.
+     * [3] Jueves.
+     * [4] Viernes.
+     * [5] Sábado.
+     * [6] Domingo.
+     * @param ventasDiaria es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo debe ser siete (7).
+     */
+    public static void calcularVentasDiaria(int[] ventasDiaria)
+    {
+        String dia[] = diasSemana();
+
+        for (int i = 0; i < 7; i++)
+            ventasDiaria[i] = Venta.obtenerVentasDia(dia[i]);
+    }
+
+    /**
      * Calcula el ingreso total en la semana en curso.
      * @return monto del ingreso obtenid en la semana.
      */
@@ -146,13 +167,12 @@ public class Estadisticas
         float gananciasDiarias[] = new float[7];
         calcularGananciaDiaria(gananciasDiarias);
         float gananciaMayor = gananciasDiarias[0];
-        int indexDia = -1;
+        int indexDia = 0;
 
         for (int i = 0; i < 7; i++)
             if (gananciasDiarias[i] > gananciaMayor)
             {
                 indexDia = i;
-                gananciaMayor = gananciasDiarias[i];
             }
 
         return intToDay(indexDia);
@@ -167,16 +187,73 @@ public class Estadisticas
         float ingresosDiarios[] = new float[7];
         calcularIngresoDiario(ingresosDiarios);
         float ingresoMayor = ingresosDiarios[0];
-        int indexDia = -1;
+        int indexDia = 0;
 
         for (int i = 0; i < 7; i++)
             if (ingresosDiarios[i] > ingresoMayor)
             {
                 indexDia = i;
-                ingresoMayor = ingresosDiarios[i];
             }
 
         return intToDay(indexDia);
     }
 
+    /**
+     * @return string con el nombre del día con mayor cantidad de ventas.
+     */
+    public static String diaMayorCantVentas()
+    {
+        String diaSemana[] = diasSemana();
+        int ventasDiarias[] = new int[7];
+        calcularVentasDiaria(ventasDiarias);
+        int diaMayor = ventasDiarias[0];
+        int indexDia = 0;
+
+        for (int i = 0; i < 7; i++)
+            if (ventasDiarias[i] > diaMayor)
+            {
+                indexDia = i;
+            }
+
+        return intToDay(indexDia);
+    }
+
+    /**
+     * @return mayor cantidad de ventas.
+     */
+    public static int mayorCantVentas()
+    {
+        String diaSemana[] = diasSemana();
+        int ventasDiarias[] = new int[7];
+        calcularVentasDiaria(ventasDiarias);
+        int diaMayor = ventasDiarias[0];
+
+        for (int i = 0; i < 7; i++)
+            if (ventasDiarias[i] > diaMayor)
+            {
+                diaMayor = ventasDiarias[i];
+            }
+
+        return diaMayor;
+    }
+
+    /**
+     * Calcula el arículo más vendido en una semana.
+     * @return instnacia del artículo más vendido.
+     */
+    public static Articulo articuloMasVendido()
+    {
+
+        return null;
+    }
+
+    /**
+     * Calcula el arículo menos vendido en una semana.
+     * @return instnacia del artículo menos vendido.
+     */
+    public static Articulo articuloMenosVendido()
+    {
+
+        return null;
+    }
 }

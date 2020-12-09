@@ -169,4 +169,22 @@ public class Venta implements Entidad
 
         return ganancia;
     }
+
+    /**
+     * Método para obtener la cantidad de ventas obtenidas en un día determinado.
+     * @param fecha es la fecha del día que se quiere obtener la ganancia total.
+     */
+    public static int obtenerVentasDia(String fecha)
+    {
+        int cantidadVentas = 0;
+        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(fecha);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+            cantidadVentas++;
+
+        return cantidadVentas;
+    }
 }
