@@ -19,13 +19,11 @@
             android:theme="@style/Theme.InVentas" />
 
         <RelativeLayout
+            android:id="@+id/layout_principal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/inventas_logo"
-            android:layout_above="@id/nav_bar"
-            android:id="@+id/layout_principal">
-
-        </RelativeLayout>
+            android:layout_alignParentBottom="true"/>
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#3989D3"
-            app:itemTextColor="@drawable/bottom_navigation_selector"
             app:itemIconTint="@drawable/bottom_navigation_selector"
+            app:itemTextColor="@drawable/bottom_navigation_selector"
             app:menu="@menu/nav_bar" />
 
     </RelativeLayout>
