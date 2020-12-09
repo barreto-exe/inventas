@@ -1,12 +1,19 @@
 package com.teamihc.inventas.backend.entidades;
 
 
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,6 +28,7 @@ public class Articulo implements Entidad
     private float precio;
     private int cantidad;
     private String codigo;
+    private Bitmap imagen;
     //</editor-fold>
     
     /**
@@ -40,6 +48,16 @@ public class Articulo implements Entidad
         this.precio = precio;
         this.cantidad = cantidad;
         this.codigo = codigo;
+    }
+
+    public Articulo(String descripcion, float costo, float precio, int cantidad, String codigo, Bitmap imagen)
+    {
+        this.descripcion = descripcion.trim();
+        this.costo = costo;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.codigo = codigo;
+        this.imagen = imagen;
     }
     
     //<editor-fold desc="Getters & Setters">
@@ -83,6 +101,9 @@ public class Articulo implements Entidad
     {
         this.codigo = codigo;
     }
+    public Bitmap getImagen() { return imagen; }
+    public void setImagen(Bitmap imagen) { this.imagen = imagen; }
+
     public float getPrecioBs()
     {
         Tasa tasaDia = Tasa.obtenerTasa();
@@ -99,12 +120,20 @@ public class Articulo implements Entidad
         return Math.round(precioBs*100.0f)/100.0f;
     }
     //</editor-fold>
-    
+
+    //<--------------------Imagen----------------------------------
+    private byte[] obtenerImagenByteArray(){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        imagen.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
+    //<--------------------Imagen----------------------------------
+
     @Override
     public void registrar()
     {
         String query =
-                "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo) " +
+                "INSERT INTO v_articulos (descripcion, costo_unitario, precio_venta, cantidad, codigo, imagen) " +
                         "VALUES (?,?,?,?,?);";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
@@ -112,6 +141,7 @@ public class Articulo implements Entidad
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
+        op.pasarParametro(obtenerImagenByteArray());
         
         op.ejecutar();
         
@@ -157,8 +187,12 @@ public class Articulo implements Entidad
             float precio = (float) resultado.getValor("precio_venta");
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
+
+            byte[] imagenByte = (byte[]) resultado.getValor("imagen");
+            ByteArrayInputStream stream = new ByteArrayInputStream(imagenByte);
+            Bitmap imagen = BitmapFactory.decodeStream(stream);
             
-            return new Articulo(descripcion, costo, precio, cantidad, codigo);
+            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         }
         
         return null;
@@ -185,7 +219,11 @@ public class Articulo implements Entidad
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
 
-            return new Articulo(descripcion, costo, precio, cantidad, codigo);
+            byte[] imagenByte = (byte[]) resultado.getValor("imagen");
+            ByteArrayInputStream stream = new ByteArrayInputStream(imagenByte);
+            Bitmap imagen = BitmapFactory.decodeStream(stream);
+
+            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         }
 
         return null;
@@ -272,13 +310,15 @@ public class Articulo implements Entidad
     
     public void actualizar()
     {
-        String query = "UPDATE v_articulos SET costo_unitario = ?, precio_venta = ?, cantidad = ?, codigo = ? WHERE descripcion = ?";
+        String query = "UPDATE v_articulos SET costo_unitario = ?, precio_venta = ?, cantidad = ?, " +
+                "codigo = ?, imagen = ? WHERE descripcion = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(costo);
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
         op.pasarParametro(descripcion);
+        op.pasarParametro(obtenerImagenByteArray());
         op.ejecutar();
     }
     

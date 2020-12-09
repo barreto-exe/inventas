@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
@@ -48,6 +50,7 @@ public class CrearProductoActivity extends AppCompatActivity
     private TextInputEditText cantidadView;
     private boolean modoEdicion;
     private ImageView imagenProd;
+    private FloatingActionButton fotoproducto_btn;
 
     //request code to pick image
     private static final int IMAGES_CODE = 0;
@@ -65,7 +68,8 @@ public class CrearProductoActivity extends AppCompatActivity
         precioBsView = findViewById(R.id.precioBs);
         codigoView = findViewById(R.id.codTxt);
         cantidadView = findViewById(R.id.cantidad);
-        imagenProd = (ImageView) findViewById(R.id.imagenProd);
+        imagenProd = findViewById(R.id.imagenProd);
+        fotoproducto_btn = findViewById(R.id.fotoproducto_btn);
 
         toolbar = findViewById(R.id.crearArticuloToolBar);
         setSupportActionBar(toolbar);
@@ -173,6 +177,7 @@ public class CrearProductoActivity extends AppCompatActivity
         precioView.setEnabled(false);
         codigoView.setEnabled(false);
         cantidadView.setEnabled(false);
+        fotoproducto_btn.setEnabled(false);
     }
     
     private void permitirEdicion()
@@ -182,6 +187,7 @@ public class CrearProductoActivity extends AppCompatActivity
         precioView.setEnabled(true);
         codigoView.setEnabled(true);
         cantidadView.setEnabled(true);
+        fotoproducto_btn.setEnabled(true);
     }
     
     private void llenarFormulario()
@@ -246,8 +252,11 @@ public class CrearProductoActivity extends AppCompatActivity
         float precio = Float.parseFloat(precioView.getText().toString());
         int cantidad = Integer.parseInt(cantidadView.getText().toString());
         String codigo = codigoView.getText().toString();
-        
-        Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo);
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imagenProd.getDrawable();
+        Bitmap imagen = bitmapDrawable.getBitmap();
+
+        Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         int cambio_stock = cantidad - cantidad_original;
         
         //si se modifico la descripcion
