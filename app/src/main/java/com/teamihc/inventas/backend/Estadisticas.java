@@ -426,4 +426,23 @@ public class Estadisticas
         
         return null;
     }
+    
+    /**
+     * Calcula las ganancias obtenidas en un día.
+     * @param dia que se quiere consultar.
+     * @return ganancias de ese día.
+     */
+    public static float gananciasPorDia(Date dia)
+    {
+        String query = "SELECT SUM(ganancia) AS ganancia FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(dia));
+    
+        DBMatriz resultados = op.consultar();
+        if(resultados.leer())
+        {
+            return (float) resultados.getValor("ganancia");
+        }
+        return 0;
+    }
 }
