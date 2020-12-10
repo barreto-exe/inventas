@@ -220,4 +220,15 @@ public class Venta implements Entidad
 
         return cantidadVentas;
     }
+    public static int cantidadVentasRegistradas()
+    {
+        String query = "SELECT COUNT(*) AS cantidad FROM v_ventas";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
+        if(resultado.leer() && resultado.getValor("cantidad") != null)
+        {
+            return (int) resultado.getValor("cantidad");
+        }
+        return 0;
+    }
 }
