@@ -117,9 +117,7 @@ public class CarritoRVAdapter extends RecyclerView.Adapter<CarritoRVAdapter.List
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
-            int height = imagenProd.getDrawable().getIntrinsicHeight();
-            int width = imagenProd.getDrawable().getIntrinsicWidth();
-            imagenProd.setImageBitmap(getCompresBitmapImage(width, height, articulo.getArticulo().getImagen_path()));
+            imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getArticulo().getImagen_path()));
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidadStock.setText("" + articulo.getCantidad());
             subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));

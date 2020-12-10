@@ -221,23 +221,33 @@ public class Herramientas
         return Uri.fromFile(f);
     }
 
-    public static Bitmap getCompresBitmapImage(int targetW, int targetH, String photoPath) {
+    public static int calculateInSampleSize(int reqWidth, int  reqHeight, int width, int heigth) {
+        // Raw height and width of image
+        int inSampleSize = 1;
 
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
+        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        // height and width larger than the requested height and width.
+        while ((heigth / inSampleSize) >= reqHeight && (width / inSampleSize) >= reqWidth) {
+            inSampleSize *= 2;
+        }
 
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
+        return inSampleSize;
+    }
 
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+    public static Bitmap getCompresBitmapImage(String photoPath){
 
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
+        // First decode with inJustDecodeBounds=true to check dimensions
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoPath, options);
+        System.out.println("===================================Dimensiones Originales = " + options.outWidth + " " + options.outHeight);
+        // Calculate inSampleSize
+        options.inSampleSize = 16;
 
-        return BitmapFactory.decodeFile(photoPath, bmOptions);
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
+        System.out.println("===================================Dimensiones Nuevas = " + bitmap.getWidth()+ " " + bitmap.getHeight());
+        return bitmap;
     }
 }
