@@ -82,10 +82,9 @@ public class Carrito
      * Método para calcular el monto total (en bolívares) a pagar por los artículos que se encuentran en el carrito.
      * @return retorna el monto total a pagar (retorna 0 si el carrito está vacío).
      */
-    public float obtenerTotalBsS()
+    public float obtenerTotalBsS(Tasa tasa)
     {
-        float total = obtenerTotalDolares();
-        return total * Tasa.obtenerTasa().getMonto();
+        return obtenerTotalDolares() * tasa.getMonto();
     }
 
     /**

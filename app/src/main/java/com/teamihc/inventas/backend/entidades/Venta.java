@@ -149,7 +149,7 @@ public class Venta implements Entidad
             try
             {
                 venta = new Venta(
-                        Tasa.obtenerTasa(),
+                        Tasa.obtenerTasa((int) resultado.getValor("id_tasa")),
                         Herramientas.FORMATO_FECHATIEMPO.parse(fechaVenta + " " + horaVenta)
                 );
 
@@ -230,5 +230,23 @@ public class Venta implements Entidad
             return (int) resultado.getValor("cantidad");
         }
         return 0;
+    }
+
+    /**
+     * Método para calcular el monto total (en dólares) a pagar por los artículos que se encuentran en el carrito.
+     * @return retorna el monto total a pagar (retorna 0 si el carrito está vacío).
+     */
+    public float obtenerTotalDolares()
+    {
+        return carrito.obtenerTotalDolares();
+    }
+
+    /**
+     * Método para calcular el monto total (en bolívares) a pagar por los artículos que se encuentran en el carrito.
+     * @return retorna el monto total a pagar (retorna 0 si el carrito está vacío).
+     */
+    public float obtenerTotalBsS()
+    {
+        return carrito.obtenerTotalBsS(tasa);
     }
 }
