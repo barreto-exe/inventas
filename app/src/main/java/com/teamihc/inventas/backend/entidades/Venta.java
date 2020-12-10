@@ -220,7 +220,6 @@ public class Venta implements Entidad
 
         return cantidadVentas;
     }
-    
     public static int cantidadVentasRegistradas()
     {
         String query = "SELECT COUNT(*) AS cantidad FROM v_ventas";

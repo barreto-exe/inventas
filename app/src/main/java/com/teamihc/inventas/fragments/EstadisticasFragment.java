@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.Estadisticas;
 import com.teamihc.inventas.backend.entidades.Articulo;
+import com.teamihc.inventas.backend.entidades.Venta;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,7 +93,7 @@ public class EstadisticasFragment extends Fragment
             cambioVenta.add(b);
         }
     }
-    
+
     public void llenarChartIngresos()
     {
         cambioVenta = new ArrayList<>();
@@ -122,7 +123,7 @@ public class EstadisticasFragment extends Fragment
      */
     public void spinnerLlenado()
     {
-        
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item,
                 opciones);
@@ -136,7 +137,7 @@ public class EstadisticasFragment extends Fragment
     public void seleccionSpinner()
     {
         String seleccion = desicion.getSelectedItem().toString();
-        
+
         if (seleccion.equals(opciones[0]))
         {
             llenarChartVentas();
@@ -165,10 +166,10 @@ public class EstadisticasFragment extends Fragment
     /**
      * Se actualzan los datos dentro del fragment
      */
-    
+
     private void refrescarEstadisticas()
     {
-        
+
         Date[] semana = new Date[2];
         semana = Estadisticas.limiteSemana();
         gananciaT = Estadisticas.gananciaTotalSemanal();
@@ -185,35 +186,35 @@ public class EstadisticasFragment extends Fragment
         diaMenosV = Estadisticas.diaMenorCantVentas();
         diaMenosI = Estadisticas.diaMenorIngreso();
 
-        if (Articulo.cantidadArticulosRegistrados() > 0) {
+        if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas()>0) {
             masV = (Articulo) objMas[0];
             menosV = (Articulo) objMenos[0];
             if (masV != null) {
                 descripcionMasVendido.setText(masV.getDescripcion());
-                precioBsMasVendido.setText("$" + Float.toString((float) objMas[2]));
+             //   precioBsMasVendido.setText("$" + Float.toString((float) objMas[2]));
                 cantidadMasVendido.setText(Integer.toString((int) objMas[1]));
                 imagenMasVendido.setImageBitmap(masV.getImagen());
             }
 
             if (menosV != null && !(menosV.getDescripcion().equals(masV.getDescripcion()))) {
                 descripcionMenosVendido.setText(menosV.getDescripcion());
-                precioBsMenosVendido.setText("$" + Float.toString((float) objMenos[2]));
+               // precioBsMenosVendido.setText("$" + Float.toString((float) objMenos[2]));
                 cantidadMenosVendido.setText(Integer.toString((int) objMenos[1]));
                 imagenMenosVendido.setImageBitmap(menosV.getImagen());
             } else {
                 descripcionMenosVendido.setText("-");
-                precioBsMenosVendido.setText("-");
+              //  precioBsMenosVendido.setText("-");
                 cantidadMenosVendido.setText("-");
                 imagenMenosVendido.setImageResource(R.color.colorPrimary);
             }
 
         } else {
             descripcionMasVendido.setText("-");
-            precioBsMasVendido.setText("-");
+          //  precioBsMasVendido.setText("-");
             cantidadMasVendido.setText("-");
             imagenMasVendido.setImageResource(R.color.colorPrimary);
             descripcionMenosVendido.setText("-");
-            precioBsMenosVendido.setText("-");
+         //   precioBsMenosVendido.setText("-");
             cantidadMenosVendido.setText("-");
             imagenMenosVendido.setImageResource(R.color.colorPrimary);
         }
@@ -226,7 +227,7 @@ public class EstadisticasFragment extends Fragment
         {
             gananciaTotal.setText("-");
         }
-        
+
         if (ingresoT > 0)
         {
             ingresoTotal.setText("$" + "" + ingresoT);
@@ -246,8 +247,8 @@ public class EstadisticasFragment extends Fragment
             diaMasVentas.setText("-");
             ventas_diaMasVentas.setText("-");
         }
-        
-        
+
+
         if (diaMasI != null && Estadisticas.mayorIngreso() > 0)
         {
             diaMasIngresos.setText(diaMasI);
@@ -258,7 +259,7 @@ public class EstadisticasFragment extends Fragment
             diaMasIngresos.setText("-");
             ingresos_diaMasIngresos.setText("-");
         }
-        
+
         if (diaMenosV != null && Estadisticas.menorCantVentas() > 0)
         {
             diaMenosVentas.setText(diaMenosV);
@@ -269,8 +270,8 @@ public class EstadisticasFragment extends Fragment
             diaMenosVentas.setText("-");
             ventas_diaMenosVentas.setText("-");
         }
-        
-        
+
+
         if (diaMenosI != null && Estadisticas.menorIngreso() > 0)
         {
             diaMenosIngresos.setText(diaMenosI);
@@ -288,11 +289,11 @@ public class EstadisticasFragment extends Fragment
     /**
      * Inicializando todos los elementos de la parte grafica
      */
-    
+
     public void init()
     {
         descripcionMasVendido = (TextView) view.findViewById(R.id.descripcionMasVendido);
-        precioBsMasVendido = (TextView) view.findViewById(R.id.precioBsMasVendido);
+       // precioBsMasVendido = (TextView) view.findViewById(R.id.precioBsMasVendido);
         cantidadMasVendido = (TextView) view.findViewById(R.id.cantidadMasVendido);
         imagenMasVendido = (ImageView) view.findViewById(R.id.imagenMasVendido);
         
@@ -304,7 +305,7 @@ public class EstadisticasFragment extends Fragment
         ingresos_diaMasIngresos = (TextView) view.findViewById(R.id.ingresos_diaMasIngresos);
         
         descripcionMenosVendido = (TextView) view.findViewById(R.id.descripcionMenosVendido);
-        precioBsMenosVendido = (TextView) view.findViewById(R.id.precioBsMenosVendido);
+     //   precioBsMenosVendido = (TextView) view.findViewById(R.id.precioBsMenosVendido);
         cantidadMenosVendido = (TextView) view.findViewById(R.id.cantidadMenosVendido);
         imagenMenosVendido = (ImageView) view.findViewById(R.id.imagenMenosVendido);
         
