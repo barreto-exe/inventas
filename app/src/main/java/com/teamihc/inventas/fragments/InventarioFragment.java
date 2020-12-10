@@ -47,8 +47,10 @@ public class InventarioFragment extends Fragment
     {
         super.onResume();
         listaArticulos.clear();
-        Articulo.cargarInventarioEnLista(listaArticulos);
         adapter.notifyDataSetChanged();
+        adapter = new InventarioRVAdapter(listaArticulos, R.layout.view_info_producto);
+        recyclerView.setAdapter(adapter);
+        Articulo.cargarInventarioEnLista(listaArticulos);
     }
 }
 
