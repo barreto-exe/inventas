@@ -212,10 +212,7 @@ public class Herramientas
         return Uri.fromFile(f);
     }
 
-    public static Bitmap getCompresBitmapImage(View view, String photoPath) {
-        // Get the dimensions of the View
-        int targetW = view.getWidth();
-        int targetH = view.getHeight();
+    public static Bitmap getCompresBitmapImage(int targetW, int targetH, String photoPath) {
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();

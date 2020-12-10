@@ -54,11 +54,5 @@ public class InventarioFragment extends Fragment
         recyclerView.setAdapter(adapter);
         Articulo.cargarInventarioEnLista(listaArticulos);
     }
-
-    /*public void prueba(){
-        File imagePath = new File(Context.getFilesDir(), "images");
-        File newFile = new File(imagePath, "default_image.jpg");
-        Uri contentUri = getActivity().getUriForFile(getContext(), "com.mydomain.fileprovider", newFile);
-    }*/
 }
 

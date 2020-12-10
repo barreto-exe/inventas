@@ -20,6 +20,7 @@ import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
+import static com.teamihc.inventas.backend.Herramientas.getCompresBitmapImage;
 
 public class CarritoRVAdapter extends RecyclerView.Adapter<CarritoRVAdapter.ListaProductosAdapter>
         implements View.OnClickListener, View.OnLongClickListener
@@ -116,7 +117,9 @@ public class CarritoRVAdapter extends RecyclerView.Adapter<CarritoRVAdapter.List
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
-            imagenProd.setImageURI(Herramientas.getImageUriFromPath(articulo.getArticulo().getImagen_path()));
+            int height = imagenProd.getDrawable().getIntrinsicHeight();
+            int width = imagenProd.getDrawable().getIntrinsicWidth();
+            imagenProd.setImageBitmap(getCompresBitmapImage(width, height, articulo.getArticulo().getImagen_path()));
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidadStock.setText("" + articulo.getCantidad());
             subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));

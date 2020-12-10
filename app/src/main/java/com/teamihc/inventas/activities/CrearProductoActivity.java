@@ -204,7 +204,9 @@ public class CrearProductoActivity extends AppCompatActivity
         precioBsView.setText(articulo.getPrecioBs() + "");
         codigoView.setText(articulo.getCodigo());
         cantidadView.setText(articulo.getCantidad() + "");
-        imagenProd.setImageURI(getImageUriFromPath(articulo.getImagen_path()));
+        int height = imagenProd.getDrawable().getIntrinsicHeight();
+        int width = imagenProd.getDrawable().getIntrinsicWidth();
+        imagenProd.setImageBitmap(getCompresBitmapImage(width, height, articulo.getImagen_path()));
         cantidad_original = articulo.getCantidad();
     }
     

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
+import static com.teamihc.inventas.backend.Herramientas.getCompresBitmapImage;
 
 public abstract class ListaProductosRVAdapter
         extends RecyclerView.Adapter<ListaProductosRVAdapter.ListaProductosAdapter>
@@ -75,7 +76,9 @@ public abstract class ListaProductosRVAdapter
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
 
-            if (imagenProd!=null) {imagenProd.setImageURI(Herramientas.getImageUriFromPath(articulo.getImagen_path()));}
+            int height = imagenProd.getDrawable().getIntrinsicHeight();
+            int width = imagenProd.getDrawable().getIntrinsicWidth();
+            if (imagenProd!=null) {imagenProd.setImageBitmap(getCompresBitmapImage(width, height, articulo.getImagen_path()));}
             if (descripcion != null)
             {
                 descripcion.setText(articulo.getDescripcion());
