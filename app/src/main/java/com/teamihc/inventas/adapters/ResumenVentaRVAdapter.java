@@ -84,8 +84,8 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
             TextView ventaD = (TextView) cardView.findViewById(R.id.ventaD);
             TextView id = (TextView) cardView.findViewById(R.id.idVenta);
             
-            float monto = venta.getCarrito().obtenerTotalDolares();
-            float conversion = venta.getCarrito().obtenerTotalBsS();
+            float monto = venta.obtenerTotalDolares();
+            float conversion = venta.obtenerTotalBsS();
             ArrayList<ArticuloPxQ> listaArticulos = venta.getCarrito().getCarrito();
             String resumenStr = "";
             int i=0;

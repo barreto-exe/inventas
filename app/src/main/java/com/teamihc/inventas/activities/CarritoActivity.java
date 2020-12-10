@@ -273,6 +273,6 @@ public class CarritoActivity extends AppCompatActivity
     public void calcularTotal()
     {
         carrito_total_dolares.setText(carrito.obtenerTotalDolares() + "");
-        carrito_total_bolivares.setText(carrito.obtenerTotalBsS()+ "");
+        carrito_total_bolivares.setText(carrito.obtenerTotalBsS(Tasa.obtenerTasa())+ "");
     }
 }

@@ -157,8 +157,9 @@ public class Tasa implements Entidad
      */
     public static Tasa obtenerTasa(int id)
     {
-        String query = "SELECT * FROM v_tasas WHERE id = ?";
+        String query = "SELECT * FROM v_tasas WHERE id_tasa = ?";
         DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(id);
         DBMatriz resultado = op.consultar();
 
         if(resultado.leer())

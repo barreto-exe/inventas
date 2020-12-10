@@ -51,8 +51,8 @@ public class FacturaActivity extends AppCompatActivity {
         totalBsS=findViewById(R.id.totalBsS);
         resumen=findViewById(R.id.itemsCompra);
 
-        totalD.setText(venta.getCarrito().obtenerTotalDolares() + " $ ");
-        totalBsS.setText(venta.getCarrito().obtenerTotalBsS() + " Bs.S.");
+        totalD.setText(venta.obtenerTotalDolares() + " $ ");
+        totalBsS.setText(venta.obtenerTotalBsS() + " Bs.S.");
         resumen.setText(venta.cantidadReferencias() + " referencias cargadas");
 
 
