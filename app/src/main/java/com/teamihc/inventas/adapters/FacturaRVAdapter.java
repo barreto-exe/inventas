@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
+
 public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.FacturaAdapter>
 {
     
@@ -31,7 +33,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
     @Override
     public FacturaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_producto, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_producto_factura, parent, false);
         return new FacturaAdapter(view);
     }
     
@@ -62,14 +64,13 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
         {
             ImageView imagenProd = (ImageView) cardView.findViewById(R.id.imagenProd);
             TextView descripcion = (TextView) cardView.findViewById(R.id.descripcion);
-            TextView cantidad = (TextView) cardView.findViewById(R.id.cantidadStock);
-            TextView monto = (TextView) cardView.findViewById(R.id.costoD);
-            
-            
-            //imagenProd.setImageResource();
+            TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
+            TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
+
+            imagenProd.setImageBitmap(articulo.getArticulo().getImagen());
             descripcion.setText(articulo.getArticulo().getDescripcion());
-            cantidad.setText(Integer.toString(articulo.getCantidad()));
-            monto.setText(Float.toString(articulo.getSubTotal()));
+            cantidadStock.setText("" + articulo.getCantidad());
+            subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));
         }
     }
 }
