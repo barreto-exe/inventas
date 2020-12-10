@@ -1,4 +1,4 @@
-package com.teamihc.inventas.views;
+package com.teamihc.inventas.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.views.ListaProductosCarrito2RVAdapter;
+import com.teamihc.inventas.adapters.listaproductos.CarritoElegirRVAdapter;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class ListaProductosVentaFragment extends Fragment {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    private ListaProductosCarrito2RVAdapter adapter;
+    private CarritoElegirRVAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
@@ -38,7 +38,7 @@ public class ListaProductosVentaFragment extends Fragment {
         listaArticulos = new ArrayList<Articulo>();
         Articulo.cargarInventarioEnLista(listaArticulos);
 
-        adapter = new ListaProductosCarrito2RVAdapter(listaArticulos, R.layout.view_info_producto);
+        adapter = new CarritoElegirRVAdapter(listaArticulos, R.layout.view_info_producto);
         recyclerView.setAdapter(adapter);
 
         return view;

@@ -1,4 +1,4 @@
-package com.teamihc.inventas.views;
+package com.teamihc.inventas.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 
 import org.jetbrains.annotations.NotNull;

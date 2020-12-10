@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
-import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Venta;
-import com.teamihc.inventas.views.ResumenVentaRVAdapter;
+import com.teamihc.inventas.adapters.ResumenVentaRVAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;

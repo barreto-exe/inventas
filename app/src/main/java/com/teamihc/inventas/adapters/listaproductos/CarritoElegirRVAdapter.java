@@ -1,4 +1,4 @@
-package com.teamihc.inventas.views;
+package com.teamihc.inventas.adapters.listaproductos;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +11,14 @@ import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
 import java.util.ArrayList;
 
-public class ListaProductosCarrito2RVAdapter extends ListaProductosRVAdapter
+public class CarritoElegirRVAdapter extends ListaProductosRVAdapter
 {
-
-    public ListaProductosCarrito2RVAdapter(ArrayList<Articulo> listaArticulos, int layoutId) {
+    
+    public CarritoElegirRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId)
+    {
         super(listaArticulos, layoutId);
     }
-
+    
     @Override
     public void onClick(View v)
     {

@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Tasa;
-import com.teamihc.inventas.views.HistorialTasaRVAdapter;
+import com.teamihc.inventas.adapters.HistorialTasaRVAdapter;
 
 import java.util.ArrayList;
 

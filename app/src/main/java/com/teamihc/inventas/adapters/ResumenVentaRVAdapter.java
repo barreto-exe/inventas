@@ -1,7 +1,8 @@
-package com.teamihc.inventas.views;
+package com.teamihc.inventas.adapters;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.FacturaActivity;
+import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;

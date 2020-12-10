@@ -18,7 +18,7 @@ import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.backend.entidades.Venta;
-import com.teamihc.inventas.views.ListaProductosCarritoRVAdapter;
+import com.teamihc.inventas.adapters.listaproductos.CarritoRVAdapter;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -28,7 +28,7 @@ public class CarritoActivity extends AppCompatActivity
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private Carrito carrito;
-    private ListaProductosCarritoRVAdapter adapter;
+    private CarritoRVAdapter adapter;
     private Fragment fragment;
     private FragmentTransaction transaction;
     private ImageButton carrito_aceptar;
@@ -66,7 +66,7 @@ public class CarritoActivity extends AppCompatActivity
         carrito_total_dolares = (TextView) findViewById(R.id.carrito_total_dolares);
 
         carrito = new Carrito();
-        adapter = new ListaProductosCarritoRVAdapter(carrito);
+        adapter = new CarritoRVAdapter(carrito);
         recyclerView.setAdapter(adapter);
 
         fragment = getFragmentManager().findFragmentById(R.id.fragment_lista_productos_venta);
@@ -238,7 +238,7 @@ public class CarritoActivity extends AppCompatActivity
             ArticuloPxQ articulo = aux.getCarrito().get(i);
             carrito.agregarArticulo(articulo.getArticulo(), articulo.getCantidad());
         }
-        adapter = new ListaProductosCarritoRVAdapter(carrito);
+        adapter = new CarritoRVAdapter(carrito);
         recyclerView.setAdapter(adapter);
     }
 
@@ -272,7 +272,7 @@ public class CarritoActivity extends AppCompatActivity
 
     public void calcularTotal()
     {
-        carrito_total_dolares.setText(carrito.obtenerTotal() + "");
-        carrito_total_bolivares.setText(carrito.obtenerTotal() * Tasa.obtenerTasa().getMonto() + "");
+        carrito_total_dolares.setText(carrito.obtenerTotalDolares() + "");
+        carrito_total_bolivares.setText(carrito.obtenerTotalBsS()+ "");
     }
 }

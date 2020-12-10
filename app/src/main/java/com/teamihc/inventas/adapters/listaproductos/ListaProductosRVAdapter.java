@@ -1,6 +1,5 @@
-package com.teamihc.inventas.views;
+package com.teamihc.inventas.adapters.listaproductos;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +23,11 @@ public abstract class ListaProductosRVAdapter
         extends RecyclerView.Adapter<ListaProductosRVAdapter.ListaProductosAdapter>
         implements View.OnClickListener, View.OnLongClickListener
 {
-
+    
     protected int layoutId;
     protected ArrayList<Articulo> listaArticulos;
     protected CardView cardView;
-
+    
     public ListaProductosRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId)
     {
         this.listaArticulos = listaArticulos;
@@ -56,7 +55,7 @@ public abstract class ListaProductosRVAdapter
     {
         return listaArticulos.size();
     }
-
+    
     
     public class ListaProductosAdapter extends RecyclerView.ViewHolder
     {
@@ -75,12 +74,27 @@ public abstract class ListaProductosRVAdapter
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
 
-            if (imagenProd!=null) {imagenProd.setImageBitmap(articulo.getImagen());}
-            if (descripcion!=null) {descripcion.setText(articulo.getDescripcion());}
-            if (precioBsS!=null) {precioBsS.setText(formatearMonedaBs(articulo.getPrecioBs()));}
-            if (cantidadStock!=null){cantidadStock.setText("" + articulo.getCantidad());}
-            if (costoD!=null){costoD.setText(formatearMonedaDolar(articulo.getCosto()));}
-            if (precioD!=null) {precioD.setText(formatearMonedaDolar(articulo.getPrecio()));}
+//            if (imagenProd!=null) {imagenProd.setImageBitmap(articulo.getImagen());}
+            if (descripcion != null)
+            {
+                descripcion.setText(articulo.getDescripcion());
+            }
+            if (precioBsS != null)
+            {
+                precioBsS.setText(formatearMonedaBs(articulo.getPrecioBs()));
+            }
+            if (cantidadStock != null)
+            {
+                cantidadStock.setText("" + articulo.getCantidad());
+            }
+            if (costoD != null)
+            {
+                costoD.setText(formatearMonedaDolar(articulo.getCosto()));
+            }
+            if (precioD != null)
+            {
+                precioD.setText(formatearMonedaDolar(articulo.getPrecio()));
+            }
         }
     }
 }

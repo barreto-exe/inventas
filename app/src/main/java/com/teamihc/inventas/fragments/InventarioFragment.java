@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
-import com.teamihc.inventas.views.ListaProductosInventarioRVAdapter;
+import com.teamihc.inventas.adapters.listaproductos.InventarioRVAdapter;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class InventarioFragment extends Fragment
 {
     private RecyclerView recyclerView;
     private ArrayList<Articulo> listaArticulos;
-    private ListaProductosInventarioRVAdapter adapter;
+    private InventarioRVAdapter adapter;
     
     //ArrayList de los productos
     @Nullable
@@ -31,17 +31,17 @@ public class InventarioFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_inventario, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.productos_inventarioRV);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),RecyclerView.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
         listaArticulos = new ArrayList<Articulo>();
-
+        
         Articulo.cargarInventarioEnLista(listaArticulos);
-        adapter = new ListaProductosInventarioRVAdapter(listaArticulos, R.layout.view_info_producto);
+        adapter = new InventarioRVAdapter(listaArticulos, R.layout.view_info_producto);
         recyclerView.setAdapter(adapter);
         
         return view;
     }
-
+    
     @Override
     public void onResume()
     {

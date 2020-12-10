@@ -24,28 +24,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_black_48dp" />
 
-    <!--
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-      -->
-
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginBottom="64dp"
         android:id="@+id/productos_inventarioRV"
-        android:layout_width="408dp"
-        android:layout_height="655dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:foregroundGravity="top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

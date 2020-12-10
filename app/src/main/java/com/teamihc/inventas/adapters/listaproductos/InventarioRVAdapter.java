@@ -1,4 +1,4 @@
-package com.teamihc.inventas.views;
+package com.teamihc.inventas.adapters.listaproductos;
 
 import android.content.Intent;
 import android.view.View;
@@ -11,13 +11,14 @@ import com.teamihc.inventas.backend.entidades.Articulo;
 
 import java.util.ArrayList;
 
-public class ListaProductosInventarioRVAdapter extends ListaProductosRVAdapter
+public class InventarioRVAdapter extends ListaProductosRVAdapter
 {
-
-    public ListaProductosInventarioRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId) {
+    
+    public InventarioRVAdapter(ArrayList<Articulo> listaArticulos, int layoutId)
+    {
         super(listaArticulos, layoutId);
     }
-
+    
     @Override
     public void onClick(View v)
     {
