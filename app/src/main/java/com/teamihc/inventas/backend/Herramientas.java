@@ -148,7 +148,8 @@ public class Herramientas
         return image;
     }
 
-    public static final int REQUEST_PHOTO = 1;
+    public static final int PICTURE_FROM_CAMERA = 0;
+    public static final int PICTURE_FROM_GALLERY = 1;
 
     public static String imagenDesdeCamara(Activity activity) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -168,7 +169,7 @@ public class Herramientas
                         "com.teamihc.inventas.android.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                activity.startActivityForResult(takePictureIntent, REQUEST_PHOTO);
+                activity.startActivityForResult(takePictureIntent, PICTURE_FROM_CAMERA);
 
                 return currentPhotoPath;
             }
@@ -179,7 +180,13 @@ public class Herramientas
 
     public static void imagenDesdeGaleria(Activity activity){
         Intent selectPictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        activity.startActivityForResult(Intent.createChooser(selectPictureIntent, "Elija una opcion"), REQUEST_PHOTO);
+        activity.startActivityForResult(Intent.createChooser(selectPictureIntent, "Elija una opcion"), PICTURE_FROM_GALLERY);
+    }
+
+    public static void imagenDesdeCamara2(Activity activity){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+        activity.startActivityForResult(takePictureIntent, PICTURE_FROM_CAMERA);
     }
     
     public static String almacenarImagen(Activity activity, Bitmap bitmapImage){

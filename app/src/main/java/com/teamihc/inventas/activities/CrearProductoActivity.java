@@ -2,6 +2,7 @@ package com.teamihc.inventas.activities;
 
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
@@ -14,8 +15,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,9 +45,13 @@ import com.teamihc.inventas.dialogs.ElegirProveedorDeImagenDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -326,19 +333,69 @@ public class CrearProductoActivity extends AppCompatActivity
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == REQUEST_PHOTO) {
-
-            if (data != null) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICTURE_FROM_GALLERY) {
                 imagenProd.setImageURI(data.getData());
-                BitmapDrawable bitmapDrawable = (BitmapDrawable) imagenProd.getDrawable();
-                imagen_path = almacenarImagen(this, bitmapDrawable.getBitmap());
+
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                File filepath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                File new_file = new File(filepath, "JPEG_" + timeStamp + "_" + System.currentTimeMillis() + ".jpg");
+
+                InputStream is = null;
+                OutputStream os = null;
+                try{
+                    is = getContentResolver().openInputStream(data.getData());
+                    os = new FileOutputStream(new_file);
+                    FileUtils.copy(is, os);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        is.close();
+                        os.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                imagen_path = new_file.getAbsolutePath();
+
             }else{
-                imagenProd.setImageURI(getImageUriFromPath(imagen_path));
+                //imagenProd.setImageURI(getImageUriFromPath(imagen_path));
+                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                imagenProd.setImageBitmap(imageBitmap);
+
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile(this);
+                } catch (IOException ex) {
+                    // Error occurred while creating the File
+                    //...
+                }
+                FileOutputStream fos = null;
+                try {
+                    fos = new FileOutputStream(photoFile);
+                    // Use the compress method on the BitMap object to write image to the OutputStream
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                imagen_path = photoFile.getAbsolutePath();
             }
         }
     }

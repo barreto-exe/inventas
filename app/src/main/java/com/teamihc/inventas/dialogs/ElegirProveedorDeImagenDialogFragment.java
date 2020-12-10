@@ -27,12 +27,11 @@ public class ElegirProveedorDeImagenDialogFragment extends DialogFragment {
                         CrearProductoActivity crearProductoActivity = (CrearProductoActivity) getActivity();
                         String image_path = null;
                         switch (which){
-                            case 0: image_path = Herramientas.imagenDesdeCamara(crearProductoActivity);
+                            case 0: Herramientas.imagenDesdeCamara2(crearProductoActivity);
                                     break;
                             case 1: Herramientas.imagenDesdeGaleria(crearProductoActivity);
                                     break;
                         }
-                        crearProductoActivity.setImagen_path(image_path);
                     }
                 });
 
