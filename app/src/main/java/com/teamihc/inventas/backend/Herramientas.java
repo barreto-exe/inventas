@@ -132,7 +132,7 @@ public class Herramientas
 
     static String  currentPhotoPath;
 
-    private static File createImageFile(Activity activity) throws IOException {
+    public static File createImageFile(Activity activity) throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -177,32 +177,36 @@ public class Herramientas
         return null;
     }
 
-    public static String imagenDesdeGaleria(Activity activity){
-        Intent selectPictureIntent = new Intent(Intent.ACTION_PICK);
-        selectPictureIntent.setType("image/*");
-        // Ensure that there's a camera activity to handle the intent
-        if (selectPictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile(activity);
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                //...
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(activity,
-                        "com.teamihc.inventas.android.fileprovider",
-                        photoFile);
-                selectPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                activity.startActivityForResult(selectPictureIntent, REQUEST_PHOTO);
-                //activity.startActivityForResult(Intent.createChooser(selectPictureIntent, "Elija una opcion"), IMAGES_CODE);
-                return currentPhotoPath;
-            }
+    public static void imagenDesdeGaleria(Activity activity){
+        Intent selectPictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        activity.startActivityForResult(Intent.createChooser(selectPictureIntent, "Elija una opcion"), REQUEST_PHOTO);
+    }
+    
+    public static String almacenarImagen(Activity activity, Bitmap bitmapImage){
+
+        File photoFile = null;
+        try {
+            photoFile = createImageFile(activity);
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+            //...
         }
 
-        return null;
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(photoFile);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 0, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return photoFile.getAbsolutePath();
     }
 
     //================================CONSULTAR FOTOS============================================

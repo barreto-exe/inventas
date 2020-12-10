@@ -4,10 +4,14 @@ package com.teamihc.inventas.activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,7 +42,9 @@ import com.teamihc.inventas.dialogs.ElegirProveedorDeImagenDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -325,8 +331,18 @@ public class CrearProductoActivity extends AppCompatActivity
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        imagenProd.setImageURI(getImageUriFromPath(imagen_path));
+        if (resultCode == RESULT_OK && requestCode == REQUEST_PHOTO) {
+
+            if (data != null) {
+                imagenProd.setImageURI(data.getData());
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) imagenProd.getDrawable();
+                imagen_path = almacenarImagen(this, bitmapDrawable.getBitmap());
+            }else{
+                imagenProd.setImageURI(getImageUriFromPath(imagen_path));
+            }
+        }
     }
+
     //<-------------------------------Metodos para capturar una foto------------------------------->
 
     public void salir(View view)
