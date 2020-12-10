@@ -27,7 +27,9 @@ import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -66,6 +68,17 @@ public class Herramientas
         
         FOMATO_MONEDA = new DecimalFormat("###,###,###,##0.00", simbolos);
         FOMATO_PORCENTAJE = new DecimalFormat("#0.00%", simbolos);
+    }
+
+    public static String formatearDiaFecha(Date fecha)
+    {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(fecha);
+        int index = calendar.get(Calendar.DAY_OF_WEEK);
+
+        String dia = Estadisticas.intToDay(index -1);
+
+        return dia + ", " + Herramientas.FORMATO_FECHA_FRONT.format(Calendar.getInstance().getTime());
     }
     
     public static String formatearMonedaBs(float monto)

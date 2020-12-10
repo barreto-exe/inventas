@@ -68,7 +68,7 @@ public class Estadisticas
         return dias;
     }
 
-    private static String intToDay(int index)
+    public static String intToDay(int index)
     {
         switch (index)
         {

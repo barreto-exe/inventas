@@ -62,7 +62,7 @@ public class VentasFragment extends Fragment
     
     private void refrescarGananciasDelDia()
     {
-        //Colocar etiqueta de ganancias del día
+        ((TextView) view.findViewById(R.id.fechaActual)).setText(Herramientas.formatearDiaFecha(Calendar.getInstance().getTime()));
         ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(Calendar.getInstance().getTime())));
     }
 }
