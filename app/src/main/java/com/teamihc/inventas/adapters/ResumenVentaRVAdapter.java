@@ -26,7 +26,6 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
 {
     private ArrayList<Venta> listaVenta;
     
-    
     //Constructor
     public ResumenVentaRVAdapter(ArrayList<Venta> listaVenta)
     {
