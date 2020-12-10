@@ -152,6 +152,26 @@ public class Tasa implements Entidad
     }
 
     /**
+     * @param id es el id bajo el cuál está registrada la tasa que se busca.
+     * @return la tasa correspondiente al id.
+     */
+    public static Tasa obtenerTasa(int id)
+    {
+        String query = "SELECT * FROM v_tasas WHERE id = ?";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
+
+        if(resultado.leer())
+            return new Tasa(
+                    (Float) resultado.getValor("monto"),
+                    (String) resultado.getValor("fecha"),
+                    (String) resultado.getValor("hora")
+            );
+
+        return null;
+    }
+
+    /**
      * Consulta la tasa registrada anterior a la actual.
      * @return la tasa anterior, o null si no existe.
      */

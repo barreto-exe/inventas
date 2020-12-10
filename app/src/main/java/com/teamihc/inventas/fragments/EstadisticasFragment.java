@@ -157,8 +157,8 @@ public class EstadisticasFragment extends Fragment {
         semana= Estadisticas.limiteSemana();
         gananciaT = Estadisticas.gananciaTotalSemanal();
         ingresoT = Estadisticas.ingresoTotalSemanal();
-        Articulo masV = Estadisticas.articuloMasVendido(semana[0],semana[1]);
-        Articulo menosV = Estadisticas.articuloMenosVendido(semana[0],semana[1]);
+        Articulo masV[] = (Articulo[]) Estadisticas.articuloMasVendido(semana[0],semana[1]);
+        Articulo menosV[] = (Articulo[]) Estadisticas.articuloMenosVendido(semana[0],semana[1]);
         diaMasV=Estadisticas.diaMayorCantVentas();
         diaMasI=Estadisticas.diaMayorIngreso();
         diaMenosV=Estadisticas.diaMenorCantVentas();
@@ -178,8 +178,8 @@ public class EstadisticasFragment extends Fragment {
         }
 
        if (masV!=null) {
-           descripcionMasVendido.setText(masV.getDescripcion());
-           precioBsMasVendido.setText("Bs.S."+Float.toString(masV.getPrecioBs()));
+           /*descripcionMasVendido.setText(masV.getDescripcion());
+           precioBsMasVendido.setText("Bs.S."+Float.toString(masV.getPrecioBs()));*/
            //cantidadMasVendido.setText(Integer.toString(masV.getCantidad());
            imagenMasVendido.setImageResource(R.color.colorPrimary);
         } else {
@@ -190,8 +190,8 @@ public class EstadisticasFragment extends Fragment {
         }
 
         if (menosV!=null) {
-            descripcionMenosVendido.setText(menosV.getDescripcion());
-            precioBsMenosVendido.setText("Bs.S"+Float.toString(menosV.getPrecioBs()));
+            /*descripcionMenosVendido.setText(menosV.getDescripcion());
+            precioBsMenosVendido.setText("Bs.S"+Float.toString(menosV.getPrecioBs()));*/
         //    cantidadMenosVendido.setText(Integer.toString(menosV.getCantidad()));
             imagenMenosVendido.setImageResource(R.color.colorPrimary);
         } else {
