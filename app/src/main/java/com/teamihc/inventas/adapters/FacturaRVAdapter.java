@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 
 import org.jetbrains.annotations.NotNull;
@@ -67,7 +68,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
-            imagenProd.setImageBitmap(articulo.getArticulo().getImagen());
+            imagenProd.setImageURI(Herramientas.getImageUriFromPath(articulo.getArticulo().getImagen_path()));
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidadStock.setText("" + articulo.getCantidad());
             subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));

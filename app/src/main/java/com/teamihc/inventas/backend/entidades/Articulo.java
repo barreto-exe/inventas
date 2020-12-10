@@ -32,7 +32,7 @@ public class Articulo implements Entidad
     private float precio;
     private int cantidad;
     private String codigo;
-    private Bitmap imagen;
+    String imagen_path;
     //</editor-fold>
     
     /**
@@ -54,14 +54,14 @@ public class Articulo implements Entidad
         this.codigo = codigo;
     }
 
-    public Articulo(String descripcion, float costo, float precio, int cantidad, String codigo, Bitmap imagen)
+    public Articulo(String descripcion, float costo, float precio, int cantidad, String codigo, String imagen_path)
     {
         this.descripcion = descripcion.trim();
         this.costo = costo;
         this.precio = precio;
         this.cantidad = cantidad;
         this.codigo = codigo;
-        this.imagen = imagen;
+        this.imagen_path = imagen_path;
     }
     
     //<editor-fold desc="Getters & Setters">
@@ -105,8 +105,14 @@ public class Articulo implements Entidad
     {
         this.codigo = codigo;
     }
-    public Bitmap getImagen() { return imagen; }
-    public void setImagen(Bitmap imagen) { this.imagen = imagen; }
+
+    public String getImagen_path() {
+        return imagen_path;
+    }
+
+    public void setImagen_path(String imagen_path) {
+        this.imagen_path = imagen_path;
+    }
 
     public float getPrecioBs()
     {
@@ -137,8 +143,7 @@ public class Articulo implements Entidad
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
-        Bitmap imagenComprimida = comprimirImagen(imagen);
-        op.pasarParametro(bitmapToArray(imagenComprimida));
+        op.pasarParametro(imagen_path);
 
         if (op.ejecutar() != 0){
             agregarStock(cantidad, Calendar.getInstance().getTime());
@@ -187,9 +192,9 @@ public class Articulo implements Entidad
             float precio = (float) resultado.getValor("precio_venta");
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
-            Bitmap imagen = blobToBitmap((SQLDroidBlob) resultado.getValor("imagen"));
+            String imagen_path = (String) resultado.getValor("imagen");
             
-            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
+            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen_path);
         }
         
         return null;
@@ -215,9 +220,9 @@ public class Articulo implements Entidad
             float precio = (float) resultado.getValor("precio_venta");
             int cantidad = (int) resultado.getValor("cantidad");
             String codigo = (String) resultado.getValor("codigo");
-            Bitmap imagen = blobToBitmap((SQLDroidBlob) resultado.getValor("imagen"));
+            String imagen_path = (String) resultado.getValor("imagen");
 
-            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
+            return new Articulo(descripcion, costo, precio, cantidad, codigo, imagen_path);
         }
 
         return null;
@@ -237,7 +242,7 @@ public class Articulo implements Entidad
                     (Float) resultado.getValor("precio_venta"),
                     (Integer) resultado.getValor("cantidad"),
                     (String) resultado.getValor("codigo"),
-                    blobToBitmap((SQLDroidBlob) resultado.getValor("imagen")) );
+                    (String) resultado.getValor("imagen") );
             listaArticulos.add(articulo);
         }
     }
@@ -312,7 +317,7 @@ public class Articulo implements Entidad
         op.pasarParametro(precio);
         op.pasarParametro(cantidad);
         op.pasarParametro(codigo);
-        op.pasarParametro(bitmapToArray(imagen));
+        op.pasarParametro(imagen_path);
         op.pasarParametro(descripcion);
 
         op.ejecutar();

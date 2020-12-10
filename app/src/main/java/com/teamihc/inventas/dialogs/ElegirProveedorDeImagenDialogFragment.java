@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CrearProductoActivity;
+import com.teamihc.inventas.backend.Herramientas;
 
 public class ElegirProveedorDeImagenDialogFragment extends DialogFragment {
 
@@ -24,10 +25,14 @@ public class ElegirProveedorDeImagenDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         CrearProductoActivity crearProductoActivity = (CrearProductoActivity) getActivity();
+                        String image_path = null;
                         switch (which){
-                            case 0: crearProductoActivity.imagenDesdeCamara(); break;
-                            case 1: crearProductoActivity.imagenDesdeGaleria(); break;
+                            case 0: image_path = Herramientas.imagenDesdeCamara(crearProductoActivity);
+                                    break;
+                            case 1: image_path = Herramientas.imagenDesdeGaleria(crearProductoActivity);
+                                    break;
                         }
+                        crearProductoActivity.setImagen_path(image_path);
                     }
                 });
 

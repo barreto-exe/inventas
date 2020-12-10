@@ -2,6 +2,7 @@ package com.teamihc.inventas.fragments;
 
 import android.app.Fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.adapters.listaproductos.InventarioRVAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -52,5 +54,11 @@ public class InventarioFragment extends Fragment
         recyclerView.setAdapter(adapter);
         Articulo.cargarInventarioEnLista(listaArticulos);
     }
+
+    /*public void prueba(){
+        File imagePath = new File(Context.getFilesDir(), "images");
+        File newFile = new File(imagePath, "default_image.jpg");
+        Uri contentUri = getActivity().getUriForFile(getContext(), "com.mydomain.fileprovider", newFile);
+    }*/
 }
 

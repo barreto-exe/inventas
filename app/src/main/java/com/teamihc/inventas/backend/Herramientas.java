@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -126,62 +128,6 @@ public class Herramientas
         
     }
 
-    public static byte[] bitmapToArray(Bitmap bitmap){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-        return stream.toByteArray();
-    }
-
-    public static Bitmap blobToBitmap(SQLDroidBlob blob){
-        byte[] array = null;
-
-        try {
-            int size = (int) blob.length();
-            array = blob.getBytes(0, size);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return BitmapFactory.decodeByteArray(array, 0, array.length);
-    }
-
-    public static Bitmap comprimirImagen(Bitmap imagen){
-        byte[] array = bitmapToArray(imagen);
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(array, 0, array.length, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options.outHeight, options.outWidth);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeByteArray(array, 0, array.length);
-    }
-
-    public static int calculateInSampleSize(int height, int width) {
-        // Raw height and width of image
-        final int reqHeight = 4000;
-        final  int reqWidth = 4000;
-        int inSampleSize = 1;
-
-        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-        // height and width larger than the requested height and width.
-        while ((height / inSampleSize) >= reqHeight && (width / inSampleSize) >= reqWidth) {
-            inSampleSize *= 2;
-        }
-
-        return inSampleSize;
-    }
-
-
-
-
-
-
-
     //================================CAPTURAR FOTOS============================================
 
     static String  currentPhotoPath;
@@ -202,9 +148,9 @@ public class Herramientas
         return image;
     }
 
-    private static final int REQUEST_PHOTO = 1;
+    public static final int REQUEST_PHOTO = 1;
 
-    public String imagenDesdeCamara(Activity activity) {
+    public static String imagenDesdeCamara(Activity activity) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -231,7 +177,7 @@ public class Herramientas
         return null;
     }
 
-    public String imagenDesdeGaleria(Activity activity){
+    public static String imagenDesdeGaleria(Activity activity){
         Intent selectPictureIntent = new Intent(Intent.ACTION_PICK);
         selectPictureIntent.setType("image/*");
         // Ensure that there's a camera activity to handle the intent
@@ -261,35 +207,15 @@ public class Herramientas
 
     //================================CONSULTAR FOTOS============================================
 
-    File[] externalStorageVolumes =
-            ContextCompat.getExternalFilesDirs(getApplicationContext(), null);
-    File primaryExternalStorage = externalStorageVolumes[0];
-
-    File appSpecificExternalDir = new File(context.getExternalFilesDir(), filename);
-
-    @Nullable
-    File getAppSpecificAlbumStorageDir(Context context, String albumName) {
-        // Get the pictures directory that's inside the app-specific directory on
-        // external storage.
-        File file = new File(context.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES), albumName);
-        if (file == null || !file.mkdirs()) {
-            Log.e(LOG_TAG, "Directory not created");
-        }
-        return file;
+    public static Uri getImageUriFromPath(String photoPath) {
+        File f = new File(photoPath);
+        return Uri.fromFile(f);
     }
 
-
-
-
-
-
-
-    /*
-    private void setPic() {
+    public static Bitmap getCompresBitmapImage(View view, String photoPath) {
         // Get the dimensions of the View
-        int targetW = imageView.getWidth();
-        int targetH = imageView.getHeight();
+        int targetW = view.getWidth();
+        int targetH = view.getHeight();
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -306,8 +232,6 @@ public class Herramientas
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        imageView.setImageBitmap(bitmap);
+        return BitmapFactory.decodeFile(photoPath, bmOptions);
     }
-    */
 }
