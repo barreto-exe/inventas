@@ -1,13 +1,20 @@
 package com.teamihc.inventas.backend;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.teamihc.inventas.BuildConfig;
 import com.teamihc.inventas.activities.MainActivity;
@@ -25,6 +32,7 @@ import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -167,4 +175,139 @@ public class Herramientas
 
         return inSampleSize;
     }
+
+
+
+
+
+
+
+    //================================CAPTURAR FOTOS============================================
+
+    static String  currentPhotoPath;
+
+    private static File createImageFile(Activity activity) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private static final int REQUEST_PHOTO = 1;
+
+    public String imagenDesdeCamara(Activity activity) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile(activity);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                //...
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(activity,
+                        "com.teamihc.inventas.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                activity.startActivityForResult(takePictureIntent, REQUEST_PHOTO);
+
+                return currentPhotoPath;
+            }
+        }
+
+        return null;
+    }
+
+    public String imagenDesdeGaleria(Activity activity){
+        Intent selectPictureIntent = new Intent(Intent.ACTION_PICK);
+        selectPictureIntent.setType("image/*");
+        // Ensure that there's a camera activity to handle the intent
+        if (selectPictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile(activity);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                //...
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(activity,
+                        "com.teamihc.inventas.android.fileprovider",
+                        photoFile);
+                selectPictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                activity.startActivityForResult(selectPictureIntent, REQUEST_PHOTO);
+                //activity.startActivityForResult(Intent.createChooser(selectPictureIntent, "Elija una opcion"), IMAGES_CODE);
+                return currentPhotoPath;
+            }
+        }
+
+        return null;
+    }
+
+    //================================CONSULTAR FOTOS============================================
+
+    File[] externalStorageVolumes =
+            ContextCompat.getExternalFilesDirs(getApplicationContext(), null);
+    File primaryExternalStorage = externalStorageVolumes[0];
+
+    File appSpecificExternalDir = new File(context.getExternalFilesDir(), filename);
+
+    @Nullable
+    File getAppSpecificAlbumStorageDir(Context context, String albumName) {
+        // Get the pictures directory that's inside the app-specific directory on
+        // external storage.
+        File file = new File(context.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (file == null || !file.mkdirs()) {
+            Log.e(LOG_TAG, "Directory not created");
+        }
+        return file;
+    }
+
+
+
+
+
+
+
+    /*
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+        imageView.setImageBitmap(bitmap);
+    }
+    */
 }

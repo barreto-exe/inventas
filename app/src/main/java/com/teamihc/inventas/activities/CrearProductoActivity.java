@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,6 +35,9 @@ import com.teamihc.inventas.dialogs.ConfirmarEliminacionDialogFragment;
 import com.teamihc.inventas.dialogs.ElegirProveedorDeImagenDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -51,9 +55,6 @@ public class CrearProductoActivity extends AppCompatActivity
     private boolean modoEdicion;
     private ImageView imagenProd;
     private FloatingActionButton fotoproducto_btn;
-
-    //request code to pick image
-    private static final int IMAGES_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -312,27 +313,12 @@ public class CrearProductoActivity extends AppCompatActivity
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
 
-    public void imagenDesdeGaleria(){
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Elija una opcion"), IMAGES_CODE);
-    }
-
-    public void imagenDesdeCamara(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(intent, IMAGES_CODE);
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK){
-            //data.getClipData() == null
-            //imagenProd.setImageURI(data.getData());
+        if (requestCode == REQUEST_PHOTO && resultCode == Activity.RESULT_OK){
             if (data.getExtras() == null){
                 imagenProd.setImageURI(data.getData());
             }else{
@@ -341,6 +327,7 @@ public class CrearProductoActivity extends AppCompatActivity
             }
         }
     }
+
     //<-------------------------------Metodos para capturar una foto------------------------------->
 
     public void salir(View view)
