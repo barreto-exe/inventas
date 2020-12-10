@@ -441,7 +441,15 @@ public class Estadisticas
         DBMatriz resultados = op.consultar();
         if(resultados.leer())
         {
-            return (float) resultados.getValor("ganancia");
+            try
+            {
+                float result = (float) resultados.getValor("ganancia");
+                return result;
+            }
+            catch (Exception exception)
+            {
+            
+            }
         }
         return 0;
     }

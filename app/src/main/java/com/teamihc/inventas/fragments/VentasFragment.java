@@ -24,6 +24,7 @@ import java.util.Calendar;
 
 public class VentasFragment extends Fragment
 {
+    View view;
     RecyclerView recyclerView;
     ResumenVentaRVAdapter.ResumenVentaAdapter listaVentaAdapter;
     ArrayList<Venta> listaVentas;
@@ -33,7 +34,7 @@ public class VentasFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_ventas, container, false);
+        view = inflater.inflate(R.layout.fragment_ventas, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.ventasDelDia);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
@@ -42,9 +43,8 @@ public class VentasFragment extends Fragment
         Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter = new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
-        
-        //Colocar etiqueta de ganancias del día
-        ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(Calendar.getInstance().getTime())));
+    
+        refrescarGananciasDelDia();
         
         return view;
     }
@@ -56,6 +56,14 @@ public class VentasFragment extends Fragment
         listaVentas.clear();
         Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter.notifyDataSetChanged();
+    
+        refrescarGananciasDelDia();
+    }
+    
+    private void refrescarGananciasDelDia()
+    {
+        //Colocar etiqueta de ganancias del día
+        ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(Calendar.getInstance().getTime())));
     }
 }
 
