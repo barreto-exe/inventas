@@ -14,7 +14,6 @@ public class ElegirProveedorDeImagenDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.seleccionar_imagen)
                 .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
@@ -27,7 +26,8 @@ public class ElegirProveedorDeImagenDialogFragment extends DialogFragment {
                         CrearProductoActivity crearProductoActivity = (CrearProductoActivity) getActivity();
                         String image_path = null;
                         switch (which){
-                            case 0: Herramientas.imagenDesdeCamara2(crearProductoActivity);
+                            case 0: image_path = Herramientas.imagenDesdeCamara(crearProductoActivity);
+                                    crearProductoActivity.setImagen_path(image_path);
                                     break;
                             case 1: Herramientas.imagenDesdeGaleria(crearProductoActivity);
                                     break;

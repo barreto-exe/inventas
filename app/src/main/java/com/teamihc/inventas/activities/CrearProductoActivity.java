@@ -311,6 +311,15 @@ public class CrearProductoActivity extends AppCompatActivity
             //estamos en modo edicion, actualizar
             actualizarArticulo(articulo, cambio_stock);
         }
+
+
+        File filepath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File[] file_array = filepath.listFiles();
+        for (int i= 0; i<file_array.length; i++){
+                if (file_array[i].length() == 0) {
+                    file_array[i].delete();
+                }
+        }
     }
     
     public void actualizarArticulo(Articulo articulo, int cambio_stock)
@@ -338,64 +347,12 @@ public class CrearProductoActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
             if (requestCode == PICTURE_FROM_GALLERY) {
                 imagenProd.setImageURI(data.getData());
-
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                File filepath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                File new_file = new File(filepath, "JPEG_" + timeStamp + "_" + System.currentTimeMillis() + ".jpg");
-
-                InputStream is = null;
-                OutputStream os = null;
-                try{
-                    is = getContentResolver().openInputStream(data.getData());
-                    os = new FileOutputStream(new_file);
-                    FileUtils.copy(is, os);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }finally {
-                    try {
-                        is.close();
-                        os.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                imagen_path = new_file.getAbsolutePath();
-
+                imagen_path = guardarImgenDeGaleria(this, data.getData());
             }else{
-                //imagenProd.setImageURI(getImageUriFromPath(imagen_path));
-                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-                imagenProd.setImageBitmap(imageBitmap);
-
-                File photoFile = null;
-                try {
-                    photoFile = createImageFile(this);
-                } catch (IOException ex) {
-                    // Error occurred while creating the File
-                    //...
-                }
-                FileOutputStream fos = null;
-                try {
-                    fos = new FileOutputStream(photoFile);
-                    // Use the compress method on the BitMap object to write image to the OutputStream
-                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        fos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                imagen_path = photoFile.getAbsolutePath();
+                imagenProd.setImageURI(getImageUriFromPath(imagen_path));
             }
         }
     }

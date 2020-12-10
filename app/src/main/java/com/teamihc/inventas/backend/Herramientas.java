@@ -6,7 +6,9 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -25,6 +28,7 @@ import org.sqldroid.SQLDroidBlob;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -182,38 +186,32 @@ public class Herramientas
         Intent selectPictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         activity.startActivityForResult(Intent.createChooser(selectPictureIntent, "Elija una opcion"), PICTURE_FROM_GALLERY);
     }
-
-    public static void imagenDesdeCamara2(Activity activity){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-        activity.startActivityForResult(takePictureIntent, PICTURE_FROM_CAMERA);
-    }
     
-    public static String almacenarImagen(Activity activity, Bitmap bitmapImage){
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public static String guardarImgenDeGaleria(Activity activity, Uri uri){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File filepath = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File new_file = new File(filepath, "JPEG_" + timeStamp + "_" + System.currentTimeMillis() + ".jpg");
 
-        File photoFile = null;
-        try {
-            photoFile = createImageFile(activity);
-        } catch (IOException ex) {
-            // Error occurred while creating the File
-            //...
-        }
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(photoFile);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 0, fos);
-        } catch (Exception e) {
+        InputStream is = null;
+        OutputStream os = null;
+        try{
+            is = activity.getContentResolver().openInputStream(uri);
+            os = new FileOutputStream(new_file);
+            FileUtils.copy(is, os);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
             try {
-                fos.close();
+                is.close();
+                os.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return photoFile.getAbsolutePath();
+        return new_file.getAbsolutePath();
     }
 
     //================================CONSULTAR FOTOS============================================
