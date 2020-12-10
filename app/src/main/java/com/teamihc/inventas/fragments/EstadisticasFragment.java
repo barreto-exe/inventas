@@ -175,19 +175,51 @@ public class EstadisticasFragment extends Fragment
         ingresoT = Estadisticas.ingresoTotalSemanal();
         Object[] objMas;
         objMas = Estadisticas.articuloMasVendido(semana[0], semana[1]);
-        Articulo masV = (Articulo) objMas[0];
+
         Object[] objMenos;
         objMenos = Estadisticas.articuloMenosVendido(semana[0], semana[1]);
-        Articulo menosV = (Articulo) objMenos[0];
-        
+        Articulo masV, menosV;
+
         diaMasV = Estadisticas.diaMayorCantVentas();
         diaMasI = Estadisticas.diaMayorIngreso();
         diaMenosV = Estadisticas.diaMenorCantVentas();
         diaMenosI = Estadisticas.diaMenorIngreso();
-        
-        
-        if (gananciaT > 0)
-        {
+
+        if (Articulo.cantidadArticulosRegistrados() > 0) {
+            masV = (Articulo) objMas[0];
+            menosV = (Articulo) objMenos[0];
+            if (masV != null) {
+                descripcionMasVendido.setText(masV.getDescripcion());
+                precioBsMasVendido.setText("$" + Float.toString((float) objMas[2]));
+                cantidadMasVendido.setText(Integer.toString((int) objMas[1]));
+                imagenMasVendido.setImageBitmap(masV.getImagen());
+            }
+
+            if (menosV != null && !(menosV.getDescripcion().equals(masV.getDescripcion()))) {
+                descripcionMenosVendido.setText(menosV.getDescripcion());
+                precioBsMenosVendido.setText("$" + Float.toString((float) objMenos[2]));
+                cantidadMenosVendido.setText(Integer.toString((int) objMenos[1]));
+                imagenMenosVendido.setImageBitmap(menosV.getImagen());
+            } else {
+                descripcionMenosVendido.setText("-");
+                precioBsMenosVendido.setText("-");
+                cantidadMenosVendido.setText("-");
+                imagenMenosVendido.setImageResource(R.color.colorPrimary);
+            }
+
+        } else {
+            descripcionMasVendido.setText("-");
+            precioBsMasVendido.setText("-");
+            cantidadMasVendido.setText("-");
+            imagenMasVendido.setImageResource(R.color.colorPrimary);
+            descripcionMenosVendido.setText("-");
+            precioBsMenosVendido.setText("-");
+            cantidadMenosVendido.setText("-");
+            imagenMenosVendido.setImageResource(R.color.colorPrimary);
+        }
+
+
+        if (gananciaT > 0) {
             gananciaTotal.setText("$" + "" + gananciaT);
         }
         else
@@ -203,39 +235,9 @@ public class EstadisticasFragment extends Fragment
         {
             ingresoTotal.setText("-");
         }
-        
-        if (masV != null)
-        {
-            descripcionMasVendido.setText(masV.getDescripcion());
-            precioBsMasVendido.setText("$" + Float.toString((float) objMas[2]));
-            cantidadMasVendido.setText(Integer.toString((int) objMas[1]));
-            imagenMasVendido.setImageBitmap(masV.getImagen());
-        }
-        else
-        {
-            descripcionMasVendido.setText("-");
-            precioBsMasVendido.setText("-");
-            cantidadMasVendido.setText("-");
-            imagenMasVendido.setImageResource(R.color.colorPrimary);
-        }
-        
-        if (menosV != null && !(menosV.getDescripcion().equals(masV.getDescripcion())))
-        {
-            descripcionMenosVendido.setText(menosV.getDescripcion());
-            precioBsMenosVendido.setText("$" + Float.toString((float) objMenos[2]));
-            cantidadMenosVendido.setText(Integer.toString((int) objMenos[1]));
-            imagenMenosVendido.setImageBitmap(menosV.getImagen());
-        }
-        else
-        {
-            descripcionMenosVendido.setText("-");
-            precioBsMenosVendido.setText("-");
-            cantidadMenosVendido.setText("-");
-            imagenMenosVendido.setImageResource(R.color.colorPrimary);
-        }
-        
-        if (diaMasV != null && Estadisticas.mayorCantVentas() > 0)
-        {
+
+
+        if (diaMasV != null && Estadisticas.mayorCantVentas() > 0) {
             diaMasVentas.setText(diaMasV);
             ventas_diaMasVentas.setText("" + Estadisticas.mayorCantVentas());
         }
