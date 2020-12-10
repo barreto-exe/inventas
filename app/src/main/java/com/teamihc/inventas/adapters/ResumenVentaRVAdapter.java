@@ -26,7 +26,6 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
 {
     private ArrayList<Venta> listaVenta;
     
-    
     //Constructor
     public ResumenVentaRVAdapter(ArrayList<Venta> listaVenta)
     {
@@ -63,8 +62,8 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
         intent.putExtra("id", id.getText().toString());
         mainActivity.startActivity(intent);
     }
-
-
+    
+    
     public class ResumenVentaAdapter extends RecyclerView.ViewHolder
     {
         
@@ -88,15 +87,22 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
             float conversion = venta.getCarrito().obtenerTotalBsS();
             ArrayList<ArticuloPxQ> listaArticulos = venta.getCarrito().getCarrito();
             String resumenStr = "";
-            int i=0;
-            for (; i<listaArticulos.size() && i<3; i++){
-                resumenStr = resumenStr + listaArticulos.get(i).getCantidad()
-                        + " " + listaArticulos.get(i).getArticulo().getDescripcion() + ", ";
+            int cantArticulos = listaArticulos.size();
+            for (int i = 0; i < cantArticulos; i++)
+            {
+                resumenStr +=
+                    listaArticulos.get(i).getCantidad() + " " +
+                    listaArticulos.get(i).getArticulo().getDescripcion();
+                if(i < cantArticulos - 1)
+                {
+                    resumenStr += ", ";
+                }
+                else
+                {
+                    resumenStr += ".";
+                }
             }
-            if (i>3){
-                resumenStr.concat("...");
-            }
-
+            
             hora.setText(Herramientas.FORMATO_TIEMPO_FRONT.format(venta.getFechaHora()));
             ventaD.setText(Float.toString(monto));
             ventaBsS.setText(Float.toString(conversion));

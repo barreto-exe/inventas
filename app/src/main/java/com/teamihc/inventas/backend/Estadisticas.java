@@ -79,7 +79,7 @@ public class Estadisticas
             case 2:
                 return "Martes";
             case 3:
-                return "Miercoles";
+                return "Miércoles";
             case 4:
                 return "Jueves";
             case 5:
@@ -151,7 +151,7 @@ public class Estadisticas
      * [0] Domingo.
      * [1] Lunes.
      * [2] Martes.
-     * [3] Miercoles.
+     * [3] Miércoles.
      * [4] Jueves.
      * [5] Viernes.
      * [6] Sábado.
@@ -403,7 +403,7 @@ public class Estadisticas
     public static Object[] articuloMenosVendido(Date desde, Date hasta)
     {
         String query =
-                "SELECT d.id_articulo, SUM( d.cantidad ) AS veces_vendido, SUM( v.ganancia ) AS total_ganancia " +
+                "SELECT d.id_articulo, SUM( d.cantidad ) AS unidades_vendidas, SUM( v.ganancia ) AS total_ganancia " +
                         "FROM v_detalles_ventas d  " +
                         "INNER JOIN v_ventas v ON (v.id_venta = d.id_venta)  " +
                         "WHERE fecha >= ? AND fecha <= ?  " +
@@ -425,5 +425,24 @@ public class Estadisticas
         }
         
         return null;
+    }
+    
+    /**
+     * Calcula las ganancias obtenidas en un día.
+     * @param dia que se quiere consultar.
+     * @return ganancias de ese día.
+     */
+    public static float gananciasPorDia(Date dia)
+    {
+        String query = "SELECT SUM(ganancia) AS ganancia FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(dia));
+    
+        DBMatriz resultados = op.consultar();
+        if(resultados.leer())
+        {
+            return (float) resultados.getValor("ganancia");
+        }
+        return 0;
     }
 }

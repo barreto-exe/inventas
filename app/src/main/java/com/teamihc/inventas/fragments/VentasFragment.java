@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Estadisticas;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.adapters.ResumenVentaRVAdapter;
 
@@ -39,6 +42,9 @@ public class VentasFragment extends Fragment
         Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter = new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
+        
+        //Colocar etiqueta de ganancias del día
+        ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(Calendar.getInstance().getTime())));
         
         return view;
     }
