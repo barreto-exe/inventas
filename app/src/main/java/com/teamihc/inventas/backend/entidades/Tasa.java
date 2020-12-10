@@ -42,7 +42,7 @@ public class Tasa implements Entidad
         {
             this.fechaHora = Herramientas.FORMATO_FECHATIEMPO.parse(fecha + " " + hora);
         }
-        catch (ParseException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }

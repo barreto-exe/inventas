@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
@@ -40,27 +42,50 @@ public class Herramientas
     public static final String SIMBOLO_BS = "Bs.S";
     public static final String SIMBOLO_D  = "$";
     
+    public static SimpleDateFormat FORMATO_FECHA;
+    public static SimpleDateFormat FORMATO_FECHA_FRONT;
+    public static SimpleDateFormat FORMATO_TIEMPO;
+    public static SimpleDateFormat FORMATO_TIEMPO_FRONT;
+    public static SimpleDateFormat FORMATO_FECHATIEMPO;
     
-    public static final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING);
-    public static final SimpleDateFormat FORMATO_FECHA_FRONT = new SimpleDateFormat(Herramientas.FORMATO_FECHA_FRONT_STRING);
-    public static final SimpleDateFormat FORMATO_TIEMPO = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING);
-    public static final SimpleDateFormat FORMATO_TIEMPO_FRONT = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_FRONT_STRING);
-    public static final SimpleDateFormat FORMATO_FECHATIEMPO = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING + " " +Herramientas.FORMATO_TIEMPO_STRING);
-    public static final NumberFormat FOMATO_MONEDA = NumberFormat.getNumberInstance(new Locale("es","VE"));
-    public static final NumberFormat FOMATO_PORCENTAJE = NumberFormat.getPercentInstance(new Locale("es","VE"));
+    private static DecimalFormatSymbols simbolos;
+    public static DecimalFormat FOMATO_MONEDA;
+    public static DecimalFormat FOMATO_PORCENTAJE;
+    
+    public static void inicializarFormatos()
+    {
+        FORMATO_FECHA = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING);
+        FORMATO_FECHA_FRONT = new SimpleDateFormat(Herramientas.FORMATO_FECHA_FRONT_STRING);
+        FORMATO_TIEMPO = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_STRING);
+        FORMATO_TIEMPO_FRONT = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_FRONT_STRING);
+        FORMATO_FECHATIEMPO = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING + " " +Herramientas.FORMATO_TIEMPO_STRING);
+        
+        simbolos = new DecimalFormatSymbols();
+        simbolos.setDecimalSeparator(',');
+        simbolos.setGroupingSeparator('.');
+        
+        FOMATO_MONEDA = new DecimalFormat("###,###,###,##0.00", simbolos);
+        FOMATO_PORCENTAJE = new DecimalFormat("#0.00%", simbolos);
+    }
     
     public static String formatearMonedaBs(float monto)
     {
-        return SIMBOLO_BS + " " + FOMATO_MONEDA.format(Math.round(monto*100.0f)/100.0f);
+        if(monto == 0)
+            return SIMBOLO_BS + " 0";
+        return SIMBOLO_BS + " " + FOMATO_MONEDA.format(monto);
     }
     
     public static String formatearMonedaDolar(float monto)
     {
-        return SIMBOLO_D + " " + FOMATO_MONEDA.format(Math.round(monto*100.0f)/100.0f);
+        if(monto == 0)
+            return SIMBOLO_D + " 0";
+        return SIMBOLO_D + " " + FOMATO_MONEDA.format(monto);
     }
     
     public static String formatearPorcentaje(float porcentaje)
     {
+        if(porcentaje == 0)
+            return "0%";
         return Herramientas.FOMATO_PORCENTAJE.format(porcentaje);
     }
     
