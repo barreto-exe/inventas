@@ -102,6 +102,8 @@ public class CrearProductoActivity extends AppCompatActivity
         
         descripcion_original = ((TextView) findViewById(R.id.descripcionProd)).getText().toString();
         agregarListeners();
+
+        imagen_path="";
     }
     
     private void agregarListeners()
@@ -143,6 +145,11 @@ public class CrearProductoActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                //Si se tomo una foto
+                if (!imagen_path.equals("")){
+                    File imagen = new File(imagen_path);
+                    imagen.delete();
+                }
                 finish();
             }
         });
@@ -339,6 +346,11 @@ public class CrearProductoActivity extends AppCompatActivity
     }
 
     public void obtenerImagen(View view){
+        //Si ya se tomo una foto
+        if (!imagen_path.equals("")){
+            File imagen = new File(imagen_path);
+            imagen.delete();
+        }
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
 
@@ -357,9 +369,4 @@ public class CrearProductoActivity extends AppCompatActivity
         }
     }
     //<-------------------------------Metodos para capturar una foto------------------------------->
-
-    public void salir(View view)
-    {
-        finish();
-    }
 }
