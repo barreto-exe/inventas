@@ -356,7 +356,6 @@ public class CrearProductoActivity extends AppCompatActivity
             }
         }
     }
-
     //<-------------------------------Metodos para capturar una foto------------------------------->
 
     public void salir(View view)

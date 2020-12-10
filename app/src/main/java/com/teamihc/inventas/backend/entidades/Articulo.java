@@ -15,6 +15,7 @@ import org.sqldroid.SQLDroidBlob;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -105,11 +106,9 @@ public class Articulo implements Entidad
     {
         this.codigo = codigo;
     }
-
     public String getImagen_path() {
         return imagen_path;
     }
-
     public void setImagen_path(String imagen_path) {
         this.imagen_path = imagen_path;
     }
@@ -310,6 +309,14 @@ public class Articulo implements Entidad
     
     public void actualizar()
     {
+        //Eliminar vieja foto
+        Articulo articulo_viejo = Articulo.obtenerInstancia(descripcion);
+        String imagen_path_viejo = articulo_viejo.getImagen_path();
+        if (imagen_path_viejo != imagen_path){
+            File foto_vieja = new File(imagen_path_viejo);
+            foto_vieja.delete();
+        }
+
         String query = "UPDATE v_articulos SET costo_unitario = ?, precio_venta = ?, cantidad = ?, " +
                 "codigo = ?, imagen = ? WHERE descripcion = ?";
         DBOperacion op = new DBOperacion(query);
@@ -329,6 +336,9 @@ public class Articulo implements Entidad
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         op.ejecutar();
+
+        File foto = new File(imagen_path);
+        foto.delete();
     }
 
     public static int calcularCantVendidosDia(int id, int fecha)
