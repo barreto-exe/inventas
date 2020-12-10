@@ -73,16 +73,15 @@ public class HistorialTasaRVAdapter extends RecyclerView.Adapter<HistorialTasaRV
             TextView fecha = (TextView) cardView.findViewById(R.id.fecha);
             TextView porcentaje = (TextView) cardView.findViewById(R.id.porcentaje);
             
-            String date =
+            String fechaHora =
                     Herramientas.FORMATO_FECHA_FRONT.format(tasa.getFechaHora())
                     + ", " +
                     Herramientas.FORMATO_TIEMPO_FRONT.format(tasa.getFechaHora());
-            
             float porcentajeCambio = tasa.getPorcentajeCambio();
             
-            monto.setText("" + tasa.getMonto());
-            fecha.setText(date);
-            porcentaje.setText("" + Math.abs(porcentajeCambio));
+            monto.setText(Herramientas.formatearMonedaBs(tasa.getMonto()));
+            fecha.setText(fechaHora);
+            porcentaje.setText(Herramientas.formatearPorcentaje(Math.abs(porcentajeCambio)));
             
             if (porcentajeCambio == 0)
             {

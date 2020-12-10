@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 import com.teamihc.inventas.backend.entidades.Carrito;
@@ -244,7 +245,7 @@ public class CarritoActivity extends AppCompatActivity
 
     public void aceptar(View view)
     {
-        if (Float.parseFloat(carrito_total_dolares.getText().toString()) == 0)
+        if (carrito.cantidadReferencias() == 0)
         {
             Toast.makeText(this, "No se ha registrado ningun articulo", Toast.LENGTH_SHORT).show();
             return;
@@ -272,7 +273,7 @@ public class CarritoActivity extends AppCompatActivity
 
     public void calcularTotal()
     {
-        carrito_total_dolares.setText(carrito.obtenerTotalDolares() + "");
-        carrito_total_bolivares.setText(carrito.obtenerTotalBsS()+ "");
+        carrito_total_dolares.setText(Herramientas.formatearMonedaDolar(carrito.obtenerTotalDolares()));
+        carrito_total_bolivares.setText(Herramientas.formatearMonedaBs(carrito.obtenerTotalBsS()));
     }
 }

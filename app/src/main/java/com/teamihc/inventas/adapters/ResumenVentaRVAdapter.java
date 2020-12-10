@@ -104,8 +104,8 @@ public class ResumenVentaRVAdapter extends RecyclerView.Adapter<ResumenVentaRVAd
             }
             
             hora.setText(Herramientas.FORMATO_TIEMPO_FRONT.format(venta.getFechaHora()));
-            ventaD.setText(Float.toString(monto));
-            ventaBsS.setText(Float.toString(conversion));
+            ventaD.setText(Herramientas.formatearMonedaDolar((monto)));
+            ventaBsS.setText(Herramientas.formatearMonedaBs(conversion));
             id.setText(Integer.toString(venta.obtenerId()));
             resumen.setText(resumenStr);
         }

@@ -18,8 +18,10 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Tasa;
 
+import java.time.chrono.HijrahEra;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -93,8 +95,8 @@ public class TasasFragment extends Fragment
     {
         iconoSubida.setVisibility(View.VISIBLE);
 
-        tasaDia.setText(""+ tasa.getMonto());
-        tasaAnterior.setText(""+ anterior.getMonto());
+        tasaDia.setText(Herramientas.formatearMonedaBs(tasa.getMonto()));
+        tasaAnterior.setText(Herramientas.formatearMonedaBs(anterior.getMonto()));
 
         float porcentaje = tasa.getPorcentajeCambio();
         if(porcentaje > 0)

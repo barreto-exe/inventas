@@ -25,6 +25,7 @@ import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -46,6 +47,7 @@ public class Herramientas
     public static final SimpleDateFormat FORMATO_TIEMPO_FRONT = new SimpleDateFormat(Herramientas.FORMATO_TIEMPO_FRONT_STRING);
     public static final SimpleDateFormat FORMATO_FECHATIEMPO = new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING + " " +Herramientas.FORMATO_TIEMPO_STRING);
     public static final NumberFormat FOMATO_MONEDA = NumberFormat.getNumberInstance(new Locale("es","VE"));
+    public static final NumberFormat FOMATO_PORCENTAJE = NumberFormat.getPercentInstance(new Locale("es","VE"));
     
     public static String formatearMonedaBs(float monto)
     {
@@ -57,7 +59,12 @@ public class Herramientas
         return SIMBOLO_D + " " + FOMATO_MONEDA.format(Math.round(monto*100.0f)/100.0f);
     }
     
-    /**
+    public static String formatearPorcentaje(float porcentaje)
+    {
+        return Herramientas.FOMATO_PORCENTAJE.format(porcentaje);
+    }
+    
+     /**
      * Copia un archivo de la carpeta assets del apk a la carpeta /data/data del teléfono.
      * @param path ruta del archivo en assets.
      * @param assetManager asset manager del activity.
