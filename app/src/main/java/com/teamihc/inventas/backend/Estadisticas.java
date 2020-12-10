@@ -1,10 +1,13 @@
 package com.teamihc.inventas.backend;
 
+import android.util.Log;
+
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -355,13 +358,16 @@ public class Estadisticas
     /**
      * Calcula el artículo más vendido en un rango de tiempo.
      * @param desde la fecha de inicio del rango (inclusivo).
-     * @param hasta la fecha de fin del rango (exclusivo)
-     * @return instancia del artículo más vendido.
+     * @param hasta la fecha de fin del rango (inclusivo)
+     * @return Arreglo de objetos en este orden:
+     * [0] Instancia del artículo más vendido,
+     * [1] Integer - unidades vendidas,
+     * [2] Float - total ganancia producida por sus ventas.
      */
-    public static Articulo articuloMasVendido(Date desde, Date hasta)
+    public static Object[] articuloMasVendido(Date desde, Date hasta)
     {
         String query =
-                "SELECT d.id_articulo, SUM( d.cantidad ) AS veces_vendido, SUM( v.ganancia ) AS total_ganancia " +
+                "SELECT d.id_articulo, SUM( d.cantidad ) AS unidades_vendidas, SUM( v.ganancia ) AS total_ganancia " +
                 "FROM v_detalles_ventas d  " +
                 "INNER JOIN v_ventas v ON (v.id_venta = d.id_venta)  " +
                 "WHERE fecha >= ? AND fecha <= ?  " +
@@ -375,7 +381,11 @@ public class Estadisticas
 
         if(resultado.leer())
         {
-            return Articulo.obtenerInstancia((int)resultado.getValor("d.id_articulo"));
+            ArrayList<Object> resultadoQuery = new ArrayList<>();
+            resultadoQuery.add(Articulo.obtenerInstancia((int)resultado.getValor("id_articulo")));
+            resultadoQuery.add(new Integer((int)resultado.getValor("unidades_vendidas")));
+            resultadoQuery.add(new Float((float)resultado.getValor("total_ganancia")));
+            return resultadoQuery.toArray();
         }
 
         return null;
@@ -384,10 +394,13 @@ public class Estadisticas
     /**
      * Calcula el artículo menos vendido en un rango de tiempo.
      * @param desde la fecha de inicio del rango (inclusivo).
-     * @param hasta la fecha de fin del rango (exclusivo)
-     * @return instancia del artículo menos vendido.
+     * @param hasta la fecha de fin del rango (inclusivo)
+     * @return Arreglo de objetos en este orden:
+     * [0] Instancia del artículo más vendido,
+     * [1] Integer - unidades vendidas,
+     * [2] Float - total ganancia producida por sus ventas.
      */
-    public static Articulo articuloMenosVendido(Date desde, Date hasta)
+    public static Object[] articuloMenosVendido(Date desde, Date hasta)
     {
         String query =
                 "SELECT d.id_articulo, SUM( d.cantidad ) AS veces_vendido, SUM( v.ganancia ) AS total_ganancia " +
@@ -404,7 +417,11 @@ public class Estadisticas
         
         if(resultado.leer())
         {
-            return Articulo.obtenerInstancia((int)resultado.getValor("d.id_articulo"));
+            ArrayList<Object> resultadoQuery = new ArrayList<>();
+            resultadoQuery.add(Articulo.obtenerInstancia((int)resultado.getValor("id_articulo")));
+            resultadoQuery.add(new Integer((int)resultado.getValor("unidades_vendidas")));
+            resultadoQuery.add(new Float((float)resultado.getValor("total_ganancia")));
+            return resultadoQuery.toArray();
         }
         
         return null;
