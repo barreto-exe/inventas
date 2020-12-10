@@ -35,7 +35,7 @@ public class Herramientas
     public static final String FORMATO_FECHA_STRING = "yyyy/MM/dd";
     public static final String FORMATO_FECHA_FRONT_STRING = "dd/MM/yyyy";
     public static final String FORMATO_TIEMPO_STRING = "HH:mm:ss";
-    public static final String FORMATO_TIEMPO_FRONT_STRING = "HH:mm";
+    public static final String FORMATO_TIEMPO_FRONT_STRING = "HH:mm a";
     public static final String SIMBOLO_BS = "Bs.S";
     public static final String SIMBOLO_D  = "$";
     
