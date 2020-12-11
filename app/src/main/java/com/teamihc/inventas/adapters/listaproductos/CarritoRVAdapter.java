@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 import com.teamihc.inventas.backend.entidades.Carrito;
 import com.teamihc.inventas.dialogs.SeleccionarCantidadDialogFragment;
 
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
+import static com.teamihc.inventas.backend.Herramientas.getCompresBitmapImage;
 
 public class CarritoRVAdapter extends RecyclerView.Adapter<CarritoRVAdapter.ListaProductosAdapter>
         implements View.OnClickListener, View.OnLongClickListener
@@ -115,7 +117,7 @@ public class CarritoRVAdapter extends RecyclerView.Adapter<CarritoRVAdapter.List
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
-            imagenProd.setImageBitmap(articulo.getArticulo().getImagen());
+            imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getArticulo().getImagen_path()));
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidadStock.setText("" + articulo.getCantidad());
             subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));

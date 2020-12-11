@@ -1,13 +1,25 @@
 package com.teamihc.inventas.backend;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.os.FileUtils;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.teamihc.inventas.BuildConfig;
 import com.teamihc.inventas.activities.MainActivity;
@@ -16,6 +28,7 @@ import org.sqldroid.SQLDroidBlob;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -163,53 +177,122 @@ public class Herramientas
         
     }
 
-    public static byte[] bitmapToArray(Bitmap bitmap){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-        return stream.toByteArray();
+    //================================CAPTURAR FOTOS============================================
+
+    static String  currentPhotoPath;
+
+    public static File createImageFile(Activity activity) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
-    public static Bitmap blobToBitmap(SQLDroidBlob blob){
-        byte[] array = null;
+    public static final int PICTURE_FROM_CAMERA = 0;
+    public static final int PICTURE_FROM_GALLERY = 1;
 
-        try {
-            int size = (int) blob.length();
-            array = blob.getBytes(0, size);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public static String imagenDesdeCamara(Activity activity) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile(activity);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                //...
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(activity,
+                        "com.teamihc.inventas.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                activity.startActivityForResult(takePictureIntent, PICTURE_FROM_CAMERA);
+
+                return currentPhotoPath;
+            }
         }
 
-        return BitmapFactory.decodeByteArray(array, 0, array.length);
+        return null;
     }
 
-    public static Bitmap comprimirImagen(Bitmap imagen){
-        byte[] array = bitmapToArray(imagen);
+    public static void imagenDesdeGaleria(Activity activity){
+        Intent selectPictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        activity.startActivityForResult(Intent.createChooser(selectPictureIntent, "Elija una opcion"), PICTURE_FROM_GALLERY);
+    }
+    
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public static String guardarImgenDeGaleria(Activity activity, Uri uri){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File filepath = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File new_file = new File(filepath, "JPEG_" + timeStamp + "_" + System.currentTimeMillis() + ".jpg");
 
-        // First decode with inJustDecodeBounds=true to check dimensions
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(array, 0, array.length, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options.outHeight, options.outWidth);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeByteArray(array, 0, array.length);
+        InputStream is = null;
+        OutputStream os = null;
+        try{
+            is = activity.getContentResolver().openInputStream(uri);
+            os = new FileOutputStream(new_file);
+            FileUtils.copy(is, os);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                is.close();
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return new_file.getAbsolutePath();
     }
 
-    public static int calculateInSampleSize(int height, int width) {
+    //================================CONSULTAR FOTOS============================================
+
+    public static Uri getImageUriFromPath(String photoPath) {
+        File f = new File(photoPath);
+        return Uri.fromFile(f);
+    }
+
+    public static int calculateInSampleSize(int reqWidth, int  reqHeight, int width, int heigth) {
         // Raw height and width of image
-        final int reqHeight = 4000;
-        final  int reqWidth = 4000;
         int inSampleSize = 1;
 
         // Calculate the largest inSampleSize value that is a power of 2 and keeps both
         // height and width larger than the requested height and width.
-        while ((height / inSampleSize) >= reqHeight && (width / inSampleSize) >= reqWidth) {
+        while ((heigth / inSampleSize) >= reqHeight && (width / inSampleSize) >= reqWidth) {
             inSampleSize *= 2;
         }
 
         return inSampleSize;
+    }
+
+    public static Bitmap getCompresBitmapImage(String photoPath){
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoPath, options);
+        System.out.println("===================================Dimensiones Originales = " + options.outWidth + " " + options.outHeight);
+        // Calculate inSampleSize
+        options.inSampleSize = 16;
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
+        System.out.println("===================================Dimensiones Nuevas = " + bitmap.getWidth()+ " " + bitmap.getHeight());
+        return bitmap;
     }
 }

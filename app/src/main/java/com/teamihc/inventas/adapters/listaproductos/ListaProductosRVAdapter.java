@@ -12,12 +12,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
 import java.util.ArrayList;
 
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
+import static com.teamihc.inventas.backend.Herramientas.getCompresBitmapImage;
 
 public abstract class ListaProductosRVAdapter
         extends RecyclerView.Adapter<ListaProductosRVAdapter.ListaProductosAdapter>
@@ -74,7 +76,7 @@ public abstract class ListaProductosRVAdapter
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
 
-            if (imagenProd!=null) {imagenProd.setImageBitmap(articulo.getImagen());}
+            if (imagenProd!=null) {imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));}
             if (descripcion != null)
             {
                 descripcion.setText(articulo.getDescripcion());

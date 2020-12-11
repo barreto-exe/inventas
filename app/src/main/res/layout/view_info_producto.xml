@@ -23,6 +23,7 @@
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 app:srcCompat="@drawable/img_marquesa_de_chocolate_con_ron_6900_orig" />
 
             <LinearLayout

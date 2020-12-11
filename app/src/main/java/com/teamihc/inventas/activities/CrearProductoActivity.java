@@ -2,15 +2,23 @@ package com.teamihc.inventas.activities;
 
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,17 +31,28 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import static com.teamihc.inventas.backend.Herramientas.*;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
 import com.teamihc.inventas.dialogs.ConfirmarEliminacionDialogFragment;
 import com.teamihc.inventas.dialogs.ElegirProveedorDeImagenDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -51,10 +70,8 @@ public class CrearProductoActivity extends AppCompatActivity
     private boolean modoEdicion;
     private ImageView imagenProd;
     private FloatingActionButton fotoproducto_btn;
-    
-    //request code to pick image
-    private static final int IMAGES_CODE = 0;
-    
+    private String imagen_path;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -85,6 +102,8 @@ public class CrearProductoActivity extends AppCompatActivity
         
         descripcion_original = ((TextView) findViewById(R.id.descripcionProd)).getText().toString();
         agregarListeners();
+
+        imagen_path="";
     }
     
     private void agregarListeners()
@@ -126,6 +145,11 @@ public class CrearProductoActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                //Si se tomo una foto
+                if (!imagen_path.equals("")){
+                    File imagen = new File(imagen_path);
+                    imagen.delete();
+                }
                 finish();
             }
         });
@@ -200,7 +224,9 @@ public class CrearProductoActivity extends AppCompatActivity
         precioBsView.setText(articulo.getPrecioBs() + "");
         codigoView.setText(articulo.getCodigo());
         cantidadView.setText(articulo.getCantidad() + "");
-        imagenProd.setImageBitmap(articulo.getImagen());
+        int height = imagenProd.getDrawable().getIntrinsicHeight();
+        int width = imagenProd.getDrawable().getIntrinsicWidth();
+        imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
         cantidad_original = articulo.getCantidad();
     }
     
@@ -252,10 +278,8 @@ public class CrearProductoActivity extends AppCompatActivity
         float precio = Float.parseFloat(precioView.getText().toString());
         int cantidad = Integer.parseInt(cantidadView.getText().toString());
         String codigo = codigoView.getText().toString();
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) imagenProd.getDrawable();
-        Bitmap imagen = bitmapDrawable.getBitmap();
-        
-        Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
+
+        Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo, imagen_path);
         int cambio_stock = cantidad - cantidad_original;
         
         //si se modifico la descripcion
@@ -307,6 +331,15 @@ public class CrearProductoActivity extends AppCompatActivity
             //estamos en modo edicion, actualizar
             actualizarArticulo(articulo, cambio_stock);
         }
+
+
+        File filepath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File[] file_array = filepath.listFiles();
+        for (int i= 0; i<file_array.length; i++){
+                if (file_array[i].length() == 0) {
+                    file_array[i].delete();
+                }
+        }
     }
     
     public void actualizarArticulo(Articulo articulo, int cambio_stock)
@@ -320,53 +353,35 @@ public class CrearProductoActivity extends AppCompatActivity
     }
     
     //<-------------------------------Metodos para capturar una foto------------------------------->
-    
-    public void obtenerImagen(View view)
-    {
+
+    public void setImagen_path(String imagen_path) {
+        this.imagen_path = imagen_path;
+    }
+
+    public void obtenerImagen(View view){
+        //Si ya se tomo una foto
+        if (!imagen_path.equals("")){
+            File imagen = new File(imagen_path);
+            imagen.delete();
+        }
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
-    
-    public void imagenDesdeGaleria()
-    {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Elija una opcion"), IMAGES_CODE);
-    }
-    
-    public void imagenDesdeCamara()
-    {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null)
-        {
-            startActivityForResult(intent, IMAGES_CODE);
-        }
-    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         
         super.onActivityResult(requestCode, resultCode, data);
-        
-        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK)
-        {
-            //data.getClipData() == null
-            //imagenProd.setImageURI(data.getData());
-            if (data.getExtras() == null)
-            {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICTURE_FROM_GALLERY) {
                 imagenProd.setImageURI(data.getData());
-            }
-            else
-            {
-                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-                imagenProd.setImageBitmap(imageBitmap);
+                imagen_path = guardarImgenDeGaleria(this, data.getData());
+            }else{
+                imagenProd.setImageURI(getImageUriFromPath(imagen_path));
             }
         }
     }
     //<-------------------------------Metodos para capturar una foto------------------------------->
-    
-    public void salir(View view)
-    {
-        finish();
-    }
 }
