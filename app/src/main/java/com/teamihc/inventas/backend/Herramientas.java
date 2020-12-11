@@ -189,13 +189,12 @@ public class Herramientas
 
     //================================CAPTURAR FOTOS============================================
 
-    static String  currentPhotoPath;
 
     public static File createImageFile(Activity activity) throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = new File(activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp");
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -203,14 +202,14 @@ public class Herramientas
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
     public static final int PICTURE_FROM_CAMERA = 0;
     public static final int PICTURE_FROM_GALLERY = 1;
+    private static String imagen_path = "";
 
-    public static String imagenDesdeCamara(Activity activity) {
+    public static void imagenDesdeCamara(Activity activity) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -229,12 +228,13 @@ public class Herramientas
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 activity.startActivityForResult(takePictureIntent, PICTURE_FROM_CAMERA);
-
-                return currentPhotoPath;
+                imagen_path = photoFile.getAbsolutePath();
             }
         }
+    }
 
-        return null;
+    public static String obtenerPathDeCamara(){
+        return imagen_path;
     }
 
     public static void imagenDesdeGaleria(Activity activity){
@@ -245,7 +245,7 @@ public class Herramientas
     @RequiresApi(api = Build.VERSION_CODES.Q)
     public static String guardarImgenDeGaleria(Activity activity, Uri uri){
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File filepath = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File filepath = new File(activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp");
         File new_file = new File(filepath, "JPEG_" + timeStamp + "_" + System.currentTimeMillis() + ".jpg");
 
         InputStream is = null;
@@ -293,7 +293,8 @@ public class Herramientas
         return inSampleSize;
     }
 
-    public static Bitmap getCompresBitmapImage(String photoPath){
+    public static Bitmap getCompressedBitmapImage(String photoPath){
+        System.out.println("============================Herramientas" + photoPath);
 
         if (photoPath.equals("")){return null;}
 

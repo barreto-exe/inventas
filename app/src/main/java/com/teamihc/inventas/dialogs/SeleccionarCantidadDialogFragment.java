@@ -17,7 +17,7 @@ import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
-import static com.teamihc.inventas.backend.Herramientas.getCompresBitmapImage;
+import static com.teamihc.inventas.backend.Herramientas.getCompressedBitmapImage;
 
 public class SeleccionarCantidadDialogFragment extends DialogFragment
 {
@@ -50,10 +50,9 @@ public class SeleccionarCantidadDialogFragment extends DialogFragment
         TextView descripcion = (TextView) view.findViewById(R.id.articulo);
         TextView unidadesDispo = (TextView) view.findViewById(R.id.unidadesDispo);
         ImageView imagenProducto = view.findViewById(R.id.imagenProducto);
-        
-        if (!articulo.getImagen_path().equals(""))
-        {
-            imagenProducto.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+
+        if (!articulo.getImagen_path().equals("")){
+            imagenProducto.setImageBitmap(getCompressedBitmapImage(articulo.getImagen_path()));
         }
         descripcion.setText(articulo.getDescripcion());
         unidadesDispo.setText(articulo.getCantidad() + " unidades disponibles.");
