@@ -266,13 +266,16 @@ public class Herramientas
         return Uri.fromFile(f);
     }
 
-    public static int calculateInSampleSize(int reqWidth, int  reqHeight, int width, int heigth) {
+    public static int calculateInSampleSize(int width, int heigth) {
+        final int reqWidth = 300;
+        final int  reqHeight = 300;
+
         // Raw height and width of image
         int inSampleSize = 1;
 
         // Calculate the largest inSampleSize value that is a power of 2 and keeps both
         // height and width larger than the requested height and width.
-        while ((heigth / inSampleSize) >= reqHeight && (width / inSampleSize) >= reqWidth) {
+        while ((heigth / inSampleSize) > reqHeight || (width / inSampleSize) > reqWidth) {
             inSampleSize *= 2;
         }
 
@@ -287,7 +290,7 @@ public class Herramientas
         BitmapFactory.decodeFile(photoPath, options);
         System.out.println("===================================Dimensiones Originales = " + options.outWidth + " " + options.outHeight);
         // Calculate inSampleSize
-        options.inSampleSize = 16;
+        options.inSampleSize = calculateInSampleSize(options.outWidth, options.outHeight);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;

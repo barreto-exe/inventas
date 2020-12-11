@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                app:srcCompat="@drawable/img_marquesa_de_chocolate_con_ron_6900_orig" />
+                app:srcCompat="@drawable/icono_sin_fondo" />
 
             <LinearLayout
                 android:layout_width="match_parent"

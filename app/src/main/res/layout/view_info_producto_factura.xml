@@ -31,6 +31,7 @@
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/imagen_que_sube_el_usuario"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
