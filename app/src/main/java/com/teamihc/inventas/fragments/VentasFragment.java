@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -26,6 +28,7 @@ public class VentasFragment extends Fragment
 {
     View view;
     RecyclerView recyclerView;
+    LinearLayout bienvenida, contenido;
     ResumenVentaRVAdapter.ResumenVentaAdapter listaVentaAdapter;
     ArrayList<Venta> listaVentas;
     ResumenVentaRVAdapter adapter;
@@ -38,6 +41,8 @@ public class VentasFragment extends Fragment
         recyclerView = (RecyclerView) view.findViewById(R.id.ventasDelDia);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
+        bienvenida = (LinearLayout) view.findViewById(R.id.bienvenida_ventas);
+        contenido = (LinearLayout) view.findViewById(R.id.contenido_ventas);
         
         listaVentas = new ArrayList<Venta>();
         Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
@@ -64,6 +69,22 @@ public class VentasFragment extends Fragment
     {
         ((TextView) view.findViewById(R.id.fechaActual)).setText(Herramientas.formatearDiaFecha(Calendar.getInstance().getTime()));
         ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(Calendar.getInstance().getTime())));
+    
+        ColocarBienvenida();
+    }
+    
+    private void ColocarBienvenida()
+    {
+        if(listaVentas.isEmpty())
+        {
+            bienvenida.setVisibility(View.VISIBLE);
+            contenido.setVisibility(View.GONE);
+        }
+        else
+        {
+            bienvenida.setVisibility(View.GONE);
+            contenido.setVisibility(View.VISIBLE);
+        }
     }
 }
 

@@ -76,34 +76,58 @@
                 android:paddingHorizontal="8dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="32dp">
-
-                <TextView
-                    android:id="@+id/gananciasDelDia"
+                <LinearLayout
+                    android:id="@+id/contenido_ventas"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="$24"
-                    android:textAlignment="center"
-                    android:textColor="#3F9843"
-                    android:textSize="32sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="@string/ganancias"
-                    android:textAlignment="center"
-                    android:textColor="#434343"
-                    android:textSize="16sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ventasDelDia"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/gananciasDelDia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="$24"
+                        android:textAlignment="center"
+                        android:textColor="#3F9843"
+                        android:textSize="32sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="@string/ganancias"
+                        android:textAlignment="center"
+                        android:textColor="#434343"
+                        android:textSize="16sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ventasDelDia"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="32dp"
+                        android:foregroundGravity="top"
+                        app:layout_constraintTop_toBottomOf="@+id/txtVentasdelDia" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/bienvenida_ventas"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="32dp"
-                    android:foregroundGravity="top"
-                    app:layout_constraintTop_toBottomOf="@+id/txtVentasdelDia" />
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="280dp"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/ventas_bienvenida" />
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#3E3E3E"
+                        android:layout_marginBottom="80dp"
+                        android:text="¡Bienvenido a tus ventas del día! Para empezar a vender, toca la caja registradora."
+                        android:textAlignment="center"/>
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

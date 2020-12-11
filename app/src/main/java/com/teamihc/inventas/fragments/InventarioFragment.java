@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class InventarioFragment extends Fragment
 {
     private RecyclerView recyclerView;
+    private LinearLayout bienvenida;
     private ArrayList<Articulo> listaArticulos;
     private InventarioRVAdapter adapter;
     
@@ -35,11 +38,14 @@ public class InventarioFragment extends Fragment
         recyclerView = (RecyclerView) view.findViewById(R.id.productos_inventarioRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
+        bienvenida = (LinearLayout) view.findViewById(R.id.bienvenida_inventario);
         listaArticulos = new ArrayList<Articulo>();
         
         Articulo.cargarInventarioEnLista(listaArticulos);
         adapter = new InventarioRVAdapter(listaArticulos, R.layout.view_info_producto);
         recyclerView.setAdapter(adapter);
+        
+        ColocarBienvenida();
         
         return view;
     }
@@ -53,6 +59,22 @@ public class InventarioFragment extends Fragment
         adapter = new InventarioRVAdapter(listaArticulos, R.layout.view_info_producto);
         recyclerView.setAdapter(adapter);
         Articulo.cargarInventarioEnLista(listaArticulos);
+        
+        ColocarBienvenida();
+    }
+    
+    private void ColocarBienvenida()
+    {
+        if(listaArticulos.isEmpty())
+        {
+            bienvenida.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
+        else
+        {
+            bienvenida.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }
 
