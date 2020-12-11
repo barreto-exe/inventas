@@ -207,7 +207,7 @@ public class CrearProductoActivity extends AppCompatActivity
         int height = imagenProd.getDrawable().getIntrinsicHeight();
         int width = imagenProd.getDrawable().getIntrinsicWidth();
         if (!articulo.getImagen_path().equals("")){
-            imagenProd.setImageBitmap(getCompressedBitmapImage(articulo.getImagen_path()));
+            imagenProd.setImageURI(getImageUriFromPath(articulo.getImagen_path()));
         }
         cantidad_original = articulo.getCantidad();
         imagen_path = articulo.getImagen_path();
