@@ -5,29 +5,17 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.FileUtils;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,15 +33,6 @@ import com.teamihc.inventas.dialogs.ElegirProveedorDeImagenDialogFragment;
 import com.teamihc.inventas.dialogs.SobreescribirDialogFragment;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearProductoActivity extends AppCompatActivity
@@ -96,6 +75,10 @@ public class CrearProductoActivity extends AppCompatActivity
 
         imagen_path="";
         foto_tomada = false;
+
+        //Crando carpeta temporal para fotos
+        File temp = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp");
+        temp.mkdir();
 
         modoEdicion = getIntent().getExtras() != null;
         if (modoEdicion)
@@ -148,16 +131,11 @@ public class CrearProductoActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                //Si se tomo una foto
-                if (foto_tomada){
-                    File imagen = new File(imagen_path);
-                    imagen.delete();
-                }
                 finish();
             }
         });
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -230,7 +208,7 @@ public class CrearProductoActivity extends AppCompatActivity
         int height = imagenProd.getDrawable().getIntrinsicHeight();
         int width = imagenProd.getDrawable().getIntrinsicWidth();
         if (!articulo.getImagen_path().equals("")){
-            imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+            imagenProd.setImageBitmap(getCompressedBitmapImage(articulo.getImagen_path()));
         }
         cantidad_original = articulo.getCantidad();
         imagen_path = articulo.getImagen_path();
@@ -285,6 +263,14 @@ public class CrearProductoActivity extends AppCompatActivity
         int cantidad = Integer.parseInt(cantidadView.getText().toString());
         String codigo = codigoView.getText().toString();
 
+        //Si se tomo una foto guardar archivo temporal en la carpeta de fotos
+        if (foto_tomada){
+            File temp = new File(imagen_path);
+            File definitivo = new File (getExternalFilesDir(Environment.DIRECTORY_PICTURES), temp.getName());
+            temp.renameTo(definitivo);
+            imagen_path = definitivo.getAbsolutePath();
+        }
+
         Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo, imagen_path);
         int cambio_stock = cantidad - cantidad_original;
         
@@ -337,15 +323,6 @@ public class CrearProductoActivity extends AppCompatActivity
             //estamos en modo edicion, actualizar
             actualizarArticulo(articulo, cambio_stock);
         }
-
-
-        File filepath = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File[] file_array = filepath.listFiles();
-        for (int i= 0; i<file_array.length; i++){
-                if (file_array[i].length() == 0) {
-                    file_array[i].delete();
-                }
-        }
     }
     
     public void actualizarArticulo(Articulo articulo, int cambio_stock)
@@ -360,20 +337,12 @@ public class CrearProductoActivity extends AppCompatActivity
     
     //<-------------------------------Metodos para capturar una foto------------------------------->
 
-    public void setImagen_path(String imagen_path) {
-        this.imagen_path = imagen_path;
-    }
-
     public void obtenerImagen(View view){
-
         //Si ya se tomo una foto
         if (foto_tomada){
             File imagen = new File(imagen_path);
             imagen.delete();
-        }else{
-            foto_tomada = true;
         }
-
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
 
@@ -384,14 +353,29 @@ public class CrearProductoActivity extends AppCompatActivity
     {
         
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK) {
+            foto_tomada = true;
+
             if (requestCode == PICTURE_FROM_GALLERY) {
                 imagenProd.setImageURI(data.getData());
                 imagen_path = guardarImgenDeGaleria(this, data.getData());
             }else{
-                imagenProd.setImageURI(getImageUriFromPath(imagen_path));
+                imagenProd.setImageURI(getImageUriFromPath(obtenerPathDeCamara()));
+                imagen_path = obtenerPathDeCamara();
             }
         }
     }
     //<-------------------------------Metodos para capturar una foto------------------------------->
+
+    @Override
+    public void finish(){
+        File temp = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp");
+        File[] array = temp.listFiles();
+        for (int i=0; i<array.length; i++){
+            array[i].delete();
+        }
+        temp.delete();
+        super.finish();
+    }
 }
