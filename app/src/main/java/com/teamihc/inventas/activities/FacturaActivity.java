@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.teamihc.inventas.R;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.adapters.FacturaRVAdapter;
@@ -51,10 +52,9 @@ public class FacturaActivity extends AppCompatActivity {
         totalBsS=findViewById(R.id.totalBsS);
         resumen=findViewById(R.id.itemsCompra);
 
-        totalD.setText(venta.obtenerTotalDolares() + " $ ");
-        totalBsS.setText(venta.obtenerTotalBsS() + " Bs.S.");
+        totalD.setText(Herramientas.formatearMonedaDolar(venta.obtenerTotalDolares()));
+        totalBsS.setText(Herramientas.formatearMonedaBs(venta.obtenerTotalBsS()));
         resumen.setText(venta.cantidadReferencias() + " referencias cargadas");
-
 
         //Falta codigo con respecto al llenado de la lista de ventas
         listaProductosVendidos = venta.getCarrito().getCarrito();

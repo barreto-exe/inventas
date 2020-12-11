@@ -185,7 +185,6 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/precioBs"
                                 android:enabled="false"
-                                app:helperText="@string/unidades_en_su_inventario"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="numberDecimal" />
@@ -244,6 +243,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/codigo_de_barras"
+                            app:helperText="@string/opcional"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/codTxt"

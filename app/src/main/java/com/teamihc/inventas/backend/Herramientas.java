@@ -55,6 +55,8 @@ public class Herramientas
     public static final String FORMATO_FECHA_FRONT_STRING = "dd/MM/yyyy";
     public static final String FORMATO_TIEMPO_STRING = "HH:mm:ss";
     public static final String FORMATO_TIEMPO_FRONT_STRING = "hh:mm a";
+    public static final String FOMATO_MONEDA_STRING = "###,###,###,##0.00";
+    public static final String FOMATO_PORCENTAJE_STRING = "#0.00%";
     public static final String SIMBOLO_BS = "Bs.S";
     public static final String SIMBOLO_D  = "$";
     
@@ -80,8 +82,8 @@ public class Herramientas
         simbolos.setDecimalSeparator(',');
         simbolos.setGroupingSeparator('.');
         
-        FOMATO_MONEDA = new DecimalFormat("###,###,###,##0.00", simbolos);
-        FOMATO_PORCENTAJE = new DecimalFormat("#0.00%", simbolos);
+        FOMATO_MONEDA = new DecimalFormat(FOMATO_MONEDA_STRING, simbolos);
+        FOMATO_PORCENTAJE = new DecimalFormat(FOMATO_PORCENTAJE_STRING, simbolos);
     }
 
     public static String formatearDiaFecha(Date fecha)
@@ -93,6 +95,14 @@ public class Herramientas
         String dia = Estadisticas.intToDay(index -1);
 
         return dia + ", " + Herramientas.FORMATO_FECHA_FRONT.format(Calendar.getInstance().getTime());
+    }
+    
+    
+    public static String formatearMoneda(float monto)
+    {
+        if(monto == 0)
+            return "0";
+        return FOMATO_MONEDA.format(monto);
     }
     
     public static String formatearMonedaBs(float monto)
