@@ -100,34 +100,12 @@ public class MainActivity extends AppCompatActivity
                     dialog.dismiss();
                     Tasa t = new Tasa(Float.parseFloat(tasa.getText().toString()), Calendar.getInstance().getTime());
                     t.registrar();
-                    Toast.makeText(MainActivity.this, "Tasa aceptada", Toast.LENGTH_SHORT).show();
                     getFragmentManager().beginTransaction().replace(R.id.layout_principal, new TasasFragment()).commit();
                 }
             }
         });
         dialog.show();
     }
-
-    /*
-    //Para el item de busqueda de productos
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater =getMenuInflater();
-        inflater.inflate(R.menu.top_bar,menu);
-        MenuItem.OnActionExpandListener onActionExpandListener=new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) { return true;  }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                return true;
-            }
-        };
-        menu.findItem(R.id.buscar).setOnActionExpandListener(onActionExpandListener);
-        SearchView searchView =(SearchView) menu.findItem(R.id.buscar).getActionView();
-        searchView.setQueryHint("Ingrese su búsqueda");
-        return true;
-    }*/
     
     /**
      * Switch entre fragmets del bottom_bar en el main activity.

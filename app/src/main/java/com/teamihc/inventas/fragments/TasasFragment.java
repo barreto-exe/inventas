@@ -35,6 +35,7 @@ public class TasasFragment extends Fragment
     private ImageView iconoSubida;
     ArrayList<BarEntry> cambioTasa;
     ArrayList<Tasa> listaTasas;
+    
     //aqui se vacia la info de la tasa actual y de la estadistica del cambio de tasas
     @Nullable
     @Override
@@ -42,23 +43,22 @@ public class TasasFragment extends Fragment
     {
         view = inflater.inflate(R.layout.fragment_tasas, container, false);
         refrescarTasaDia();
-
+        
         BarChart barChart = view.findViewById(R.id.tasaChart);
         llenarChart();
         BarDataSet barDataSet = new BarDataSet(cambioTasa, "Cambio de la tasa del dólar");
         barDataSet.setColor(getResources().getColor(R.color.bars));
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(13f);
-        BarData barData=new BarData(barDataSet);
+        BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
-      //  barData.setBarWidth(2f);
-
+        //  barData.setBarWidth(2f);
+        
         barChart.setData(barData);
         barChart.getDescription().setText("");
         barChart.animateY(2000);
-
-
-
+        
+        
         return view;
     }
     
@@ -68,52 +68,54 @@ public class TasasFragment extends Fragment
         super.onResume();
         refrescarTasaDia();
     }
-
-    public void llenarChart(){
-        listaTasas=new ArrayList<>();
+    
+    public void llenarChart()
+    {
+        listaTasas = new ArrayList<>();
         Tasa.cargarHistoricoEnLista(listaTasas);
         cambioTasa = new ArrayList<>();
         Collections.reverse(listaTasas);
-        for(int i=0; i<listaTasas.size(); i++){
-            BarEntry b=new BarEntry(i,listaTasas.get(i).getMonto());
+        for (int i = 0; i < listaTasas.size(); i++)
+        {
+            BarEntry b = new BarEntry(i, listaTasas.get(i).getMonto());
             cambioTasa.add(b);
         }
-
+        
     }
-
+    
     /**
      * Muestra la tasa del día y la anterior en la vista.
      */
     private void refrescarTasaDia()
-{
-    tasaDia = (TextView) view.findViewById(R.id.tasaDia);
-    tasaAnterior = (TextView) view.findViewById(R.id.tasaAnterior);
-    iconoSubida = (ImageView) view.findViewById(R.id.iconoSubida);
-    Tasa tasa = Tasa.obtenerTasa();
-    Tasa anterior = tasa.getTasaAnterior();
-    if(tasa.getMonto() > 1)
     {
-        iconoSubida.setVisibility(View.VISIBLE);
-
-        tasaDia.setText(Herramientas.formatearMonedaBs(tasa.getMonto()));
-        tasaAnterior.setText(Herramientas.formatearMonedaBs(anterior.getMonto()));
-
-        float porcentaje = tasa.getPorcentajeCambio();
-        if(porcentaje > 0)
+        tasaDia = (TextView) view.findViewById(R.id.tasaDia);
+        tasaAnterior = (TextView) view.findViewById(R.id.tasaAnterior);
+        iconoSubida = (ImageView) view.findViewById(R.id.iconoSubida);
+        Tasa tasa = Tasa.obtenerTasa();
+        Tasa anterior = tasa.getTasaAnterior();
+        if (tasa.getMonto() > 1)
         {
-            iconoSubida.setImageResource(R.drawable.ic_arrow_drop_up_24px);
+            iconoSubida.setVisibility(View.VISIBLE);
+            
+            tasaDia.setText(Herramientas.formatearMonedaBs(tasa.getMonto()));
+            tasaAnterior.setText(Herramientas.formatearMonedaBs(anterior.getMonto()));
+            
+            float porcentaje = tasa.getPorcentajeCambio();
+            if (porcentaje > 0)
+            {
+                iconoSubida.setImageResource(R.drawable.ic_arrow_drop_up_24px);
+            }
+            else if (porcentaje < 0)
+            {
+                iconoSubida.setImageResource(R.drawable.ic_arrow_drop_down_24px);
+            }
         }
-        else if(porcentaje < 0)
+        else
         {
-            iconoSubida.setImageResource(R.drawable.ic_arrow_drop_down_24px);
+            iconoSubida.setVisibility(View.GONE);
+            tasaDia.setText("¡Ingresa una tasa!");
+            tasaAnterior.setText("-");
         }
     }
-    else
-    {
-        iconoSubida.setVisibility(View.GONE);
-        tasaDia.setText("-");
-        tasaAnterior.setText("-");
-    }
-}
 }
 
