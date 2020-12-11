@@ -9,67 +9,79 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/infoVenta"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="88dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
-            android:padding="16dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
             <LinearLayout
-                android:layout_weight="9"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="12"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/hora"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12:00 p.m."
-                    android:maxLines="1"
                     android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="12:00 p.m."
                     android:textColor="#000000"
                     android:textSize="24sp" />
+
                 <TextView
                     android:id="@+id/resumen"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:text="1 harina, 2 huevos, 3 pollos"
-                    android:maxLines="1"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="1 harina, 2 huevos, 3 pollos"
                     android:textColor="#000000"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_weight="10"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_weight="10"
                 android:gravity="right"
                 android:orientation="vertical">
-                <TextView
-                    android:singleLine="true"
-                    android:ellipsize="start"
-                    android:id="@+id/ventaBsS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Bs.S. 999.999.999,99"
-                    android:textColor="#000000"
-                    android:textSize="18sp"/>
 
-                <TextView
-                    android:id="@+id/ventaD"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$ 55"
-                    android:textColor="#55950B"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/ventaBsS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="start"
+                        android:singleLine="true"
+                        android:text="Bs.S. 999.999.999,99"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/ventaD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$ 55"
+                        android:layout_gravity="right"
+                        android:textColor="#55950B"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
 
