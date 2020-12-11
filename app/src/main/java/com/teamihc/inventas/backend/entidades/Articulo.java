@@ -325,7 +325,7 @@ public class Articulo implements Entidad
     
     public void actualizar()
     {
-        //Eliminar vieja foto
+        //Obetener vieja foto
         Articulo articulo_viejo = Articulo.obtenerInstancia(descripcion);
         String imagen_path_viejo = articulo_viejo.getImagen_path();
 
