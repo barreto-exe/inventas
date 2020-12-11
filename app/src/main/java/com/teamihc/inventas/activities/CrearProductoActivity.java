@@ -226,7 +226,9 @@ public class CrearProductoActivity extends AppCompatActivity
         cantidadView.setText(articulo.getCantidad() + "");
         int height = imagenProd.getDrawable().getIntrinsicHeight();
         int width = imagenProd.getDrawable().getIntrinsicWidth();
-        imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+        if (!articulo.getImagen_path().equals("")){
+            imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+        }
         cantidad_original = articulo.getCantidad();
     }
     

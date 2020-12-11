@@ -262,6 +262,7 @@ public class Herramientas
     //================================CONSULTAR FOTOS============================================
 
     public static Uri getImageUriFromPath(String photoPath) {
+        if (photoPath.equals("")){return null;}
         File f = new File(photoPath);
         return Uri.fromFile(f);
     }
@@ -283,6 +284,8 @@ public class Herramientas
     }
 
     public static Bitmap getCompresBitmapImage(String photoPath){
+
+        if (photoPath.equals("")){return null;}
 
         // First decode with inJustDecodeBounds=true to check dimensions
         BitmapFactory.Options options = new BitmapFactory.Options();

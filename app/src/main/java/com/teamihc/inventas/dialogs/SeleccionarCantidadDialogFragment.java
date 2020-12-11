@@ -9,12 +9,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.backend.entidades.Articulo;
+
+import static com.teamihc.inventas.backend.Herramientas.getCompresBitmapImage;
 
 public class SeleccionarCantidadDialogFragment extends DialogFragment {
 
@@ -41,6 +44,11 @@ public class SeleccionarCantidadDialogFragment extends DialogFragment {
         EditText cantidad = (EditText)view.findViewById(R.id.cantidad);
         TextView descripcion = (TextView)view.findViewById(R.id.articulo);
         TextView unidadesDispo = (TextView) view.findViewById(R.id.unidadesDispo);
+        ImageView imagenProducto = view.findViewById(R.id.imagenProducto);
+
+        if (!articulo.getImagen_path().equals("")){
+            imagenProducto.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+        }
         descripcion.setText(articulo.getDescripcion());
         unidadesDispo.setText(articulo.getCantidad()+"");
 
