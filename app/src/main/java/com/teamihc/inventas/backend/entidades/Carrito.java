@@ -124,12 +124,15 @@ public class Carrito
 
         while (resultado.leer())
         {
+            //Obtener datos actuales del artículo
             Articulo articulo = Articulo.obtenerInstancia((int) resultado.getValor("id_articulo"));
-            if (articulo == null)
-                return;
-
-            ArticuloPxQ a = new ArticuloPxQ(articulo, (int) resultado.getValor("cantidad"));
-            lista.add(a);
+            
+            //Calcular precio del artículo en ese momento
+            float subtotal = (float)resultado.getValor("subtotal");
+            int cantidad = (int)resultado.getValor("cantidad");
+            articulo.setPrecio(subtotal/cantidad);
+            
+            lista.add(new ArticuloPxQ(articulo, cantidad));
         }
     }
 }
