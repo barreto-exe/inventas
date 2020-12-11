@@ -126,7 +126,7 @@ public class Articulo implements Entidad
         {
             precioBs = precio;
         }
-        return Math.round(precioBs*100.0f)/100.0f;
+        return precioBs;
     }
     
     public boolean isActivo()
