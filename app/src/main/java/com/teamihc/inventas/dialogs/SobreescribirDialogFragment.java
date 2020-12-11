@@ -37,6 +37,7 @@ public class SobreescribirDialogFragment extends DialogFragment
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
+                        articulo.reiniciarStock();
                         activity.actualizarArticulo(articulo, cambio_stock);
                         articulo.activar();
                     }

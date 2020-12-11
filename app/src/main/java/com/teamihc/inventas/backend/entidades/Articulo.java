@@ -136,7 +136,7 @@ public class Articulo implements Entidad
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(descripcion);
         DBMatriz resultado = op.consultar();
-        if (resultado.leer() && (String)resultado.getValor("estado") == "activo")
+        if (resultado.leer() && ((String)resultado.getValor("estado")).equals("activo"))
         {
             return true;
         }
@@ -314,13 +314,16 @@ public class Articulo implements Entidad
             return -1;
         }
         
-        String query = "SELECT cantidad FROM v_articulos WHERE id = ?";
+        String query = "SELECT cantidad FROM v_articulos WHERE id_articulo = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(id);
         DBMatriz resultado = op.consultar();
-        resultado.leer();
         
-        return (int) resultado.getValor("cantidad");
+        if (resultado.leer())
+        {
+            return (int) resultado.getValor("cantidad");
+        }
+        return -1;
     }
     
     public void actualizar()
@@ -350,6 +353,8 @@ public class Articulo implements Entidad
     
     public void eliminar()
     {
+        reiniciarStock();
+        
         String query = "UPDATE v_articulos SET estado = ? WHERE descripcion = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro("inactivo");
@@ -357,6 +362,16 @@ public class Articulo implements Entidad
         op.ejecutar();
     }
 
+    public void reiniciarStock()
+    {
+        int stock = cantidadStock();
+    
+        if(stock > 0)
+        {
+            agregarStock(-stock,Calendar.getInstance().getTime());
+        }
+    }
+    
     public void activar()
     {
         String query = "UPDATE v_articulos SET estado = ? WHERE descripcion = ?";
