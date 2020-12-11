@@ -75,8 +75,11 @@ public abstract class ListaProductosRVAdapter
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView costoD = (TextView) cardView.findViewById(R.id.costoD);
             TextView precioD = (TextView) cardView.findViewById(R.id.precioD);
-
-            if (imagenProd!=null) {imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));}
+            
+            if (imagenProd != null)
+            {
+                imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+            }
             if (descripcion != null)
             {
                 descripcion.setText(articulo.getDescripcion());
