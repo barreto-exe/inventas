@@ -71,6 +71,7 @@ public class CrearProductoActivity extends AppCompatActivity
     private ImageView imagenProd;
     private FloatingActionButton fotoproducto_btn;
     private String imagen_path;
+    private boolean foto_tomada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,7 +93,10 @@ public class CrearProductoActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.articulo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
+        imagen_path="";
+        foto_tomada = false;
+
         modoEdicion = getIntent().getExtras() != null;
         if (modoEdicion)
         {
@@ -103,7 +107,6 @@ public class CrearProductoActivity extends AppCompatActivity
         descripcion_original = ((TextView) findViewById(R.id.descripcionProd)).getText().toString();
         agregarListeners();
 
-        imagen_path="";
     }
     
     private void agregarListeners()
@@ -146,7 +149,7 @@ public class CrearProductoActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 //Si se tomo una foto
-                if (!imagen_path.equals("")){
+                if (foto_tomada){
                     File imagen = new File(imagen_path);
                     imagen.delete();
                 }
@@ -201,7 +204,7 @@ public class CrearProductoActivity extends AppCompatActivity
         precioView.setEnabled(false);
         codigoView.setEnabled(false);
         cantidadView.setEnabled(false);
-        fotoproducto_btn.setClickable(false);
+        fotoproducto_btn.setVisibility(View.INVISIBLE);
     }
     
     private void permitirEdicion()
@@ -211,7 +214,7 @@ public class CrearProductoActivity extends AppCompatActivity
         precioView.setEnabled(true);
         codigoView.setEnabled(true);
         cantidadView.setEnabled(true);
-        fotoproducto_btn.setClickable(true);
+        fotoproducto_btn.setVisibility(View.VISIBLE);
     }
     
     private void llenarFormulario()
@@ -230,6 +233,7 @@ public class CrearProductoActivity extends AppCompatActivity
             imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
         }
         cantidad_original = articulo.getCantidad();
+        imagen_path = articulo.getImagen_path();
     }
     
     public boolean validarDatos()
@@ -361,11 +365,15 @@ public class CrearProductoActivity extends AppCompatActivity
     }
 
     public void obtenerImagen(View view){
+
         //Si ya se tomo una foto
-        if (!imagen_path.equals("")){
+        if (foto_tomada){
             File imagen = new File(imagen_path);
             imagen.delete();
+        }else{
+            foto_tomada = true;
         }
+
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
 

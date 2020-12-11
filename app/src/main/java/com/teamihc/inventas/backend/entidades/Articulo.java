@@ -328,7 +328,9 @@ public class Articulo implements Entidad
         //Eliminar vieja foto
         Articulo articulo_viejo = Articulo.obtenerInstancia(descripcion);
         String imagen_path_viejo = articulo_viejo.getImagen_path();
-        if (imagen_path_viejo != imagen_path){
+
+        //Si la foto se modifico
+        if (!imagen_path.equals(imagen_path_viejo)){
             File foto_vieja = new File(imagen_path_viejo);
             foto_vieja.delete();
         }
@@ -353,9 +355,6 @@ public class Articulo implements Entidad
         op.pasarParametro("inactivo");
         op.pasarParametro(descripcion);
         op.ejecutar();
-
-        File foto = new File(imagen_path);
-        foto.delete();
     }
 
     public void activar()
