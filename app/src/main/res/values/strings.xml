@@ -44,6 +44,7 @@
     <string name="precio_en_bss">Precio en BsS</string>
     <string name="_1">1</string>
     <string name="cantidad">Cantidad</string>
+    <string name="seleccione">Seleccione</string>
     <string name="unidades_disponibles">Unidades disponibles</string>
     <string name="venta_dolares">venta dolares</string>
     <string name="factura">Factura</string>

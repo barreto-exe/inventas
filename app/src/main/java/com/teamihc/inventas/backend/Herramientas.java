@@ -113,7 +113,7 @@ public class Herramientas
     {
         if(porcentaje == 0)
             return "0%";
-        return Herramientas.FOMATO_PORCENTAJE.format(porcentaje);
+        return Herramientas.FOMATO_PORCENTAJE.format(porcentaje/100);
     }
     
      /**

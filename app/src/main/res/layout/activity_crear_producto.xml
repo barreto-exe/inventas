@@ -51,7 +51,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icono_sin_fondo" />
+            app:srcCompat="@drawable/degradado" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

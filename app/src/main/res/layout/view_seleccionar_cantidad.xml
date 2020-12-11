@@ -2,99 +2,107 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
+    android:id="@+id/seleccionCantidad"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="bottom|center"
-    android:id="@+id/seleccionCantidad">
+    android:layout_gravity="bottom|center">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/cantidad"
-                android:textColor="#434343"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/imagenProducto"
-                app:layout_constraintTop_toBottomOf="@+id/imagenProducto" />
+                android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="8dp">
+                    <ImageView
+                        android:id="@+id/imagenProducto"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toStartOf="@+id/articulo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icono_con_fondo" />
+                </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/articulo"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:textSize="18sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_height="wrap_content"
+                        android:text="@string/descripci_n" />
+                    <TextView
+                        android:id="@+id/unidadesDispo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unidades_disponibles" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/done"
+                    android:layout_width="34dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/todo"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/done_black_24dp" />
+            </LinearLayout>
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/cantidad"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="92dp"
-                android:layout_marginBottom="24dp"
-                android:inputType="number"
-                android:text="0"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/done"
-                android:layout_width="34dp"
-                android:layout_height="41dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="@string/todo"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/done_black_24dp" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seleccione"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/articulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="52dp"
-                android:layout_marginBottom="60dp"
-                android:fontFamily="@font/amaranth_bold"
-                android:text="@string/descripci_n"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
-                app:layout_constraintEnd_toStartOf="@+id/done" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/cantidad">
 
-            <TextView
-                android:id="@+id/unidadesDispo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/unidades_disponibles"
-                app:layout_constraintStart_toStartOf="@+id/articulo"
-                app:layout_constraintTop_toBottomOf="@+id/articulo" />
-
-            <ImageView
-                android:id="@+id/imagenProducto"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/todo"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toStartOf="@+id/articulo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icono_con_fondo" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cantidad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 

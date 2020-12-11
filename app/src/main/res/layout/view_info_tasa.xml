@@ -36,10 +36,11 @@
                     android:id="@+id/cantidadTasa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99.505.031,09 Bs.S"
+                    android:text="999.505.031,09 Bs.S"
                     android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="#000000"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/fecha"
@@ -51,8 +52,8 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_weight="10"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_weight="8"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,20 +63,24 @@
                 android:id="@+id/porcentaje"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="12,75%"
-                android:singleLine="true"
                 android:ellipsize="start"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="12,75555%"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/cambio" />
 
             <ImageView
                 android:id="@+id/cambio"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_drop_up_24px" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>

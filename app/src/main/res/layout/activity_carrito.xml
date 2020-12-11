@@ -10,17 +10,17 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/producto"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="64dp"
         android:background="@color/colorSecondary"
         android:clickable="true"
         android:contentDescription="@string/todo"
         android:focusable="true"
-        android:foreground="@drawable/add_black_24dp"
+        android:foreground="@drawable/add_shopping_cart_24px"
         android:foregroundGravity="center"
         android:onClick="add_carrito"
         app:backgroundTint="@color/colorSecondary"
@@ -37,11 +37,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout_carrito"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -146,6 +148,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
         <TextView
             android:id="@+id/referencias_cargadas"
             android:layout_width="wrap_content"
@@ -154,6 +157,7 @@
             android:text="4 referencias cargadas"
             android:textColor="#1E1E1E"
             android:textSize="18sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -163,17 +167,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolb_factura">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/carrito_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="85dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="28dp"
-                android:layout_weight="1"
+                android:layout_marginEnd="32dp"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -225,12 +224,17 @@
                         android:id="@+id/carrito_total_bolivares"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:text="Bs.S 16.621.738,00"
+                        android:text="Bs.S 0"
+                        android:textAlignment="textEnd"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/carrito_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -240,7 +244,6 @@
         android:name="com.teamihc.inventas.fragments.ListaProductosVentaFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_bar_layout_carrito"
         android:layout_alignParentBottom="true"
         tools:layout="@layout/fragment_lista_productos_venta" />
 

@@ -83,6 +83,11 @@ public class HistorialTasaRVAdapter extends RecyclerView.Adapter<HistorialTasaRV
             fecha.setText(fechaHora);
             porcentaje.setText(Herramientas.formatearPorcentaje(Math.abs(porcentajeCambio)));
             
+            if(porcentajeCambio > 99)
+            {
+                porcentaje.setVisibility(View.GONE);
+            }
+            
             if (porcentajeCambio == 0)
             {
                 imagenCambio.setVisibility(View.INVISIBLE);
