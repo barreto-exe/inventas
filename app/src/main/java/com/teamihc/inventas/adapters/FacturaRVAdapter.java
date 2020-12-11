@@ -69,7 +69,9 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
-            imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getArticulo().getImagen_path()));
+            if (!articulo.getArticulo().getImagen_path().equals("")){
+                imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getArticulo().getImagen_path()));
+            }
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidadStock.setText("" + articulo.getCantidad());
             subtotal.setText(formatearMonedaDolar(articulo.getArticulo().getPrecio() * articulo.getCantidad()));

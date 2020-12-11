@@ -78,7 +78,9 @@ public abstract class ListaProductosRVAdapter
             
             if (imagenProd != null)
             {
-                imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+                if (!articulo.getImagen_path().equals("")){
+                    imagenProd.setImageBitmap(getCompresBitmapImage(articulo.getImagen_path()));
+                }
             }
             if (descripcion != null)
             {
