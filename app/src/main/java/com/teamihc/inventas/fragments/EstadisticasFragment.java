@@ -21,9 +21,11 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.Estadisticas;
+import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
+import java.time.chrono.HijrahEra;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -274,15 +276,17 @@ public class EstadisticasFragment extends Fragment
         if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas() > 0)
         {
             if (objMas[0] != null && objMenos[0] != null)
-            { // reviso si los Articulos mas y menos vendidos son distintos de null, sino todo va en blanco
+            {
+                // reviso si los Articulos mas y menos vendidos son distintos de null, sino todo va en blanco
                 masV = (Articulo) objMas[0]; //asigno valores
                 menosV = (Articulo) objMenos[0];
                 // aqui verifico si existe el articulo mas vendido, es decir, si no ha sido eliminado
                 if (masV != null /*&& Articulo.obtenerInstancia(masV.obtenerId()) != null*/)
                 {
                     descripcionMasVendido.setText(masV.getDescripcion());
-                    cantidadMasVendido.setText(Integer.toString((int) objMas[1]));
-                    if (!masV.getImagen_path().equals("")){
+                    cantidadMasVendido.setText(((int) objMas[1]) + " unidades.");
+                    if (!masV.getImagen_path().equals(""))
+                    {
                         imagenMasVendido.setImageBitmap(getCompresBitmapImage(masV.getImagen_path()));
                     }
                 }
@@ -291,8 +295,9 @@ public class EstadisticasFragment extends Fragment
                     /* && Articulo.obtenerInstancia(menosV.obtenerId()) != null*/)
                 {
                     descripcionMenosVendido.setText(menosV.getDescripcion());
-                    cantidadMenosVendido.setText(Integer.toString((int) objMenos[1]));
-                    if (!menosV.getImagen_path().equals("")){
+                    cantidadMenosVendido.setText(((int) objMenos[1]) + " unidades.");
+                    if (!menosV.getImagen_path().equals(""))
+                    {
                         imagenMenosVendido.setImageBitmap(getCompresBitmapImage(menosV.getImagen_path()));
                     }
                 }
@@ -316,7 +321,7 @@ public class EstadisticasFragment extends Fragment
         
         if (gananciaT > 0)
         {
-            gananciaTotal.setText("$" + "" + gananciaT);
+            gananciaTotal.setText(Herramientas.formatearMonedaDolar(gananciaT));
         }
         else
         {
@@ -325,18 +330,18 @@ public class EstadisticasFragment extends Fragment
         
         if (ingresoT > 0)
         {
-            ingresoTotal.setText("$" + "" + ingresoT);
+            ingresoTotal.setText(Herramientas.formatearMonedaDolar(ingresoT));
         }
         else
         {
             ingresoTotal.setText("-");
         }
         
-        
-        if (diaMasV != null && Estadisticas.mayorCantVentas() > 0)
+        int mayorCantVentas = Estadisticas.mayorCantVentas();
+        if (diaMasV != null && mayorCantVentas > 0)
         {
             diaMasVentas.setText(diaMasV);
-            ventas_diaMasVentas.setText("" + Estadisticas.mayorCantVentas());
+            ventas_diaMasVentas.setText("" + mayorCantVentas);
         }
         else
         {
@@ -344,11 +349,11 @@ public class EstadisticasFragment extends Fragment
             ventas_diaMasVentas.setText("-");
         }
         
-        
-        if (diaMasI != null && Estadisticas.mayorIngreso() > 0)
+        float mayorIngreso = Estadisticas.mayorIngreso();
+        if (diaMasI != null && mayorIngreso > 0)
         {
             diaMasIngresos.setText(diaMasI);
-            ingresos_diaMasIngresos.setText("$" + "" + Estadisticas.mayorIngreso());
+            ingresos_diaMasIngresos.setText(Herramientas.formatearMonedaDolar(mayorIngreso));
         }
         else
         {
@@ -356,10 +361,11 @@ public class EstadisticasFragment extends Fragment
             ingresos_diaMasIngresos.setText("-");
         }
         
-        if (diaMenosV != null && Estadisticas.menorCantVentas() > 0)
+        int menorCantVentas = Estadisticas.menorCantVentas();
+        if (diaMenosV != null && menorCantVentas > 0)
         {
             diaMenosVentas.setText(diaMenosV);
-            ventas_diaMenosVentas.setText("" + Estadisticas.menorCantVentas());
+            ventas_diaMenosVentas.setText(Herramientas.formatearMonedaDolar(menorCantVentas));
         }
         else
         {
@@ -367,11 +373,11 @@ public class EstadisticasFragment extends Fragment
             ventas_diaMenosVentas.setText("-");
         }
         
-        
-        if (diaMenosI != null && Estadisticas.menorIngreso() > 0)
+        float menosIngreso = Estadisticas.menorIngreso();
+        if (diaMenosI != null && menosIngreso > 0)
         {
             diaMenosIngresos.setText(diaMenosI);
-            ingresos_diaMenosIngresos.setText("$" + "" + Estadisticas.menorIngreso());
+            ingresos_diaMenosIngresos.setText(Herramientas.formatearMonedaDolar(menosIngreso));
         }
         else
         {
@@ -385,7 +391,6 @@ public class EstadisticasFragment extends Fragment
     /**
      * Inicializando todos los elementos de la parte grafica
      */
-    
     public void init()
     {
         descripcionMasVendido = (TextView) view.findViewById(R.id.descripcionMasVendido);
@@ -415,8 +420,5 @@ public class EstadisticasFragment extends Fragment
         gananciaTotal = (TextView) view.findViewById(R.id.gananciaTotal);
         
         desicion = (Spinner) view.findViewById(R.id.decision);
-        
     }
-    
-    
 }
