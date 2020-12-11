@@ -282,7 +282,9 @@ public class EstadisticasFragment extends Fragment
                 {
                     descripcionMasVendido.setText(masV.getDescripcion());
                     cantidadMasVendido.setText(Integer.toString((int) objMas[1]));
-                    imagenMasVendido.setImageBitmap(getCompresBitmapImage(masV.getImagen_path()));
+                    if (!masV.getImagen_path().equals("")){
+                        imagenMasVendido.setImageBitmap(getCompresBitmapImage(masV.getImagen_path()));
+                    }
                 }
                 //verifico que el mas vendido no sea igual al menos vendido
                 if (menosV != null && !(menosV.getDescripcion().equals(masV.getDescripcion()))
@@ -290,7 +292,9 @@ public class EstadisticasFragment extends Fragment
                 {
                     descripcionMenosVendido.setText(menosV.getDescripcion());
                     cantidadMenosVendido.setText(Integer.toString((int) objMenos[1]));
-                    imagenMenosVendido.setImageBitmap(getCompresBitmapImage(menosV.getImagen_path()));
+                    if (!menosV.getImagen_path().equals("")){
+                        imagenMenosVendido.setImageBitmap(getCompresBitmapImage(menosV.getImagen_path()));
+                    }
                 }
                 else
                 {
