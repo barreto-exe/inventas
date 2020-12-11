@@ -123,6 +123,20 @@ public class Articulo implements Entidad
         }
         return Math.round(precioBs*100.0f)/100.0f;
     }
+    
+    public boolean isActivo()
+    {
+        String query =
+                "SELECT estado FROM v_articulos WHERE descripcion = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(descripcion);
+        DBMatriz resultado = op.consultar();
+        if (resultado.leer() && (String)resultado.getValor("estado") == "activo")
+        {
+            return true;
+        }
+        return false;
+    }
     //</editor-fold>
 
     @Override
@@ -329,6 +343,15 @@ public class Articulo implements Entidad
         op.ejecutar();
     }
 
+    public void activar()
+    {
+        String query = "UPDATE v_articulos SET estado = ? WHERE descripcion = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro("activo");
+        op.pasarParametro(descripcion);
+        op.ejecutar();
+    }
+    
     public static int calcularCantVendidosDia(int id, int fecha)
     {
         int cantidad = 0;

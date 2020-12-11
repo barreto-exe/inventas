@@ -51,10 +51,10 @@ public class CrearProductoActivity extends AppCompatActivity
     private boolean modoEdicion;
     private ImageView imagenProd;
     private FloatingActionButton fotoproducto_btn;
-
+    
     //request code to pick image
     private static final int IMAGES_CODE = 0;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -70,7 +70,7 @@ public class CrearProductoActivity extends AppCompatActivity
         cantidadView = findViewById(R.id.cantidad);
         imagenProd = findViewById(R.id.imagenProd);
         fotoproducto_btn = findViewById(R.id.fotoproducto_btn);
-
+        
         toolbar = findViewById(R.id.crearArticuloToolBar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.articulo);
@@ -254,7 +254,7 @@ public class CrearProductoActivity extends AppCompatActivity
         String codigo = codigoView.getText().toString();
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imagenProd.getDrawable();
         Bitmap imagen = bitmapDrawable.getBitmap();
-
+        
         Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo, imagen);
         int cambio_stock = cantidad - cantidad_original;
         
@@ -267,9 +267,12 @@ public class CrearProductoActivity extends AppCompatActivity
                 //es un articulo nuevo?
                 if (descripcion_original.equals(""))
                 {
-                    if (articulo.registrar()) {
+                    if (articulo.registrar())
+                    {
                         Toast.makeText(getApplicationContext(), "Articulo registrado con exito", Toast.LENGTH_SHORT).show();
-                    }else{
+                    }
+                    else
+                    {
                         Toast.makeText(getApplicationContext(), "ERROR al registrar articulo", Toast.LENGTH_SHORT).show();
                     }
                     finish();
@@ -282,11 +285,21 @@ public class CrearProductoActivity extends AppCompatActivity
                     articulo.registrar();
                     finish();
                 }
-                //Desea sobreescribir??
             }
             else
             {
-                new SobreescribirDialogFragment(this, articulo, cambio_stock).show(getSupportFragmentManager(), null);
+                String mensaje;
+                //Desea sobreescribir producto activo??
+                if(articulo.isActivo())
+                {
+                    mensaje = "Ya existe un producto con esta descripción, ¿sobreescribir?";
+                }
+                //Desea sobreescribir producto inactivo??
+                else
+                {
+                    mensaje = "Existe un producto inactivo con esta descripción, ¿sobreescribir y actualizar?";
+                }
+                new SobreescribirDialogFragment(mensaje, this, articulo, cambio_stock).show(getSupportFragmentManager(), null);
             }
         }
         else
@@ -305,44 +318,53 @@ public class CrearProductoActivity extends AppCompatActivity
         }
         finish();
     }
-
+    
     //<-------------------------------Metodos para capturar una foto------------------------------->
-
-    public void obtenerImagen(View view){
+    
+    public void obtenerImagen(View view)
+    {
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
-
-    public void imagenDesdeGaleria(){
+    
+    public void imagenDesdeGaleria()
+    {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Elija una opcion"), IMAGES_CODE);
     }
-
-    public void imagenDesdeCamara(){
+    
+    public void imagenDesdeCamara()
+    {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null){
+        if (intent.resolveActivity(getPackageManager()) != null)
+        {
             startActivityForResult(intent, IMAGES_CODE);
         }
     }
-
+    
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK){
+        
+        if (requestCode == IMAGES_CODE && resultCode == Activity.RESULT_OK)
+        {
             //data.getClipData() == null
             //imagenProd.setImageURI(data.getData());
-            if (data.getExtras() == null){
+            if (data.getExtras() == null)
+            {
                 imagenProd.setImageURI(data.getData());
-            }else{
+            }
+            else
+            {
                 Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
                 imagenProd.setImageBitmap(imageBitmap);
             }
         }
     }
     //<-------------------------------Metodos para capturar una foto------------------------------->
-
+    
     public void salir(View view)
     {
         finish();

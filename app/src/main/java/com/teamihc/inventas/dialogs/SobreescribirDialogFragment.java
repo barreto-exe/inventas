@@ -13,16 +13,18 @@ import com.teamihc.inventas.backend.entidades.Articulo;
 
 public class SobreescribirDialogFragment extends DialogFragment
 {
-
+    
     private CrearProductoActivity activity;
     private Articulo articulo;
     private int cambio_stock;
+    private String mensaje;
     
-    public SobreescribirDialogFragment(CrearProductoActivity activity, Articulo articulo, int cambio_stock)
+    public SobreescribirDialogFragment(String mensaje, CrearProductoActivity activity, Articulo articulo, int cambio_stock)
     {
         this.activity = activity;
         this.articulo = articulo;
         this.cambio_stock = cambio_stock;
+        this.mensaje = mensaje;
     }
     
     @Override
@@ -30,12 +32,13 @@ public class SobreescribirDialogFragment extends DialogFragment
     {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Ya existe un articulo con esta descripcion, ¿Desea sobreescribirlo?")
+        builder.setMessage(mensaje)
                 .setPositiveButton("SI", new DialogInterface.OnClickListener()
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
                         activity.actualizarArticulo(articulo, cambio_stock);
+                        articulo.activar();
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener()
