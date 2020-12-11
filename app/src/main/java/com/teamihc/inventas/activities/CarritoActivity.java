@@ -2,10 +2,13 @@ package com.teamihc.inventas.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -281,4 +284,33 @@ public class CarritoActivity extends AppCompatActivity
         carrito_total_dolares.setText(Herramientas.formatearMonedaDolar(carrito.obtenerTotalDolares()));
         carrito_total_bolivares.setText(Herramientas.formatearMonedaBs(carrito.obtenerTotalBsS(Tasa.obtenerTasa())));
     }
+
+    @Override
+    public void finish(){
+        if (fragment.isVisible()){
+            hideFragment();
+        }else{
+            CarritoActivity carritoActivity = this;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("¿Desea cancelar la compra?")
+                    .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            carritoActivity.realFinish();
+                        }
+                    })
+                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+        }
+    }
+
+    public void realFinish(){
+        super.finish();
+    }
+
 }

@@ -24,7 +24,6 @@ public class ElegirProveedorDeImagenDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         CrearProductoActivity crearProductoActivity = (CrearProductoActivity) getActivity();
-                        String image_path = null;
                         switch (which){
                             case 0: Herramientas.imagenDesdeCamara(crearProductoActivity); break;
                             case 1: Herramientas.imagenDesdeGaleria(crearProductoActivity); break;
