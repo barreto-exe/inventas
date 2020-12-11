@@ -43,6 +43,7 @@ public class CarritoActivity extends AppCompatActivity
     private LinkedList<String> basura;
     private TextView carrito_total_dolares;
     private TextView carrito_total_bolivares;
+    private TextView referencias_cargadas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,7 +56,7 @@ public class CarritoActivity extends AppCompatActivity
         recyclerView = (RecyclerView) findViewById(R.id.carrito_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
-
+    
         carrito_aceptar = (ImageButton) findViewById(R.id.carrito_aceptar);
         carrito_cancelar = (ImageButton) findViewById(R.id.carrito_cancelar);
         carrito_eliminar = (ImageButton) findViewById(R.id.carrito_eliminar);
@@ -65,6 +66,7 @@ public class CarritoActivity extends AppCompatActivity
         carrito_cancelar_eliminar = (ImageButton) findViewById(R.id.carrito_cancelar_eliminar);
         carrito_total_bolivares = (TextView) findViewById(R.id.carrito_total_bolivares);
         carrito_total_dolares = (TextView) findViewById(R.id.carrito_total_dolares);
+        referencias_cargadas = (TextView) findViewById(R.id.referencias_cargadas);
 
         carrito = new Carrito();
         adapter = new CarritoRVAdapter(carrito);
@@ -83,6 +85,8 @@ public class CarritoActivity extends AppCompatActivity
 
         modoBorrar = false;
         basura = new LinkedList<String>();
+    
+        calcularTotal();
     }
 
     public void hideFragment()
@@ -273,6 +277,7 @@ public class CarritoActivity extends AppCompatActivity
 
     public void calcularTotal()
     {
+        referencias_cargadas.setText(carrito.getCarrito().size() + " referencias cargadas.");
         carrito_total_dolares.setText(Herramientas.formatearMonedaDolar(carrito.obtenerTotalDolares()));
         carrito_total_bolivares.setText(Herramientas.formatearMonedaBs(carrito.obtenerTotalBsS(Tasa.obtenerTasa())));
     }
