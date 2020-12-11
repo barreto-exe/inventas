@@ -2,70 +2,66 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
-        app:cardCornerRadius="20dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/ingresa_el_valor_de_la_tasa"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.313" />
+                android:text="@string/editar_tasa"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/tasa"
+            <!--
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                android:importantForAutofill="no" />
+                android:layout_marginTop="4dp"
+                android:text="@string/tus_precios_en_bs"
+                android:textSize="14sp" />
+            -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descripcionProdLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/tasa_del_dia">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tasa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:layout_marginTop="8dp"
                 android:id="@+id/aceptar_bttn"
-                android:layout_width="0dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/btn_aceptar"
-                android:elevation="8sp"
-                android:foregroundTint="#3989D3"
-                android:foregroundTintMode="add"
-                android:text="@string/aceptar"
-                android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tasa"
-                app:layout_constraintStart_toStartOf="@+id/tasa"
-                app:layout_constraintTop_toBottomOf="@+id/tasa" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="@string/aceptar" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
