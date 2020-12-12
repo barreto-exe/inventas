@@ -264,8 +264,9 @@ public class Articulo implements Entidad
     
     public static int cantidadArticulosRegistrados()
     {
-        String query = "SELECT COUNT(*) AS cantidad FROM v_articulos";
+        String query = "SELECT COUNT(*) AS cantidad FROM v_articulos WHERE estado = ?";
         DBOperacion op = new DBOperacion(query);
+        op.pasarParametro("activo");
         DBMatriz resultado = op.consultar();
         if(resultado.leer() && resultado.getValor("cantidad") != null)
         {
