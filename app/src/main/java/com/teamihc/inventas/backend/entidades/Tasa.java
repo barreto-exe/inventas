@@ -129,7 +129,29 @@ public class Tasa implements Entidad
             }
         }
     }
-
+    
+    public static void cargarHistoricoEnLista(ArrayList<Tasa> lista, int limite)
+    {
+        String query = "SELECT * FROM v_tasas ORDER BY id_tasa DESC LIMIT ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(limite);
+        DBMatriz resultado = op.consultar();
+        
+        while (resultado.leer())
+        {
+            Tasa tasa = new Tasa(
+                    (Float) resultado.getValor("monto"),
+                    (String) resultado.getValor("fecha"),
+                    (String) resultado.getValor("hora")
+            );
+            
+            if(tasa.monto > 1)
+            {
+                lista.add(tasa);
+            }
+        }
+    }
+    
     /**
      * @return la tasa del día.
      */

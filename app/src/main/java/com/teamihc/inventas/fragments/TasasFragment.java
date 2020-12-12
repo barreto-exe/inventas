@@ -72,7 +72,7 @@ public class TasasFragment extends Fragment
     public void llenarChart()
     {
         listaTasas = new ArrayList<>();
-        Tasa.cargarHistoricoEnLista(listaTasas);
+        Tasa.cargarHistoricoEnLista(listaTasas, 7);
         cambioTasa = new ArrayList<>();
         Collections.reverse(listaTasas);
         for (int i = 0; i < listaTasas.size(); i++)
