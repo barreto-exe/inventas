@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.top_bar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle(" ");
+
         if (savedInstanceState == null)
         {
             getFragmentManager().beginTransaction().replace(R.id.layout_principal, new VentasFragment()).commit();
