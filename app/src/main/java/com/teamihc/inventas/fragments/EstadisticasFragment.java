@@ -325,7 +325,7 @@ public class EstadisticasFragment extends Fragment
         //verifico se hay ventas o articulos registrados, si no hay, todo se pone en blanco
         if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas() > 0)
         {
-            if (objMas[0] != null && objMenos[0] != null)
+            if (objMas != null && objMenos != null)
             {
                 // reviso si los Articulos mas y menos vendidos son distintos de null, sino todo va en blanco
                 masV = (Articulo) objMas[0]; //asigno valores
