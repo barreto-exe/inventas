@@ -1,5 +1,6 @@
 package com.teamihc.inventas.backend.entidades;
 
+import com.teamihc.inventas.backend.Estadisticas;
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 
@@ -108,11 +109,41 @@ public class Venta implements Entidad
         return id;
     }
 
-    public static void cargarVentasEnLista(ArrayList<Venta> lista, Date fecha)
+    public static void cargarVentasDiaEnLista(ArrayList<Venta> lista, Date fecha)
     {
         String query = "SELECT * FROM v_ventas WHERE fecha = ? ORDER BY id_venta DESC";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(new SimpleDateFormat(Herramientas.FORMATO_FECHA_STRING).format(fecha));
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            int id = (int) resultado.getValor("id_venta");
+
+            lista.add(obtenerInstancia(id));
+        }
+    }
+
+    public static void cargarVentasTotalesEnLista(ArrayList<Venta> lista)
+    {
+        String query = "SELECT * FROM v_ventas ORDER BY id_venta DESC";
+        DBOperacion op = new DBOperacion(query);
+        DBMatriz resultado = op.consultar();
+
+        while (resultado.leer())
+        {
+            int id = (int) resultado.getValor("id_venta");
+
+            lista.add(obtenerInstancia(id));
+        }
+    }
+
+    public static void cargarVentasRangoEnLista(ArrayList<Venta> lista, Date desde, Date hasta)
+    {
+        String query = "SELECT * FROM v_ventas WHERE fecha >= ? AND fecha <= ? ORDER BY id_venta DESC";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
         DBMatriz resultado = op.consultar();
 
         while (resultado.leer())

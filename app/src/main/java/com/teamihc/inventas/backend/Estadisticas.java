@@ -29,8 +29,13 @@ public class Estadisticas
         c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         dias[0] = c.getTime();
 
+        System.out.println(dias[0]);
+
         c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        c.add(Calendar.DATE, 1);
         dias[1] = c.getTime();
+
+        System.out.println(dias[1]);
 
         return dias;
     }

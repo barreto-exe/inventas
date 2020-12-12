@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,7 +44,7 @@ public class VentasFragment extends Fragment
         contenido = (LinearLayout) view.findViewById(R.id.contenido_ventas);
         
         listaVentas = new ArrayList<Venta>();
-        Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
+        Venta.cargarVentasDiaEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter = new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
     
@@ -59,7 +58,7 @@ public class VentasFragment extends Fragment
     {
         super.onResume();
         listaVentas.clear();
-        Venta.cargarVentasEnLista(listaVentas, Calendar.getInstance().getTime());
+        Venta.cargarVentasDiaEnLista(listaVentas, Calendar.getInstance().getTime());
         adapter.notifyDataSetChanged();
     
         refrescarGananciasDelDia();
