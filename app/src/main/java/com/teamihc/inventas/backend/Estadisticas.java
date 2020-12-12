@@ -372,7 +372,7 @@ public class Estadisticas
                 "INNER JOIN v_ventas v ON (v.id_venta = d.id_venta)  " +
                 "WHERE fecha >= ? AND fecha <= ?  " +
                 "GROUP BY d.id_articulo  " +
-                "ORDER BY d.cantidad DESC " +
+                "ORDER BY unidades_vendidas DESC " +
                 "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
@@ -408,7 +408,7 @@ public class Estadisticas
                         "INNER JOIN v_ventas v ON (v.id_venta = d.id_venta)  " +
                         "WHERE fecha >= ? AND fecha <= ?  " +
                         "GROUP BY d.id_articulo  " +
-                        "ORDER BY d.cantidad ASC " +
+                        "ORDER BY unidades_vendidas ASC " +
                         "LIMIT 1";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));

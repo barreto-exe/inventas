@@ -79,13 +79,20 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/decision"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginLeft="90dp"
-                android:backgroundTint="@color/bars"
-                android:gravity="center|right" />
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_gravity="center"
+                android:elevation="8dp"
+                app:cardCornerRadius="8dp">
+                <Spinner
+                    android:id="@+id/decision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:backgroundTint="@color/bars"
+                    android:gravity="center|right" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

@@ -51,7 +51,7 @@ public class EstadisticasFragment extends Fragment
     int[] listaVenta = new int[7];
     float[] listaIngresos = new float[7];
     String[] opciones = {"Número de ventas", "Ingreso en dólares", "Ganancia en dólares"};
-    String[] diasSemana= {"D","L","M","X","J","V","S"};
+    String[] diasSemana = {"D", "L", "M", "X", "J", "V", "S"};
     BarChart barChart;
     BarDataSet barDataSet;
     String diaMasV;
@@ -111,10 +111,12 @@ public class EstadisticasFragment extends Fragment
         {
             BarEntry b = new BarEntry(i, listaVenta[i]);
             XAxis xAxis = barChart.getXAxis();
-            xAxis.setValueFormatter(new ValueFormatter() {
+            xAxis.setValueFormatter(new ValueFormatter()
+            {
                 @Override
-                public String getFormattedValue(float value) {
-                    return  diasSemana[(int)value];
+                public String getFormattedValue(float value)
+                {
+                    return diasSemana[(int) value];
                 }
             });
             cambioVenta.add(b);
@@ -145,10 +147,12 @@ public class EstadisticasFragment extends Fragment
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
             XAxis xAxis = barChart.getXAxis();
-            xAxis.setValueFormatter(new ValueFormatter() {
+            xAxis.setValueFormatter(new ValueFormatter()
+            {
                 @Override
-                public String getFormattedValue(float value) {
-                    return  diasSemana[(int)value];
+                public String getFormattedValue(float value)
+                {
+                    return diasSemana[(int) value];
                 }
             });
             cambioVenta.add(b);
@@ -178,10 +182,12 @@ public class EstadisticasFragment extends Fragment
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
             XAxis xAxis = barChart.getXAxis();
-            xAxis.setValueFormatter(new ValueFormatter() {
+            xAxis.setValueFormatter(new ValueFormatter()
+            {
                 @Override
-                public String getFormattedValue(float value) {
-                     return  diasSemana[(int)value];
+                public String getFormattedValue(float value)
+                {
+                    return diasSemana[(int) value];
                 }
             });
             cambioVenta.add(b);
@@ -205,8 +211,8 @@ public class EstadisticasFragment extends Fragment
     /**
      * Tratado del spinner
      */
-    public void spinnerLlenado()    {
-        
+    public void spinnerLlenado()
+    {
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>
                         (
@@ -248,8 +254,8 @@ public class EstadisticasFragment extends Fragment
             }
         });
     }
-
-
+    
+    
     /**
      * LLena el gráfico a mostrar
      */
@@ -325,7 +331,7 @@ public class EstadisticasFragment extends Fragment
                 masV = (Articulo) objMas[0]; //asigno valores
                 menosV = (Articulo) objMenos[0];
                 // aqui verifico si existe el articulo mas vendido, es decir, si no ha sido eliminado
-                if (masV != null )
+                if (masV != null)
                 {
                     descripcionMasVendido.setText(masV.getDescripcion());
                     cantidadMasVendido.setText(((int) objMas[1]) + " unidades.");
