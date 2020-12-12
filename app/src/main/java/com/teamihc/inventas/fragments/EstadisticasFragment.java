@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static com.teamihc.inventas.backend.Herramientas.getCompressedBitmapImage;
+import static com.teamihc.inventas.backend.Herramientas.getImageUriFromPath;
 
 public class EstadisticasFragment extends Fragment
 {
@@ -287,7 +288,7 @@ public class EstadisticasFragment extends Fragment
                     cantidadMasVendido.setText(((int) objMas[1]) + " unidades.");
                     if (!masV.getImagen_path().equals(""))
                     {
-                        imagenMasVendido.setImageBitmap(getCompressedBitmapImage(masV.getImagen_path()));
+                        imagenMasVendido.setImageURI(getImageUriFromPath(masV.getImagen_path()));
                     }
                 }
                 //verifico que el mas vendido no sea igual al menos vendido
@@ -298,7 +299,7 @@ public class EstadisticasFragment extends Fragment
                     cantidadMenosVendido.setText(((int) objMenos[1]) + " unidades.");
                     if (!menosV.getImagen_path().equals(""))
                     {
-                        imagenMenosVendido.setImageBitmap(getCompressedBitmapImage(menosV.getImagen_path()));
+                        imagenMenosVendido.setImageURI(getImageUriFromPath(menosV.getImagen_path()));
                     }
                 }
                 else

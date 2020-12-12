@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
 import static com.teamihc.inventas.backend.Herramientas.getCompressedBitmapImage;
+import static com.teamihc.inventas.backend.Herramientas.getImageUriFromPath;
 
 public abstract class ListaProductosRVAdapter
         extends RecyclerView.Adapter<ListaProductosRVAdapter.ListaProductosAdapter>
@@ -78,7 +79,7 @@ public abstract class ListaProductosRVAdapter
             if (imagenProd != null)
             {
                 if (!articulo.getImagen_path().equals("")){
-                    imagenProd.setImageBitmap(getCompressedBitmapImage(articulo.getImagen_path()));
+                    imagenProd.setImageURI(getImageUriFromPath(articulo.getImagen_path()));
                 }
             }
             if (descripcion != null)

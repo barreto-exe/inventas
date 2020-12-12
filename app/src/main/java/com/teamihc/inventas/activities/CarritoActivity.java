@@ -261,7 +261,7 @@ public class CarritoActivity extends AppCompatActivity
         Venta venta = new Venta(Tasa.obtenerTasa(), new Date(), carrito);
         venta.registrar();
         Toast.makeText(this, "Venta registrada con exito", Toast.LENGTH_SHORT).show();
-        finish();
+        realFinish();
     }
 
     public void modificarCantidad(String descripcion, String cantidad)

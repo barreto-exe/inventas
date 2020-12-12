@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 import static com.teamihc.inventas.backend.Herramientas.getCompressedBitmapImage;
+import static com.teamihc.inventas.backend.Herramientas.getImageUriFromPath;
 
 public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.FacturaAdapter>
 {
@@ -69,7 +70,7 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
             if (!articulo.getArticulo().getImagen_path().equals("")){
-                imagenProd.setImageBitmap(getCompressedBitmapImage(articulo.getArticulo().getImagen_path()));
+                imagenProd.setImageURI(getImageUriFromPath(articulo.getArticulo().getImagen_path()));
             }
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidadStock.setText("" + articulo.getCantidad());
