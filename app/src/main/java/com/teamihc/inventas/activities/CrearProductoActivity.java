@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import static com.teamihc.inventas.backend.Herramientas.*;
 
 
@@ -51,7 +52,7 @@ public class CrearProductoActivity extends AppCompatActivity
     private FloatingActionButton fotoproducto_btn;
     private String imagen_path;
     private boolean foto_tomada;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -72,14 +73,14 @@ public class CrearProductoActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.articulo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        imagen_path="";
+        
+        imagen_path = "";
         foto_tomada = false;
-
+        
         //Crando carpeta temporal para fotos
         File temp = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp");
         temp.mkdir();
-
+        
         modoEdicion = getIntent().getExtras() != null;
         if (modoEdicion)
         {
@@ -134,7 +135,7 @@ public class CrearProductoActivity extends AppCompatActivity
             }
         });
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -201,12 +202,13 @@ public class CrearProductoActivity extends AppCompatActivity
         descripcionProdView.setText(articulo.getDescripcion());
         costoView.setText(articulo.getCosto() + "");
         precioView.setText(articulo.getPrecio() + "");
-        precioBsView.setText(articulo.getPrecioBs() + "");
+        precioBsView.setText(Herramientas.formatearMoneda(articulo.getPrecioBs()) + "");
         codigoView.setText(articulo.getCodigo());
         cantidadView.setText(articulo.getCantidad() + "");
         int height = imagenProd.getDrawable().getIntrinsicHeight();
         int width = imagenProd.getDrawable().getIntrinsicWidth();
-        if (!articulo.getImagen_path().equals("")){
+        if (!articulo.getImagen_path().equals(""))
+        {
             imagenProd.setImageURI(getImageUriFromPath(articulo.getImagen_path()));
         }
         cantidad_original = articulo.getCantidad();
@@ -261,15 +263,16 @@ public class CrearProductoActivity extends AppCompatActivity
         float precio = Float.parseFloat(precioView.getText().toString());
         int cantidad = Integer.parseInt(cantidadView.getText().toString());
         String codigo = codigoView.getText().toString();
-
+        
         //Si se tomo una foto guardar archivo temporal en la carpeta de fotos
-        if (foto_tomada){
+        if (foto_tomada)
+        {
             File temp = new File(imagen_path);
-            File definitivo = new File (getExternalFilesDir(Environment.DIRECTORY_PICTURES), temp.getName());
+            File definitivo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), temp.getName());
             temp.renameTo(definitivo);
             imagen_path = definitivo.getAbsolutePath();
         }
-
+        
         Articulo articulo = new Articulo(descripcion, costo, precio, cantidad, codigo, imagen_path);
         int cambio_stock = cantidad - cantidad_original;
         
@@ -305,7 +308,7 @@ public class CrearProductoActivity extends AppCompatActivity
             {
                 String mensaje;
                 //Desea sobreescribir producto activo??
-                if(articulo.isActivo())
+                if (articulo.isActivo())
                 {
                     mensaje = "Ya existe un producto con esta descripción, ¿sobreescribir?";
                 }
@@ -335,16 +338,18 @@ public class CrearProductoActivity extends AppCompatActivity
     }
     
     //<-------------------------------Metodos para capturar una foto------------------------------->
-
-    public void obtenerImagen(View view){
+    
+    public void obtenerImagen(View view)
+    {
         //Si ya se tomo una foto
-        if (foto_tomada){
+        if (foto_tomada)
+        {
             File imagen = new File(imagen_path);
             imagen.delete();
         }
         new ElegirProveedorDeImagenDialogFragment().show(getSupportFragmentManager(), null);
     }
-
+    
     @RequiresApi(api = Build.VERSION_CODES.Q)
     
     @Override
@@ -352,26 +357,32 @@ public class CrearProductoActivity extends AppCompatActivity
     {
         
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
+        
+        if (resultCode == RESULT_OK)
+        {
             foto_tomada = true;
-
-            if (requestCode == PICTURE_FROM_GALLERY) {
+            
+            if (requestCode == PICTURE_FROM_GALLERY)
+            {
                 imagenProd.setImageURI(data.getData());
                 imagen_path = guardarImgenDeGaleria(this, data.getData());
-            }else{
+            }
+            else
+            {
                 imagenProd.setImageURI(getImageUriFromPath(obtenerPathDeCamara()));
                 imagen_path = obtenerPathDeCamara();
             }
         }
     }
     //<-------------------------------Metodos para capturar una foto------------------------------->
-
+    
     @Override
-    public void finish(){
+    public void finish()
+    {
         File temp = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp");
         File[] array = temp.listFiles();
-        for (int i=0; i<array.length; i++){
+        for (int i = 0; i < array.length; i++)
+        {
             array[i].delete();
         }
         temp.delete();
