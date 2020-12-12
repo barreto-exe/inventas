@@ -45,25 +45,25 @@ public class Estadisticas
         Calendar c = Calendar.getInstance();
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         return dias;
     }
