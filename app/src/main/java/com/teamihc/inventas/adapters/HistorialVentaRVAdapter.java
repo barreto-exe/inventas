@@ -34,8 +34,7 @@ public class HistorialVentaRVAdapter extends RecyclerView.Adapter<HistorialVenta
     @Override
     public HistorialVentaAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        //cambiar layout al view para ver info Ventas Semanales o Totales
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_venta, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_info_venta_historial, parent, false);
         view.setOnClickListener(this);
         return new HistorialVentaRVAdapter.HistorialVentaAdapter(view);
     }
@@ -55,7 +54,7 @@ public class HistorialVentaRVAdapter extends RecyclerView.Adapter<HistorialVenta
     @Override
     public void onClick(View view)
     {
-        TextView id = (TextView) view.findViewById(R.id.idVenta);
+        TextView id = (TextView) view.findViewById(R.id.idVentaH);
         MainActivity mainActivity = ((MainActivity) view.getContext());
         Intent intent = new Intent(mainActivity, FacturaActivity.class);
         intent.putExtra("id", id.getText().toString());
@@ -68,18 +67,17 @@ public class HistorialVentaRVAdapter extends RecyclerView.Adapter<HistorialVenta
 
         public HistorialVentaAdapter(@NonNull View itemView) {
             super(itemView);
-            //cambiar card view para ver info Ventas Semanales o Totales
-            cardView = (CardView)  itemView.findViewById(R.id.infoVenta);
+            cardView = (CardView)  itemView.findViewById(R.id.infoVentaHistorial);
         }
 
         public void asignarDatos(Venta venta)
         {
-            //cambiar id para cada TextView del view_info_venta_rango
-            TextView hora = (TextView) cardView.findViewById(R.id.hora);
-            TextView ventaBsS = (TextView) cardView.findViewById(R.id.ventaBsS);
-            TextView resumen = (TextView) cardView.findViewById(R.id.resumen);
-            TextView ventaD = (TextView) cardView.findViewById(R.id.ventaD);
-            TextView id = (TextView) cardView.findViewById(R.id.idVenta);
+            TextView fecha = (TextView) cardView.findViewById(R.id.diaFechaVentaH);
+            TextView hora = (TextView) cardView.findViewById(R.id.horaVentaH);
+            TextView ventaBsS = (TextView) cardView.findViewById(R.id.ventaBsSH);
+            TextView resumen = (TextView) cardView.findViewById(R.id.resumenVentaH);
+            TextView ventaD = (TextView) cardView.findViewById(R.id.ventaDH);
+            TextView id = (TextView) cardView.findViewById(R.id.idVentaH);
 
             float monto = venta.obtenerTotalDolares();
             float conversion = venta.obtenerTotalBsS();
@@ -101,6 +99,7 @@ public class HistorialVentaRVAdapter extends RecyclerView.Adapter<HistorialVenta
                 }
             }
 
+            fecha.setText(Herramientas.formatearDiaFecha(venta.getFechaHora()));
             hora.setText(Herramientas.FORMATO_TIEMPO_FRONT.format(venta.getFechaHora()));
             ventaD.setText(Herramientas.formatearMonedaDolar((monto)));
             ventaBsS.setText(Herramientas.formatearMonedaBs(conversion));
