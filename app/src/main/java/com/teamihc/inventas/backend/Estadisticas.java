@@ -26,7 +26,7 @@ public class Estadisticas
         Date dias[] = new Date[2];
         Calendar c = Calendar.getInstance();
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         dias[0] = c.getTime();
 
         System.out.println(dias[0]);
@@ -49,26 +49,32 @@ public class Estadisticas
         String dias[] = new String[7];
         Calendar c = Calendar.getInstance();
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
+        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
 
         c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
+
+        c.add(Calendar.DATE, 1);
         dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
+
+        for (int i = 0; i < 7; i++)
+        {
+            System.out.println(dias[i]);
+        }
 
         return dias;
     }
@@ -78,19 +84,19 @@ public class Estadisticas
         switch (index)
         {
             case 0:
-                return "Domingo";
-            case 1:
                 return "Lunes";
-            case 2:
+            case 1:
                 return "Martes";
-            case 3:
+            case 2:
                 return "Miércoles";
-            case 4:
+            case 3:
                 return "Jueves";
-            case 5:
+            case 4:
                 return "Viernes";
-            case 6:
+            case 5:
                 return "Sábado";
+            case 6:
+                return "Domingo";
         }
         return null;
     }
