@@ -51,7 +51,7 @@ public class EstadisticasFragment extends Fragment
     int[] listaVenta = new int[7];
     float[] listaIngresos = new float[7];
     String[] opciones = {"Número de ventas", "Ingreso en dólares", "Ganancia en dólares"};
-    String[] diasSemana = {"D", "L", "M", "X", "J", "V", "S"};
+    String[] diasSemana = {"L", "M", "X", "J", "V", "S","D"};
     BarChart barChart;
     BarDataSet barDataSet;
     String diaMasV;
@@ -69,23 +69,6 @@ public class EstadisticasFragment extends Fragment
         barChart = view.findViewById(R.id.estadisticasChart);
         spinnerLlenado();
         seleccionSpinner();
-        //<editor-fold desc="Inicializar gráfica">
-        barDataSet = new BarDataSet(cambioVenta, "Resumen de la semana");
-        barDataSet.setColor(getResources().getColor(R.color.bars));
-        YAxis rightYAxis = barChart.getAxisRight();
-        rightYAxis.setEnabled(false);
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(diasSemana));
-        barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(10f);
-        BarData barData = new BarData(barDataSet);
-        barChart.setFitBars(true);
-        barChart.setData(barData);
-        barChart.getDescription().setText("");
-        barChart.animateY(2000);
-        //</editor-fold>
-        
-        
         return view;
     }
     
