@@ -14,19 +14,16 @@
         android:orientation="vertical">
 
         <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/inventas_logo"
             layout="@layout/view_topbar"
-            android:theme="@style/Theme.InVentas"
-            android:layout_alignParentTop="true"/>
+            android:theme="@style/Theme.InVentas" />
 
         <RelativeLayout
             android:id="@+id/layout_principal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/inventas_logo"
-            android:layout_above="@id/nav_bar" />
+            android:layout_alignParentBottom="true" />
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
