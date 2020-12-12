@@ -13,9 +13,9 @@ App de registro de inventario y ventas para emprendimientos que operan en econom
 
 ## 📷 Screenshots
 ![Screenshot3](https://i.imgur.com/nRC3ZOD.png)
+![Screenshot4](https://i.imgur.com/Pjl4NwY.png)
 ![Screenshot2](https://i.imgur.com/gImSWiL.png)
 ![Screenshot1](https://i.imgur.com/0GzTSm9.png)
-![Screenshot4](https://i.imgur.com/Pjl4NwY.png)
 ![Screenshot6](https://i.imgur.com/hHXHmBx.png)
 ![Screenshot7](https://i.imgur.com/zoMrZHL.png)
 ![Screenshot8](https://i.imgur.com/xKob8kf.png)
