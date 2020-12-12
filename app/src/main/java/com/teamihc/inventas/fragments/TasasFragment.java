@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -48,10 +50,14 @@ public class TasasFragment extends Fragment
         llenarChart();
         BarDataSet barDataSet = new BarDataSet(cambioTasa, "Cambio de la tasa del dólar");
         barDataSet.setColor(getResources().getColor(R.color.bars));
+        YAxis rightYAxis = barChart.getAxisRight();
+        rightYAxis.setEnabled(false);
+        barChart.getXAxis().setEnabled(false);
         barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(13f);
+        barDataSet.setValueTextSize(9f);
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
+
         //  barData.setBarWidth(2f);
         
         barChart.setData(barData);
