@@ -22,6 +22,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.Estadisticas;
@@ -76,7 +77,7 @@ public class EstadisticasFragment extends Fragment
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(diasSemana));
         barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(13f);
+        barDataSet.setValueTextSize(10f);
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
@@ -109,6 +110,13 @@ public class EstadisticasFragment extends Fragment
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaVenta[i]);
+            XAxis xAxis = barChart.getXAxis();
+            xAxis.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    return  diasSemana[(int)value];
+                }
+            });
             cambioVenta.add(b);
         }
         barDataSet = new BarDataSet(cambioVenta, "Cantidad de ventas");
@@ -116,9 +124,9 @@ public class EstadisticasFragment extends Fragment
         YAxis rightYAxis = barChart.getAxisRight();
         rightYAxis.setEnabled(false);
         XAxis xAxis = barChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(diasSemana));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(13f);
+        barDataSet.setValueTextSize(10f);
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
@@ -136,6 +144,13 @@ public class EstadisticasFragment extends Fragment
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
+            XAxis xAxis = barChart.getXAxis();
+            xAxis.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    return  diasSemana[(int)value];
+                }
+            });
             cambioVenta.add(b);
         }
         barChart.invalidate();
@@ -143,9 +158,10 @@ public class EstadisticasFragment extends Fragment
         barDataSet.setColor(getResources().getColor(R.color.bars));
         YAxis rightYAxis = barChart.getAxisRight();
         rightYAxis.setEnabled(false);
-        barChart.getXAxis().setEnabled(false);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(13f);
+        barDataSet.setValueTextSize(10f);
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
@@ -161,15 +177,23 @@ public class EstadisticasFragment extends Fragment
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
+            XAxis xAxis = barChart.getXAxis();
+            xAxis.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                     return  diasSemana[(int)value];
+                }
+            });
             cambioVenta.add(b);
         }
         barDataSet = new BarDataSet(cambioVenta, "Ganancias diarias");
         barDataSet.setColor(getResources().getColor(R.color.bars));
         YAxis rightYAxis = barChart.getAxisRight();
         rightYAxis.setEnabled(false);
-        barChart.getXAxis().setEnabled(false);
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(13f);
+        barDataSet.setValueTextSize(10f);
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
@@ -181,14 +205,13 @@ public class EstadisticasFragment extends Fragment
     /**
      * Tratado del spinner
      */
-    public void spinnerLlenado()
-    {
+    public void spinnerLlenado()    {
         
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>
                         (
                                 getContext(),
-                                android.R.layout.simple_spinner_item,
+                                R.layout.view_spinner_estadistica,
                                 opciones
                         );
         desicion.setAdapter(adapter);
@@ -225,66 +248,6 @@ public class EstadisticasFragment extends Fragment
             }
         });
     }
-
-
-
-    public class IndexAxisValueFormatter extends ValueFormatter {
-        private String[] mValues = new String[] {};
-        private int mValueCount = 0;
-
-        /**
-         * An empty constructor.
-         * Use `setValues` to set the axis labels.
-         */
-        public IndexAxisValueFormatter() {
-        }
-
-        /**
-         * Constructor that specifies axis labels.
-         *
-         * @param values The values string array
-         */
-        public IndexAxisValueFormatter(String[] values) {
-            if (values != null)
-                setValues(values);
-        }
-
-        /**
-         * Constructor that specifies axis labels.
-         *
-         * @param values The values string array
-         */
-        public IndexAxisValueFormatter(Collection<String> values) {
-            if (values != null)
-                setValues(values.toArray(new String[values.size()]));
-        }
-
-
-        public String getFormattedVaString(float value, AxisBase axisBase) {
-            int index = Math.round(value);
-
-            if (index < 0 || index >= mValueCount || index != (int)value)
-                return "";
-
-            return mValues[index];
-        }
-
-        public String[] getValues()
-        {
-            return mValues;
-        }
-
-        public void setValues(String[] values)
-        {
-            if (values == null)
-                values = new String[] {};
-
-            this.mValues = values;
-            this.mValueCount = values.length;
-        }
-    }
-
-
 
 
     /**
@@ -362,7 +325,7 @@ public class EstadisticasFragment extends Fragment
                 masV = (Articulo) objMas[0]; //asigno valores
                 menosV = (Articulo) objMenos[0];
                 // aqui verifico si existe el articulo mas vendido, es decir, si no ha sido eliminado
-                if (masV != null /*&& Articulo.obtenerInstancia(masV.obtenerId()) != null*/)
+                if (masV != null )
                 {
                     descripcionMasVendido.setText(masV.getDescripcion());
                     cantidadMasVendido.setText(((int) objMas[1]) + " unidades.");
@@ -372,8 +335,7 @@ public class EstadisticasFragment extends Fragment
                     }
                 }
                 //verifico que el mas vendido no sea igual al menos vendido
-                if (menosV != null && !(menosV.getDescripcion().equals(masV.getDescripcion()))
-                    /* && Articulo.obtenerInstancia(menosV.obtenerId()) != null*/)
+                if (menosV != null && !(menosV.getDescripcion().equals(masV.getDescripcion())))
                 {
                     descripcionMenosVendido.setText(menosV.getDescripcion());
                     cantidadMenosVendido.setText(((int) objMenos[1]) + " unidades.");
