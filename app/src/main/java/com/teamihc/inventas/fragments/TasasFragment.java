@@ -54,12 +54,9 @@ public class TasasFragment extends Fragment
         rightYAxis.setEnabled(false);
         barChart.getXAxis().setEnabled(false);
         barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(9f);
+        barDataSet.setValueTextSize(7f);
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
-
-        //  barData.setBarWidth(2f);
-        
         barChart.setData(barData);
         barChart.getDescription().setText("");
         barChart.animateY(2000);

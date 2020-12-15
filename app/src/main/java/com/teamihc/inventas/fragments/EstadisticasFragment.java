@@ -104,12 +104,15 @@ public class EstadisticasFragment extends Fragment
             });
             cambioVenta.add(b);
         }
+
+
         barDataSet = new BarDataSet(cambioVenta, "Cantidad de ventas");
         barDataSet.setColor(getResources().getColor(R.color.bars));
         YAxis rightYAxis = barChart.getAxisRight();
         rightYAxis.setEnabled(false);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setDrawGridLines(false);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(10f);
         BarData barData = new BarData(barDataSet);
@@ -147,6 +150,7 @@ public class EstadisticasFragment extends Fragment
         rightYAxis.setEnabled(false);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setDrawGridLines(false);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(10f);
         BarData barData = new BarData(barDataSet);
@@ -181,6 +185,7 @@ public class EstadisticasFragment extends Fragment
         rightYAxis.setEnabled(false);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setDrawGridLines(false);
         barDataSet.setValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(10f);
         BarData barData = new BarData(barDataSet);
