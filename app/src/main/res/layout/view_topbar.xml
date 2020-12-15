@@ -15,7 +15,7 @@
         android:gravity="left">
 
         <ImageView
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="-8dp"
             android:layout_width="125dp"
             android:layout_height="48dp"
             app:srcCompat="@drawable/logo_toolbar" />

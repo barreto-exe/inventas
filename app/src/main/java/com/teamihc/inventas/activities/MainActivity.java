@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 
 import android.app.Dialog;
@@ -12,20 +11,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.*;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.teamihc.inventas.backend.Herramientas;
-import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Tasa;
-import com.teamihc.inventas.backend.entidades.Venta;
 import com.teamihc.inventas.fragments.EstadisticasFragment;
 import com.teamihc.inventas.fragments.InventarioFragment;
 import com.teamihc.inventas.R;
@@ -33,6 +30,7 @@ import com.teamihc.inventas.fragments.TasasFragment;
 import com.teamihc.inventas.fragments.VentasFragment;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -40,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     Dialog dialog;
     Menu menu;
+    Date fechaConsultada;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,11 +51,16 @@ public class MainActivity extends AppCompatActivity
         
         toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-
+    
+        //Setear hoy como fecha consultada
+        fechaConsultada = Calendar.getInstance().getTime();
         if (savedInstanceState == null)
         {
-            getFragmentManager().beginTransaction().replace(R.id.layout_principal, new VentasFragment()).commit();
+            VentasFragment v = new VentasFragment();
+            v.setFechaConsultada(fechaConsultada);
+            getFragmentManager().beginTransaction().replace(R.id.layout_principal, v).commit();
         }
+        
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         dialog = new Dialog(this);
@@ -79,10 +83,12 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.top_calendario:
             {
+                openConsultarDiaVentas(null);
                 break;
             }
             case R.id.top_historial_tasas:
             {
+                openHistorico(null);
                 break;
             }
         }
@@ -113,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, CrearProductoActivity.class);
         startActivity(intent);
     }
-    
+
     public void openCambiarTasa(View view)
     {
         dialog.setContentView(R.layout.view_cambiar_tasa);
@@ -137,6 +143,41 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
     }
     
+    public void openConsultarDiaVentas(View view)
+    {
+        dialog.setContentView(R.layout.view_consultar_dia_ventas);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    
+        CalendarView calendario = dialog.findViewById(R.id.consultar_dia_calendario);
+        
+        //Establece en el calendario la fecha consultada actualmente
+        calendario.setDate(fechaConsultada.getTime());
+        calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
+        {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth)
+            {
+                fechaConsultada = new Date(year - 1900, month, dayOfMonth);
+            }
+        });
+        calendario.setMaxDate(Calendar.getInstance().getTime().getTime());
+        
+        //Colocar listener de btn aceptar
+        Button aceptar = dialog.findViewById((R.id.consultar_dia_aceptar_bttn));
+        aceptar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.dismiss();
+                VentasFragment ventasFragment = new VentasFragment();
+                ventasFragment.setFechaConsultada(fechaConsultada);
+                getFragmentManager().beginTransaction().replace(R.id.layout_principal, ventasFragment).commit();
+            }
+        });
+        dialog.show();
+    }
+    
     /**
      * Switch entre fragmets del bottom_bar en el main activity.
      */
@@ -151,7 +192,9 @@ public class MainActivity extends AppCompatActivity
                 case R.id.nav_ventas:
                 {
                     menu.setGroupVisible(R.id.group_fechas_ventas, true);
-                    fragment = new VentasFragment();
+                    VentasFragment v = new VentasFragment();
+                    v.setFechaConsultada(fechaConsultada);
+                    fragment = v;
                     break;
                 }
                 case R.id.nav_tasas:

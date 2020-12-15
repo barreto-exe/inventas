@@ -21,6 +21,7 @@ import com.teamihc.inventas.adapters.ResumenVentaRVAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class VentasFragment extends Fragment
@@ -31,6 +32,12 @@ public class VentasFragment extends Fragment
     ResumenVentaRVAdapter.ResumenVentaAdapter listaVentaAdapter;
     ArrayList<Venta> listaVentas;
     ResumenVentaRVAdapter adapter;
+    Date fechaConsultada;
+    
+    public void setFechaConsultada(Date fechaConsultada)
+    {
+        this.fechaConsultada = fechaConsultada;
+    }
     
     @Nullable
     @Override
@@ -44,7 +51,7 @@ public class VentasFragment extends Fragment
         contenido = (LinearLayout) view.findViewById(R.id.contenido_ventas);
         
         listaVentas = new ArrayList<Venta>();
-        Venta.cargarVentasDiaEnLista(listaVentas, Calendar.getInstance().getTime());
+        Venta.cargarVentasDiaEnLista(listaVentas, fechaConsultada);
         adapter = new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
     
@@ -58,7 +65,7 @@ public class VentasFragment extends Fragment
     {
         super.onResume();
         listaVentas.clear();
-        Venta.cargarVentasDiaEnLista(listaVentas, Calendar.getInstance().getTime());
+        Venta.cargarVentasDiaEnLista(listaVentas, fechaConsultada);
         adapter.notifyDataSetChanged();
     
         refrescarGananciasDelDia();
@@ -66,13 +73,13 @@ public class VentasFragment extends Fragment
     
     private void refrescarGananciasDelDia()
     {
-        ((TextView) view.findViewById(R.id.fechaActual)).setText(Herramientas.formatearDiaFecha(Calendar.getInstance().getTime()));
-        ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(Calendar.getInstance().getTime())));
+        ((TextView) view.findViewById(R.id.fechaActual)).setText(Herramientas.formatearDiaFecha(fechaConsultada));
+        ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(fechaConsultada)));
     
-        ColocarBienvenida();
+        colocarBienvenida();
     }
     
-    private void ColocarBienvenida()
+    private void colocarBienvenida()
     {
         if(listaVentas.isEmpty())
         {

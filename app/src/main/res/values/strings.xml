@@ -20,6 +20,7 @@
     <string name="tasa">Tasa</string>
     <string name="tasa_del_dia">Tasa del día</string>
     <string name="actualizar">Actualizar</string>
+    <string name="constular_ventas_del_dia">Consultar ventas del día</string>
     <string name="ingrese_el_valor_del_dolar">Ingrese el valor del dólar</string>
     <string name="tasa_anterior">Tasa anterior</string>
     <string name="ganancia_total">Ganancia total</string>

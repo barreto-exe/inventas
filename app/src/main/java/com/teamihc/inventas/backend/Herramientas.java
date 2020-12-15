@@ -94,7 +94,7 @@ public class Herramientas
 
         String dia = Estadisticas.intToDay(index -1);
 
-        return dia + ", " + Herramientas.FORMATO_FECHA_FRONT.format(Calendar.getInstance().getTime());
+        return dia + ", " + Herramientas.FORMATO_FECHA_FRONT.format(fecha);
     }
     
     
