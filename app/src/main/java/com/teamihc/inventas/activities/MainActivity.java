@@ -56,15 +56,23 @@ public class MainActivity extends AppCompatActivity
         fechaConsultada = Calendar.getInstance().getTime();
         if (savedInstanceState == null)
         {
-            VentasFragment v = new VentasFragment();
-            v.setFechaConsultada(fechaConsultada);
-            getFragmentManager().beginTransaction().replace(R.id.layout_principal, v).commit();
+            setFechaConsultada(fechaConsultada);
         }
         
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         dialog = new Dialog(this);
     }
+    
+    public void setFechaConsultada(Date fechaConsultada)
+    {
+        this.fechaConsultada = fechaConsultada;
+        
+        VentasFragment v = new VentasFragment();
+        v.setFechaConsultada(fechaConsultada);
+        getFragmentManager().beginTransaction().replace(R.id.layout_principal, v).commit();
+    }
+    
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -170,9 +178,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 dialog.dismiss();
-                VentasFragment ventasFragment = new VentasFragment();
-                ventasFragment.setFechaConsultada(fechaConsultada);
-                getFragmentManager().beginTransaction().replace(R.id.layout_principal, ventasFragment).commit();
+                
+                setFechaConsultada(fechaConsultada);
             }
         });
         dialog.show();
