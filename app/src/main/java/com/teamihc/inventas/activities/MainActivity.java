@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 
 import android.app.Dialog;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     // private View decorView ;
     private Toolbar toolbar;
     Dialog dialog;
+    Menu menu;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,7 +49,8 @@ public class MainActivity extends AppCompatActivity
         Herramientas.inicializarFormatos();
         
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.top_bar);
+        
+        toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null)
@@ -57,7 +60,34 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         dialog = new Dialog(this);
-
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_bar, menu);
+        this.menu = menu;
+        
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.top_calendario:
+            {
+                break;
+            }
+            case R.id.top_historial_tasas:
+            {
+                break;
+            }
+        }
+        
+        return true;
     }
     
     public void openHistorico(View view)
@@ -120,21 +150,25 @@ public class MainActivity extends AppCompatActivity
             {
                 case R.id.nav_ventas:
                 {
+                    menu.setGroupVisible(R.id.group_fechas_ventas, true);
                     fragment = new VentasFragment();
                     break;
                 }
                 case R.id.nav_tasas:
                 {
+                    menu.setGroupVisible(R.id.group_fechas_ventas, false);
                     fragment = new TasasFragment();
                     break;
                 }
                 case R.id.nav_inventario:
                 {
+                    menu.setGroupVisible(R.id.group_fechas_ventas, false);
                     fragment = new InventarioFragment();
                     break;
                 }
                 case R.id.nav_estadisticas:
                 {
+                    menu.setGroupVisible(R.id.group_fechas_ventas, false);
                     fragment = new EstadisticasFragment();
                     break;
                 }

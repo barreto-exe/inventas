@@ -58,7 +58,6 @@ public class CrearProductoActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_producto);
-        toolbar = findViewById(R.id.crear_bar);
         
         descripcionProdView = findViewById(R.id.descripcionProd);
         costoView = findViewById(R.id.costo);
@@ -172,7 +171,7 @@ public class CrearProductoActivity extends AppCompatActivity
             }
         }
         
-        return super.onOptionsItemSelected(item);
+        return true;
     }
     
     private void bloquearCampos()

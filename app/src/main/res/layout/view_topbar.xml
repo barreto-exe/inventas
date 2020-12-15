@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
-    app:titleTextColor="@color/white"
-    android:theme="@style/Theme.InVentas">
+    android:theme="@style/Theme.InVentas"
+    app:menu="@menu/top_bar"
+    app:titleTextColor="@color/white">
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left">
+
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_width="125dp"
             android:layout_height="48dp"
-            android:layout_marginRight="16dp"
             app:srcCompat="@drawable/logo_toolbar" />
     </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

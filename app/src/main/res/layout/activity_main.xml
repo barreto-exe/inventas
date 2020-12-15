@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/inventas_logo"
+            android:id="@+id/main_toolbar"
             layout="@layout/view_topbar"
             android:theme="@style/Theme.InVentas" />
 
@@ -22,7 +22,7 @@
             android:id="@+id/layout_principal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/inventas_logo"
+            android:layout_below="@+id/main_toolbar"
             android:layout_alignParentBottom="true" />
 
 
