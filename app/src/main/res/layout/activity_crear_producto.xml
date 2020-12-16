@@ -179,12 +179,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
+                            android:focusable="false"
                             android:hint="@string/equivalente"
                             app:helperText="@string/el_precio_en_bs_se_actualiza_automaticamente"
                             app:prefixText="Bs.S ">
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/precioBs"
                                 android:enabled="false"
+                                android:focusable="false"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="numberDecimal" />

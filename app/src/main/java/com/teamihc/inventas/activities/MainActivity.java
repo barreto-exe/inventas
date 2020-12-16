@@ -3,6 +3,7 @@ package com.teamihc.inventas.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import android.app.FragmentTransaction;
 
 import android.app.Fragment;
 
@@ -223,7 +224,19 @@ public class MainActivity extends AppCompatActivity
                     break;
                 }
             }
-            getFragmentManager().beginTransaction().replace(R.id.layout_principal, fragment).commit();
+    
+            try
+            {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+                ft.replace(R.id.layout_principal, fragment);
+                ft.commit();
+            }
+            catch (Exception exception)
+            {
+                String a = exception.getMessage();
+            }
+            
             return true;
         }
     };
