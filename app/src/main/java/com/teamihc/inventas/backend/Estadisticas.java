@@ -29,13 +29,9 @@ public class Estadisticas
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         dias[0] = c.getTime();
 
-        System.out.println(dias[0]);
-
         c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
         c.add(Calendar.DATE, 1);
         dias[1] = c.getTime();
-
-        System.out.println(dias[1]);
 
         return dias;
     }
@@ -70,11 +66,6 @@ public class Estadisticas
 
         c.add(Calendar.DATE, 1);
         dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
-
-        for (int i = 0; i < 7; i++)
-        {
-            System.out.println(dias[i]);
-        }
 
         return dias;
     }

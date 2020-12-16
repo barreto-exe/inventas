@@ -294,7 +294,6 @@ public class Herramientas
     }
 
     public static Bitmap getCompressedBitmapImage(String photoPath){
-        System.out.println("============================Herramientas" + photoPath);
 
         if (photoPath.equals("")){return null;}
 
@@ -302,14 +301,12 @@ public class Herramientas
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(photoPath, options);
-        System.out.println("===================================Dimensiones Originales = " + options.outWidth + " " + options.outHeight);
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options.outWidth, options.outHeight);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
-        System.out.println("===================================Dimensiones Nuevas = " + bitmap.getWidth()+ " " + bitmap.getHeight());
         return bitmap;
     }
 }
