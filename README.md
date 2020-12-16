@@ -5,7 +5,7 @@ App de registro de inventario y ventas para emprendimientos que operan en econom
 - Registrar y gestionar artículos de tu inventario. Puedes ingresar la foto, descripción, costo en $, precio de venta en $ y más.
 - Actualizar precios en Bs.S de todos los productos al actualizar la tasa del dólar.
 - Registrar ventas y llevar seguimiento de las mismas.
-- Ver historial de cambios de la tasa, ingresos semanales, producto más vendido, así como otras estadístas.
+- Ver historial de ventas, cambios de la tasa, ingresos semanales, producto más vendido, así como otras estadístas.
 
 ## 🛠 Tecnologías y herramientas
 - Android nativo.
