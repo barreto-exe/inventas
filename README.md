@@ -7,9 +7,17 @@ App de registro de inventario y ventas para emprendimientos que operan en econom
 - Registrar ventas y llevar seguimiento de las mismas.
 - Ver historial de ventas, cambios de la tasa, ingresos semanales, producto más vendido, así como otras estadístas.
 
+## 🔽 Descarga
+- [Link directo](https://github.com/barreto-exe/InVentas/releases/download/1.0.0/InVentas.apk)
+- Próximamente en Google Play.
+
 ## 🛠 Tecnologías y herramientas
 - Android nativo.
+- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+- [Glide](https://github.com/bumptech/glide)
+- [SQLDroid](https://github.com/SQLDroid/SQLDroid)
 - [SQLite](https://www.sqlite.org/index.html)
+
 
 ## 📷 Screenshots
 ![Screenshot3](https://i.imgur.com/nRC3ZOD.png)
