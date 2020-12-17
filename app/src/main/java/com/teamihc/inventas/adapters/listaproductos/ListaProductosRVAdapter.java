@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.Articulo;
 
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaBs;
 import static com.teamihc.inventas.backend.Herramientas.getCompressedBitmapImage;
-import static com.teamihc.inventas.backend.Herramientas.getImageUriFromPath;
 
 public abstract class ListaProductosRVAdapter
         extends RecyclerView.Adapter<ListaProductosRVAdapter.ListaProductosAdapter>
@@ -61,9 +61,12 @@ public abstract class ListaProductosRVAdapter
     
     public class ListaProductosAdapter extends RecyclerView.ViewHolder
     {
+        private View view;
+        
         public ListaProductosAdapter(@NonNull View itemView)
         {
             super(itemView);
+            view = itemView;
             cardView = (CardView) itemView.findViewById(R.id.info_producto);
         }
         
@@ -79,7 +82,7 @@ public abstract class ListaProductosRVAdapter
             if (imagenProd != null)
             {
                 if (!articulo.getImagen_path().equals("")){
-                    imagenProd.setImageURI(getImageUriFromPath(articulo.getImagen_path()));
+                    Glide.with(view).load(articulo.getImagen_path()).into(imagenProd);
                 }
             }
             if (descripcion != null)

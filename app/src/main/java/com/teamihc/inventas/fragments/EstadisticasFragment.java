@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,7 +37,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import static com.teamihc.inventas.backend.Herramientas.getCompressedBitmapImage;
-import static com.teamihc.inventas.backend.Herramientas.getImageUriFromPath;
 
 public class EstadisticasFragment extends Fragment
 {
@@ -51,7 +51,7 @@ public class EstadisticasFragment extends Fragment
     int[] listaVenta = new int[7];
     float[] listaIngresos = new float[7];
     String[] opciones = {"Número de ventas", "Ingreso en dólares", "Ganancia en dólares"};
-    String[] diasSemana = {"L", "M", "X", "J", "V", "S","D"};
+    String[] diasSemana = {"L", "M", "X", "J", "V", "S", "D"};
     BarChart barChart;
     BarDataSet barDataSet;
     String diaMasV;
@@ -104,8 +104,8 @@ public class EstadisticasFragment extends Fragment
             });
             cambioVenta.add(b);
         }
-
-
+        
+        
         barDataSet = new BarDataSet(cambioVenta, "Cantidad de ventas");
         barDataSet.setColor(getResources().getColor(R.color.bars));
         YAxis rightYAxis = barChart.getAxisRight();
@@ -325,7 +325,7 @@ public class EstadisticasFragment extends Fragment
                     cantidadMasVendido.setText(((int) objMas[1]) + " unidades.");
                     if (!masV.getImagen_path().equals(""))
                     {
-                        imagenMasVendido.setImageURI(getImageUriFromPath(masV.getImagen_path()));
+                        Glide.with(view).load(masV.getImagen_path()).into(imagenMasVendido);
                     }
                 }
                 //verifico que el mas vendido no sea igual al menos vendido
@@ -335,7 +335,7 @@ public class EstadisticasFragment extends Fragment
                     cantidadMenosVendido.setText(((int) objMenos[1]) + " unidades.");
                     if (!menosV.getImagen_path().equals(""))
                     {
-                        imagenMenosVendido.setImageURI(getImageUriFromPath(menosV.getImagen_path()));
+                        Glide.with(view).load(menosV.getImagen_path()).into(imagenMenosVendido);
                     }
                 }
                 else

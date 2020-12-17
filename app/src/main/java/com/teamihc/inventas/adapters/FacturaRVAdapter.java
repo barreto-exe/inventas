@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
 
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 
 import static com.teamihc.inventas.backend.Herramientas.formatearMonedaDolar;
 import static com.teamihc.inventas.backend.Herramientas.getCompressedBitmapImage;
-import static com.teamihc.inventas.backend.Herramientas.getImageUriFromPath;
 
 public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.FacturaAdapter>
 {
@@ -54,11 +54,13 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
     
     public class FacturaAdapter extends RecyclerView.ViewHolder
     {
+        private View view;
         CardView cardView;
         
         public FacturaAdapter(@NonNull View itemView)
         {
             super(itemView);
+            view = itemView;
             cardView = (CardView) itemView.findViewById(R.id.info_producto);
         }
         
@@ -69,8 +71,9 @@ public class FacturaRVAdapter extends RecyclerView.Adapter<FacturaRVAdapter.Fact
             TextView cantidadStock = (TextView) cardView.findViewById(R.id.cantidadStock);
             TextView subtotal = (TextView) cardView.findViewById(R.id.subtotal);
 
-            if (!articulo.getArticulo().getImagen_path().equals("")){
-                imagenProd.setImageURI(getImageUriFromPath(articulo.getArticulo().getImagen_path()));
+            if (!articulo.getArticulo().getImagen_path().equals(""))
+            {
+                Glide.with(view).load(articulo.getArticulo().getImagen_path()).into(imagenProd);
             }
             descripcion.setText(articulo.getArticulo().getDescripcion());
             cantidadStock.setText("" + articulo.getCantidad());

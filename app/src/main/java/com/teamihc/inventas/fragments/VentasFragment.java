@@ -54,7 +54,7 @@ public class VentasFragment extends Fragment
         Venta.cargarVentasDiaEnLista(listaVentas, fechaConsultada);
         adapter = new ResumenVentaRVAdapter(listaVentas);
         recyclerView.setAdapter(adapter);
-    
+        
         refrescarGananciasDelDia();
         
         return view;
@@ -67,21 +67,21 @@ public class VentasFragment extends Fragment
         listaVentas.clear();
         Venta.cargarVentasDiaEnLista(listaVentas, fechaConsultada);
         adapter.notifyDataSetChanged();
-    
+        
         refrescarGananciasDelDia();
     }
     
     private void refrescarGananciasDelDia()
     {
         ((TextView) view.findViewById(R.id.fechaActual)).setText(Herramientas.formatearDiaFecha(fechaConsultada));
-        ((TextView)view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(fechaConsultada)));
-    
+        ((TextView) view.findViewById(R.id.gananciasDelDia)).setText(Herramientas.formatearMonedaDolar(Estadisticas.gananciasPorDia(fechaConsultada)));
+        
         colocarBienvenida();
     }
     
     private void colocarBienvenida()
     {
-        if(listaVentas.isEmpty())
+        if (listaVentas.isEmpty())
         {
             bienvenida.setVisibility(View.VISIBLE);
             contenido.setVisibility(View.GONE);

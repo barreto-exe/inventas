@@ -65,7 +65,7 @@ public class InventarioFragment extends Fragment
     
     private void ColocarBienvenida()
     {
-        if(listaArticulos.isEmpty())
+        if (listaArticulos.isEmpty())
         {
             bienvenida.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
