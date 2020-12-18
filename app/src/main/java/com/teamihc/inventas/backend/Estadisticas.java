@@ -172,26 +172,6 @@ public class Estadisticas
     }
     
     /**
-     * @return string con el nombre del día con mayor ganancia.
-     */
-    public static String diaMayorGanancia()
-    {
-        String diaSemana[] = diasSemana();
-        float gananciasDiarias[] = new float[7];
-        calcularGananciaDiaria(gananciasDiarias);
-        float gananciaMayor = gananciasDiarias[0];
-        int indexDia = 0;
-        
-        for (int i = 0; i < 7; i++)
-            if (gananciasDiarias[i] > gananciaMayor)
-            {
-                indexDia = i;
-            }
-        
-        return intToDay(indexDia);
-    }
-    
-    /**
      * @return string con el nombre del día con mayor ingreso.
      */
     public static String diaMayorIngreso()
@@ -210,7 +190,9 @@ public class Estadisticas
         
         return intToDay(indexDia);
     }
-    
+    /**
+     * @return string con el nombre del día con menor ingreso.
+     */
     public static String diaMenorIngreso()
     {
         String diaSemana[] = diasSemana();
@@ -247,8 +229,9 @@ public class Estadisticas
         
         return intToDay(indexDia);
     }
-    
-    
+    /**
+     * @return string con el nombre del día con menor cantidad de ventas.
+     */
     public static String diaMenorCantVentas()
     {
         String diaSemana[] = diasSemana();
@@ -267,7 +250,7 @@ public class Estadisticas
     }
     
     /**
-     * @return mayor cantidad de ventas.
+     * @return mayor cantidad de ventas de la semana.
      */
     public static int mayorCantVentas()
     {
@@ -284,7 +267,9 @@ public class Estadisticas
         
         return diaMayor;
     }
-    
+    /**
+     * @return menor cantidad de ventas de la semana.
+     */
     public static int menorCantVentas()
     {
         String diaSemana[] = diasSemana();
@@ -302,7 +287,7 @@ public class Estadisticas
     }
     
     /**
-     * @return el mayor ingreso de la semana
+     * @return el mayor ingreso de la semana.
      */
     public static float mayorIngreso()
     {
@@ -319,9 +304,8 @@ public class Estadisticas
         
         return diaMayor;
     }
-    
     /**
-     * @return el menor ingreso de la semana
+     * @return el menor ingreso de la semana.
      */
     public static float menorIngreso()
     {

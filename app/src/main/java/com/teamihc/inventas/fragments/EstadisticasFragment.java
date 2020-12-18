@@ -291,7 +291,6 @@ public class EstadisticasFragment extends Fragment
     /**
      * Se actualzan los datos dentro del fragment
      */
-    
     private void refrescarEstadisticas()
     {
         
