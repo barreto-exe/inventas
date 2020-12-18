@@ -176,15 +176,16 @@ public class Estadisticas
      */
     public static String diaMayorIngreso()
     {
-        String diaSemana[] = diasSemana();
         float ingresosDiarios[] = new float[7];
         calcularIngresoDiario(ingresosDiarios);
-        float ingresoMayor = ingresosDiarios[0];
+    
         int indexDia = 0;
+        float ingresoMayor = ingresosDiarios[indexDia];
         
         for (int i = 0; i < 7; i++)
             if (ingresosDiarios[i] > ingresoMayor)
             {
+                ingresoMayor = ingresosDiarios[i];
                 indexDia = i;
             }
         
@@ -195,15 +196,16 @@ public class Estadisticas
      */
     public static String diaMenorIngreso()
     {
-        String diaSemana[] = diasSemana();
         float ingresosDiarios[] = new float[7];
         calcularIngresoDiario(ingresosDiarios);
-        float ingresoMenor = ingresosDiarios[0];
+    
         int indexDia = 0;
+        float ingresoMenor = ingresosDiarios[indexDia];
         
         for (int i = 0; i < 7; i++)
             if (ingresosDiarios[i] < ingresoMenor)
             {
+                ingresoMenor = ingresosDiarios[i];
                 indexDia = i;
             }
         
@@ -215,15 +217,16 @@ public class Estadisticas
      */
     public static String diaMayorCantVentas()
     {
-        String diaSemana[] = diasSemana();
         int ventasDiarias[] = new int[7];
         calcularVentasDiaria(ventasDiarias);
-        int diaMayor = ventasDiarias[0];
+    
         int indexDia = 0;
+        float diaMayor = ventasDiarias[indexDia];
         
         for (int i = 0; i < 7; i++)
             if (ventasDiarias[i] > diaMayor)
             {
+                diaMayor = ventasDiarias[i];
                 indexDia = i;
             }
         
@@ -234,15 +237,16 @@ public class Estadisticas
      */
     public static String diaMenorCantVentas()
     {
-        String diaSemana[] = diasSemana();
         int ventasDiarias[] = new int[7];
         calcularVentasDiaria(ventasDiarias);
-        int diaMenor = ventasDiarias[0];
+    
         int indexDia = 0;
+        int diaMenor = ventasDiarias[indexDia];
         
         for (int i = 0; i < 7; i++)
             if (ventasDiarias[i] < diaMenor)
             {
+                diaMenor = ventasDiarias[i];
                 indexDia = i;
             }
         
@@ -254,9 +258,9 @@ public class Estadisticas
      */
     public static int mayorCantVentas()
     {
-        String diaSemana[] = diasSemana();
         int ventasDiarias[] = new int[7];
         calcularVentasDiaria(ventasDiarias);
+
         int diaMayor = ventasDiarias[0];
         
         for (int i = 0; i < 7; i++)
@@ -272,9 +276,9 @@ public class Estadisticas
      */
     public static int menorCantVentas()
     {
-        String diaSemana[] = diasSemana();
         int ventasDiarias[] = new int[7];
         calcularVentasDiaria(ventasDiarias);
+        
         int diaMenor = ventasDiarias[0];
         
         for (int i = 0; i < 7; i++)
@@ -291,9 +295,9 @@ public class Estadisticas
      */
     public static float mayorIngreso()
     {
-        String diaSemana[] = diasSemana();
         float ingresosDiarios[] = new float[7];
         calcularIngresoDiario(ingresosDiarios);
+        
         float diaMayor = ingresosDiarios[0];
         
         for (int i = 0; i < 7; i++)
@@ -309,9 +313,9 @@ public class Estadisticas
      */
     public static float menorIngreso()
     {
-        String diaSemana[] = diasSemana();
         float ingresosDiarios[] = new float[7];
         calcularIngresoDiario(ingresosDiarios);
+        
         float diaMenor = ingresosDiarios[0];
         
         for (int i = 0; i < 7; i++)
@@ -322,7 +326,6 @@ public class Estadisticas
         
         return diaMenor;
     }
-    
     
     /**
      * Calcula el artículo más vendido en un rango de tiempo.

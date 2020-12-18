@@ -121,7 +121,6 @@ public class EstadisticasFragment extends Fragment
         barChart.getDescription().setText("");
         barChart.animateY(2000);
     }
-    
     public void llenarChartIngresos()
     {
         Toast.makeText(getActivity(), "Ingresos", Toast.LENGTH_SHORT);
@@ -159,7 +158,6 @@ public class EstadisticasFragment extends Fragment
         barChart.getDescription().setText("");
         barChart.animateY(2000);
     }
-    
     public void llenarChartGanancias()
     {
         Toast.makeText(getActivity(), "Ganancias", Toast.LENGTH_SHORT);
@@ -274,7 +272,6 @@ public class EstadisticasFragment extends Fragment
         }
         
     }
-    
     public void vacios()
     {
         descripcionMasVendido.setText("-");
