@@ -30,6 +30,7 @@
     <string name="el_precio_en_bs_se_actualiza_automaticamente">El precio en Bs.S. se actualiza automáticamente.</string>
     <string name="historial_de_cambios">Historial de cambios</string>
     <string name="historial_de_tasas">Historial de tasas</string>
+    <string name="historial_de_ventas">Historial de ventas</string>
     <string name="c_digo">Código</string>
     <string name="precio_bss">Precio Bs.S:</string>
     <string name="equivalente">Equivalente</string>
