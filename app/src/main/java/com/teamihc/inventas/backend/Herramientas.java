@@ -11,40 +11,24 @@ import android.os.Environment;
 import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.teamihc.inventas.BuildConfig;
-import com.teamihc.inventas.activities.MainActivity;
 
-import org.sqldroid.SQLDroidBlob;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Clase con variables y métodos misceláneos
@@ -261,7 +245,7 @@ public class Herramientas
         {
             is = activity.getContentResolver().openInputStream(uri);
             os = new FileOutputStream(new_file);
-            FileUtils.copy(is, os);
+            copy(is, os);
         }
         catch (FileNotFoundException e)
         {
@@ -286,6 +270,15 @@ public class Herramientas
         return new_file.getAbsolutePath();
     }
     
+    static void copy(@NotNull InputStream source, OutputStream target) throws IOException
+    {
+        byte[] buf = new byte[8192];
+        int length;
+        while ((length = source.read(buf)) > 0)
+        {
+            target.write(buf, 0, length);
+        }
+    }
     //================================CONSULTAR FOTOS============================================
     
     public static Uri getImageUriFromPath(String photoPath)
