@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_bar, menu);
         this.menu = menu;
+        menu.setGroupVisible(R.id.group_historial_tasas, false);
         
         return true;
     }
@@ -97,7 +98,12 @@ public class MainActivity extends AppCompatActivity
             }
             case R.id.top_historial_tasas:
             {
-                openHistorico(null);
+                openHistorialTasas(null);
+                break;
+            }
+            case R.id.top_historial_ventas:
+            {
+                openHistorialVentas(null);
                 break;
             }
         }
@@ -105,10 +111,15 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     
-    public void openHistorico(View view)
+    public void openHistorialTasas(View view)
     {
         Intent intent = new Intent(MainActivity.this, HistorialTasaActivity.class);
         startActivity(intent);
+    }
+    
+    public void openHistorialVentas(View view)
+    {
+    
     }
     
     public void openCarrito(View view)
@@ -199,7 +210,8 @@ public class MainActivity extends AppCompatActivity
             {
                 case R.id.nav_ventas:
                 {
-                    menu.setGroupVisible(R.id.group_fechas_ventas, true);
+                    menu.setGroupVisible(R.id.group_ventas, true);
+                    menu.setGroupVisible(R.id.group_historial_tasas, false);
                     VentasFragment v = new VentasFragment();
                     v.setFechaConsultada(fechaConsultada);
                     fragment = v;
@@ -207,19 +219,22 @@ public class MainActivity extends AppCompatActivity
                 }
                 case R.id.nav_tasas:
                 {
-                    menu.setGroupVisible(R.id.group_fechas_ventas, false);
+                    menu.setGroupVisible(R.id.group_ventas, false);
+                    menu.setGroupVisible(R.id.group_historial_tasas, true);
                     fragment = new TasasFragment();
                     break;
                 }
                 case R.id.nav_inventario:
                 {
-                    menu.setGroupVisible(R.id.group_fechas_ventas, false);
+                    menu.setGroupVisible(R.id.group_ventas, false);
+                    menu.setGroupVisible(R.id.group_historial_tasas, false);
                     fragment = new InventarioFragment();
                     break;
                 }
                 case R.id.nav_estadisticas:
                 {
-                    menu.setGroupVisible(R.id.group_fechas_ventas, false);
+                    menu.setGroupVisible(R.id.group_ventas, false);
+                    menu.setGroupVisible(R.id.group_historial_tasas, false);
                     fragment = new EstadisticasFragment();
                     break;
                 }

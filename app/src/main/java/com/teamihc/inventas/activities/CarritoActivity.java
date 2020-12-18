@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +48,7 @@ public class CarritoActivity extends AppCompatActivity
     private TextView carrito_total_dolares;
     private TextView carrito_total_bolivares;
     private TextView referencias_cargadas;
+    private LinearLayout bienvenida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +62,8 @@ public class CarritoActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.getLayoutManager().setMeasurementCacheEnabled(false);
     
+        bienvenida = findViewById(R.id.carrito_bienvenida);
+        
         carrito_aceptar = (ImageButton) findViewById(R.id.carrito_aceptar);
         carrito_cancelar = (ImageButton) findViewById(R.id.carrito_cancelar);
         carrito_eliminar = (ImageButton) findViewById(R.id.carrito_eliminar);
@@ -92,6 +96,11 @@ public class CarritoActivity extends AppCompatActivity
         calcularTotal();
     }
 
+    public void cancelarAgregarCarrito(View view)
+    {
+        hideFragment();
+    }
+    
     public void hideFragment()
     {
         transaction = getFragmentManager().beginTransaction();
@@ -114,8 +123,8 @@ public class CarritoActivity extends AppCompatActivity
         transaction.commit();
 
         carrito_aceptar.setVisibility(ImageButton.INVISIBLE);
-        carrito_cancelar.setVisibility(ImageButton.INVISIBLE);
-        carrito_retroceder.setVisibility(ImageButton.VISIBLE);
+        carrito_cancelar.setVisibility(ImageButton.VISIBLE);
+        carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
         floatingActionButton.setVisibility(ImageButton.INVISIBLE);
     }
 
@@ -249,7 +258,7 @@ public class CarritoActivity extends AppCompatActivity
         adapter = new CarritoRVAdapter(carrito);
         recyclerView.setAdapter(adapter);
     }
-
+    
     public void aceptar(View view)
     {
         if (carrito.cantidadReferencias() == 0)
@@ -283,8 +292,24 @@ public class CarritoActivity extends AppCompatActivity
         referencias_cargadas.setText(carrito.getCarrito().size() + " referencias cargadas.");
         carrito_total_dolares.setText(Herramientas.formatearMonedaDolar(carrito.obtenerTotalDolares()));
         carrito_total_bolivares.setText(Herramientas.formatearMonedaBs(carrito.obtenerTotalBsS(Tasa.obtenerTasa())));
+        
+        colocarBienvenida();
     }
-
+    
+    private void colocarBienvenida()
+    {
+        if (carrito.cantidadReferencias() == 0)
+        {
+            bienvenida.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
+        else
+        {
+            bienvenida.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+    
     @Override
     public void finish(){
         if (fragment.isVisible()){
