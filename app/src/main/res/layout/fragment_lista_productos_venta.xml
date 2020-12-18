@@ -6,11 +6,24 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listaProductos_recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"/>
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="@string/agregar_a_carrito"
+            android:onClick="cancelarAgregarCarrito"
+            app:navigationIcon="@drawable/ic_close_white_24dp"
+            app:titleTextColor="@color/white"
+            android:theme="@style/Theme.InVentas"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listaProductos_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"/>
+    </LinearLayout>
 </RelativeLayout>

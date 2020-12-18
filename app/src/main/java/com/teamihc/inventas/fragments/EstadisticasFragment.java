@@ -77,7 +77,7 @@ public class EstadisticasFragment extends Fragment
     {
         super.onResume();
         refrescarEstadisticas();
-        barChart.notifyDataSetChanged();
+       barChart.notifyDataSetChanged();
         barChart.invalidate();
     }
     
@@ -395,10 +395,10 @@ public class EstadisticasFragment extends Fragment
         }
         
         int menorCantVentas = Estadisticas.menorCantVentas();
-        if (diaMenosV != null && menorCantVentas > 0)
+        if (diaMenosV != null)
         {
-            diaMenosVentas.setText(diaMenosV + " ventas.");
-            ventas_diaMenosVentas.setText(Herramientas.formatearMonedaDolar(menorCantVentas));
+            diaMenosVentas.setText(diaMenosV);
+            ventas_diaMenosVentas.setText(menorCantVentas + " ventas.");
         }
         else
         {
@@ -407,7 +407,7 @@ public class EstadisticasFragment extends Fragment
         }
         
         float menosIngreso = Estadisticas.menorIngreso();
-        if (diaMenosI != null && menosIngreso > 0)
+        if (diaMenosI != null)
         {
             diaMenosIngresos.setText(diaMenosI);
             ingresos_diaMenosIngresos.setText(Herramientas.formatearMonedaDolar(menosIngreso));
