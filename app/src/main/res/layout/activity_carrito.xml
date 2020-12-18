@@ -175,7 +175,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="32dp"
                 android:orientation="vertical">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -203,8 +202,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,10 +229,33 @@
                         app:layout_constraintEnd_toEndOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/carrito_bienvenida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_marginTop="16dp"
+                    android:layout_width="280dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/carrito_bienvenida" />
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3E3E3E"
+                    android:layout_marginBottom="80dp"
+                    android:text="¡Estás en el carrito! Toca + para agregar artículos."
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_height="match_parent"
                 android:id="@+id/carrito_recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
