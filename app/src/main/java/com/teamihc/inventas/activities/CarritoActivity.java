@@ -92,6 +92,11 @@ public class CarritoActivity extends AppCompatActivity
         calcularTotal();
     }
 
+    public void cancelarAgregarCarrito(View view)
+    {
+        hideFragment();
+    }
+    
     public void hideFragment()
     {
         transaction = getFragmentManager().beginTransaction();
@@ -114,8 +119,8 @@ public class CarritoActivity extends AppCompatActivity
         transaction.commit();
 
         carrito_aceptar.setVisibility(ImageButton.INVISIBLE);
-        carrito_cancelar.setVisibility(ImageButton.INVISIBLE);
-        carrito_retroceder.setVisibility(ImageButton.VISIBLE);
+        carrito_cancelar.setVisibility(ImageButton.VISIBLE);
+        carrito_retroceder.setVisibility(ImageButton.INVISIBLE);
         floatingActionButton.setVisibility(ImageButton.INVISIBLE);
     }
 
