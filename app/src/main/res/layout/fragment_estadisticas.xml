@@ -111,11 +111,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:elevation="8dp"
                     app:cardCornerRadius="16dp">
 
@@ -144,14 +145,12 @@
                                 android:layout_marginStart="8dp"
                                 android:orientation="vertical">
 
-
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_light"
                                     android:text="@string/mas_vendido"
                                     android:textSize="12sp" />
-
 
                                 <TextView
                                     android:id="@+id/descripcionMasVendido"
@@ -202,14 +201,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingVertical="16dp">
+                    android:paddingVertical="8dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:elevation="8dp"
+                        android:layout_margin="8dp"
                         app:cardCornerRadius="16dp">
 
                         <LinearLayout
@@ -259,9 +258,9 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:elevation="8dp"
+                        android:layout_margin="8dp"
                         app:cardCornerRadius="16dp">
 
                         <LinearLayout
@@ -315,6 +314,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:elevation="8dp"
+                    android:layout_margin="8dp"
                     app:cardCornerRadius="16dp">
 
                     <LinearLayout
@@ -397,13 +397,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="16dp">
+                    android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                        android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:elevation="8dp"
                         app:cardCornerRadius="16dp">
@@ -455,7 +454,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:elevation="8dp"
                         app:cardCornerRadius="16dp">
