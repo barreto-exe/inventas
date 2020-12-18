@@ -398,7 +398,7 @@ public class EstadisticasFragment extends Fragment
         if (diaMenosV != null)
         {
             diaMenosVentas.setText(diaMenosV);
-            ventas_diaMenosVentas.setText(Herramientas.formatearMonedaDolar(menorCantVentas));
+            ventas_diaMenosVentas.setText(menorCantVentas + " ventas.");
         }
         else
         {
