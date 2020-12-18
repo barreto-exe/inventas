@@ -57,34 +57,34 @@ public class SeleccionarCantidadDialogFragment extends DialogFragment
         descripcion.setText(articulo.getDescripcion());
         unidadesDispo.setText(articulo.getCantidad() + " unidades disponibles.");
         
-        
         builder.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int id)
             {
-                int cantidad_int = Integer.parseInt(cantidad.getText().toString());
-                
+                int cantidad_int;
+                try
+                {
+                    cantidad_int = Integer.parseInt(cantidad.getText().toString());
+                }
+                catch (Exception ex)
+                {
+                    cantidad_int = 1;
+                }
                 if (articulo.getCantidad() >= cantidad_int && cantidad_int != 0)
                 {
-                    
                     if (getArguments().getString("modo").equals("creacion"))
                     {
-                        
                         activity.cargarArticulo(articulo.getDescripcion(), cantidad_int);
-                        
                     }
                     else
                     {
-                        
-                        activity.modificarCantidad(articulo.getDescripcion(), cantidad.getText().toString());
+                        activity.modificarCantidad(articulo.getDescripcion(), cantidad_int);
                     }
-                    
                     activity.hideFragment();
-                    
                 }
                 else
                 {
-                    Toast.makeText(activity, "Cantidad invalida", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Cantidad inválida", Toast.LENGTH_SHORT).show();
                 }
             }
         })

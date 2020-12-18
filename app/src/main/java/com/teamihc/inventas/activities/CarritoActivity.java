@@ -264,13 +264,13 @@ public class CarritoActivity extends AppCompatActivity
         realFinish();
     }
 
-    public void modificarCantidad(String descripcion, String cantidad)
+    public void modificarCantidad(String descripcion, int cantidad)
     {
         for (ArticuloPxQ a : carrito.getCarrito())
         {
             if (a.getArticulo().getDescripcion().equals(descripcion))
             {
-                a.setCantidad(Integer.parseInt(cantidad));
+                a.setCantidad(cantidad);
             }
         }
 

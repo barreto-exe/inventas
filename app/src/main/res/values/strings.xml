@@ -19,8 +19,9 @@
     <string name="tasas">Tasas</string>
     <string name="tasa">Tasa</string>
     <string name="tasa_del_dia">Tasa del día</string>
-    <string name="actualizar">Actualizar</string>
+    <string name="actualizar">Actualizar</string>Tus estadísticas semanales
     <string name="constular_ventas_del_dia">Consultar ventas del día</string>
+    <string name="tus_estadisticas_semanales">Tu estadística semanal</string>
     <string name="ingrese_el_valor_del_dolar">Ingrese el valor del dólar</string>
     <string name="tasa_anterior">Tasa anterior</string>
     <string name="ganancia_total">Ganancia total</string>
@@ -62,9 +63,9 @@
     <string name="elegir_una_foto">Elegir una foto</string>
     <string name="mas_vendido">Más vendido</string>
     <string name="menos_vendido">Menos vendido</string>
-    <string name="dia_con_mas_ventas">Más ventas</string>
-    <string name="dia_con_menos_ventas">Menos ventas</string>
-    <string name="dia_con_mas_ingreso">Más ingresos</string>
-    <string name="dia_con_menos_ingreso">Menos ingresos</string>
+    <string name="dia_con_mas_ventas">Mejor día en ventas.</string>
+    <string name="dia_con_menos_ventas">Peor día en ventas.</string>
+    <string name="dia_con_mas_ingreso">Mejor día en ingresos.</string>
+    <string name="dia_con_menos_ingreso">Peor día en ingresos.</string>
     <string name="ganancias">Ganancias</string>
 </resources>

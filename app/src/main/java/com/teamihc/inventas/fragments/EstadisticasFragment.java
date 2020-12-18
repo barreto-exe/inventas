@@ -51,7 +51,7 @@ public class EstadisticasFragment extends Fragment
     int[] listaVenta = new int[7];
     float[] listaIngresos = new float[7];
     String[] opciones = {"Número de ventas", "Ingreso en dólares", "Ganancia en dólares"};
-    String[] diasSemana = {"L", "M", "X", "J", "V", "S", "D"};
+    String[] diasSemana = {"L", "M", "M", "J", "V", "S", "D"};
     BarChart barChart;
     BarDataSet barDataSet;
     String diaMasV;
@@ -378,7 +378,7 @@ public class EstadisticasFragment extends Fragment
         if (diaMasV != null && mayorCantVentas > 0)
         {
             diaMasVentas.setText(diaMasV);
-            ventas_diaMasVentas.setText("" + mayorCantVentas);
+            ventas_diaMasVentas.setText(mayorCantVentas + " ventas.");
         }
         else
         {
@@ -401,7 +401,7 @@ public class EstadisticasFragment extends Fragment
         int menorCantVentas = Estadisticas.menorCantVentas();
         if (diaMenosV != null && menorCantVentas > 0)
         {
-            diaMenosVentas.setText(diaMenosV);
+            diaMenosVentas.setText(diaMenosV + " ventas.");
             ventas_diaMenosVentas.setText(Herramientas.formatearMonedaDolar(menorCantVentas));
         }
         else
@@ -421,8 +421,6 @@ public class EstadisticasFragment extends Fragment
             diaMenosIngresos.setText("-");
             ingresos_diaMenosIngresos.setText("-");
         }
-        
-        
     }
     
     /**

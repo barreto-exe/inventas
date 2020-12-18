@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_marginBottom="32dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:background="@drawable/degradado"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:layout_marginBottom="48dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/tus_estadisticas_semanales"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,10 +47,10 @@
                         android:id="@+id/gananciaTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="$ 325,40"
                         android:textAlignment="center"
-                        android:textColor="#00BCD4"
+                        android:textColor="#393939"
                         android:textSize="26sp" />
 
                     <TextView
@@ -43,14 +59,14 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/ganancia_total"
                         android:textAlignment="center"
-                        android:textColor="@android:color/darker_gray"
+                        android:textColor="#5C5C5C"
                         android:textSize="12sp" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray" />
+                    android:background="@android:color/white" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -62,10 +78,10 @@
                         android:id="@+id/ingresoTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="$ 825,56"
                         android:textAlignment="center"
-                        android:textColor="#00BCD4"
+                        android:textColor="#393939"
                         android:textSize="26sp" />
 
                     <TextView
@@ -74,18 +90,18 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/ingreso_total"
                         android:textAlignment="center"
-                        android:textColor="@android:color/darker_gray"
+                        android:textColor="#5C5C5C"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
                 android:layout_gravity="center"
+                android:layout_margin="8dp"
                 android:elevation="8dp"
                 app:cardCornerRadius="8dp">
+
                 <Spinner
                     android:id="@+id/decision"
                     android:layout_width="wrap_content"
@@ -93,7 +109,6 @@
                     android:backgroundTint="@color/bars"
                     android:gravity="center|right" />
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
@@ -106,8 +121,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </androidx.cardview.widget.CardView>
-
             <LinearLayout
+                android:layout_marginBottom="48dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -206,9 +221,9 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:elevation="8dp"
-                        android:layout_margin="8dp"
                         app:cardCornerRadius="16dp">
 
                         <LinearLayout
@@ -258,9 +273,9 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:elevation="8dp"
-                        android:layout_margin="8dp"
                         app:cardCornerRadius="16dp">
 
                         <LinearLayout
@@ -313,8 +328,8 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:elevation="8dp"
                     android:layout_margin="8dp"
+                    android:elevation="8dp"
                     app:cardCornerRadius="16dp">
 
                     <LinearLayout
@@ -507,8 +522,6 @@
 
 
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
