@@ -88,15 +88,9 @@ public class Herramientas
     
     public static String formatearDiaFecha(Date fecha)
     {
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(fecha);
-        int index = calendar.get(Calendar.DAY_OF_WEEK);
-        
-        String dia = Estadisticas.intToDay(index - 1);
-        
-        return dia + ", " + Herramientas.FORMATO_FECHA_FRONT.format(fecha);
+        String dia = new SimpleDateFormat("EEEE").format(fecha);
+        return dia.substring(0,1).toUpperCase() + dia.substring(1) + ", " + Herramientas.FORMATO_FECHA_FRONT.format(fecha);
     }
-    
     
     public static String formatearMoneda(float monto)
     {
