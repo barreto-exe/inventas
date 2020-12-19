@@ -39,7 +39,6 @@ public class HistorialVentasActivity extends AppCompatActivity
         {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        System.out.println("HOLAAAAAAAAAAAAAA============================");
         listaVentas = new ArrayList<Venta>();
         Venta.cargarVentasTotalesEnLista(listaVentas);
         adapter = new HistorialVentaRVAdapter(listaVentas);
