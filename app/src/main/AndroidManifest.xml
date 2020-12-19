@@ -16,6 +16,9 @@
             android:name=".activities.HistorialTasaActivity"
             android:parentActivityName=".activities.MainActivity" />
         <activity
+            android:name=".activities.HistorialVentasActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
             android:name=".activities.CarritoActivity"
             android:parentActivityName=".activities.CarritoActivity" />
         <activity

@@ -119,7 +119,8 @@ public class MainActivity extends AppCompatActivity
     
     public void openHistorialVentas(View view)
     {
-    
+        Intent intent = new Intent(MainActivity.this, HistorialVentasActivity.class);
+        startActivity(intent);
     }
     
     public void openCarrito(View view)
