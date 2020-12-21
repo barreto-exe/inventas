@@ -89,25 +89,36 @@ public class Estadisticas
         }
         return null;
     }
-    
+
     /**
      * Calcula la ganancia total en la semana en curso.
      *
      * @return monto de la ganancia obtenida en la semana.
      */
-    public static float gananciaTotalSemanal()
+    public static float gananciaTotalSemanal(Date desde, Date hasta)
     {
-        float ganancia = 0;
-        String dia[] = diasSemana();
-        
-        for (int i = 0; i < 7; i++)
+        String query = "SELECT SUM(ganancia) AS ganancia FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
         {
-            ganancia += Venta.obtenerGananciaDia(dia[i]);
+            try
+            {
+                float ganancia = (float) resultados.getValor("ganancia");
+                return ganancia;
+            }
+            catch (Exception exception)
+            {
+
+            }
         }
-        
-        return ganancia;
+
+        return 0;
     }
-    
+
     /**
      * Guarda en un arreglo la ganancia obtenida cada día. [0] Domingo. [1] Lunes. [2] Martes. [3]
      * Miercoles. [4] Jueves. [5] Viernes. [6] Sábado.
@@ -118,7 +129,7 @@ public class Estadisticas
     public static void calcularGananciaDiaria(float[] gananciaDiaria)
     {
         String dia[] = diasSemana();
-        
+
         for (int i = 0; i < 7; i++)
             gananciaDiaria[i] = Venta.obtenerGananciaDia(dia[i]);
     }

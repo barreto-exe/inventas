@@ -293,7 +293,7 @@ public class EstadisticasFragment extends Fragment
         
         Date[] semana = new Date[2];
         semana = Estadisticas.limiteSemana();
-        gananciaT = Estadisticas.gananciaTotalSemanal();
+        gananciaT = Estadisticas.gananciaTotalSemanal(semana[0], semana[1]);
         ingresoT = Estadisticas.ingresoTotalSemanal();
         Object[] objMas;
         objMas = Estadisticas.articuloMasVendido(semana[0], semana[1]);
