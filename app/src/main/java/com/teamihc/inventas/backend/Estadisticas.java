@@ -181,17 +181,28 @@ public class Estadisticas
      *
      * @return monto del ingreso obtenid en la semana.
      */
-    public static float ingresoTotalSemanal()
+    public static float ingresoTotalSemanal(Date desde, Date hasta)
     {
-        float ingreso = 0;
-        String dia[] = diasSemanaToString();
-        
-        for (int i = 0; i < 7; i++)
+        String query = "SELECT SUM(total) AS total FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
         {
-            ingreso += Venta.obtenerIngresoDia(dia[i]);
+            try
+            {
+                float ingreso = (float) resultados.getValor("total");
+                return ingreso;
+            }
+            catch (Exception exception)
+            {
+
+            }
         }
-        
-        return ingreso;
+
+        return 0;
     }
     
     /**
