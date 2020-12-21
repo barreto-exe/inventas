@@ -51,7 +51,7 @@ public class EstadisticasFragment extends Fragment
     int[] listaVenta = new int[7];
     float[] listaIngresos = new float[7];
     String[] opciones = {"Número de ventas", "Ingreso en dólares", "Ganancia en dólares"};
-    String[] diasSemana = {"L", "M", "M", "J", "V", "S", "D"};
+    String[] diasSemana = {"D", "L", "M", "M", "J", "V", "S"};
     BarChart barChart;
     BarDataSet barDataSet;
     String diaMasV;

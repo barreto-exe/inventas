@@ -25,46 +25,58 @@ public class Estadisticas
         Date dias[] = new Date[2];
         Calendar c = Calendar.getInstance();
         
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         dias[0] = c.getTime();
         
         c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        c.add(Calendar.DATE, 1);
         dias[1] = c.getTime();
         
+        return dias;
+    }
+
+    /**
+     * @return retorna arreglo de Date con fecha de cada dia de la semana en curso.
+     */
+    public static Date[] diasSemana()
+    {
+        Date dias[] = new Date[7];
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        dias[0] = c.getTime();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        dias[1] = c.getTime();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+        dias[2] = c.getTime();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+        dias[3] = c.getTime();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+        dias[4] = c.getTime();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        dias[5] = c.getTime();
+
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        dias[6] = c.getTime();
+
         return dias;
     }
     
     /**
      * @return retorna arreglo de strings con fecha de cada dia de la semana en curso.
      */
-    public static String[] diasSemana()
+    public static String[] diasSemanaToString()
     {
         String dias[] = new String[7];
-        Calendar c = Calendar.getInstance();
-        
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.add(Calendar.DATE, 1);
-        dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
+        Date fecha[] = diasSemana();
+
+        for (int i = 0; i < 7; i++)
+            dias[i] = Herramientas.FORMATO_FECHA.format(fecha[i]);
+
         return dias;
     }
     
@@ -73,19 +85,19 @@ public class Estadisticas
         switch (index)
         {
             case 0:
-                return "Lunes";
-            case 1:
-                return "Martes";
-            case 2:
-                return "Miércoles";
-            case 3:
-                return "Jueves";
-            case 4:
-                return "Viernes";
-            case 5:
-                return "Sábado";
-            case 6:
                 return "Domingo";
+            case 1:
+                return "Lunes";
+            case 2:
+                return "Martes";
+            case 3:
+                return "Miércoles";
+            case 4:
+                return "Jueves";
+            case 5:
+                return "Viernes";
+            case 6:
+                return "Sábado";
         }
         return null;
     }
@@ -128,10 +140,10 @@ public class Estadisticas
      */
     public static void calcularGananciaDiaria(float[] gananciaDiaria)
     {
-        String dia[] = diasSemana();
+        Date dia[] = diasSemana();
 
         for (int i = 0; i < 7; i++)
-            gananciaDiaria[i] = Venta.obtenerGananciaDia(dia[i]);
+            gananciaDiaria[i] = gananciasPorDia(dia[i]);
     }
     
     /**
@@ -143,10 +155,10 @@ public class Estadisticas
      */
     public static void calcularIngresoDiario(float[] ingresoDiario)
     {
-        String dia[] = diasSemana();
+        Date dia[] = diasSemana();
         
         for (int i = 0; i < 7; i++)
-            ingresoDiario[i] = Venta.obtenerIngresoDia(dia[i]);
+            ingresoDiario[i] = ingresosPorDia(dia[i]);
     }
     
     /**
@@ -158,7 +170,7 @@ public class Estadisticas
      */
     public static void calcularVentasDiaria(int[] ventasDiaria)
     {
-        String dia[] = diasSemana();
+        String dia[] = diasSemanaToString();
         
         for (int i = 0; i < 7; i++)
             ventasDiaria[i] = Venta.obtenerVentasDia(dia[i]);
@@ -172,7 +184,7 @@ public class Estadisticas
     public static float ingresoTotalSemanal()
     {
         float ingreso = 0;
-        String dia[] = diasSemana();
+        String dia[] = diasSemanaToString();
         
         for (int i = 0; i < 7; i++)
         {
@@ -431,6 +443,34 @@ public class Estadisticas
             catch (Exception exception)
             {
             
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Calcula los ingresos obtenidos en un día.
+     *
+     * @param dia que se quiere consultar.
+     * @return ingresos de ese día.
+     */
+    public static float ingresosPorDia(Date dia)
+    {
+        String query = "SELECT SUM(total) AS total FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(dia));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
+        {
+            try
+            {
+                float result = (float) resultados.getValor("total");
+                return result;
+            }
+            catch (Exception exception)
+            {
+
             }
         }
         return 0;
