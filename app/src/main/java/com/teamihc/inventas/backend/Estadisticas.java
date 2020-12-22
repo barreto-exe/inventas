@@ -7,6 +7,7 @@ import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,7 +66,7 @@ public class Estadisticas
 
         return dias;
     }
-    
+
     /**
      * @return retorna arreglo de strings con fecha de cada dia de la semana en curso.
      */
@@ -170,10 +171,10 @@ public class Estadisticas
      */
     public static void calcularVentasDiaria(int[] ventasDiaria)
     {
-        String dia[] = diasSemanaToString();
+        Date dia[] = diasSemana();
         
         for (int i = 0; i < 7; i++)
-            ventasDiaria[i] = Venta.obtenerVentasDia(dia[i]);
+            ventasDiaria[i] = ventasPorDia(dia[i]);
     }
     
     /**
@@ -183,7 +184,7 @@ public class Estadisticas
      */
     public static float ingresoTotalSemanal(Date desde, Date hasta)
     {
-        String query = "SELECT SUM(total) AS total FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
+        String query = "SELECT SUM(total) AS ingresos FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
@@ -193,7 +194,7 @@ public class Estadisticas
         {
             try
             {
-                float ingreso = (float) resultados.getValor("total");
+                float ingreso = (float) resultados.getValor("ingresos");
                 return ingreso;
             }
             catch (Exception exception)
@@ -225,6 +226,7 @@ public class Estadisticas
         
         return intToDay(indexDia);
     }
+
     /**
      * @return string con el nombre del día con menor ingreso.
      */
@@ -244,6 +246,43 @@ public class Estadisticas
             }
         
         return intToDay(indexDia);
+    }
+
+    /**
+     * @return string con el nombre del día con mayor cantidad de ventas.
+     */
+    public static Object[] diaMayorCantVentas(Date desde, Date hasta)
+    {
+        String query =
+                "SELECT fecha, COUNT(*) AS cantidad " +
+                        "FROM v_ventas " +
+                        "WHERE fecha >= ? AND fecha <= ?  " +
+                        "GROUP BY fecha  " +
+                        "ORDER BY cantidad DESC " +
+                        "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
+            ArrayList<Object> resultadoQuery = new ArrayList<>();
+            Date fecha = null;
+
+            try
+            {
+                //AYUDAAAAAAAAAAA
+                fecha = Herramientas.FORMATO_FECHA.parse((String) resultado.getValor("fecha"));
+                resultadoQuery.add(new Integer((int) resultado.getValor("cantidad")));
+                return resultadoQuery.toArray();
+            }
+            catch (ParseException e)
+            {
+            }
+        }
+
+        return null;
     }
     
     /**
@@ -467,7 +506,7 @@ public class Estadisticas
      */
     public static float ingresosPorDia(Date dia)
     {
-        String query = "SELECT SUM(total) AS total FROM v_ventas WHERE fecha = ?";
+        String query = "SELECT SUM(total) AS ingresos FROM v_ventas WHERE fecha = ?";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(Herramientas.FORMATO_FECHA.format(dia));
 
@@ -476,7 +515,35 @@ public class Estadisticas
         {
             try
             {
-                float result = (float) resultados.getValor("total");
+                float result = (float) resultados.getValor("ingresos");
+                return result;
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Calcula las ventas realizadas en un día.
+     *
+     * @param dia que se quiere consultar.
+     * @return cantidad de ventas de ese dia.
+     */
+    public static int ventasPorDia(Date dia)
+    {
+        String query = "SELECT COUNT(*) AS cantidad FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(dia));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
+        {
+            try
+            {
+                int result = (int) resultados.getValor("cantidad");
                 return result;
             }
             catch (Exception exception)
