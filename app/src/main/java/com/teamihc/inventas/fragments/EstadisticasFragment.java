@@ -301,8 +301,11 @@ public class EstadisticasFragment extends Fragment
         Object[] objMenos;
         objMenos = Estadisticas.articuloMenosVendido(semana[0], semana[1]);
         Articulo masV, menosV;
+
+        Object[] objMasVentas;
+        objMasVentas = Estadisticas.diaMayorCantVentas(semana[0], semana[1]);
         
-        diaMasV = Estadisticas.diaMayorCantVentas();
+        diaMasV = (String) objMasVentas[0];
         diaMasI = Estadisticas.diaMayorIngreso();
         diaMenosV = Estadisticas.diaMenorCantVentas();
         diaMenosI = Estadisticas.diaMenorIngreso();
@@ -370,7 +373,7 @@ public class EstadisticasFragment extends Fragment
             ingresoTotal.setText("-");
         }
         
-        int mayorCantVentas = Estadisticas.mayorCantVentas();
+        int mayorCantVentas = (int) objMasVentas[1];
         if (diaMasV != null && mayorCantVentas > 0)
         {
             diaMasVentas.setText(diaMasV);

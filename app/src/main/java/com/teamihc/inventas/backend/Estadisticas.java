@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author Karen
@@ -100,6 +101,41 @@ public class Estadisticas
             case 6:
                 return "Sábado";
         }
+        return null;
+    }
+
+    public static String obtenerDia(String strFecha)
+    {
+        try
+        {
+            Date fecha = Herramientas.FORMATO_FECHA.parse(strFecha);
+            Calendar dia = new GregorianCalendar();
+            dia.setTime(fecha);
+
+            int index = dia.get(Calendar.DAY_OF_WEEK) - 1;
+
+            switch (index)
+            {
+                case 0:
+                    return "Domingo";
+                case 1:
+                    return "Lunes";
+                case 2:
+                    return "Martes";
+                case 3:
+                    return "Miércoles";
+                case 4:
+                    return "Jueves";
+                case 5:
+                    return "Viernes";
+                case 6:
+                    return "Sábado";
+            }
+        }
+        catch (ParseException e)
+        {
+        }
+
         return null;
     }
 
@@ -268,43 +304,15 @@ public class Estadisticas
         if (resultado.leer())
         {
             ArrayList<Object> resultadoQuery = new ArrayList<>();
-            Date fecha = null;
 
-            try
-            {
-                //AYUDAAAAAAAAAAA
-                fecha = Herramientas.FORMATO_FECHA.parse((String) resultado.getValor("fecha"));
-                resultadoQuery.add(new Integer((int) resultado.getValor("cantidad")));
-                return resultadoQuery.toArray();
-            }
-            catch (ParseException e)
-            {
-            }
+            resultadoQuery.add(obtenerDia((String) resultado.getValor("fecha")));
+            resultadoQuery.add(new Integer((int) resultado.getValor("cantidad")));
+            return resultadoQuery.toArray();
         }
 
         return null;
     }
-    
-    /**
-     * @return string con el nombre del día con mayor cantidad de ventas.
-     */
-    public static String diaMayorCantVentas()
-    {
-        int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
-    
-        int indexDia = 0;
-        float diaMayor = ventasDiarias[indexDia];
-        
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] > diaMayor)
-            {
-                diaMayor = ventasDiarias[i];
-                indexDia = i;
-            }
-        
-        return intToDay(indexDia);
-    }
+
     /**
      * @return string con el nombre del día con menor cantidad de ventas.
      */
@@ -325,25 +333,7 @@ public class Estadisticas
         
         return intToDay(indexDia);
     }
-    
-    /**
-     * @return mayor cantidad de ventas de la semana.
-     */
-    public static int mayorCantVentas()
-    {
-        int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
 
-        int diaMayor = ventasDiarias[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] > diaMayor)
-            {
-                diaMayor = ventasDiarias[i];
-            }
-        
-        return diaMayor;
-    }
     /**
      * @return menor cantidad de ventas de la semana.
      */
