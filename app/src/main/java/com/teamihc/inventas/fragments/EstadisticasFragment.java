@@ -301,12 +301,13 @@ public class EstadisticasFragment extends Fragment
         Articulo masV, menosV;
 
         Object[] objMasVentas = Estadisticas.diaMayorCantVentas(semana[0], semana[1]);
+        Object[] objMenosVentas = Estadisticas.diaMenorCantVentas(semana[0], semana[1]);
 
         Object[] objMasIngresos = Estadisticas.diaMayorIngreso(semana[0], semana[1]);
         
         diaMasV = (String) objMasVentas[0];
         diaMasI = (String) objMasIngresos[0];
-        diaMenosV = Estadisticas.diaMenorCantVentas();
+        diaMenosV = (String) objMenosVentas[0];
         diaMenosI = Estadisticas.diaMenorIngreso();
         //verifico se hay ventas o articulos registrados, si no hay, todo se pone en blanco
         if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas() > 0)
@@ -396,7 +397,7 @@ public class EstadisticasFragment extends Fragment
             ingresos_diaMasIngresos.setText("-");
         }
         
-        int menorCantVentas = Estadisticas.menorCantVentas();
+        int menorCantVentas = (int) objMenosVentas[1];
         if (diaMenosV != null)
         {
             diaMenosVentas.setText(diaMenosV);

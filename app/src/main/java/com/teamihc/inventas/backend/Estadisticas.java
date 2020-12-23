@@ -68,20 +68,7 @@ public class Estadisticas
         return dias;
     }
 
-    /**
-     * @return retorna arreglo de strings con fecha de cada dia de la semana en curso.
-     */
-    public static String[] diasSemanaToString()
-    {
-        String dias[] = new String[7];
-        Date fecha[] = diasSemana();
-
-        for (int i = 0; i < 7; i++)
-            dias[i] = Herramientas.FORMATO_FECHA.format(fecha[i]);
-
-        return dias;
-    }
-    
+    // PLANEO DESHACERME DE ESTA FUNCIONNN
     public static String intToDay(int index)
     {
         switch (index)
@@ -324,22 +311,30 @@ public class Estadisticas
     /**
      * @return string con el nombre del día con menor cantidad de ventas.
      */
-    public static String diaMenorCantVentas()
+    public static Object[] diaMenorCantVentas(Date desde, Date hasta)
     {
-        int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
-    
-        int indexDia = 0;
-        int diaMenor = ventasDiarias[indexDia];
-        
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] < diaMenor)
-            {
-                diaMenor = ventasDiarias[i];
-                indexDia = i;
-            }
-        
-        return intToDay(indexDia);
+        String query =
+                "SELECT fecha, COUNT(*) AS cantidad " +
+                        "FROM v_ventas " +
+                        "WHERE fecha >= ? AND fecha <= ?  " +
+                        "GROUP BY fecha  " +
+                        "ORDER BY cantidad ASC " +
+                        "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
+            ArrayList<Object> resultadoQuery = new ArrayList<>();
+
+            resultadoQuery.add(obtenerDia((String) resultado.getValor("fecha")));
+            resultadoQuery.add(new Integer((int) resultado.getValor("cantidad")));
+            return resultadoQuery.toArray();
+        }
+
+        return null;
     }
 
     /**
