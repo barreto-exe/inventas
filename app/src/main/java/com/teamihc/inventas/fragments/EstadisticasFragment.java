@@ -295,18 +295,17 @@ public class EstadisticasFragment extends Fragment
         semana = Estadisticas.limiteSemana();
         gananciaT = Estadisticas.gananciaTotalSemanal(semana[0], semana[1]);
         ingresoT = Estadisticas.ingresoTotalSemanal(semana[0], semana[1]);
-        Object[] objMas;
-        objMas = Estadisticas.articuloMasVendido(semana[0], semana[1]);
+        Object[] objMas = Estadisticas.articuloMasVendido(semana[0], semana[1]);
         
-        Object[] objMenos;
-        objMenos = Estadisticas.articuloMenosVendido(semana[0], semana[1]);
+        Object[] objMenos = Estadisticas.articuloMenosVendido(semana[0], semana[1]);
         Articulo masV, menosV;
 
-        Object[] objMasVentas;
-        objMasVentas = Estadisticas.diaMayorCantVentas(semana[0], semana[1]);
+        Object[] objMasVentas = Estadisticas.diaMayorCantVentas(semana[0], semana[1]);
+
+        Object[] objMasIngresos = Estadisticas.diaMayorIngreso(semana[0], semana[1]);
         
         diaMasV = (String) objMasVentas[0];
-        diaMasI = Estadisticas.diaMayorIngreso();
+        diaMasI = (String) objMasIngresos[0];
         diaMenosV = Estadisticas.diaMenorCantVentas();
         diaMenosI = Estadisticas.diaMenorIngreso();
         //verifico se hay ventas o articulos registrados, si no hay, todo se pone en blanco
@@ -385,7 +384,7 @@ public class EstadisticasFragment extends Fragment
             ventas_diaMasVentas.setText("-");
         }
         
-        float mayorIngreso = Estadisticas.mayorIngreso();
+        float mayorIngreso = (float) objMasIngresos[1];
         if (diaMasI != null && mayorIngreso > 0)
         {
             diaMasIngresos.setText(diaMasI);

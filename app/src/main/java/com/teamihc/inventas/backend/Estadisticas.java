@@ -241,26 +241,34 @@ public class Estadisticas
 
         return 0;
     }
-    
+
     /**
      * @return string con el nombre del día con mayor ingreso.
      */
-    public static String diaMayorIngreso()
+    public static Object[] diaMayorIngreso(Date desde, Date hasta)
     {
-        float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-    
-        int indexDia = 0;
-        float ingresoMayor = ingresosDiarios[indexDia];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] > ingresoMayor)
-            {
-                ingresoMayor = ingresosDiarios[i];
-                indexDia = i;
-            }
-        
-        return intToDay(indexDia);
+        String query =
+                "SELECT fecha, SUM(total) AS ingresos " +
+                        "FROM v_ventas " +
+                        "WHERE fecha >= ? AND fecha <= ?  " +
+                        "GROUP BY fecha  " +
+                        "ORDER BY ingresos DESC " +
+                        "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
+            ArrayList<Object> resultadoQuery = new ArrayList<>();
+
+            resultadoQuery.add(obtenerDia((String) resultado.getValor("fecha")));
+            resultadoQuery.add(new Float((float) resultado.getValor("ingresos")));
+            return resultadoQuery.toArray();
+        }
+
+        return null;
     }
 
     /**
@@ -352,25 +360,7 @@ public class Estadisticas
         
         return diaMenor;
     }
-    
-    /**
-     * @return el mayor ingreso de la semana.
-     */
-    public static float mayorIngreso()
-    {
-        float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-        
-        float diaMayor = ingresosDiarios[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] > diaMayor)
-            {
-                diaMayor = ingresosDiarios[i];
-            }
-        
-        return diaMayor;
-    }
+
     /**
      * @return el menor ingreso de la semana.
      */
