@@ -2,6 +2,8 @@ package com.teamihc.inventas.backend;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
@@ -55,8 +57,7 @@ public class Estadisticas
         return dias;
     }
 
-    // PLANEO DESHACERME DE ESTA FUNCIONNN
-    public static String intToDay(int index)
+    private static String obtenerDia(int index)
     {
         switch (index)
         {
@@ -86,7 +87,7 @@ public class Estadisticas
         return dia.get(Calendar.DAY_OF_WEEK);
     }
 
-    public static String obtenerDia(String strFecha)
+    private static String obtenerDia(String strFecha)
     {
         try
         {
@@ -94,23 +95,7 @@ public class Estadisticas
 
             int index = obtenerTamanoSemana(fecha) - 1;
 
-            switch (index)
-            {
-                case 0:
-                    return "Domingo";
-                case 1:
-                    return "Lunes";
-                case 2:
-                    return "Martes";
-                case 3:
-                    return "Miércoles";
-                case 4:
-                    return "Jueves";
-                case 5:
-                    return "Viernes";
-                case 6:
-                    return "Sábado";
-            }
+            return obtenerDia(index);
         }
         catch (ParseException e)
         {
@@ -303,52 +288,51 @@ public class Estadisticas
     /**
      * @return string con el nombre del día con menor ingreso.
      */
-    public static String diaMenorIngreso()
+    public static Object[] diaMenorIngreso(@NonNull float[] lista, int size)
     {
-        /*float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-    
+        if (size == 1)
+            return null;
+
         int indexDia = 0;
-        float ingresoMenor = ingresosDiarios[indexDia];
+        float menor = lista[0];
         
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] < ingresoMenor)
+        for (int i = 1; i < size; i++)
+            if (lista[i] < menor)
             {
-                ingresoMenor = ingresosDiarios[i];
+                menor = lista[i];
                 indexDia = i;
             }
-        
-        return intToDay(indexDia);*/
-        return null;
+
+        ArrayList<Object> resultado = new ArrayList<>();
+        resultado.add(obtenerDia(indexDia));
+        resultado.add(new Float(menor));
+
+        return resultado.toArray();
     }
 
     /**
      * @return string con el nombre del día con menor cantidad de ventas.
      */
-    public static Object[] diaMenorCantVentas(Date desde, Date hasta)
+    public static Object[] diaMenorCantVentas(@NonNull int[] lista, int size)
     {
-        String query =
-                "SELECT fecha, COUNT(*) AS cantidad " +
-                        "FROM v_ventas " +
-                        "WHERE fecha >= ? AND fecha <= ?  " +
-                        "GROUP BY fecha  " +
-                        "ORDER BY cantidad ASC " +
-                        "LIMIT 1";
-        DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
-        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
-        DBMatriz resultado = op.consultar();
+        if (size == 1)
+            return null;
 
-        if (resultado.leer())
-        {
-            ArrayList<Object> resultadoQuery = new ArrayList<>();
+        int indexDia = 0;
+        int menor = lista[0];
 
-            resultadoQuery.add(obtenerDia((String) resultado.getValor("fecha")));
-            resultadoQuery.add(new Integer((int) resultado.getValor("cantidad")));
-            return resultadoQuery.toArray();
-        }
+        for (int i = 1; i < size; i++)
+            if (lista[i] < menor)
+            {
+                menor = lista[i];
+                indexDia = i;
+            }
 
-        return null;
+        ArrayList<Object> resultado = new ArrayList<>();
+        resultado.add(obtenerDia(indexDia));
+        resultado.add(new Integer(menor));
+
+        return resultado.toArray();
     }
     //</editor-fold>
 

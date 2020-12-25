@@ -91,7 +91,6 @@ public class EstadisticasFragment extends Fragment
     {
         Toast.makeText(getActivity(), "Venta", Toast.LENGTH_SHORT);
         cambioVenta = new ArrayList<BarEntry>();
-        Estadisticas.calcularVentasDiaria(listaVenta, size);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaVenta[i]);
@@ -129,7 +128,6 @@ public class EstadisticasFragment extends Fragment
         cambioVenta.clear();
         barChart.invalidate();
         barChart.clear();
-        Estadisticas.calcularIngresoDiario(listaIngresos, size);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
@@ -164,7 +162,6 @@ public class EstadisticasFragment extends Fragment
     {
         Toast.makeText(getActivity(), "Ganancias", Toast.LENGTH_SHORT);
         cambioVenta = new ArrayList<BarEntry>();
-        Estadisticas.calcularGananciaDiaria(listaIngresos, size);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
@@ -292,6 +289,10 @@ public class EstadisticasFragment extends Fragment
      */
     private void refrescarEstadisticas()
     {
+        Estadisticas.calcularVentasDiaria(listaVenta, size);
+        Estadisticas.calcularIngresoDiario(listaIngresos, size);
+        Estadisticas.calcularGananciaDiaria(listaIngresos, size);
+
         Date[] semana = Estadisticas.limiteSemana();
         gananciaT = Estadisticas.gananciaTotalSemanal(semana[0], semana[1]);
         ingresoT = Estadisticas.ingresoTotalSemanal(semana[0], semana[1]);
@@ -301,14 +302,15 @@ public class EstadisticasFragment extends Fragment
         Articulo masV, menosV;
 
         Object[] objMasVentas = Estadisticas.diaMayorCantVentas(semana[0], semana[1]);
-        Object[] objMenosVentas = Estadisticas.diaMenorCantVentas(semana[0], semana[1]);
+        Object[] objMenosVentas = Estadisticas.diaMenorCantVentas(listaVenta, size);
 
         Object[] objMasIngresos = Estadisticas.diaMayorIngreso(semana[0], semana[1]);
+        Object[] objMenosIngresos = Estadisticas.diaMenorIngreso(listaIngresos, size);
         
         diaMasV = (String) objMasVentas[0];
         diaMasI = (String) objMasIngresos[0];
         diaMenosV = (String) objMenosVentas[0];
-        diaMenosI = Estadisticas.diaMenorIngreso();
+        diaMenosI = (String) objMenosIngresos[0];
 
         //verifico se hay ventas o articulos registrados, si no hay, todo se pone en blanco
         if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas() > 0)
@@ -410,7 +412,7 @@ public class EstadisticasFragment extends Fragment
             ventas_diaMenosVentas.setText("-");
         }
         
-        float menosIngreso = Estadisticas.menorIngreso();
+        float menosIngreso = (float) objMenosIngresos[1];
         if (diaMenosI != null)
         {
             diaMenosIngresos.setText(diaMenosI);
