@@ -120,6 +120,7 @@ public class Estadisticas
     }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Consultas de ganancias/ingresos totales en un rango de fecha">
     /**
      * Calcula la ganancia total en la semana en curso.
      *
@@ -149,6 +150,37 @@ public class Estadisticas
         return 0;
     }
 
+    /**
+     * Calcula el ingreso total en la semana en curso.
+     *
+     * @return monto del ingreso obtenid en la semana.
+     */
+    public static float ingresoTotalSemanal(Date desde, Date hasta)
+    {
+        String query = "SELECT SUM(total) AS ingresos FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
+        {
+            try
+            {
+                float ingreso = (float) resultados.getValor("ingresos");
+                return ingreso;
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+
+        return 0;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de ganancias/ingresos/ventas dia a dia">
     /**
      * Guarda en un arreglo la ganancia obtenida cada día. [0] Domingo. [1] Lunes. [2] Martes. [3]
      * Miercoles. [4] Jueves. [5] Viernes. [6] Sábado.
@@ -205,36 +237,9 @@ public class Estadisticas
         for (; i < 7; i ++)
             ventasDiaria[i] = 0;
     }
-    
-    /**
-     * Calcula el ingreso total en la semana en curso.
-     *
-     * @return monto del ingreso obtenid en la semana.
-     */
-    public static float ingresoTotalSemanal(Date desde, Date hasta)
-    {
-        String query = "SELECT SUM(total) AS ingresos FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
-        DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
-        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+    //</editor-fold>
 
-        DBMatriz resultados = op.consultar();
-        if (resultados.leer())
-        {
-            try
-            {
-                float ingreso = (float) resultados.getValor("ingresos");
-                return ingreso;
-            }
-            catch (Exception exception)
-            {
-
-            }
-        }
-
-        return 0;
-    }
-
+    //<editor-fold defaultstate="collapsed" desc="Consultas de mejores dias ingresos/ventas">
     /**
      * @return string con el nombre del día con mayor ingreso.
      */
@@ -261,28 +266,6 @@ public class Estadisticas
             return resultadoQuery.toArray();
         }
 
-        return null;
-    }
-
-    /**
-     * @return string con el nombre del día con menor ingreso.
-     */
-    public static String diaMenorIngreso()
-    {
-        /*float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-    
-        int indexDia = 0;
-        float ingresoMenor = ingresosDiarios[indexDia];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] < ingresoMenor)
-            {
-                ingresoMenor = ingresosDiarios[i];
-                indexDia = i;
-            }
-        
-        return intToDay(indexDia);*/
         return null;
     }
 
@@ -314,6 +297,30 @@ public class Estadisticas
 
         return null;
     }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de peores dias ingresos/ventas">
+    /**
+     * @return string con el nombre del día con menor ingreso.
+     */
+    public static String diaMenorIngreso()
+    {
+        /*float ingresosDiarios[] = new float[7];
+        calcularIngresoDiario(ingresosDiarios);
+    
+        int indexDia = 0;
+        float ingresoMenor = ingresosDiarios[indexDia];
+        
+        for (int i = 0; i < 7; i++)
+            if (ingresosDiarios[i] < ingresoMenor)
+            {
+                ingresoMenor = ingresosDiarios[i];
+                indexDia = i;
+            }
+        
+        return intToDay(indexDia);*/
+        return null;
+    }
 
     /**
      * @return string con el nombre del día con menor cantidad de ventas.
@@ -343,48 +350,7 @@ public class Estadisticas
 
         return null;
     }
-
-    /**
-     * @return menor cantidad de ventas de la semana.
-     */
-    public static int menorCantVentas()
-    {
-        /*int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
-        
-        int diaMenor = ventasDiarias[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] < diaMenor)
-            {
-                diaMenor = ventasDiarias[i];
-            }
-        
-        return diaMenor;
-
-         */
-        return 0;
-    }
-
-    /**
-     * @return el menor ingreso de la semana.
-     */
-    public static float menorIngreso()
-    {
-        /*float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-        
-        float diaMenor = ingresosDiarios[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] < diaMenor)
-            {
-                diaMenor = ingresosDiarios[i];
-            }
-        
-        return diaMenor;*/
-        return 0f;
-    }
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Consultas de artículos">
     /**
