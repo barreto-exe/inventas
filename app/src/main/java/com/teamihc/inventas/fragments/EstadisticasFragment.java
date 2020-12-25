@@ -33,6 +33,7 @@ import com.teamihc.inventas.backend.entidades.Venta;
 
 import java.time.chrono.HijrahEra;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -50,6 +51,7 @@ public class EstadisticasFragment extends Fragment
     ArrayList<BarEntry> cambioVenta = new ArrayList<>();
     int[] listaVenta = new int[7];
     float[] listaIngresos = new float[7];
+    private int size = Estadisticas.obtenerTamanoSemana(Calendar.getInstance().getTime());
     String[] opciones = {"Número de ventas", "Ingreso en dólares", "Ganancia en dólares"};
     String[] diasSemana = {"D", "L", "M", "M", "J", "V", "S"};
     BarChart barChart;
@@ -77,7 +79,7 @@ public class EstadisticasFragment extends Fragment
     {
         super.onResume();
         refrescarEstadisticas();
-       barChart.notifyDataSetChanged();
+        barChart.notifyDataSetChanged();
         barChart.invalidate();
     }
     
@@ -89,7 +91,7 @@ public class EstadisticasFragment extends Fragment
     {
         Toast.makeText(getActivity(), "Venta", Toast.LENGTH_SHORT);
         cambioVenta = new ArrayList<BarEntry>();
-        Estadisticas.calcularVentasDiaria(listaVenta);
+        Estadisticas.calcularVentasDiaria(listaVenta, size);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaVenta[i]);
@@ -127,7 +129,7 @@ public class EstadisticasFragment extends Fragment
         cambioVenta.clear();
         barChart.invalidate();
         barChart.clear();
-        Estadisticas.calcularIngresoDiario(listaIngresos);
+        Estadisticas.calcularIngresoDiario(listaIngresos, size);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
@@ -162,7 +164,7 @@ public class EstadisticasFragment extends Fragment
     {
         Toast.makeText(getActivity(), "Ganancias", Toast.LENGTH_SHORT);
         cambioVenta = new ArrayList<BarEntry>();
-        Estadisticas.calcularGananciaDiaria(listaIngresos);
+        Estadisticas.calcularGananciaDiaria(listaIngresos, size);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
@@ -290,9 +292,7 @@ public class EstadisticasFragment extends Fragment
      */
     private void refrescarEstadisticas()
     {
-        
-        Date[] semana = new Date[2];
-        semana = Estadisticas.limiteSemana();
+        Date[] semana = Estadisticas.limiteSemana();
         gananciaT = Estadisticas.gananciaTotalSemanal(semana[0], semana[1]);
         ingresoT = Estadisticas.ingresoTotalSemanal(semana[0], semana[1]);
         Object[] objMas = Estadisticas.articuloMasVendido(semana[0], semana[1]);
@@ -309,6 +309,7 @@ public class EstadisticasFragment extends Fragment
         diaMasI = (String) objMasIngresos[0];
         diaMenosV = (String) objMenosVentas[0];
         diaMenosI = Estadisticas.diaMenorIngreso();
+
         //verifico se hay ventas o articulos registrados, si no hay, todo se pone en blanco
         if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas() > 0)
         {

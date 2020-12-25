@@ -7,6 +7,8 @@ import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,20 +20,20 @@ import java.util.GregorianCalendar;
  */
 public class Estadisticas
 {
+
+    //<editor-fold defaultstate="collapsed" desc="Gestión de fechas">
     /**
      * @return retorna arreglo de Dates con la fecha del primer y último día de la semana en curso.
-     * Desde [0] DOMINGO (primer día de la semana). Hasta [2] SÁBADO (último día de la semana).
+     * Desde [0] DOMINGO (primer día de la semana). Hasta [1] día actual.
      */
     public static Date[] limiteSemana()
     {
         Date dias[] = new Date[2];
         Calendar c = Calendar.getInstance();
+        dias[1] = c.getTime();
         
         c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         dias[0] = c.getTime();
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[1] = c.getTime();
         
         return dias;
     }
@@ -39,31 +41,16 @@ public class Estadisticas
     /**
      * @return retorna arreglo de Date con fecha de cada dia de la semana en curso.
      */
-    public static Date[] diasSemana()
+    @NotNull
+    private static Date[] diasSemana(int size)
     {
-        Date dias[] = new Date[7];
+        Date dias[] = new Date[size];
         Calendar c = Calendar.getInstance();
 
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        dias[0] = c.getTime();
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[1] = c.getTime();
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[2] = c.getTime();
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[3] = c.getTime();
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[4] = c.getTime();
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[5] = c.getTime();
-
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[6] = c.getTime();
+        for (int i = 0; i < size; i++) {
+            c.set(Calendar.DAY_OF_WEEK, i + 1);
+            dias[i] = c.getTime();
+        }
 
         return dias;
     }
@@ -91,15 +78,21 @@ public class Estadisticas
         return null;
     }
 
+    public static int obtenerTamanoSemana(Date fecha)
+    {
+        Calendar dia = new GregorianCalendar();
+        dia.setTime(fecha);
+
+        return dia.get(Calendar.DAY_OF_WEEK);
+    }
+
     public static String obtenerDia(String strFecha)
     {
         try
         {
             Date fecha = Herramientas.FORMATO_FECHA.parse(strFecha);
-            Calendar dia = new GregorianCalendar();
-            dia.setTime(fecha);
 
-            int index = dia.get(Calendar.DAY_OF_WEEK) - 1;
+            int index = obtenerTamanoSemana(fecha) - 1;
 
             switch (index)
             {
@@ -125,6 +118,7 @@ public class Estadisticas
 
         return null;
     }
+    //</editor-fold>
 
     /**
      * Calcula la ganancia total en la semana en curso.
@@ -162,12 +156,16 @@ public class Estadisticas
      * @param gananciaDiaria es el arreglo donde se gruardarán los datos. NOTA: el tamaño del
      *                       arreglo debe ser siete (7).
      */
-    public static void calcularGananciaDiaria(float[] gananciaDiaria)
+    public static void calcularGananciaDiaria(float[] gananciaDiaria, int size)
     {
-        Date dia[] = diasSemana();
+        Date dia[] = diasSemana(size);
+        int i = 0;
 
-        for (int i = 0; i < 7; i++)
+        for (; i < size; i++)
             gananciaDiaria[i] = gananciasPorDia(dia[i]);
+
+        for (; i < 7; i ++)
+            gananciaDiaria[i] = 0f;
     }
     
     /**
@@ -177,12 +175,16 @@ public class Estadisticas
      * @param ingresoDiario es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo
      *                      debe ser siete (7).
      */
-    public static void calcularIngresoDiario(float[] ingresoDiario)
+    public static void calcularIngresoDiario(float[] ingresoDiario, int size)
     {
-        Date dia[] = diasSemana();
+        Date dia[] = diasSemana(size);
+        int i = 0;
         
-        for (int i = 0; i < 7; i++)
+        for (; i < size; i++)
             ingresoDiario[i] = ingresosPorDia(dia[i]);
+
+        for (; i < 7; i ++)
+            ingresoDiario[i] = 0f;
     }
     
     /**
@@ -192,12 +194,16 @@ public class Estadisticas
      * @param ventasDiaria es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo
      *                     debe ser siete (7).
      */
-    public static void calcularVentasDiaria(int[] ventasDiaria)
+    public static void calcularVentasDiaria(int[] ventasDiaria, int size)
     {
-        Date dia[] = diasSemana();
-        
-        for (int i = 0; i < 7; i++)
+        Date dia[] = diasSemana(size);
+        int i = 0;
+
+        for (; i < size; i++)
             ventasDiaria[i] = ventasPorDia(dia[i]);
+
+        for (; i < 7; i ++)
+            ventasDiaria[i] = 0;
     }
     
     /**
@@ -263,7 +269,7 @@ public class Estadisticas
      */
     public static String diaMenorIngreso()
     {
-        float ingresosDiarios[] = new float[7];
+        /*float ingresosDiarios[] = new float[7];
         calcularIngresoDiario(ingresosDiarios);
     
         int indexDia = 0;
@@ -276,7 +282,8 @@ public class Estadisticas
                 indexDia = i;
             }
         
-        return intToDay(indexDia);
+        return intToDay(indexDia);*/
+        return null;
     }
 
     /**
@@ -342,7 +349,7 @@ public class Estadisticas
      */
     public static int menorCantVentas()
     {
-        int ventasDiarias[] = new int[7];
+        /*int ventasDiarias[] = new int[7];
         calcularVentasDiaria(ventasDiarias);
         
         int diaMenor = ventasDiarias[0];
@@ -354,6 +361,9 @@ public class Estadisticas
             }
         
         return diaMenor;
+
+         */
+        return 0;
     }
 
     /**
@@ -361,7 +371,7 @@ public class Estadisticas
      */
     public static float menorIngreso()
     {
-        float ingresosDiarios[] = new float[7];
+        /*float ingresosDiarios[] = new float[7];
         calcularIngresoDiario(ingresosDiarios);
         
         float diaMenor = ingresosDiarios[0];
@@ -372,9 +382,11 @@ public class Estadisticas
                 diaMenor = ingresosDiarios[i];
             }
         
-        return diaMenor;
+        return diaMenor;*/
+        return 0f;
     }
-    
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de artículos">
     /**
      * Calcula el artículo más vendido en un rango de tiempo.
      *
@@ -409,7 +421,7 @@ public class Estadisticas
         
         return null;
     }
-    
+
     /**
      * Calcula el artículo menos vendido en un rango de tiempo.
      *
@@ -444,7 +456,9 @@ public class Estadisticas
         
         return null;
     }
-    
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas por día">
     /**
      * Calcula las ganancias obtenidas en un día.
      *
@@ -528,4 +542,5 @@ public class Estadisticas
         }
         return 0;
     }
+    //</editor-fold>
 }
