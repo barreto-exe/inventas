@@ -306,11 +306,6 @@ public class EstadisticasFragment extends Fragment
 
         Object[] objMasIngresos = Estadisticas.diaMayorIngreso(semana[0], semana[1]);
         Object[] objMenosIngresos = Estadisticas.diaMenorIngreso(listaIngresos, size);
-        
-        diaMasV = (String) objMasVentas[0];
-        diaMasI = (String) objMasIngresos[0];
-        diaMenosV = (String) objMenosVentas[0];
-        diaMenosI = (String) objMenosIngresos[0];
 
         //verifico se hay ventas o articulos registrados, si no hay, todo se pone en blanco
         if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas() > 0)
@@ -375,48 +370,88 @@ public class EstadisticasFragment extends Fragment
         {
             ingresoTotal.setText("-");
         }
-        
-        int mayorCantVentas = (int) objMasVentas[1];
-        if (diaMasV != null && mayorCantVentas > 0)
+
+        if (objMasVentas != null)
         {
-            diaMasVentas.setText(diaMasV);
-            ventas_diaMasVentas.setText(mayorCantVentas + " ventas.");
+            diaMasV = (String) objMasVentas[0];
+            int mayorCantVentas = (int) objMasVentas[1];
+
+            if (mayorCantVentas > 0)
+            {
+                diaMasVentas.setText(diaMasV);
+                ventas_diaMasVentas.setText(mayorCantVentas + " ventas.");
+            }
+            else
+            {
+                diaMasVentas.setText("-");
+                ventas_diaMasVentas.setText("-");
+            }
         }
         else
         {
             diaMasVentas.setText("-");
             ventas_diaMasVentas.setText("-");
         }
-        
-        float mayorIngreso = (float) objMasIngresos[1];
-        if (diaMasI != null && mayorIngreso > 0)
+
+        if (objMasIngresos != null)
         {
-            diaMasIngresos.setText(diaMasI);
-            ingresos_diaMasIngresos.setText(Herramientas.formatearMonedaDolar(mayorIngreso));
+            diaMasI = (String) objMasIngresos[0];
+            float mayorIngreso = (float) objMasIngresos[1];
+
+            if (mayorIngreso > 0)
+            {
+                diaMasIngresos.setText(diaMasI);
+                ingresos_diaMasIngresos.setText(Herramientas.formatearMonedaDolar(mayorIngreso));
+            }
+            else
+            {
+                diaMasIngresos.setText("-");
+                ingresos_diaMasIngresos.setText("-");
+            }
         }
         else
         {
             diaMasIngresos.setText("-");
             ingresos_diaMasIngresos.setText("-");
         }
-        
-        int menorCantVentas = (int) objMenosVentas[1];
-        if (diaMenosV != null)
+
+        if (objMenosVentas != null)
         {
-            diaMenosVentas.setText(diaMenosV);
-            ventas_diaMenosVentas.setText(menorCantVentas + " ventas.");
+            diaMenosV = (String) objMenosVentas[0];
+
+            if (!diaMenosV.equals(diaMasV) && !diaMasVentas.getText().equals("-"))
+            {
+                int menorCantVentas = (int) objMenosVentas[1];
+                diaMenosVentas.setText(diaMenosV);
+                ventas_diaMenosVentas.setText(menorCantVentas + " ventas.");
+            }
+            else
+            {
+                diaMenosVentas.setText("-");
+                ventas_diaMenosVentas.setText("-");
+            }
         }
         else
         {
             diaMenosVentas.setText("-");
             ventas_diaMenosVentas.setText("-");
         }
-        
-        float menosIngreso = (float) objMenosIngresos[1];
-        if (diaMenosI != null)
+
+        if (objMenosIngresos != null)
         {
-            diaMenosIngresos.setText(diaMenosI);
-            ingresos_diaMenosIngresos.setText(Herramientas.formatearMonedaDolar(menosIngreso));
+            diaMenosI = (String) objMenosIngresos[0];
+
+            if (!diaMenosI.equals(diaMasI) && !diaMasIngresos.getText().equals("-"))
+            {
+                float menosIngreso = (float) objMenosIngresos[1];
+                diaMenosIngresos.setText(diaMenosI);
+                ingresos_diaMenosIngresos.setText(Herramientas.formatearMonedaDolar(menosIngreso));
+            }
+            else
+            {
+                diaMenosIngresos.setText("-");
+                ingresos_diaMenosIngresos.setText("-");
+            }
         }
         else
         {
