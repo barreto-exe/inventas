@@ -13,27 +13,27 @@
         app:cardCornerRadius="8dp">
 
         <LinearLayout
-            android:layout_width="403dp"
+            android:layout_width="match_parent"
             android:layout_height="110dp"
             android:orientation="horizontal"
             android:padding="16dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="270dp"
                 android:layout_height="match_parent"
-                android:layout_weight="12"
+                android:layout_weight="14"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/diaFechaVentaH"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="Sábado, 12/12/2020"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/horaVentaH"
@@ -43,7 +43,7 @@
                     android:maxLines="1"
                     android:text="12:00 a.m."
                     android:textColor="#000000"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/resumenVentaH"
@@ -53,7 +53,7 @@
                     android:maxLines="1"
                     android:text="1 harina, 2 huevos, 3 pollos"
                     android:textColor="#000000"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,27 +65,29 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/ventaBsSH"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="start"
                         android:singleLine="true"
                         android:text="Bs.S. 999.999.999,99"
+                        android:textAlignment="viewEnd"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/ventaDH"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:text="$ 55"
                         android:textColor="#55950B"
                         android:textSize="18sp" />

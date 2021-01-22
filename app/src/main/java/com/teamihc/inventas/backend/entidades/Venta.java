@@ -199,42 +199,6 @@ public class Venta implements Entidad
     }
 
     /**
-     * Método para obtener el ingreso total obtenido en un día determinado.
-     * @param fecha es la fecha del día que se quiere obtener el ingreso total.
-     */
-    public static float obtenerIngresoDia(String fecha)
-    {
-        Float ingreso = 0f;
-        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
-        DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(fecha);
-        DBMatriz resultado = op.consultar();
-
-        while (resultado.leer())
-            ingreso += (Float) resultado.getValor("total");
-
-        return ingreso;
-    }
-
-    /**
-     * Método para obtener la ganancia total obtenido en un día determinado.
-     * @param fecha es la fecha del día que se quiere obtener la ganancia total.
-     */
-    public static float obtenerGananciaDia(String fecha)
-    {
-        Float ganancia = 0f;
-        String query = "SELECT * FROM v_ventas WHERE fecha = ?";
-        DBOperacion op = new DBOperacion(query);
-        op.pasarParametro(fecha);
-        DBMatriz resultado = op.consultar();
-
-        while (resultado.leer())
-            ganancia += (Float) resultado.getValor("ganancia");
-
-        return ganancia;
-    }
-
-    /**
      * Método para obtener la cantidad de ventas obtenidas en un día determinado.
      * @param fecha es la fecha del día que se quiere obtener la ganancia total.
      */

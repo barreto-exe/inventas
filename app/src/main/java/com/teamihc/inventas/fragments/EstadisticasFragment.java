@@ -33,6 +33,7 @@ import com.teamihc.inventas.backend.entidades.Venta;
 
 import java.time.chrono.HijrahEra;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -50,8 +51,9 @@ public class EstadisticasFragment extends Fragment
     ArrayList<BarEntry> cambioVenta = new ArrayList<>();
     int[] listaVenta = new int[7];
     float[] listaIngresos = new float[7];
+    private int size = Estadisticas.obtenerTamanoSemana(Calendar.getInstance().getTime());
     String[] opciones = {"Número de ventas", "Ingreso en dólares", "Ganancia en dólares"};
-    String[] diasSemana = {"L", "M", "M", "J", "V", "S", "D"};
+    String[] diasSemana = {"D", "L", "M", "M", "J", "V", "S"};
     BarChart barChart;
     BarDataSet barDataSet;
     String diaMasV;
@@ -77,7 +79,7 @@ public class EstadisticasFragment extends Fragment
     {
         super.onResume();
         refrescarEstadisticas();
-       barChart.notifyDataSetChanged();
+        barChart.notifyDataSetChanged();
         barChart.invalidate();
     }
     
@@ -89,7 +91,6 @@ public class EstadisticasFragment extends Fragment
     {
         Toast.makeText(getActivity(), "Venta", Toast.LENGTH_SHORT);
         cambioVenta = new ArrayList<BarEntry>();
-        Estadisticas.calcularVentasDiaria(listaVenta);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaVenta[i]);
@@ -127,7 +128,6 @@ public class EstadisticasFragment extends Fragment
         cambioVenta.clear();
         barChart.invalidate();
         barChart.clear();
-        Estadisticas.calcularIngresoDiario(listaIngresos);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
@@ -162,7 +162,6 @@ public class EstadisticasFragment extends Fragment
     {
         Toast.makeText(getActivity(), "Ganancias", Toast.LENGTH_SHORT);
         cambioVenta = new ArrayList<BarEntry>();
-        Estadisticas.calcularGananciaDiaria(listaIngresos);
         for (int i = 0; i < 7; i++)
         {
             BarEntry b = new BarEntry(i, listaIngresos[i]);
@@ -290,22 +289,24 @@ public class EstadisticasFragment extends Fragment
      */
     private void refrescarEstadisticas()
     {
+        Estadisticas.calcularVentasDiaria(listaVenta, size);
+        Estadisticas.calcularIngresoDiario(listaIngresos, size);
+        Estadisticas.calcularGananciaDiaria(listaIngresos, size);
+
+        Date[] semana = Estadisticas.limiteSemana();
+        gananciaT = Estadisticas.gananciaTotalSemanal(semana[0], semana[1]);
+        ingresoT = Estadisticas.ingresoTotalSemanal(semana[0], semana[1]);
+        Object[] objMas = Estadisticas.articuloMasVendido(semana[0], semana[1]);
         
-        Date[] semana = new Date[2];
-        semana = Estadisticas.limiteSemana();
-        gananciaT = Estadisticas.gananciaTotalSemanal();
-        ingresoT = Estadisticas.ingresoTotalSemanal();
-        Object[] objMas;
-        objMas = Estadisticas.articuloMasVendido(semana[0], semana[1]);
-        
-        Object[] objMenos;
-        objMenos = Estadisticas.articuloMenosVendido(semana[0], semana[1]);
+        Object[] objMenos = Estadisticas.articuloMenosVendido(semana[0], semana[1]);
         Articulo masV, menosV;
-        
-        diaMasV = Estadisticas.diaMayorCantVentas();
-        diaMasI = Estadisticas.diaMayorIngreso();
-        diaMenosV = Estadisticas.diaMenorCantVentas();
-        diaMenosI = Estadisticas.diaMenorIngreso();
+
+        Object[] objMasVentas = Estadisticas.diaMayorCantVentas(semana[0], semana[1]);
+        Object[] objMenosVentas = Estadisticas.diaMenorCantVentas(listaVenta, size);
+
+        Object[] objMasIngresos = Estadisticas.diaMayorIngreso(semana[0], semana[1]);
+        Object[] objMenosIngresos = Estadisticas.diaMenorIngreso(listaIngresos, size);
+
         //verifico se hay ventas o articulos registrados, si no hay, todo se pone en blanco
         if (Articulo.cantidadArticulosRegistrados() > 0 && Venta.cantidadVentasRegistradas() > 0)
         {
@@ -369,48 +370,88 @@ public class EstadisticasFragment extends Fragment
         {
             ingresoTotal.setText("-");
         }
-        
-        int mayorCantVentas = Estadisticas.mayorCantVentas();
-        if (diaMasV != null && mayorCantVentas > 0)
+
+        if (objMasVentas != null)
         {
-            diaMasVentas.setText(diaMasV);
-            ventas_diaMasVentas.setText(mayorCantVentas + " ventas.");
+            diaMasV = (String) objMasVentas[0];
+            int mayorCantVentas = (int) objMasVentas[1];
+
+            if (mayorCantVentas > 0)
+            {
+                diaMasVentas.setText(diaMasV);
+                ventas_diaMasVentas.setText(mayorCantVentas + " ventas.");
+            }
+            else
+            {
+                diaMasVentas.setText("-");
+                ventas_diaMasVentas.setText("-");
+            }
         }
         else
         {
             diaMasVentas.setText("-");
             ventas_diaMasVentas.setText("-");
         }
-        
-        float mayorIngreso = Estadisticas.mayorIngreso();
-        if (diaMasI != null && mayorIngreso > 0)
+
+        if (objMasIngresos != null)
         {
-            diaMasIngresos.setText(diaMasI);
-            ingresos_diaMasIngresos.setText(Herramientas.formatearMonedaDolar(mayorIngreso));
+            diaMasI = (String) objMasIngresos[0];
+            float mayorIngreso = (float) objMasIngresos[1];
+
+            if (mayorIngreso > 0)
+            {
+                diaMasIngresos.setText(diaMasI);
+                ingresos_diaMasIngresos.setText(Herramientas.formatearMonedaDolar(mayorIngreso));
+            }
+            else
+            {
+                diaMasIngresos.setText("-");
+                ingresos_diaMasIngresos.setText("-");
+            }
         }
         else
         {
             diaMasIngresos.setText("-");
             ingresos_diaMasIngresos.setText("-");
         }
-        
-        int menorCantVentas = Estadisticas.menorCantVentas();
-        if (diaMenosV != null)
+
+        if (objMenosVentas != null)
         {
-            diaMenosVentas.setText(diaMenosV);
-            ventas_diaMenosVentas.setText(menorCantVentas + " ventas.");
+            diaMenosV = (String) objMenosVentas[0];
+
+            if (!diaMenosV.equals(diaMasV) && !diaMasVentas.getText().equals("-"))
+            {
+                int menorCantVentas = (int) objMenosVentas[1];
+                diaMenosVentas.setText(diaMenosV);
+                ventas_diaMenosVentas.setText(menorCantVentas + " ventas.");
+            }
+            else
+            {
+                diaMenosVentas.setText("-");
+                ventas_diaMenosVentas.setText("-");
+            }
         }
         else
         {
             diaMenosVentas.setText("-");
             ventas_diaMenosVentas.setText("-");
         }
-        
-        float menosIngreso = Estadisticas.menorIngreso();
-        if (diaMenosI != null)
+
+        if (objMenosIngresos != null)
         {
-            diaMenosIngresos.setText(diaMenosI);
-            ingresos_diaMenosIngresos.setText(Herramientas.formatearMonedaDolar(menosIngreso));
+            diaMenosI = (String) objMenosIngresos[0];
+
+            if (!diaMenosI.equals(diaMasI) && !diaMasIngresos.getText().equals("-"))
+            {
+                float menosIngreso = (float) objMenosIngresos[1];
+                diaMenosIngresos.setText(diaMenosI);
+                ingresos_diaMenosIngresos.setText(Herramientas.formatearMonedaDolar(menosIngreso));
+            }
+            else
+            {
+                diaMenosIngresos.setText("-");
+                ingresos_diaMenosIngresos.setText("-");
+            }
         }
         else
         {

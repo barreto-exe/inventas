@@ -2,112 +2,170 @@ package com.teamihc.inventas.backend;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.teamihc.inventas.backend.basedatos.DBMatriz;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
 import com.teamihc.inventas.backend.entidades.Articulo;
 import com.teamihc.inventas.backend.entidades.Venta;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author Karen
  */
 public class Estadisticas
 {
+
+    //<editor-fold defaultstate="collapsed" desc="Gestión de fechas">
     /**
      * @return retorna arreglo de Dates con la fecha del primer y último día de la semana en curso.
-     * Desde [0] DOMINGO (primer día de la semana). Hasta [2] SÁBADO (último día de la semana).
+     * Desde [0] DOMINGO (primer día de la semana). Hasta [1] día actual.
      */
     public static Date[] limiteSemana()
     {
         Date dias[] = new Date[2];
         Calendar c = Calendar.getInstance();
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[0] = c.getTime();
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        c.add(Calendar.DATE, 1);
         dias[1] = c.getTime();
         
+        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        dias[0] = c.getTime();
+        
         return dias;
     }
-    
+
     /**
-     * @return retorna arreglo de strings con fecha de cada dia de la semana en curso.
+     * @return retorna arreglo de Date con fecha de cada dia de la semana en curso.
      */
-    public static String[] diasSemana()
+    @NotNull
+    private static Date[] diasSemana(int size)
     {
-        String dias[] = new String[7];
+        Date dias[] = new Date[size];
         Calendar c = Calendar.getInstance();
-        
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        dias[0] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-        dias[1] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-        dias[2] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        dias[3] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        dias[4] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        dias[5] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
-        c.add(Calendar.DATE, 1);
-        dias[6] = Herramientas.FORMATO_FECHA.format(c.getTime());
-        
+
+        for (int i = 0; i < size; i++) {
+            c.set(Calendar.DAY_OF_WEEK, i + 1);
+            dias[i] = c.getTime();
+        }
+
         return dias;
     }
-    
-    public static String intToDay(int index)
+
+    private static String obtenerDia(int index)
     {
         switch (index)
         {
             case 0:
-                return "Lunes";
-            case 1:
-                return "Martes";
-            case 2:
-                return "Miércoles";
-            case 3:
-                return "Jueves";
-            case 4:
-                return "Viernes";
-            case 5:
-                return "Sábado";
-            case 6:
                 return "Domingo";
+            case 1:
+                return "Lunes";
+            case 2:
+                return "Martes";
+            case 3:
+                return "Miércoles";
+            case 4:
+                return "Jueves";
+            case 5:
+                return "Viernes";
+            case 6:
+                return "Sábado";
         }
         return null;
     }
-    
+
+    public static int obtenerTamanoSemana(Date fecha)
+    {
+        Calendar dia = new GregorianCalendar();
+        dia.setTime(fecha);
+
+        return dia.get(Calendar.DAY_OF_WEEK);
+    }
+
+    private static String obtenerDia(String strFecha)
+    {
+        try
+        {
+            Date fecha = Herramientas.FORMATO_FECHA.parse(strFecha);
+
+            int index = obtenerTamanoSemana(fecha) - 1;
+
+            return obtenerDia(index);
+        }
+        catch (ParseException e)
+        {
+        }
+
+        return null;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de ganancias/ingresos totales en un rango de fecha">
     /**
      * Calcula la ganancia total en la semana en curso.
      *
      * @return monto de la ganancia obtenida en la semana.
      */
-    public static float gananciaTotalSemanal()
+    public static float gananciaTotalSemanal(Date desde, Date hasta)
     {
-        float ganancia = 0;
-        String dia[] = diasSemana();
-        
-        for (int i = 0; i < 7; i++)
+        String query = "SELECT SUM(ganancia) AS ganancia FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
         {
-            ganancia += Venta.obtenerGananciaDia(dia[i]);
+            try
+            {
+                float ganancia = (float) resultados.getValor("ganancia");
+                return ganancia;
+            }
+            catch (Exception exception)
+            {
+
+            }
         }
-        
-        return ganancia;
+
+        return 0;
     }
-    
+
+    /**
+     * Calcula el ingreso total en la semana en curso.
+     *
+     * @return monto del ingreso obtenid en la semana.
+     */
+    public static float ingresoTotalSemanal(Date desde, Date hasta)
+    {
+        String query = "SELECT SUM(total) AS ingresos FROM v_ventas WHERE fecha >= ? AND fecha <= ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
+        {
+            try
+            {
+                float ingreso = (float) resultados.getValor("ingresos");
+                return ingreso;
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+
+        return 0;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de ganancias/ingresos/ventas dia a dia">
     /**
      * Guarda en un arreglo la ganancia obtenida cada día. [0] Domingo. [1] Lunes. [2] Martes. [3]
      * Miercoles. [4] Jueves. [5] Viernes. [6] Sábado.
@@ -115,12 +173,16 @@ public class Estadisticas
      * @param gananciaDiaria es el arreglo donde se gruardarán los datos. NOTA: el tamaño del
      *                       arreglo debe ser siete (7).
      */
-    public static void calcularGananciaDiaria(float[] gananciaDiaria)
+    public static void calcularGananciaDiaria(float[] gananciaDiaria, int size)
     {
-        String dia[] = diasSemana();
-        
-        for (int i = 0; i < 7; i++)
-            gananciaDiaria[i] = Venta.obtenerGananciaDia(dia[i]);
+        Date dia[] = diasSemana(size);
+        int i = 0;
+
+        for (; i < size; i++)
+            gananciaDiaria[i] = gananciasPorDia(dia[i]);
+
+        for (; i < 7; i ++)
+            gananciaDiaria[i] = 0f;
     }
     
     /**
@@ -130,12 +192,16 @@ public class Estadisticas
      * @param ingresoDiario es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo
      *                      debe ser siete (7).
      */
-    public static void calcularIngresoDiario(float[] ingresoDiario)
+    public static void calcularIngresoDiario(float[] ingresoDiario, int size)
     {
-        String dia[] = diasSemana();
+        Date dia[] = diasSemana(size);
+        int i = 0;
         
-        for (int i = 0; i < 7; i++)
-            ingresoDiario[i] = Venta.obtenerIngresoDia(dia[i]);
+        for (; i < size; i++)
+            ingresoDiario[i] = ingresosPorDia(dia[i]);
+
+        for (; i < 7; i ++)
+            ingresoDiario[i] = 0f;
     }
     
     /**
@@ -145,188 +211,132 @@ public class Estadisticas
      * @param ventasDiaria es el arreglo donde se gruardarán los datos. NOTA: el tamaño del arreglo
      *                     debe ser siete (7).
      */
-    public static void calcularVentasDiaria(int[] ventasDiaria)
+    public static void calcularVentasDiaria(int[] ventasDiaria, int size)
     {
-        String dia[] = diasSemana();
-        
-        for (int i = 0; i < 7; i++)
-            ventasDiaria[i] = Venta.obtenerVentasDia(dia[i]);
+        Date dia[] = diasSemana(size);
+        int i = 0;
+
+        for (; i < size; i++)
+            ventasDiaria[i] = ventasPorDia(dia[i]);
+
+        for (; i < 7; i ++)
+            ventasDiaria[i] = 0;
     }
-    
-    /**
-     * Calcula el ingreso total en la semana en curso.
-     *
-     * @return monto del ingreso obtenid en la semana.
-     */
-    public static float ingresoTotalSemanal()
-    {
-        float ingreso = 0;
-        String dia[] = diasSemana();
-        
-        for (int i = 0; i < 7; i++)
-        {
-            ingreso += Venta.obtenerIngresoDia(dia[i]);
-        }
-        
-        return ingreso;
-    }
-    
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de mejores dias ingresos/ventas">
     /**
      * @return string con el nombre del día con mayor ingreso.
      */
-    public static String diaMayorIngreso()
+    public static Object[] diaMayorIngreso(Date desde, Date hasta)
     {
-        float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-    
-        int indexDia = 0;
-        float ingresoMayor = ingresosDiarios[indexDia];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] > ingresoMayor)
-            {
-                ingresoMayor = ingresosDiarios[i];
-                indexDia = i;
-            }
-        
-        return intToDay(indexDia);
+        String query =
+                "SELECT fecha, SUM(total) AS ingresos " +
+                        "FROM v_ventas " +
+                        "WHERE fecha >= ? AND fecha <= ?  " +
+                        "GROUP BY fecha  " +
+                        "ORDER BY ingresos DESC " +
+                        "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
+            ArrayList<Object> resultadoQuery = new ArrayList<>();
+
+            resultadoQuery.add(obtenerDia((String) resultado.getValor("fecha")));
+            resultadoQuery.add(new Float((float) resultado.getValor("ingresos")));
+            return resultadoQuery.toArray();
+        }
+
+        return null;
     }
-    /**
-     * @return string con el nombre del día con menor ingreso.
-     */
-    public static String diaMenorIngreso()
-    {
-        float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-    
-        int indexDia = 0;
-        float ingresoMenor = ingresosDiarios[indexDia];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] < ingresoMenor)
-            {
-                ingresoMenor = ingresosDiarios[i];
-                indexDia = i;
-            }
-        
-        return intToDay(indexDia);
-    }
-    
+
     /**
      * @return string con el nombre del día con mayor cantidad de ventas.
      */
-    public static String diaMayorCantVentas()
+    public static Object[] diaMayorCantVentas(Date desde, Date hasta)
     {
-        int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
-    
+        String query =
+                "SELECT fecha, COUNT(*) AS cantidad " +
+                        "FROM v_ventas " +
+                        "WHERE fecha >= ? AND fecha <= ?  " +
+                        "GROUP BY fecha  " +
+                        "ORDER BY cantidad DESC " +
+                        "LIMIT 1";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(desde));
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(hasta));
+        DBMatriz resultado = op.consultar();
+
+        if (resultado.leer())
+        {
+            ArrayList<Object> resultadoQuery = new ArrayList<>();
+
+            resultadoQuery.add(obtenerDia((String) resultado.getValor("fecha")));
+            resultadoQuery.add(new Integer((int) resultado.getValor("cantidad")));
+            return resultadoQuery.toArray();
+        }
+
+        return null;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de peores dias ingresos/ventas">
+    /**
+     * @return string con el nombre del día con menor ingreso.
+     */
+    public static Object[] diaMenorIngreso(@NonNull float[] lista, int size)
+    {
+        if (size == 1)
+            return null;
+
         int indexDia = 0;
-        float diaMayor = ventasDiarias[indexDia];
+        float menor = lista[0];
         
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] > diaMayor)
+        for (int i = 1; i < size; i++)
+            if (lista[i] < menor)
             {
-                diaMayor = ventasDiarias[i];
+                menor = lista[i];
                 indexDia = i;
             }
-        
-        return intToDay(indexDia);
+
+        ArrayList<Object> resultado = new ArrayList<>();
+        resultado.add(obtenerDia(indexDia));
+        resultado.add(new Float(menor));
+
+        return resultado.toArray();
     }
+
     /**
      * @return string con el nombre del día con menor cantidad de ventas.
      */
-    public static String diaMenorCantVentas()
+    public static Object[] diaMenorCantVentas(@NonNull int[] lista, int size)
     {
-        int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
-    
+        if (size == 1)
+            return null;
+
         int indexDia = 0;
-        int diaMenor = ventasDiarias[indexDia];
-        
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] < diaMenor)
+        int menor = lista[0];
+
+        for (int i = 1; i < size; i++)
+            if (lista[i] < menor)
             {
-                diaMenor = ventasDiarias[i];
+                menor = lista[i];
                 indexDia = i;
             }
-        
-        return intToDay(indexDia);
-    }
-    
-    /**
-     * @return mayor cantidad de ventas de la semana.
-     */
-    public static int mayorCantVentas()
-    {
-        int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
 
-        int diaMayor = ventasDiarias[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] > diaMayor)
-            {
-                diaMayor = ventasDiarias[i];
-            }
-        
-        return diaMayor;
+        ArrayList<Object> resultado = new ArrayList<>();
+        resultado.add(obtenerDia(indexDia));
+        resultado.add(new Integer(menor));
+
+        return resultado.toArray();
     }
-    /**
-     * @return menor cantidad de ventas de la semana.
-     */
-    public static int menorCantVentas()
-    {
-        int ventasDiarias[] = new int[7];
-        calcularVentasDiaria(ventasDiarias);
-        
-        int diaMenor = ventasDiarias[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ventasDiarias[i] < diaMenor)
-            {
-                diaMenor = ventasDiarias[i];
-            }
-        
-        return diaMenor;
-    }
-    
-    /**
-     * @return el mayor ingreso de la semana.
-     */
-    public static float mayorIngreso()
-    {
-        float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-        
-        float diaMayor = ingresosDiarios[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] > diaMayor)
-            {
-                diaMayor = ingresosDiarios[i];
-            }
-        
-        return diaMayor;
-    }
-    /**
-     * @return el menor ingreso de la semana.
-     */
-    public static float menorIngreso()
-    {
-        float ingresosDiarios[] = new float[7];
-        calcularIngresoDiario(ingresosDiarios);
-        
-        float diaMenor = ingresosDiarios[0];
-        
-        for (int i = 0; i < 7; i++)
-            if (ingresosDiarios[i] < diaMenor)
-            {
-                diaMenor = ingresosDiarios[i];
-            }
-        
-        return diaMenor;
-    }
-    
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas de artículos">
     /**
      * Calcula el artículo más vendido en un rango de tiempo.
      *
@@ -361,7 +371,7 @@ public class Estadisticas
         
         return null;
     }
-    
+
     /**
      * Calcula el artículo menos vendido en un rango de tiempo.
      *
@@ -396,7 +406,9 @@ public class Estadisticas
         
         return null;
     }
-    
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Consultas por día">
     /**
      * Calcula las ganancias obtenidas en un día.
      *
@@ -424,4 +436,61 @@ public class Estadisticas
         }
         return 0;
     }
+
+    /**
+     * Calcula los ingresos obtenidos en un día.
+     *
+     * @param dia que se quiere consultar.
+     * @return ingresos de ese día.
+     */
+    public static float ingresosPorDia(Date dia)
+    {
+        String query = "SELECT SUM(total) AS ingresos FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(dia));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
+        {
+            try
+            {
+                float result = (float) resultados.getValor("ingresos");
+                return result;
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Calcula las ventas realizadas en un día.
+     *
+     * @param dia que se quiere consultar.
+     * @return cantidad de ventas de ese dia.
+     */
+    public static int ventasPorDia(Date dia)
+    {
+        String query = "SELECT COUNT(*) AS cantidad FROM v_ventas WHERE fecha = ?";
+        DBOperacion op = new DBOperacion(query);
+        op.pasarParametro(Herramientas.FORMATO_FECHA.format(dia));
+
+        DBMatriz resultados = op.consultar();
+        if (resultados.leer())
+        {
+            try
+            {
+                int result = (int) resultados.getValor("cantidad");
+                return result;
+            }
+            catch (Exception exception)
+            {
+
+            }
+        }
+        return 0;
+    }
+    //</editor-fold>
 }
