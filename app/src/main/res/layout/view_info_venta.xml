@@ -60,15 +60,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/ventaBsS"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="Bs.S. 999.999.999,99"
+                        android:textAlignment="viewEnd"
                         android:textColor="#000000"
                         android:textSize="16sp" />
 
