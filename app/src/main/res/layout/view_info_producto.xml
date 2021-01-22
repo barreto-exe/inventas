@@ -67,7 +67,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:text="5"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="1dp"
@@ -83,7 +83,7 @@
                         android:text="$ 5"
                         android:textAlignment="center"
                         android:textColor="#FF5722"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="1dp"
@@ -99,7 +99,7 @@
                         android:text="$ 5"
                         android:textAlignment="center"
                         android:textColor="#74CF0A"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </LinearLayout>

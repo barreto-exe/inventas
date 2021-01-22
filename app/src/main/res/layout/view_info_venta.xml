@@ -20,7 +20,7 @@
             android:padding="16dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:layout_weight="12"
                 android:gravity="center_vertical"
@@ -34,7 +34,7 @@
                     android:maxLines="1"
                     android:text="12:00 p.m."
                     android:textColor="#000000"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/resumen"
@@ -44,7 +44,7 @@
                     android:maxLines="1"
                     android:text="1 harina, 2 huevos, 3 pollos"
                     android:textColor="#000000"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,7 +56,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -64,20 +64,20 @@
 
                     <TextView
                         android:id="@+id/ventaBsS"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="start"
+                        android:ellipsize="end"
                         android:singleLine="true"
                         android:text="Bs.S. 999.999.999,99"
                         android:textColor="#000000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/ventaD"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$ 55"
                         android:layout_gravity="right"
+                        android:text="$ 55"
                         android:textColor="#55950B"
                         android:textSize="18sp" />
                 </LinearLayout>
