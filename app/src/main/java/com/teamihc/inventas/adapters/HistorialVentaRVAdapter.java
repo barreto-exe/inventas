@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.teamihc.inventas.R;
 import com.teamihc.inventas.activities.FacturaActivity;
+import com.teamihc.inventas.activities.HistorialVentasActivity;
 import com.teamihc.inventas.activities.MainActivity;
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.entidades.ArticuloPxQ;
@@ -55,7 +56,7 @@ public class HistorialVentaRVAdapter extends RecyclerView.Adapter<HistorialVenta
     public void onClick(View view)
     {
         TextView id = (TextView) view.findViewById(R.id.idVentaH);
-        MainActivity mainActivity = ((MainActivity) view.getContext());
+        HistorialVentasActivity mainActivity = ((HistorialVentasActivity) view.getContext());
         Intent intent = new Intent(mainActivity, FacturaActivity.class);
         intent.putExtra("id", id.getText().toString());
         mainActivity.startActivity(intent);
