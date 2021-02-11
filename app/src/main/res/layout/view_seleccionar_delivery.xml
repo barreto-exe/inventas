@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/seleccionCantidad"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/roboto"
+                android:text="Seleccione una opción de delivery"
+                android:textColor="@color/black"
+                android:textSize="18sp">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp">
+
+                    <RadioButton
+                        android:id="@+id/delivery_corto"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Distancia corta"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/delivery_medio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Distancia media"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/delivery_largo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Distancia larga"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/noDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sin delivery"
+                        android:textSize="14sp" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/precio_corto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:paddingTop="10dp"
+                        android:text="Precio corto"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:prefixText="$ " />
+
+                    <TextView
+                        android:id="@+id/precio_medio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:paddingTop="10dp"
+                        android:text="Precio medio"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:prefixText="$ " />
+
+                    <TextView
+                        android:id="@+id/precio_largo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:paddingTop="10dp"
+                        android:text="Precio largo"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:prefixText="$ " />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/select_delivery_bttn"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/aceptar" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

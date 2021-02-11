@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:id="@+id/group_ventas">
         <item
             android:id="@+id/top_calendario"
             android:icon="@drawable/date_range_24px"
-            android:title="@string/guardar"
             android:iconTint="@color/white"
+            android:title="@string/guardar"
             app:showAsAction="ifRoom" />
         <item
             android:id="@+id/top_historial_ventas"
             android:title="@string/historial_de_ventas"
             app:showAsAction="never" />
+        <item
+            android:id="@+id/top_establecer_delivery"
+            android:title="Establecer precios de delivery"
+            app:showAsAction="never" />
+
     </group>
 
     <group android:id="@+id/group_historial_tasas">
@@ -22,4 +26,10 @@
             android:title="@string/historial_de_tasas"
             app:showAsAction="never" />
     </group>
+
+   <!-- <group android:id="@+id/group_delivery">
+
+    </group>
+    -->
+
 </menu>

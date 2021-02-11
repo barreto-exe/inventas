@@ -4,15 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,6 +55,7 @@ public class CarritoActivity extends AppCompatActivity
     private TextView carrito_total_bolivares;
     private TextView referencias_cargadas;
     private LinearLayout bienvenida;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,7 +99,9 @@ public class CarritoActivity extends AppCompatActivity
 
         modoBorrar = false;
         basura = new LinkedList<String>();
-    
+
+        dialog = new Dialog(this);
+
         calcularTotal();
     }
 
@@ -258,7 +267,38 @@ public class CarritoActivity extends AppCompatActivity
         adapter = new CarritoRVAdapter(carrito);
         recyclerView.setAdapter(adapter);
     }
-    
+
+    public void seleccionarDelivery() {
+        dialog.setContentView(R.layout.view_seleccionar_delivery);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        RadioButton delivery_corto = dialog.findViewById(R.id.delivery_corto);
+        RadioButton delivery_medio = dialog.findViewById(R.id.delivery_medio);
+        RadioButton delivery_largo = dialog.findViewById(R.id.delivery_largo);
+        RadioButton noDelivery = dialog.findViewById(R.id.noDelivery);
+        Button guardar = dialog.findViewById(R.id.select_delivery_bttn);
+        guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (delivery_corto.isChecked()) {
+                    dialog.dismiss();
+                    Toast.makeText(CarritoActivity.this, "Delivery corto seleccionado.", Toast.LENGTH_SHORT).show();
+
+                }else if(delivery_medio.isChecked()){
+                    dialog.dismiss();
+                    Toast.makeText(CarritoActivity.this, "Delivery medio seleccionado.", Toast.LENGTH_SHORT).show();
+                }else if(delivery_largo.isChecked()){
+                    dialog.dismiss();
+                    Toast.makeText(CarritoActivity.this, "Delivery largo seleccionado.", Toast.LENGTH_SHORT).show();
+                }else if(noDelivery.isChecked()){
+                    dialog.dismiss();
+                    Toast.makeText(CarritoActivity.this, "Sin delivery.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        dialog.show();
+    }
+
     public void aceptar(View view)
     {
         if (carrito.cantidadReferencias() == 0)
@@ -268,6 +308,7 @@ public class CarritoActivity extends AppCompatActivity
         }
 
         Venta venta = new Venta(Tasa.obtenerTasa(), new Date(), carrito);
+        seleccionarDelivery();
         venta.registrar();
         Toast.makeText(this, "Venta registrada con exito", Toast.LENGTH_SHORT).show();
         realFinish();

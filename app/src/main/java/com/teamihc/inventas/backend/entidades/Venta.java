@@ -1,5 +1,6 @@
 package com.teamihc.inventas.backend.entidades;
 
+import com.teamihc.inventas.activities.CarritoActivity;
 import com.teamihc.inventas.backend.Estadisticas;
 import com.teamihc.inventas.backend.Herramientas;
 import com.teamihc.inventas.backend.basedatos.DBOperacion;
@@ -10,6 +11,7 @@ import com.teamihc.inventas.backend.basedatos.DBMatriz;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 
 /**
  * @author Karen
@@ -61,6 +63,7 @@ public class Venta implements Entidad
             return false;
 
         /*Se registran los datos correspondientes en la tabla de v_ventas y se genera el id_venta*/
+
         String query = "INSERT INTO v_ventas(id_tasa, total, fecha, hora, ganancia) VALUES (?, ?, ?, ?, ?)";
         DBOperacion op = new DBOperacion(query);
         op.pasarParametro(tasa.obtenerId());
