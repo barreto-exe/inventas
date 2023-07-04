@@ -20,10 +20,10 @@ App de registro de inventario y ventas para emprendimientos que operan en econom
 
 
 ## 📷 Screenshots
-![Screenshot3](https://i.imgur.com/nRC3ZOD.png)
-![Screenshot4](https://i.imgur.com/Pjl4NwY.png)
-![Screenshot2](https://i.imgur.com/gImSWiL.png)
-![Screenshot1](https://i.imgur.com/0GzTSm9.png)
-![Screenshot6](https://i.imgur.com/hHXHmBx.png)
-![Screenshot7](https://i.imgur.com/zoMrZHL.png)
-![Screenshot8](https://i.imgur.com/xKob8kf.png)
+![Screenshot3](https://github.com/barreto-exe/inventas/blob/main/nRC3ZOD.png)
+![Screenshot4](https://github.com/barreto-exe/inventas/blob/main/Pjl4NwY.png)
+![Screenshot2](https://github.com/barreto-exe/inventas/blob/main/gImSWiL.png)
+![Screenshot1](https://github.com/barreto-exe/inventas/blob/main/0GzTSm9.png)
+![Screenshot6](https://github.com/barreto-exe/inventas/blob/main/hHXHmBx.png)
+![Screenshot7](https://github.com/barreto-exe/inventas/blob/main/zoMrZHL.png)
+![Screenshot8](https://github.com/barreto-exe/inventas/blob/main/xKob8kf.png)
